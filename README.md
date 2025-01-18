@@ -9,7 +9,8 @@
 - akib1997
 
 ## Project Description
-Our Project is University Centric Metrimony Application
+Our Project is University Centric Metrimony Application.
+This project will help to find out bride or groom by matchmaking among the campuse.
 
 ## Getting Started
 1. Clone the repository
