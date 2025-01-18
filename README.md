@@ -9,7 +9,7 @@
 - akib1997
 
 ## Project Description
-Add your project description here.
+Our Project is University Centric Metrimony Application
 
 ## Getting Started
 1. Clone the repository
