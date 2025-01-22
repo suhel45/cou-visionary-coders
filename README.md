@@ -12,10 +12,7 @@
 Our Project is University Centric Metrimony Application.
 This project will help to find out bride or groom by matchmaking among the campuse.
 
-## Getting Started
-1. Clone the repository
-2. Install dependencies
-3. Start development
+
 
 ## Development Guidelines
 1. Create feature branches
