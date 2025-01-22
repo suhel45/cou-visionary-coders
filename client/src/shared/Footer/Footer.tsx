@@ -2,25 +2,26 @@
 
 const Footer = () => {
   return (
-    <div>
+    <>
       <footer className="bg-teal-900 text-teal-100 py-6">
         <div className="container mx-auto text-center space-y-4">
           {/* Links */}
-          <div className="flex justify-center space-x-6">
-            <a href="#" className="hover:text-teal-300">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-teal-300">
-              Terms and Condition
-            </a>
-            <a href="#" className="hover:text-teal-300">
-              FAQ
-            </a>
-            <a href="#" className="hover:text-teal-300">
-              About Us
-            </a>
+          <div className="flex sm:flex-col">
+            <div className="flex justify-center space-x-6 sm:flex-none ">
+              <a href="#" className="hover:text-teal-300">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-teal-300">
+                Terms and Condition
+              </a>
+              <a href="#" className="hover:text-teal-300">
+                FAQ
+              </a>
+              <a href="#" className="hover:text-teal-300">
+                About Us
+              </a>
+            </div>
           </div>
-
           {/* Icons */}
           <div className="flex justify-center space-x-6">
             <a
@@ -52,7 +53,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 };
 
