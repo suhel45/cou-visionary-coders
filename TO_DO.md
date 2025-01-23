@@ -1,0 +1,1 @@
+1. math and object in js
