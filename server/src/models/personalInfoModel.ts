@@ -1,7 +1,9 @@
-import { Schema, model, connect } from 'mongoose';
+/** @format */
+
+import { Schema, model } from 'mongoose';
 import { PersonalInfo } from '../interfaces/PersonalInfo';
 
-const userSchema = new Schema<PersonalInfo>({
+const personalInfoSchema = new Schema<PersonalInfo>({
   biodataNo: { type: Number, required: true },
   biodataType: { type: String, required: true },
   maritalStatus: { type: String, required: true },
@@ -9,9 +11,14 @@ const userSchema = new Schema<PersonalInfo>({
   height: { type: Number, required: true },
   weight: { type: Number, required: true },
   complexion: { type: String, required: true },
-  bloodGroup: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], required: true },
+  bloodGroup: {
+    type: String,
+    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    required: true,
+  },
   nationality: { type: String, required: true },
   email: { type: String, required: true },
+  password: { type: String, required: true },
   mobile: { type: String, required: true },
   address: {
     permanentAddress: {
@@ -82,6 +89,10 @@ const userSchema = new Schema<PersonalInfo>({
   guardiansMobileNumber: { type: String, required: true },
   candidateMobileNumber: { type: String, required: true },
   candidateEmail: { type: String, required: true },
-  });
-  
-  const personalInfoModel = model<PersonalInfo>('personalInfo', userSchema);
+});
+
+const personalInfoModel = model<PersonalInfo>(
+  'personalInfo',
+  personalInfoSchema,
+);
+export default personalInfoModel;

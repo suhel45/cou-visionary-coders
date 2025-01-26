@@ -8,9 +8,10 @@ export type PersonalInfo = {
   height: number;
   weight: number;
   complexion: string;
-  bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+  bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   nationality: string;
   email: string;
+  password: string;
   mobile: string;
   address: {
     permanentAddress: {
