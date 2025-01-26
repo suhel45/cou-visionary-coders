@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useApi from './useApi';
-//import Logout from "./Logout";
+import Logout from "./Logout";
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,7 +33,7 @@ function Nav() {
   };
 
   return (
-    <>
+    
       <header className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-sky-800 to-pink-500 text-white sm:px-6">
         <div className="flex flex-row border-b-2 sm:border-none p-4 items-center justify-between w-full sm:w-auto">
           <img src="../src/assets/logo.png" alt="Halal Marrige"  className="h-14 w-auto object-contain sm:mr-4"/>
@@ -95,7 +95,7 @@ function Nav() {
               <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
                 <img src="/src/assets/logout.png" alt="" className="w-8 px-1" />
                 <Link to="/login">
-                  {/* <Logout /> */}
+                   <Logout /> 
                 </Link>
               </li>
             </ul>
@@ -119,7 +119,7 @@ function Nav() {
           )}
         </nav>
       </header>
-    </>
+ 
   );
 }
 
