@@ -83,3 +83,5 @@ const userSchema = new Schema<PersonalInfo>({
   candidateMobileNumber: { type: String, required: true },
   candidateEmail: { type: String, required: true },
   });
+  
+  const personalInfoModel = model<PersonalInfo>('personalInfo', userSchema);
