@@ -58,7 +58,7 @@ export type PersonalInfo = {
       sisterInfo: {
         maritalStatus: string;
       };
-      aboutSiblings:string ;
+      aboutSiblings: string;
     };
     financialStatus: string;
   };

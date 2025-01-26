@@ -65,7 +65,7 @@ const personalInfoSchema = new Schema<PersonalInfo>({
       sisterInfo: {
         maritalStatus: { type: String, required: true },
       },
-      aboutSiblings: {type: String,required: true},
+      aboutSiblings: { type: String, required: true },
     },
     financialStatus: { type: String, required: true },
   },
