@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <>
+  
       <footer className="bg-teal-900 text-teal-100 py-6">
         <div className="container mx-auto text-center space-y-4">
           <div className="flex sm:flex-col">
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-    </>
+   
   );
 };
 
