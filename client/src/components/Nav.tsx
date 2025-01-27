@@ -37,7 +37,7 @@ function Nav() {
       <header className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-sky-800 to-pink-500 text-white sm:px-6">
         <div className="flex flex-row border-b-2 sm:border-none p-4 items-center justify-between w-full sm:w-auto">
           <img src="../src/assets/logo.png" alt="Halal Marrige"  className="h-14 w-auto object-contain mx-auto sm:mx-0"/>
-          <div className="block sm:hidden cursor-pointer" onClick={toggleMobileMenu}>
+          <div className="block sm:hidden cursor-pointer" onClick={toggleMobileMenu} role="button">
             {isMobileMenuOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
