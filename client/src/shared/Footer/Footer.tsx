@@ -29,7 +29,7 @@ const Footer = () => {
             <a
               key={link.title}
               href={link.href}
-              className="hover:opacity-80 transition-all duration-200 py-1 sm:py-0 hover:shadow-md  hover:bg-white/10 p-2 rounded">
+              className="py-1 sm:py-0 p-2 rounded transition-all duration-200 hover:font-bold hover:opacity-80 hover:shadow-md hover:bg-white/10 sm:hover:opacity-100 sm:hover:shadow-none sm:hover:bg-transparent">
               {link.title}
             </a>
           ))}
@@ -51,7 +51,7 @@ const Footer = () => {
         <hr></hr>
 
         {/* Copyright */}
-        <div className="text-center text-sm sm:text-base lg:mt-16 md:mt-14 sm:mt-12">
+        <div className="text-center text-sm sm:text-base">
           <p>© 2025 - halal-biye.com</p>
         </div>
       </div>
