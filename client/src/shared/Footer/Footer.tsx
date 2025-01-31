@@ -21,15 +21,15 @@ const Footer = () => {
       <div className="max-w-4xl mx-auto px-4">
         <nav
           className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center 
-                       gap-4 sm:gap-4 md:gap-6 mb-6 md:mb-8 
-                       py-4 sm:py-3 px-6 sm:px-4 md:px-6 
+                       gap-1 sm:gap-4 md:gap-6 mb-4 md:mb-8 
+                       py-2 sm:py-3 px-6 sm:px-4 md:px-6 
                        rounded-lg sm:rounded-full mx-auto w-fit
-                       text-sm sm:text-base bg-white/10">
+                       text-sm sm:text-base sm:bg-white/10">
           {navigationLinks.map((link) => (
             <a
               key={link.title}
               href={link.href}
-              className="hover:opacity-80 transition-all duration-200 py-1 sm:py-0">
+              className="hover:opacity-80 transition-all duration-200 py-1 sm:py-0 hover:shadow-md  hover:bg-white/10 p-2 rounded">
               {link.title}
             </a>
           ))}
@@ -48,6 +48,7 @@ const Footer = () => {
             </a>
           ))}
         </div>
+        <hr></hr>
 
         {/* Copyright */}
         <div className="text-center text-sm sm:text-base lg:mt-16 md:mt-14 sm:mt-12">
