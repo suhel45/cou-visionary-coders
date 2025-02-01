@@ -2,7 +2,9 @@
 
 import { Schema, model } from 'mongoose';
 import { PersonalInfo } from '../interfaces/PersonalInfo';
+import connectDB from '../db/database.connection';
 
+connectDB();
 const personalInfoSchema = new Schema<PersonalInfo>({
   biodataNo: { type: Number, required: true },
   biodataType: { type: String, required: true },
