@@ -13,3 +13,6 @@ const createUser = async(req:Request,res:Response)=>{
         res.status(500).send({errors:"registration failed",error});
     }
 }
+export const userController = {
+    createUser,
+}
