@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { PersonalInfo } from '../interfaces/PersonalInfo';
+import { PersonalInfo } from '../interfaces/PersonalInfo.interface';
 import connectDB from '../db/database.connection';
 
 connectDB();
