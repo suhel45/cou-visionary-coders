@@ -1,4 +1,4 @@
-import helmet from "helmet";
+import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { userRoute } from './routes/users.route';
@@ -8,7 +8,6 @@ app.use(express.json());
 app.use(helmet());
 
 app.use('/api/v1', userRoute);
-
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
