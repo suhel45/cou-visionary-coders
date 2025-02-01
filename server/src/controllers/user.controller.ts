@@ -7,7 +7,9 @@ const createUser = async(req:Request,res:Response)=>{
     try {
         const hasedpassword = await bcrypt.hash(password,saltRounds);
         const users = new userModel({name,email,password:hasedpassword});
+        users.save();
+        res.status(201).send({ message: 'User registered successfully' });
     } catch (error) {
-        
+        res.status(500).send({errors:"registration failed",error});
     }
 }
