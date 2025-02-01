@@ -4,11 +4,17 @@ import connectDB from '../db/database.connection';
 
 connectDB();
 const userSchema = new Schema<IUser>({
-  email: { type: String, required: true, unique: true, lowercase: true },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
   birthdate: { type: Date, required: true },
-  phoneNumber: { type: String, required: true, unique: true },
-  weight: { type: Number, required: true },
-  height: { type: Number, required: true },
+  phoneNumber: { type: String, required: true, trim: true, unique: true },
+  weight: { type: Number, required: true, trim: true },
+  height: { type: Number, required: true, trim: true },
   complexion: { type: String, required: true },
   bloodGroup: {
     type: String,
