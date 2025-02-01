@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { escape } from 'validator';
 import bcrypt from 'bcrypt';
 import userModel from '../models/user.Model';
 const saltRounds = 10;
@@ -19,13 +20,12 @@ const createUser = async (req: Request, res: Response) => {
     if (password !== confirmPassword) {
       res.status(400).json({ message: 'Passwords do not match!' });
     }
-
+    const sanitizedEmail = escape(email);
     // Check if user already exists
-    const existingUser = await userModel.findOne({ email: email });
+    const existingUser = await userModel.findOne({ email: sanitizedEmail });
     if (existingUser) {
       res.status(400).json({ message: 'User already exists!' });
     }
-
     const hasedpassword = await bcrypt.hash(password, saltRounds);
     const user = new userModel({
       email,
