@@ -1,5 +1,3 @@
-/** @format */
-
 import { Schema, model } from 'mongoose';
 import { PersonalInfo } from '../interfaces/PersonalInfo';
 import connectDB from '../db/database.connection';
