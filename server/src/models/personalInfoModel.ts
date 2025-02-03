@@ -3,7 +3,7 @@ import { PersonalInfo } from '../interfaces/PersonalInfo.interface';
 import connectDB from '../db/database.connection';
 
 connectDB();
-const personalInfoSchema = new Schema<PersonalInfo>({
+export const personalInfoSchema = new Schema<PersonalInfo>({
   biodataNo: { type: Number, required: true },
   biodataType: { type: String, required: true },
   maritalStatus: { type: String, required: true },
@@ -17,9 +17,9 @@ const personalInfoSchema = new Schema<PersonalInfo>({
     required: true,
   },
   nationality: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  mobile: { type: String, required: true },
+  email: { type: String, required: true,unique:true,trim:true,lowercase: true, },
+  password: { type: String, required: true,minlength:6 },
+  mobile: { type: String, required: true,unique:true,trim:true },
   address: {
     permanentAddress: {
       village: { type: String, required: true },

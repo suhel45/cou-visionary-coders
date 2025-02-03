@@ -31,7 +31,7 @@ const createUser = async (req: Request, res: Response) => {
       email,
       password: hasedpassword,
       birthdate,
-      phoneNumber,
+      mobile:phoneNumber,
       weight,
       height,
       complexion,
