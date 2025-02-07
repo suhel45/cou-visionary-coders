@@ -1,9 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
+import Footer from "./shared/Footer/Footer";
 import SignUp from "./pages/signup/pages";
+import Home from "./pages/Home/pages";
+import Login from "./pages/Home/pages";
 
 function NoMatch() {
-  return <Error />;
+  return "Pages Not Found";
 }
 
 export default function App() {
