@@ -12,6 +12,8 @@ interface UserData {
     gender: string;
     religion: string;
     dayOfBirth: string;
+    monthOfBirth:string,
+    yearOfBirth:string,
     familyStatus: string;
     maritalStatus: string;
     height: string;
@@ -37,6 +39,8 @@ const SignUp = () => {
     gender: "",
     religion: "",
     dayOfBirth: "",
+    monthOfBirth:"",
+    yearOfBirth:"",
     familyStatus: "",
     maritalStatus: "",
     height: "",
@@ -87,20 +91,24 @@ const SignUp = () => {
       console.log(response.data);
       setUserData({
         name: "",
-        email: "",
-        phoneNumber: "",
-        password: "",
-        department: "",
-        session: "",
-        gender: "",
-        religion: "",
-        dayOfBirth: "",
-        familyStatus: "",
-        maritalStatus: "",
-        height: "",
-        weight: "",
-        skinColor: "",
-        work: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    department: "",
+    session: "",
+    gender: "",
+    religion: "",
+    dayOfBirth: "",
+    monthOfBirth:"",
+    yearOfBirth:"",
+    familyStatus: "",
+    maritalStatus: "",
+    height: "",
+    weight: "",
+    skinColor: "",
+    presentAddress: "",
+    permanentAddress: "",
+    work: "",
       });
       alert('Sign Up Success..');
       navigate("/login");
@@ -338,7 +346,7 @@ const SignUp = () => {
           অর্থনৈতিক অবস্থা -
           <select
             name="familyStatus"
-            value={formData.familyStatus}
+            value={userData.familyStatus}
             onChange={handleChange}
             className="option-btn"
             required
@@ -356,7 +364,7 @@ const SignUp = () => {
           বৈবাহিক অবস্থা -
           <select
             name="maritalStatus"
-            value={formData.maritalStatus}
+            value={userData.maritalStatus}
             onChange={handleChange}
             className="option-btn"
             required
@@ -398,7 +406,7 @@ const SignUp = () => {
           ওজন -
           <select
             name="weight"
-            value={formData.weight}
+            value={userData.weight}
             onChange={handleChange}
             className="option-btn"
             required
@@ -420,7 +428,7 @@ const SignUp = () => {
           গাত্রবর্ন -
           <select
             name="skinColor"
-            value={formData.skinColor}
+            value={userData.skinColor}
             onChange={handleChange}
             className="option-btn"
             required
@@ -441,7 +449,7 @@ const SignUp = () => {
           <select
             className="option-btn"
             name="work"
-            value={formData.work}
+            value={userData.work}
             onChange={handleChange}
             required
           >
