@@ -21,7 +21,6 @@ const connectDB = async () => {
     mongoose.connection.on('disconnected', () => {
       console.log('Mongoose connection disconnected');
     });
-
   } catch (error) {
     console.error('Mongodb connection failed', error);
     setTimeout(connectDB, 5000);

@@ -1,8 +1,7 @@
 import { IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
 import { escape } from 'validator';
-import bcrypt from 'bcryptjs';
-const saltRounds = 10;
+import argon2 from 'argon2';
 
 const createUserIntoDB = async (user: IUser) => {
   const { username, contact, email, password } = user;
@@ -12,12 +11,12 @@ const createUserIntoDB = async (user: IUser) => {
   if (existingUser) {
     throw new Error('User already exists!');
   }
-  const hasedpassword = await bcrypt.hash(password, saltRounds);
+  const hashedPassword = await argon2.hash(password);
   const newUser = new userModel({
     username,
     contact,
     email,
-    password: hasedpassword,
+    password: hashedPassword,
   });
   const result = await newUser.save();
   return result;
