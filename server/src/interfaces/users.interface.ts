@@ -1,10 +1,6 @@
 export type IUser = {
+  username:string,
+  contact:string,
   email: string;
-  birthdate: Date;
-  phoneNumber: string;
-  weight: number;
-  height: number;
-  complexion: string;
-  bloodGroup: string;
   password: string;
 };
