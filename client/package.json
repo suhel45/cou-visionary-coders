@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "axios": "^1.7.9",
+    "lucide-react": "^0.474.0",
     "mui": "^0.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -32,6 +33,6 @@
     "tailwindcss": "^3.4.17",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.21.0",
-    "vite": "^6.1.0"
+    "vite": "^6.0.5"
   }
 }
