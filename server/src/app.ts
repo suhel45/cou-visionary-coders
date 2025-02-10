@@ -4,6 +4,7 @@ import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import { userRoute } from './routes/users.route';
 const app: Express = express();
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -33,7 +34,7 @@ app.use(
   }),
 );
 
-app.use('/api/v1', userRoute);
+app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
