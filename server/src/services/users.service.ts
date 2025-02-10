@@ -1,7 +1,7 @@
 import { IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
 import { escape } from 'validator';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
 const createUserIntoDB = async (user: IUser) => {
