@@ -28,6 +28,13 @@ const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<void> => {
   
   const sanitizedEmail = escape(email);
   const user = await userModel.findOne({email: sanitizedEmail});
+  if(!user){
+    throw new Error('User not found');
+  }
+  const isPasswordValid = await argon2.verify(user.password, password);
+  if(!isPasswordValid) {
+    throw new Error('Invalid password');
+  }
 };
 
 export const userService = {
