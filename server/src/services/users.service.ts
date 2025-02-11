@@ -26,24 +26,22 @@ const createUserIntoDB = async (user: IUser) => {
   return result;
 };
 
-
 const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
   const { email, password } = loginInfo;
-  
+
   const sanitizedEmail = escape(email);
-  const user = await userModel.findOne({email: sanitizedEmail});
-  if(!user){
+  const user = await userModel.findOne({ email: sanitizedEmail });
+  if (!user) {
     throw new Error('User not found');
   }
   const isPasswordValid = await argon2.verify(user.password, password);
-  if(!isPasswordValid) {
+  if (!isPasswordValid) {
     throw new Error('Invalid password');
   }
   if (!process.env.JWT_SECRET_KEY) {
     throw new Error('JWT_SECRET_KEY is not defined');
   }
-  const token = jwt.sign({id: user._id, email: email}, process.env.JWT_SECRET_KEY);
-  console.log(token);
+  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
   return token;
 };
 
