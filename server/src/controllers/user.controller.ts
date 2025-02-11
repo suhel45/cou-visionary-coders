@@ -27,8 +27,11 @@ const loginUser = (req:Request,res:Response) => {
     const loginInfo:ILoginInfo = req.body;
 
     const result = await userService.loginUserFromDB(loginInfo)
+  }catch(error){
+    res.status(500).send({errors:'login failed',error});
   }
 }
 export const userController = {
   createUser,
+  loginUser,
 };
