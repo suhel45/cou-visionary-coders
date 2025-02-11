@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 import connectDB from '../db/database.connection';
 import { IUser } from '../interfaces/users.interface';
 connectDB();
-const usersSchema = new Schema({
+const usersSchema = new Schema<IUser>({
   username: { type: String, required: true, trim: true },
   contact: { type: String, required: true, trim: true, unique: true },
   email: { type: String, required: true, trim: true, unique: true },

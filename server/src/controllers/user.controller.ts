@@ -21,6 +21,12 @@ const createUser = async (req: Request, res: Response) => {
     }
   }
 };
+
+const loginUser = (req:Request,res:Response) => {
+  try {
+    const result = await 
+  }
+}
 export const userController = {
   createUser,
 };

@@ -21,6 +21,12 @@ const createUserIntoDB = async (user: IUser) => {
   const result = await newUser.save();
   return result;
 };
+
+
+const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<void> => {
+  const { email, password } = loginInfo;
+};
+
 export const userService = {
   createUserIntoDB,
 };
