@@ -27,10 +27,18 @@ const loginUser = async (req: Request, res: Response) => {
     const loginInfo: ILoginInfo = req.body;
 
     const result = await userService.loginUserFromDB(loginInfo);
+
+    //set the token as an httpOnly cookie
+    res.cookie('token', result, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 3600000, // 1 hour
+    });
+
     res.status(200).json({
       success: true,
       message: 'User logged in successfully',
-      token: result,
     });
   } catch (error) {
     res.status(500).send({ errors: 'login failed', error });

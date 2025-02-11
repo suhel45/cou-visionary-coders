@@ -1,26 +1,31 @@
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
+import cookieParser from 'cookie-parser';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import { userRoute } from './routes/users.route';
+
 const app: Express = express();
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-  standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
-  // store: ... , // Redis, Memcached, etc. See below.
+  windowMs: 15 * 60 * 1000, 
+  limit: 100, 
+  standardHeaders: 'draft-8', 
+  legacyHeaders: false, 
+
 });
-app.use(limiter);
+
 const corsOption = {
   origin: ['http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
+
+app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -38,4 +43,5 @@ app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
+
 export default app;
