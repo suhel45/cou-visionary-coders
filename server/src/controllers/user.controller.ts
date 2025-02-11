@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { userService } from '../services/users.service';
-import { IUser } from '../interfaces/users.interface';
+import { ILoginInfo, IUser } from '../interfaces/users.interface';
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -24,7 +24,9 @@ const createUser = async (req: Request, res: Response) => {
 
 const loginUser = (req:Request,res:Response) => {
   try {
-    const result = await 
+    const loginInfo:ILoginInfo = req.body;
+
+    const result = await userService.loginUserFromDB(loginInfo)
   }
 }
 export const userController = {

@@ -1,4 +1,4 @@
-import { IUser } from '../interfaces/users.interface';
+import { ILoginInfo, IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
 import { escape } from 'validator';
 import argon2 from 'argon2';
@@ -25,8 +25,12 @@ const createUserIntoDB = async (user: IUser) => {
 
 const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<void> => {
   const { email, password } = loginInfo;
+  
+  const sanitizedEmail = escape(email);
+  const user = await userModel.findOne({email: sanitizedEmail});
 };
 
 export const userService = {
   createUserIntoDB,
+  loginUserFromDB,
 };
