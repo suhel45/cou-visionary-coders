@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const createUserIntoDB = async (user: IUser) => {
-  const { username, contact, email, password } = user;
+  const { username, phoneNumber, email, password } = user;
 
   const sanitizedEmail = escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
@@ -18,7 +18,7 @@ const createUserIntoDB = async (user: IUser) => {
   const hashedPassword = await argon2.hash(password);
   const newUser = new userModel({
     username,
-    contact,
+    phoneNumber,
     email,
     password: hashedPassword,
   });
@@ -27,7 +27,7 @@ const createUserIntoDB = async (user: IUser) => {
 };
 
 
-const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<void> => {
+const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
   const { email, password } = loginInfo;
   
   const sanitizedEmail = escape(email);
@@ -44,6 +44,7 @@ const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<void> => {
   }
   const token = jwt.sign({id: user._id, email: email}, process.env.JWT_SECRET_KEY);
   console.log(token);
+  return token;
 };
 
 export const userService = {

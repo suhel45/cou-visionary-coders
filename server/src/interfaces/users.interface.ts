@@ -1,6 +1,6 @@
  type IUser = {
   username: string;
-  contact: string;
+  phoneNumber: string;
   email: string;
   password: string;
 };
