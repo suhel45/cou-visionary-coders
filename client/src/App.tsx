@@ -4,6 +4,7 @@ import Footer from "./shared/Footer/Footer";
 import SignUp from "./pages/signup/pages";
 import Home from "./pages/Home/pages";
 import Login from "./pages/Home/pages";
+import AboutUs from "./components/AboutUs";
 
 function NoMatch() {
   return "Pages Not Found";
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/aboutus" element={<AboutUs />} />
             
 
            
