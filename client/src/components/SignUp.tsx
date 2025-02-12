@@ -10,10 +10,6 @@ interface UserData {
   confirmPassword: string;
 }
 
-interface Errors {
-  password: string;
-}
-
 const SignUp = () => {
   const [userData, setUserData] = useState<UserData>({
     username: "",
@@ -22,14 +18,17 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const [errors, setErrors] = useState({
+    password: "",
+  });
   const navigate = useNavigate();
+  const PASSWORD_LENGTH_ERROR = "Password must be at least 6 characters";
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     if (name === "password" && value.length < 6) {
       setErrors({
         ...errors,
-        password: "Password must be at least 6 characters",
+        password: PASSWORD_LENGTH_ERROR,
       });
     } else {
       setErrors({ ...errors, password: "" });
@@ -68,9 +67,7 @@ const SignUp = () => {
       console.error("Error submitting form:", error);
     }
   };
-  const [errors, setErrors] = useState({
-    password: "",
-  });
+ 
   
   const [showPassword, setShowPassword] = useState(false);
 
