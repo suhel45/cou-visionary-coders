@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 interface CountProps {
   imageSrc: string;
   title: string;
-  cnt: number;
+  cnt: string;
 }
 
 const Count: React.FC<CountProps> = ({ imageSrc, title, cnt }) => {
@@ -26,7 +26,7 @@ const Count: React.FC<CountProps> = ({ imageSrc, title, cnt }) => {
 Count.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  cnt: PropTypes.number.isRequired,
+  cnt: PropTypes.string.isRequired,
 };
 
 export default Count;
