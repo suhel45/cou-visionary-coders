@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import Nav from "./components/Nav";
+import Footer from "./shared/Footer/Footer";
+import SignUp from "./pages/signup/pages";
+import Home from "./pages/Home/pages";
+import Login from "./pages/Home/pages";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function NoMatch() {
+  return "Pages Not Found";
 }
 
-export default App
+export default function App() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Nav component fixed at the top */}
+     <Nav/>
+
+      {/* Content area */}
+      <div className="flex-1 overflow-y-auto">
+       
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            
+
+           
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+       
+      </div>
+
+      {/* Footer component fixed at the bottom */}
+      <Footer />
+    </div>
+  );
+}
