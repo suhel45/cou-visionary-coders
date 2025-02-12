@@ -122,7 +122,7 @@ function Nav() {
               <Link to="/home">Home</Link>
             </li>
             <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
-              <Link to="/about">About Us</Link>
+              <Link to="/aboutus">About Us</Link>
             </li>
             <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
