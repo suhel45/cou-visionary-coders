@@ -1,6 +1,8 @@
+import SignUp from "../../components/SignUp"
+
 const pages = () => {
   return (
-    <div>pages</div>
+    <div><SignUp/></div>
   )
 }
 
