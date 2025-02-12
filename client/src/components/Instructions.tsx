@@ -4,7 +4,7 @@ import Card from "./Card";
 const Instructions: React.FC = () => {
     return (
         <>
-            <h2 className="text-center text-2xl sm:text-4xl rounded-md p-2 font-extrabold text-pink-600">
+            <h2 className="sectionheading">
                 আমাদের ওয়েবসাইট যেভাবে কাজ করে
             </h2>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-evenly gap-5 p-6">
