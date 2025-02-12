@@ -39,29 +39,20 @@ const SignUp = () => {
       [name]: value,
     });
   };
-  //const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=])[.]{8,}$/; // Password validation regex
-
-  // const validatePassword = (password) => {
-  //   return passwordRegex.test(password); // Returns true if password is valid, false otherwise
-  // };
+  
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // const { password } = formData; // Extract password from form data
-
-    // if (!validatePassword(password)) {
-    //   alert("Password must be at least 8 characters and contain a lowercase letter, uppercase letter, digit, and special character.");
-    //   return; // Prevent form submission if password is invalid
-    // }
+    
 
     try {
-      // Send form data to server
+      
       console.log(userData);
       const response = await axios.post(
         "http://localhost:3000/signup",
         userData
       );
-      //console.log(response.data); // Assuming server responds with a success message
+      
 
       console.log(response.data);
       setUserData({
@@ -80,61 +71,15 @@ const SignUp = () => {
   const [errors, setErrors] = useState({
     password: "",
   });
-  // const generateSessionOptions = () => {
-  //   const options = [];
-  //   for (let year = 2005; year <= 2030; year++) {
-  //     options.push(
-  //       <option
-  //         key={`year-${year}-${year + 1}`}
-  //         value={`${year}-${year + 1}`}
-  //       >{`${year}-${year + 1}`}</option>
-  //     );
-  //   }
-  //   return options;
-  // };
-  // const generateDayOptions = () => {
-  //   const days = [];
-  //   for (let day = 1; day <= 31; day++) {
-  //     days.push(<option key={day} value={day}>{day}</option>);
-  //   }
-  //   return days;
-  // };
+  
   const [showPassword, setShowPassword] = useState(false);
 
-  // const generateMonthOptions = () => {
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-  //   return months.map((month, index) => (
-  //     <option key={month} value={index + 1}>
-  //       {month}
-  //     </option>
-  //   ));
-  // };
+ 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // const generateYearOptions = () => {
-  //   const years = [];
-  //   const currentYear = new Date().getFullYear();
-  //   for (let year = currentYear - 40; year <= currentYear; year++) {
-  //     years.push(<option key={year} value={year}>{year}</option>);
-  //   }
-  //   return years;
-  // };
-
+  
   return (
     <div className="flex flex-col items-center justify-center bg-sky-50   py-4">
       <h2 className="heading">Sign Up</h2>
