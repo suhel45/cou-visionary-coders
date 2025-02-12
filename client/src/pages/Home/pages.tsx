@@ -1,5 +1,6 @@
 import BiodataStatistics from "../../components/BiodataStatistics"
 import Hero from "../../components/Hero"
+import Instructions from "../../components/Instructions"
 
 
 const pages = () => {
@@ -7,6 +8,7 @@ const pages = () => {
     <div>
         <Hero/>
         <BiodataStatistics/>
+        <Instructions/>
     </div>
   )
 }
