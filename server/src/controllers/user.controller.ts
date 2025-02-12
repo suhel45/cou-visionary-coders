@@ -15,9 +15,10 @@ const createUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof Error && error.message === 'User already exists!') {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ message: "User already exists!" });
     } else {
-      res.status(500).send({ errors: 'registration failed', error });
+      logger.error("Unexpected error:", error);
+      res.status(500).json({ message: 'An unexpected error occurred. Please try again later.' });
     }
   }
 };
