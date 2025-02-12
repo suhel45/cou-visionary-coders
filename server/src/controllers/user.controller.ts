@@ -42,7 +42,8 @@ const loginUser = async (req: Request, res: Response) => {
       message: 'User logged in successfully',
     });
   } catch (error) {
-    res.status(500).send({ errors: 'login failed', error });
+    logger.error("Unexpected error:", error);
+    res.status(500).json({ message: 'An unexpected error occurred. Please try again later.' });
   }
 };
 
