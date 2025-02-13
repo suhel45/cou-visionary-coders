@@ -37,21 +37,22 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Handle input changes
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Password validation
-    if (name === "password" && value.length < 6) {
-      setErrors({ password: "Password must be at least 6 characters" });
-    } else {
-      setErrors({});
+    
+    if (name === "password") {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: value.length < 6 ? "Password must be at least 6 characters" : "",
+      }));
     }
 
     dispatch({ type: "SET_FIELD", field: name as keyof UserData, value });
   };
 
-  // Handle form submission
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -104,7 +105,6 @@ const SignUp = () => {
           className="form-input p-2 w-full"
         />
 
-        {/* Password Input with Visibility Toggle (No Label) */}
         <div className="relative w-full">
           <input
             type={showPassword ? "text" : "password"}
@@ -125,7 +125,7 @@ const SignUp = () => {
         </div>
         {errors.password && <p className="text-xs text-red-600">{errors.password}</p>}
 
-        {/* Confirm Password Input with Visibility Toggle (No Label) */}
+       
         <div className="relative w-full">
           <input
             type={showConfirmPassword ? "text" : "password"}
