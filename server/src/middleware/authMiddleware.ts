@@ -12,7 +12,7 @@ export const verifyToken = async (
 ): Promise<void> => {
   try {
     const token = req.cookies.token;
-    console.log('token', token);
+
     if (!token) {
       res.status(401).json({ message: 'Access denied' });
       return;
