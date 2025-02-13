@@ -1,29 +1,34 @@
-import {  Response, NextFunction, Request } from "express";
+import { Response, NextFunction, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { IDecodedUser } from "../interfaces/users.interface";
+import { CustomRequest, DecodedToken } from '../interfaces/users.interface';
 
-dotenv.config()
+dotenv.config();
 
-export const verifyToken = async(req: Request, res:Response, next:NextFunction):Promise<void> => {
+export const verifyToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
     const token = req.cookies.token;
+    console.log('token', token);
     if (!token) {
-     res.status(401).json({ message: "Access denied" });
-     return;
-    } 
-        
-
-    const secretKey = process.env.JWT_SECRET_KEY;
-    if (!secretKey) {
-         res.status(500).json({ message: "Internal server error" });
-         return;
+      res.status(401).json({ message: 'Access denied' });
+      return;
     }
- try {
-    const decoded = await jwt.verify(token, secretKey) as IDecodedUser;
-    req.user = decoded as IDecodedUser;
+
+    const secretKey = process.env.JWT_SECRET_KEY as string;
+    if (!secretKey) {
+      res.status(500).json({ message: 'Internal server error' });
+      return;
+    }
+
+    const decoded = (await jwt.verify(token, secretKey)) as DecodedToken;
+    (req as CustomRequest).user = decoded;
     next();
- } catch(error) {
+  } catch (error) {
     console.error(error);
-    res.status(401).json({ message: "Invalid token"});
- }
-}
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};

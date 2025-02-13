@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request } from 'express';
 
 type IUser = {
   username: string;
@@ -12,8 +12,14 @@ type ILoginInfo = {
   password: string;
 };
 
+type DecodedToken = {
+  id: string;
+  iat: number;
+  exp: number;
+};
+
 type CustomRequest = Request & {
   user: unknown;
-}
+};
 
-export type { IUser, ILoginInfo, CustomRequest };
+export type { IUser, ILoginInfo, CustomRequest, DecodedToken };

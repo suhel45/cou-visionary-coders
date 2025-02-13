@@ -18,11 +18,9 @@ const createUser = async (req: Request, res: Response) => {
       res.status(400).json({ message: 'User already exists!' });
     } else {
       console.error('Unexpected error:', error);
-      res
-        .status(500)
-        .json({
-          message: 'An unexpected error occurred. Please try again later.',
-        });
+      res.status(500).json({
+        message: 'An unexpected error occurred. Please try again later.',
+      });
     }
   }
 };
@@ -36,7 +34,7 @@ const loginUser = async (req: Request, res: Response) => {
     //set the token as an httpOnly cookie
     res.cookie('token', result, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: 'strict',
       maxAge: 3600000, // 1 hour
     });
@@ -47,11 +45,9 @@ const loginUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Unexpected error:', error);
-    res
-      .status(500)
-      .json({
-        message: 'An unexpected error occurred. Please try again later.',
-      });
+    res.status(500).json({
+      message: 'An unexpected error occurred. Please try again later.',
+    });
   }
 };
 
