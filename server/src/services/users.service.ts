@@ -38,10 +38,13 @@ const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
   if (!isPasswordValid) {
     throw new Error('Invalid password');
   }
-  if (!process.env.JWT_SECRET_KEY) {
-    throw new Error('JWT_SECRET_KEY is not defined');
+  const secretKey = process.env.JWT_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error('Internal server error');
   }
-  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+  const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
+    expiresIn: '1h',
+  });
   return token;
 };
 

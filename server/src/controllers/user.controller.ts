@@ -15,10 +15,14 @@ const createUser = async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof Error && error.message === 'User already exists!') {
-      res.status(400).json({ message: "User already exists!" });
+      res.status(400).json({ message: 'User already exists!' });
     } else {
-      console.error("Unexpected error:", error);
-      res.status(500).json({ message: 'An unexpected error occurred. Please try again later.' });
+      console.error('Unexpected error:', error);
+      res
+        .status(500)
+        .json({
+          message: 'An unexpected error occurred. Please try again later.',
+        });
     }
   }
 };
@@ -42,8 +46,12 @@ const loginUser = async (req: Request, res: Response) => {
       message: 'User logged in successfully',
     });
   } catch (error) {
-    console.error("Unexpected error:", error);
-    res.status(500).json({ message: 'An unexpected error occurred. Please try again later.' });
+    console.error('Unexpected error:', error);
+    res
+      .status(500)
+      .json({
+        message: 'An unexpected error occurred. Please try again later.',
+      });
   }
 };
 
