@@ -45,7 +45,7 @@ const SignUp = () => {
     if (name === "password") {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        password: value.length < 6 ? "Password must be at least 6 characters" : "",
+        password: (value.length < 6 && value.length > 0) ? "Password must be at least 6 characters" : "",
       }));
     }
 
@@ -69,11 +69,11 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-sky-50 py-4">
+    <div className="flex flex-col items-center justify-center bg-sky-50 py-4 px-2">
       <h2 className="heading">Create Account</h2>
       <form
         onSubmit={handleSubmit}
-        className="grow bg-white border-pink-600 p-6 md:px-20 m-1 rounded-md border shadow-lg flex flex-col gap-2 w-1/3"
+        className=" bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full md:w-1/3"
       >
         <input
           type="text"
@@ -145,7 +145,7 @@ const SignUp = () => {
           </button>
         </div>
 
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary mx-auto">
           Register
         </button>
       </form>
