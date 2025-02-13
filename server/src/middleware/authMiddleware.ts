@@ -12,11 +12,15 @@ const verifyToken = async(req:Request, res:Response, next:NextFunction) => {
 
     const secretKey = process.env.JWT_SECRET_KEY;
     if (!secretKey) return res.status(500).json({ message: "Internal server error" });
-
+ try {
     const decoded = await new Promise((resolve, reject) => {
         jwt.verify(token,secretKey, (err, decoded) => {
             if (err) return reject(err);
             resolve(decoded);
         })
     })
+    
+ } catch (error) {
+    
+ }
 }
