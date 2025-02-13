@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 type IUser = {
   username: string;
   phoneNumber: string;
@@ -10,4 +12,8 @@ type ILoginInfo = {
   password: string;
 };
 
-export type { IUser, ILoginInfo };
+type CustomRequest = Request & {
+  user: unknown;
+}
+
+export type { IUser, ILoginInfo, CustomRequest };
