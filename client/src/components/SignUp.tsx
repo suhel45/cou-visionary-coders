@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../interfaces";
-import { Eye, EyeOff } from "lucide-react"; // Importing icons
+import { Eye, EyeOff } from "lucide-react"; 
 
 // Default user data
 const defaultUserData: UserData = {
@@ -69,11 +69,11 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-sky-50 py-4 px-2">
+    <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
       <h2 className="heading">Create Account</h2>
       <form
         onSubmit={handleSubmit}
-        className=" bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full md:w-1/3"
+        className=" bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
       >
         <input
           type="text"
