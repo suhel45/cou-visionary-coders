@@ -38,7 +38,7 @@ function Nav() {
   };
 
   return (
-    <header className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-sky-800 to-pink-500 text-white sm:px-6">
+    <header className="flex flex-col sm:flex-row items-center justify-between drop-shadow-xl  bg-gradient-to-r from-sky-800 to-pink-500 text-white sm:px-6">
       {/* Logo and Mobile Menu Toggle */}
       <div className="flex flex-row border-b-2 sm:border-none p-4 items-center justify-between w-full sm:w-auto">
         <img
@@ -122,7 +122,7 @@ function Nav() {
               <Link to="/home">Home</Link>
             </li>
             <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
-              <Link to="/about">About Us</Link>
+              <Link to="/aboutus">About Us</Link>
             </li>
             <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
