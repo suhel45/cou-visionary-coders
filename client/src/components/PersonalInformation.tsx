@@ -23,7 +23,7 @@ const PersonalInformation = () => {
       <CardContent>
         <Grid container spacing={3}>
           {/* Biodata No */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               label="Biodata No"
@@ -33,7 +33,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Biodata Type */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               select
@@ -46,7 +46,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Marital Status */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               select
@@ -60,7 +60,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Date of Birth */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               label="Date of Birth"
@@ -71,7 +71,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Height */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               label="Height (cm)"
@@ -82,7 +82,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Weight */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               label="Weight (kg)"
@@ -93,7 +93,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Complexion */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               select
@@ -107,7 +107,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Blood Group */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6} >
             <TextField
               fullWidth
               select
@@ -126,7 +126,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Session */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Session"
@@ -136,7 +136,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Department */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Department"
@@ -146,7 +146,7 @@ const PersonalInformation = () => {
           </Grid>
 
           {/* Nationality */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               fullWidth
               label="Nationality"
