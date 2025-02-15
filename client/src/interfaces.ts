@@ -5,3 +5,7 @@ export interface UserData {
   password: string;
   confirmPassword: string;
 }
+export interface LoginData {
+    email: string;
+    password: string;
+  }
