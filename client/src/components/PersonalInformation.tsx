@@ -45,8 +45,12 @@ const PersonalInformation = () => {
                 id="biodataType"
                 required
                 defaultValue="">
-                <MenuItem value="bride">Male's Biodata</MenuItem>
-                <MenuItem value="groom">Female's Biodata</MenuItem>
+                <MenuItem value="bride" sx={{ fontSize: "0.875rem" }}>
+                  Male's Biodata
+                </MenuItem>
+                <MenuItem value="groom" sx={{ fontSize: "0.875rem" }}>
+                  Female's Biodata
+                </MenuItem>
               </TextField>
             </Grid>
 
@@ -60,9 +64,15 @@ const PersonalInformation = () => {
                 name="maritalStatus"
                 required
                 defaultValue="">
-                <MenuItem value="neverMarried">Never Married</MenuItem>
-                <MenuItem value="married">Married</MenuItem>
-                <MenuItem value="divorced">Divorced</MenuItem>
+                <MenuItem value="neverMarried" sx={{ fontSize: "0.875rem" }}>
+                  Never Married
+                </MenuItem>
+                <MenuItem value="married" sx={{ fontSize: "0.875rem" }}>
+                  Married
+                </MenuItem>
+                <MenuItem value="divorced" sx={{ fontSize: "0.875rem" }}>
+                  Divorced
+                </MenuItem>
               </TextField>
             </Grid>
 
@@ -88,9 +98,120 @@ const PersonalInformation = () => {
                 name="height"
                 placeholder="Enter height"
                 required>
-                <MenuItem value="neverMarried" sx={{ fontSize: "0.875rem" }}>Less than 4 feet</MenuItem>
-                <MenuItem value="married" sx={{ fontSize: "0.875rem" }}>4'</MenuItem>
-                <MenuItem value="divorced" sx={{ fontSize: "0.875rem" }}>4' 1''</MenuItem>
+                <MenuItem value="lessThan4Feet" sx={{ fontSize: "0.875rem" }}>
+                  Less than 4 feet
+                </MenuItem>
+                <MenuItem value="4" sx={{ fontSize: "0.875rem" }}>
+                  4'
+                </MenuItem>
+                <MenuItem value="4_1" sx={{ fontSize: "0.875rem" }}>
+                  4' 1''
+                </MenuItem>
+                <MenuItem value="4_2" sx={{ fontSize: "0.875rem" }}>
+                  4' 2''
+                </MenuItem>
+                <MenuItem value="4_3" sx={{ fontSize: "0.875rem" }}>
+                  4' 3''
+                </MenuItem>
+                <MenuItem value="4_4" sx={{ fontSize: "0.875rem" }}>
+                  4' 4''
+                </MenuItem>
+                <MenuItem value="4_5" sx={{ fontSize: "0.875rem" }}>
+                  4' 5''
+                </MenuItem>
+                <MenuItem value="4_6" sx={{ fontSize: "0.875rem" }}>
+                  4' 6''
+                </MenuItem>
+                <MenuItem value="4_7" sx={{ fontSize: "0.875rem" }}>
+                  4' 7''
+                </MenuItem>
+                <MenuItem value="4_8" sx={{ fontSize: "0.875rem" }}>
+                  4' 8''
+                </MenuItem>
+                <MenuItem value="4_9" sx={{ fontSize: "0.875rem" }}>
+                  4' 9''
+                </MenuItem>
+                <MenuItem value="4_10" sx={{ fontSize: "0.875rem" }}>
+                  4' 10''
+                </MenuItem>
+                <MenuItem value="4_11" sx={{ fontSize: "0.875rem" }}>
+                  4' 11''
+                </MenuItem>
+                <MenuItem value="5" sx={{ fontSize: "0.875rem" }}>
+                  5'
+                </MenuItem>
+                <MenuItem value="5_1" sx={{ fontSize: "0.875rem" }}>
+                  5' 1''
+                </MenuItem>
+                <MenuItem value="5_2" sx={{ fontSize: "0.875rem" }}>
+                  5' 2''
+                </MenuItem>
+                <MenuItem value="5_3" sx={{ fontSize: "0.875rem" }}>
+                  5' 3''
+                </MenuItem>
+                <MenuItem value="5_4" sx={{ fontSize: "0.875rem" }}>
+                  5' 4''
+                </MenuItem>
+                <MenuItem value="5_5" sx={{ fontSize: "0.875rem" }}>
+                  5' 5''
+                </MenuItem>
+                <MenuItem value="5_6" sx={{ fontSize: "0.875rem" }}>
+                  5' 6''
+                </MenuItem>
+                <MenuItem value="5_7" sx={{ fontSize: "0.875rem" }}>
+                  5' 7''
+                </MenuItem>
+                <MenuItem value="5_8" sx={{ fontSize: "0.875rem" }}>
+                  5' 8''
+                </MenuItem>
+                <MenuItem value="5_9" sx={{ fontSize: "0.875rem" }}>
+                  5' 9''
+                </MenuItem>
+                <MenuItem value="5_10" sx={{ fontSize: "0.875rem" }}>
+                  5' 10''
+                </MenuItem>
+                <MenuItem value="5_11" sx={{ fontSize: "0.875rem" }}>
+                  5' 11''
+                </MenuItem>
+                <MenuItem value="6" sx={{ fontSize: "0.875rem" }}>
+                  6'
+                </MenuItem>
+                <MenuItem value="6_1" sx={{ fontSize: "0.875rem" }}>
+                  6' 1''
+                </MenuItem>
+                <MenuItem value="6_2" sx={{ fontSize: "0.875rem" }}>
+                  6' 2''
+                </MenuItem>
+                <MenuItem value="6_3" sx={{ fontSize: "0.875rem" }}>
+                  6' 3''
+                </MenuItem>
+                <MenuItem value="6_4" sx={{ fontSize: "0.875rem" }}>
+                  6' 4''
+                </MenuItem>
+                <MenuItem value="6_5" sx={{ fontSize: "0.875rem" }}>
+                  6' 5''
+                </MenuItem>
+                <MenuItem value="6_6" sx={{ fontSize: "0.875rem" }}>
+                  6' 6''
+                </MenuItem>
+                <MenuItem value="6_7" sx={{ fontSize: "0.875rem" }}>
+                  6' 7''
+                </MenuItem>
+                <MenuItem value="6_8" sx={{ fontSize: "0.875rem" }}>
+                  6' 8''
+                </MenuItem>
+                <MenuItem value="6_9" sx={{ fontSize: "0.875rem" }}>
+                  6' 9''
+                </MenuItem>
+                <MenuItem value="6_10" sx={{ fontSize: "0.875rem" }}>
+                  6' 10''
+                </MenuItem>
+                <MenuItem value="6_11" sx={{ fontSize: "0.875rem" }}>
+                  6' 11''
+                </MenuItem>
+                <MenuItem value="moreThan7Feet" sx={{ fontSize: "0.875rem" }}>
+                  More than 7 feet
+                </MenuItem>
               </TextField>
             </Grid>
 
