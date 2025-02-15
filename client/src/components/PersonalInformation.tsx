@@ -15,7 +15,7 @@ const PersonalInformation = () => {
     <Card sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
       <CardHeader
         title={
-          <Typography variant="h4" align="center" fontWeight="bold">
+          <Typography variant="h6"  fontWeight="bold">
             Personal Information
           </Typography>
         }
@@ -31,6 +31,7 @@ const PersonalInformation = () => {
                 id="biodataNo"
                 name="biodataNo"
                 placeholder="Enter Biodata Number"
+                required
               />
             </Grid>
 
@@ -42,6 +43,7 @@ const PersonalInformation = () => {
                 label="Biodata Type"
                 name="biodataType"
                 id="biodataType"
+                required
                 defaultValue="">
                 <MenuItem value="bride">Bride</MenuItem>
                 <MenuItem value="groom">Groom</MenuItem>
@@ -56,6 +58,7 @@ const PersonalInformation = () => {
                 label="Marital Status"
                 id="maritalStatus"
                 name="maritalStatus"
+                required
                 defaultValue="">
                 <MenuItem value="single">Single</MenuItem>
                 <MenuItem value="divorced">Divorced</MenuItem>
@@ -70,6 +73,7 @@ const PersonalInformation = () => {
                 id="dob"
                 name=""
                 type="date"
+                required
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
@@ -83,6 +87,7 @@ const PersonalInformation = () => {
                 name="height"
                 type="number"
                 placeholder="Enter height"
+                required
               />
             </Grid>
 
@@ -95,6 +100,7 @@ const PersonalInformation = () => {
                 name="weight"
                 type="number"
                 placeholder="Enter weight"
+                required
               />
             </Grid>
 
@@ -106,6 +112,7 @@ const PersonalInformation = () => {
                 label="Complexion"
                 id="complexion"
                 name="complexion"
+                required
                 defaultValue="">
                 <MenuItem value="fair">Fair</MenuItem>
                 <MenuItem value="medium">Medium</MenuItem>
@@ -121,6 +128,7 @@ const PersonalInformation = () => {
                 label="Blood Group"
                 id="bloodGroup"
                 name="bloodGroup"
+                required
                 defaultValue="">
                 <MenuItem value="A+">A+</MenuItem>
                 <MenuItem value="A-">A-</MenuItem>
@@ -141,6 +149,7 @@ const PersonalInformation = () => {
                 id="session"
                 name="session"
                 placeholder="Enter session"
+                required
               />
             </Grid>
 
@@ -152,6 +161,7 @@ const PersonalInformation = () => {
                 id="department"
                 name="department"
                 placeholder="Enter department"
+                required
               />
             </Grid>
 
@@ -163,6 +173,7 @@ const PersonalInformation = () => {
                 id="nationality"
                 name="nationality"
                 placeholder="Enter nationality"
+                required
               />
             </Grid>
           </Grid>
