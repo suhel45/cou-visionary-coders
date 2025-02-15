@@ -15,7 +15,7 @@ const PersonalInformation = () => {
     <Card sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
       <CardHeader
         title={
-          <Typography variant="h6"  fontWeight="bold">
+          <Typography variant="h6" fontWeight="bold">
             Personal Information
           </Typography>
         }
@@ -45,8 +45,8 @@ const PersonalInformation = () => {
                 id="biodataType"
                 required
                 defaultValue="">
-                <MenuItem value="bride">Bride</MenuItem>
-                <MenuItem value="groom">Groom</MenuItem>
+                <MenuItem value="bride">Male's Biodata</MenuItem>
+                <MenuItem value="groom">Female's Biodata</MenuItem>
               </TextField>
             </Grid>
 
@@ -60,7 +60,8 @@ const PersonalInformation = () => {
                 name="maritalStatus"
                 required
                 defaultValue="">
-                <MenuItem value="single">Single</MenuItem>
+                <MenuItem value="neverMarried">Never Married</MenuItem>
+                <MenuItem value="married">Married</MenuItem>
                 <MenuItem value="divorced">Divorced</MenuItem>
               </TextField>
             </Grid>
@@ -71,7 +72,6 @@ const PersonalInformation = () => {
                 fullWidth
                 label="Date of Birth"
                 id="dob"
-                name=""
                 type="date"
                 required
                 InputLabelProps={{ shrink: true }}
@@ -82,13 +82,16 @@ const PersonalInformation = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Height (cm)"
+                select
+                label="Height"
                 id="height"
                 name="height"
-                type="number"
                 placeholder="Enter height"
-                required
-              />
+                required>
+                <MenuItem value="neverMarried" sx={{ fontSize: "0.875rem" }}>Less than 4 feet</MenuItem>
+                <MenuItem value="married" sx={{ fontSize: "0.875rem" }}>4'</MenuItem>
+                <MenuItem value="divorced" sx={{ fontSize: "0.875rem" }}>4' 1''</MenuItem>
+              </TextField>
             </Grid>
 
             {/* Weight */}
@@ -100,8 +103,7 @@ const PersonalInformation = () => {
                 name="weight"
                 type="number"
                 placeholder="Enter weight"
-                required
-              />
+                required></TextField>
             </Grid>
 
             {/* Complexion */}
