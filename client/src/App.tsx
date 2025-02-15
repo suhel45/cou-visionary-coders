@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 import Footer from "./shared/Footer/Footer";
 import SignUp from "./pages/signup/pages";
 import Home from "./pages/Home/pages";
-import Login from "./pages/Home/pages";
+import Login from "./pages/login/pages";
 import AboutUs from "./components/AboutUs";
 
 function NoMatch() {
