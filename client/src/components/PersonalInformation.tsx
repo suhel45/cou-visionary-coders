@@ -21,6 +21,7 @@ const PersonalInformation = () => {
         }
       />
       <CardContent>
+        <form>
         <Grid container spacing={3}>
           {/* Biodata No */}
           <Grid item xs={12} md={6} >
@@ -55,7 +56,6 @@ const PersonalInformation = () => {
               defaultValue="">
               <MenuItem value="single">Single</MenuItem>
               <MenuItem value="divorced">Divorced</MenuItem>
-              <MenuItem value="widowed">Widowed</MenuItem>
             </TextField>
           </Grid>
 
@@ -155,6 +155,7 @@ const PersonalInformation = () => {
             />
           </Grid>
         </Grid>
+        </form>
       </CardContent>
     </Card>
   );
