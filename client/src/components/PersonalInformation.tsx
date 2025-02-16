@@ -212,7 +212,8 @@ const PersonalInformation = () => {
                 name="weight"
                 type="number"
                 placeholder="Enter weight"
-                required />
+                required
+              />
             </Grid>
 
             {/* Complexion */}
@@ -315,7 +316,7 @@ const PersonalInformation = () => {
                 placeholder="Enter nationality"
                 required>
                 <MenuItem value="bangladeshi" sx={{ fontSize: "0.875rem" }}>
-                 Bangladeshi
+                  Bangladeshi
                 </MenuItem>
               </TextField>
             </Grid>
