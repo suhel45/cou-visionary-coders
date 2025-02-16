@@ -23,18 +23,6 @@ const PersonalInformation = () => {
       <CardContent>
         <form>
           <Grid container spacing={3}>
-            {/* Biodata No */}
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Biodata No"
-                id="biodataNo"
-                name="biodataNo"
-                placeholder="Enter Biodata Number"
-                required
-              />
-            </Grid>
-
             {/* Biodata Type */}
             <Grid item xs={12} md={6}>
               <TextField
@@ -237,11 +225,21 @@ const PersonalInformation = () => {
                 name="complexion"
                 required
                 defaultValue="">
-                <MenuItem value="black" sx={{ fontSize: "0.875rem" }}>Balck</MenuItem>
-                <MenuItem value="brown" sx={{ fontSize: "0.875rem" }}>Brown</MenuItem>
-                <MenuItem value="lightBrown" sx={{ fontSize: "0.875rem" }}>Light Brown</MenuItem>
-                <MenuItem value="fair" sx={{ fontSize: "0.875rem" }}>Fair</MenuItem>
-                <MenuItem value="veryFair" sx={{ fontSize: "0.875rem" }}>Very Fair</MenuItem>
+                <MenuItem value="black" sx={{ fontSize: "0.875rem" }}>
+                  Balck
+                </MenuItem>
+                <MenuItem value="brown" sx={{ fontSize: "0.875rem" }}>
+                  Brown
+                </MenuItem>
+                <MenuItem value="lightBrown" sx={{ fontSize: "0.875rem" }}>
+                  Light Brown
+                </MenuItem>
+                <MenuItem value="fair" sx={{ fontSize: "0.875rem" }}>
+                  Fair
+                </MenuItem>
+                <MenuItem value="veryFair" sx={{ fontSize: "0.875rem" }}>
+                  Very Fair
+                </MenuItem>
               </TextField>
             </Grid>
 
@@ -255,14 +253,30 @@ const PersonalInformation = () => {
                 name="bloodGroup"
                 required
                 defaultValue="">
-                <MenuItem value="A+">A+</MenuItem>
-                <MenuItem value="A-">A-</MenuItem>
-                <MenuItem value="B+">B+</MenuItem>
-                <MenuItem value="B-">B-</MenuItem>
-                <MenuItem value="O+">O+</MenuItem>
-                <MenuItem value="O-">O-</MenuItem>
-                <MenuItem value="AB+">AB+</MenuItem>
-                <MenuItem value="AB-">AB-</MenuItem>
+                <MenuItem value="A+" sx={{ fontSize: "0.875rem" }}>
+                  A+
+                </MenuItem>
+                <MenuItem value="A-" sx={{ fontSize: "0.875rem" }}>
+                  A-
+                </MenuItem>
+                <MenuItem value="B+" sx={{ fontSize: "0.875rem" }}>
+                  B+
+                </MenuItem>
+                <MenuItem value="B-" sx={{ fontSize: "0.875rem" }}>
+                  B-
+                </MenuItem>
+                <MenuItem value="O+" sx={{ fontSize: "0.875rem" }}>
+                  O+
+                </MenuItem>
+                <MenuItem value="O-" sx={{ fontSize: "0.875rem" }}>
+                  O-
+                </MenuItem>
+                <MenuItem value="AB+" sx={{ fontSize: "0.875rem" }}>
+                  AB+
+                </MenuItem>
+                <MenuItem value="AB-" sx={{ fontSize: "0.875rem" }}>
+                  AB-
+                </MenuItem>
               </TextField>
             </Grid>
 
@@ -294,12 +308,16 @@ const PersonalInformation = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
+                select
                 label="Nationality"
                 id="nationality"
                 name="nationality"
                 placeholder="Enter nationality"
-                required
-              />
+                required>
+                <MenuItem value="AB-" sx={{ fontSize: "0.875rem" }}>
+                  Bangladehi
+                </MenuItem>
+              </TextField>
             </Grid>
           </Grid>
         </form>
