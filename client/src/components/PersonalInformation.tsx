@@ -226,7 +226,7 @@ const PersonalInformation = () => {
                 required
                 defaultValue="">
                 <MenuItem value="black" sx={{ fontSize: "0.875rem" }}>
-                  Balck
+                  Black
                 </MenuItem>
                 <MenuItem value="brown" sx={{ fontSize: "0.875rem" }}>
                   Brown
