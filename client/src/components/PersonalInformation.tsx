@@ -237,9 +237,11 @@ const PersonalInformation = () => {
                 name="complexion"
                 required
                 defaultValue="">
-                <MenuItem value="fair">Fair</MenuItem>
-                <MenuItem value="medium">Medium</MenuItem>
-                <MenuItem value="dark">Dark</MenuItem>
+                <MenuItem value="black" sx={{ fontSize: "0.875rem" }}>Balck</MenuItem>
+                <MenuItem value="brown" sx={{ fontSize: "0.875rem" }}>Brown</MenuItem>
+                <MenuItem value="lightBrown" sx={{ fontSize: "0.875rem" }}>Light Brown</MenuItem>
+                <MenuItem value="fair" sx={{ fontSize: "0.875rem" }}>Fair</MenuItem>
+                <MenuItem value="veryFair" sx={{ fontSize: "0.875rem" }}>Very Fair</MenuItem>
               </TextField>
             </Grid>
 
