@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Hooks/contextApi/UserContext";
@@ -31,7 +31,7 @@ const SignUp = () => {
       console.log(data);
 
       //simulate a 2 second delay to submit the form
-       await new Promise((resolve) => {
+      await new Promise((resolve) => {
         setTimeout(() => {
           resolve(true);
         }, 2000);
@@ -45,7 +45,13 @@ const SignUp = () => {
         .then(() => {
           handleUpdateUserProfile(data.username);
 
-          saveUser(data.username, data.phoneNumber, data.email, data.password, data.confirmPassword);
+          saveUser(
+            data.username,
+            data.phoneNumber,
+            data.email,
+            data.password,
+            data.confirmPassword
+          );
 
           navigate("/login");
         })
@@ -53,13 +59,11 @@ const SignUp = () => {
         .catch((error: any) => {
           toast.error("Error creating user. Please try again.");
         });
-
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {
       setLoading(false);
     }
-
   };
 
   const handleUpdateUserProfile = (name: string) => {
@@ -68,22 +72,28 @@ const SignUp = () => {
     };
     updateUserProfile(profile)
       .then(() => {})
-      .catch((error:any) => console.error(error));
+      .catch((error: any) => console.error(error));
   };
 
-  const saveUser = (username: string, phoneNumber: string, email: string, password: string, confirmPassword: string) => {
+  const saveUser = (
+    username: string,
+    phoneNumber: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => {
     const user = {
       username,
       phoneNumber,
       email,
       password,
     };
-    // fetch("https://assignmet12-server-side.vercel.app/users", {
-      // method: "POST",
-      // headers: {
-        // "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify(user),
+    // fetch("https:localhost:3000/api/signup", {
+    // method: "POST",
+    // headers: {
+    // "Content-Type": "application/json",
+    // },
+    // body: JSON.stringify(user),
     // });
   };
 
@@ -105,7 +115,9 @@ const SignUp = () => {
           className="form-input p-2 w-full"
         />
         {errors.username && (
-          <span className="text-red-500">{errors.username.message && String(errors.username.message)}</span>
+          <span className="text-red-500">
+            {errors.username.message && String(errors.username.message)}
+          </span>
         )}
 
         <input
@@ -121,7 +133,9 @@ const SignUp = () => {
           className="form-input p-2 w-full"
         />
         {errors.email && (
-          <span className="text-red-500">{errors.email.message && String(errors.email.message)}</span>
+          <span className="text-red-500">
+            {errors.email.message && String(errors.email.message)}
+          </span>
         )}
 
         <input
@@ -137,7 +151,9 @@ const SignUp = () => {
           className="form-input p-2 w-full"
         />
         {errors.phoneNumber && (
-          <span className="text-red-500">{errors.phoneNumber && String(errors.phoneNumber.message)}</span>
+          <span className="text-red-500">
+            {errors.phoneNumber && String(errors.phoneNumber.message)}
+          </span>
         )}
 
         {/* Password */}
@@ -155,7 +171,9 @@ const SignUp = () => {
             className="form-input p-2 w-full"
           />
           {errors.password && (
-            <span className="text-red-500">{errors.password.message && String(errors.password.message)}</span>
+            <span className="text-red-500">
+              {errors.password.message && String(errors.password.message)}
+            </span>
           )}
         </div>
 
@@ -173,18 +191,20 @@ const SignUp = () => {
           />
           {errors.confirmPassword && (
             <span className="text-red-500">
-              {errors.confirmPassword && errors.confirmPassword.message && String(errors.confirmPassword.message)}
+              {errors.confirmPassword &&
+                errors.confirmPassword.message &&
+                String(errors.confirmPassword.message)}
             </span>
           )}
         </div>
-          
-            {/* show login option */}
-            <p className="text-center text-sm">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 hover:underline">
-              Login
-            </Link>
-          </p>
+
+        {/* show login option */}
+        <p className="text-center text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login
+          </Link>
+        </p>
 
         <button
           type="submit"
