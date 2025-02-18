@@ -1,12 +1,13 @@
 /** @format */
 
-import  { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,9 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+
+  // Watch the password field
+  const password = watch("password");
 
   return (
     <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
@@ -80,12 +84,18 @@ const SignUp = () => {
         <div className="relative w-full">
           <input
             type="password"
-            {...register("confirmPassword", { required: true })}
+            {...register("confirmPassword", {
+              required: true,
+              validate: (value) =>
+                value === password || "Passwords do not match",
+            })}
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
           {errors.confirmPassword && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-red-500">
+              {errors.confirmPassword && typeof errors.confirmPassword.message === "string" && errors.confirmPassword.message}
+            </span>
           )}
         </div>
 
