@@ -1,29 +1,77 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AuthContext } from "../Hooks/contextApi/UserContext";
+import { useNavigate } from "react-router-dom";
+import { IFormData, UserProfile } from "../interfaces/Signup.interface";
 
 const SignUp = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("AuthContext is null");
+  }
+  const { createUser, updateUserProfile } = authContext;
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<IFormData>();
+
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: IFormData) => {
     setLoading(true);
     try {
       console.log(data);
-      // Handle form submission
-      // Simulate a network request
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      createUser(data.email, data.password)
+        .then((result: { user: any }) => {
+          const user = result.user;
+          toast.success("User created successfully!");
+        })
+        .then(() => {
+          handleUpdateUserProfile(data.username);
+          saveUser(data.username, data.phoneNumber, data.email, data.password, data.confirmPassword);
+          navigate("/login");
+        })
+        .catch((error: any) => {
+          toast.error("Error creating user. Please try again.");
+        });
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleUpdateUserProfile = (name: string) => {
+    const profile: UserProfile = {
+      displayName: name,
+    };
+    updateUserProfile(profile)
+      .then(() => {})
+      .catch((error:any) => console.error(error));
+  };
+
+  const saveUser = (username: string, phoneNumber: string, email: string, password: string, confirmPassword: string) => {
+    const user = {
+      username,
+      phoneNumber,
+      email,
+      password,
+    };
+    // fetch("https://assignmet12-server-side.vercel.app/users", {
+      // method: "POST",
+      // headers: {
+        // "Content-Type": "application/json",
+      // },
+      // body: JSON.stringify(user),
+    // });
   };
 
   // Watch the password field
@@ -68,7 +116,7 @@ const SignUp = () => {
           {...register("phoneNumber", {
             required: "This field is required",
             pattern: {
-              value: /^[0-9]{10}$/,
+              value: /^[0-9]{11}$/,
               message: "Invalid phone number",
             },
           })}

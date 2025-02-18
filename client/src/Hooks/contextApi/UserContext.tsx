@@ -5,13 +5,16 @@ import {
     signOut,
     User,
     UserCredential,
+    updateProfile,
   } from "firebase/auth";
   import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../../components/firebase/Firebase.config";
+import { UserProfile } from "../../interfaces/Signup.interface";
   
 type authContextProps = {
     user:User|null,
     createUser:(email:string,password:string)=>Promise<UserCredential>,
+    updateUserProfile: (profile: UserProfile) => Promise<void>;
     loginUser:(email:string,password:string)=>Promise<UserCredential>,
     logOut:()=>Promise<void>,
     loading:boolean
@@ -37,6 +40,14 @@ type authContextProps = {
       setLoading(true);
       return signOut(auth);
     };
+
+    const updateUserProfile = async (profile: UserProfile) => {
+        if (auth.currentUser) {
+           return await updateProfile(auth.currentUser, profile);
+        } else {
+            throw new Error("No authenticated user found");
+        }
+    };
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -54,6 +65,7 @@ type authContextProps = {
       createUser,
       loginUser,
       logOut,
+      updateUserProfile,
       loading,
     };
   
