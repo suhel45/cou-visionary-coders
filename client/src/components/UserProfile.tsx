@@ -5,6 +5,8 @@ import { Card, CardContent, Avatar, Typography, Box } from "@mui/material";
 import img from "../assets/man.png";
 
 const UserProfile = () => {
+
+  //Fake data for biodata details
   const biodataDetails = [
     ["Biodata Type", "Female's Biodata"],
     ["Marital Status", "Never Married"],
@@ -19,7 +21,7 @@ const UserProfile = () => {
   return (
     <Card
       sx={{
-        maxWidth: 400,
+        maxWidth: 450,
         bgcolor: "#d0d3ff", 
         borderRadius: 6,
         p: 3,
@@ -29,11 +31,11 @@ const UserProfile = () => {
         <Avatar
           src={img}
           sx={{
-            width: 96,
-            height: 96,
+            width: 100,
+            height: 100,
             p: 1,
-            bgcolor: "#f1fed0", // Light yellow background
-            "& .MuiSvgIcon-root": { color: "#E91E63" }, // Pink icon
+            bgcolor: "#f1fed0", 
+            "& .MuiSvgIcon-root": { color: "#E91E63" },
           }}
         />
 
@@ -41,21 +43,21 @@ const UserProfile = () => {
         <Box
           sx={{
             flex: 1,
-            bgcolor: "#efffd2", // Light yellow background
+            bgcolor: "#efffd2", 
             borderRadius: 4,
             p: 1,
           }}>
           {/* Biodata Number */}
           <Box
             sx={{
-              bgcolor: "#5E2181", // Deep purple
+              bgcolor: "#5E2181", 
               color: "white",
               borderRadius: 50,
               p: 1,
               mb: 1,
               textAlign: "center",
             }}>
-            <Typography>Biodata No : BD-1234</Typography>
+            <Typography sx={{fontSize: "0.875rem",}}>Biodata No : BD-1234</Typography>
           </Box>
 
           {/* Biodata Status */}
@@ -66,15 +68,14 @@ const UserProfile = () => {
               borderRadius: 50,
               p: 1,
               display: "flex",
-              justifyContent: "space-between",
               alignItems: "center",
+              justifyContent: "center"
             }}>
-            <Typography>Biodata Status :</Typography>
+            <Typography sx={{fontSize: "0.875rem",}}>Biodata Status :</Typography>
             <Box
               sx={{
                 bgcolor: "green",
-                px: 2,
-                py: 0.5,
+                px: 1,
                 borderRadius: 50,
                 fontSize: "0.875rem",
               }}>
