@@ -13,7 +13,7 @@ function NoMatch() {
 export default function App() {
   return (
     // Wrap everything inside AuthProvider
-    <AuthProvider>
+   
       <div className="flex flex-col min-h-screen">
         {/* Nav component fixed at the top */}
         <Nav />
