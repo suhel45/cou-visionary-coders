@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Hooks/contextApi/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IFormData, UserProfile } from "../interfaces/Signup.interface";
 
 const SignUp = () => {
@@ -12,7 +12,7 @@ const SignUp = () => {
   if (!authContext) {
     throw new Error("AuthContext is null");
   }
-  
+
   const { createUser, updateUserProfile } = authContext;
   const navigate = useNavigate();
 
@@ -177,6 +177,14 @@ const SignUp = () => {
             </span>
           )}
         </div>
+          
+            {/* show login option */}
+            <p className="text-center text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Login
+            </Link>
+          </p>
 
         <button
           type="submit"
