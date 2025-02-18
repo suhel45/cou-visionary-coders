@@ -12,6 +12,7 @@ const SignUp = () => {
   if (!authContext) {
     throw new Error("AuthContext is null");
   }
+  
   const { createUser, updateUserProfile } = authContext;
   const navigate = useNavigate();
 
@@ -29,6 +30,13 @@ const SignUp = () => {
     try {
       console.log(data);
 
+      //simulate a 2 second delay to submit the form
+       await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true);
+        }, 2000);
+      });
+
       createUser(data.email, data.password)
         .then((result: { user: any }) => {
           const user = result.user;
@@ -36,17 +44,22 @@ const SignUp = () => {
         })
         .then(() => {
           handleUpdateUserProfile(data.username);
+
           saveUser(data.username, data.phoneNumber, data.email, data.password, data.confirmPassword);
+
           navigate("/login");
         })
+
         .catch((error: any) => {
           toast.error("Error creating user. Please try again.");
         });
+
     } catch (error) {
       console.error("Error during form submission:", error);
     } finally {
       setLoading(false);
     }
+
   };
 
   const handleUpdateUserProfile = (name: string) => {
