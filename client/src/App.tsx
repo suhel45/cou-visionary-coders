@@ -5,7 +5,6 @@ import SignUp from "./pages/signup/pages";
 import Home from "./pages/Home/pages";
 import Login from "./pages/login/pages";
 import AboutUs from "./components/AboutUs";
-import { AuthProvider } from "./context/AuthContext"; 
 
 function NoMatch() {
   return "Pages Not Found";
@@ -31,9 +30,8 @@ export default function App() {
           </Routes>
         </div>
 
-        {/* Footer component fixed at the bottom */}
-        <Footer />
-      </div>
-    </AuthProvider>
+      {/* Footer component fixed at the bottom */}
+      <Footer />
+    </div>
   );
 }
