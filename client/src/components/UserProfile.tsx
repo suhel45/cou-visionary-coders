@@ -26,7 +26,18 @@ const UserProfile = () => {
         borderRadius: 6,
         p: 3,
       }}>
-      <Box display="flex" gap={2}>
+      <Box display="flex" gap={2}
+      sx={{
+        flexDirection:{
+          xs: "column",
+          sm: "row"
+        },
+        alignItems: {
+          xs: "center", 
+          sm: "flex-start", 
+        },
+      }} 
+      >
         {/* Avatar Section */}
         <Avatar
           src={img}
@@ -50,7 +61,7 @@ const UserProfile = () => {
           {/* Biodata Number */}
           <Box
             sx={{
-              bgcolor: "#5E2181", 
+              bgcolor: "#652c8b", 
               color: "white",
               borderRadius: 50,
               p: 1,
@@ -63,7 +74,7 @@ const UserProfile = () => {
           {/* Biodata Status */}
           <Box
             sx={{
-              bgcolor: "#5E2181", // Deep purple
+              bgcolor: "#652c8b",
               color: "white",
               borderRadius: 50,
               p: 1,
@@ -74,7 +85,7 @@ const UserProfile = () => {
             <Typography sx={{fontSize: "0.875rem",}}>Biodata Status :</Typography>
             <Box
               sx={{
-                bgcolor: "green",
+                bgcolor: "#42d64c",
                 px: 1,
                 borderRadius: 50,
                 fontSize: "0.875rem",
