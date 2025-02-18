@@ -39,44 +39,62 @@ const SignUp = () => {
         className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3">
         <input
           type="text"
-          {...register("username", { required: true })}
+          {...register("username", { required: "This field is required" })}
           placeholder="Enter Your Name"
           className="form-input p-2 w-full"
         />
         {errors.username && (
-          <span className="text-red-500">This field is required</span>
+          <span className="text-red-500">{errors.username.message && String(errors.username.message)}</span>
         )}
 
         <input
           type="email"
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: "This field is required",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "Invalid email address",
+            },
+          })}
           placeholder="Enter Your Email"
           className="form-input p-2 w-full"
         />
         {errors.email && (
-          <span className="text-red-500">This field is required</span>
+          <span className="text-red-500">{errors.email.message && String(errors.email.message)}</span>
         )}
 
         <input
           type="tel"
-          {...register("phoneNumber", { required: true })}
+          {...register("phoneNumber", {
+            required: "This field is required",
+            pattern: {
+              value: /^[0-9]{10}$/,
+              message: "Invalid phone number",
+            },
+          })}
           placeholder="Enter Your Phone Number"
           className="form-input p-2 w-full"
         />
         {errors.phoneNumber && (
-          <span className="text-red-500">This field is required</span>
+          <span className="text-red-500">{errors.phoneNumber && String(errors.phoneNumber.message)}</span>
         )}
 
         {/* Password */}
         <div className="relative w-full">
           <input
             type="password"
-            {...register("password", { required: true })}
+            {...register("password", {
+              required: "This field is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+            })}
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
           {errors.password && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-red-500">{errors.password.message && String(errors.password.message)}</span>
           )}
         </div>
 
@@ -85,7 +103,7 @@ const SignUp = () => {
           <input
             type="password"
             {...register("confirmPassword", {
-              required: true,
+              required: "This field is required",
               validate: (value) =>
                 value === password || "Passwords do not match",
             })}
@@ -94,7 +112,7 @@ const SignUp = () => {
           />
           {errors.confirmPassword && (
             <span className="text-red-500">
-              {errors.confirmPassword && typeof errors.confirmPassword.message === "string" && errors.confirmPassword.message}
+              {errors.confirmPassword && errors.confirmPassword.message && String(errors.confirmPassword.message)}
             </span>
           )}
         </div>
