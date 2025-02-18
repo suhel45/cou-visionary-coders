@@ -123,7 +123,7 @@ const SignUp = () => {
     const firebaseUser = userCredential.user;
     console.log("Firebase User Created:", firebaseUser);
 
-    // Update user in global context
+    
     setUser(firebaseUser);
 
     // Prepare data for MongoDB
