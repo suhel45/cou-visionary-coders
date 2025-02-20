@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
+    "vercel-build": "npm run build",
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon --exec npx tsx src/server.ts",
