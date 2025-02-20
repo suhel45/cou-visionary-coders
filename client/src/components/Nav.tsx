@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-//import Logout from "./Logout";
+import { Link,useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import profileIcon from "../assets/profile.png";
 import dashboardIcon from "../assets/dashboard.png";
@@ -8,7 +7,7 @@ import logoutIcon from "../assets/logout.png";
 import signupIcon from "../assets/signup.png";
 import loginIcon from "../assets/login.png";
 import { AuthContext } from "../Hooks/contextApi/UserContext";
-import { useNavigate } from 'react-router-dom';
+
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -108,12 +107,9 @@ function Nav() {
             </li>
             <li
               className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400"
-              onClick={handleLogout}
-              role="button"
-              tabIndex={0}
             >
               <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
-              <span>Logout</span>
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         ) : (
