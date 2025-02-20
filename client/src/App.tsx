@@ -6,8 +6,8 @@ import Home from "./pages/Home/pages";
 import Login from "./pages/login/pages";
 import AboutUs from "./components/AboutUs";
 import UserProfile from "./components/UserProfile";
-import { AuthProvider } from "./context/AuthContext";
 import PersonalInformation from "./components/PersonalInformation";
+import AuthProvider from "./Hooks/contextApi/UserContext";
 
 function NoMatch() {
   return "Pages Not Found";
@@ -16,7 +16,7 @@ function NoMatch() {
 export default function App() {
   return (
     // Wrap everything inside AuthProvider
-    <AuthProvider>
+       <AuthProvider>
       <div className="flex flex-col min-h-screen">
         {/* Nav component fixed at the top */}
         <Nav />
