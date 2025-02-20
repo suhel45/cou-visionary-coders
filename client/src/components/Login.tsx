@@ -1,69 +1,82 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
-import { LoginData } from "../interfaces";
+/** @format */
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { AuthContext } from "../Hooks/contextApi/UserContext";
+import { IFormInput } from "../interfaces/Login.interface";
 
-// Firebase imports
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../firebase";
-
-
-import { useAuth } from "../context/AuthContext"; // Adjust path as needed
-
-const User = { email: "", password: "" };
-
-const Login = () => {
-  const [data, setData] = useState<LoginData>(User);
-  const [error, setError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
-
+const Login: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
-  // 2. Get setUser from our AuthContext
-  const { setUser } = useAuth();
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("AuthContext is null");
+  }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const { loginUser, signInWithGoogle } = authContext;
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IFormInput>();
 
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data:any) => {
+    setLoading(true);
     try {
-      // Example email/password login
-      const response = await axios.post("http://localhost:3000/api/login", data);
-      const { user, accessToken } = response.data;
+      const result = await loginUser(data.email, data.password);
+      const user = result.user;
 
-      setUser(user);
+      const response = await fetch("https://halalbondhon-server.vercel.app/api/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email: user.email, password: data.password }),
+      });
 
-      navigate("/profile");
-    } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      const responseData = await response.json();
+      if(responseData.success){
+        toast.success("User login sucessfully");
+        navigate('/profile')
+      }
+      else{
+        toast.error(responseData.error);
+      }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Invalid credentials. Try again.");
+    }finally {
+      setLoading(false);
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setError(null);
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const googleUser = result.user;
+  // const handleGoogle = async () => {
+  // try {
+  // const result = await signInWithGoogle();
+  // const user = result.user;
 
-      // You can also send googleUser info to your backend for verification
-      const token = await googleUser.getIdToken();
+  // const response = await fetch(
+  // "http://localhost:3000/api/login/google",
+  // {
+  // method: "POST",
+  // headers: { "content-type": "application/json" },
+  // body: JSON.stringify({ email: user.email }),
+  // }
+  // );
 
-      
-
-      
-
-      navigate("/profile");
-    } catch (error: any) {
-      setError(error.message || "Google Sign-In failed. Please try again.");
-    }
-  };
+  // const responseData = await response.json();
+  // console.log(responseData)
+  // } catch (error) {
+  // console.error("Google login error:", error);
+  // toast.error("Google login failed. Try again.");
+  // }
+  // };
 
   return (
     <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 shadow-md rounded-md border border-pink-600 m-4">
@@ -76,69 +89,53 @@ const Login = () => {
         <h2 className="mt-5 heading">Log in</h2>
       </div>
 
-      {error && (
-        <div className="mx-auto max-w-md bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mt-4">
-          {error}
-        </div>
-      )}
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-900"
-            >
+              className="block text-sm font-medium text-gray-900">
               Email address
             </label>
             <input
               id="email"
-              name="email"
+              {...register("email", { required: "Email is required" })}
               type="email"
               autoComplete="email"
-              onChange={handleChange}
-              value={data.email}
-              required
               className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
             />
+            {errors.email && (
+              <span className="text-red-500">{errors.email.message}</span>
+            )}
           </div>
 
           {/* Password */}
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-900"
-            >
+              className="block text-sm font-medium text-gray-900">
               Password
             </label>
             <div className="relative mt-1">
               <input
                 id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
+                {...register("password", { required: "Password is required" })}
+                type="password"
                 autoComplete="current-password"
-                onChange={handleChange}
-                value={data.password}
-                required
                 className="block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-600"
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+              {errors.password && (
+                <span className="text-red-500">{errors.password.message}</span>
+              )}
             </div>
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold"
-          >
-            Sign in
+            className="w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold" disabled={loading}>
+              {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
@@ -149,10 +146,7 @@ const Login = () => {
         </div>
 
         {/* Google Sign-In */}
-        <button
-          onClick={handleGoogleSignIn}
-          className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100"
-        >
+        <button className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100">
           <img
             src="https://imgs.search.brave.com/0dfkmCFWC2zrjWCenB_rDnfa_wKBmKDmxG4qSB78iQs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMtMDAuaWNvbmR1/Y2suY29tL2Fzc2V0/cy4wMC9nb29nbGUt/aWNvbi01MTJ4NTEy/LXRxYzllbDNyLnBu/Zw"
             alt="Google"
@@ -165,8 +159,7 @@ const Login = () => {
           Not a member?
           <a
             href="/signup"
-            className="text-indigo-700 hover:text-indigo-400 font-bold px-2"
-          >
+            className="text-indigo-700 hover:text-indigo-400 font-bold px-2">
             Create Account
           </a>
         </p>
