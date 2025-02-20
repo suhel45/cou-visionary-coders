@@ -3,7 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
-import { userRoute } from './routes/users.route';
+import userRoute from './routes/users.route';
 
 const app: Express = express();
 
@@ -15,7 +15,6 @@ const limiter = rateLimit({
 });
 
 const corsOption = {
-  origin: ['http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -25,6 +24,7 @@ app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(
   helmet({
     contentSecurityPolicy: {

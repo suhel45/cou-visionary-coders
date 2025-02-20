@@ -9,7 +9,7 @@ const UserProfile = () => {
   const isPerson = false;
   //Fake data for biodata details
   const biodataDetails = [
-    ["Biodata Type", "Female's Biodata"],
+    ["Biodata Type", "Male's Biodata"],
     ["Marital Status", "Never Married"],
     ["Birth Year", "May, 1998"],
     ["Height", "5'1"],
@@ -25,6 +25,7 @@ const UserProfile = () => {
         maxWidth: 450,
         bgcolor: "#d0d3ff",
         borderRadius: 6,
+        m:3,
         p: 3,
       }}>
       <Box

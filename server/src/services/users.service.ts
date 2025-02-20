@@ -48,7 +48,31 @@ const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
   return token;
 };
 
+const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
+  const sanitizedEmail = escape(email);
+  let user = await userModel.findOne({ email: sanitizedEmail });
+  if (!user) {
+    // Create a new user with a default password
+    const newUser = new userModel({
+      username: sanitizedEmail.split('@')[0], // Use the part before @ as username
+      phoneNumber: '00000000000', // Default empty phone number
+      email: sanitizedEmail,
+      password: await argon2.hash('defaultPassword'), // Default password
+    });
+    user = await newUser.save();
+  }
+  const secretKey = process.env.JWT_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error('Internal server error');
+  }
+  const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
+    expiresIn: '1h',
+  });
+  return token;
+};
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
+  loginOrCreateUserWithGoogle,
 };

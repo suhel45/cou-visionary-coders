@@ -28,8 +28,6 @@ const SignUp = () => {
   const onSubmit = async (data: IFormData) => {
     setLoading(true);
     try {
-      console.log(data);
-
       //simulate a 2 second delay to submit the form
       await new Promise((resolve) => {
         setTimeout(() => {
@@ -40,7 +38,7 @@ const SignUp = () => {
       createUser(data.email, data.password)
         .then((result: { user: any }) => {
           const user = result.user;
-          toast.success("User created successfully!");
+          toast.success("user created successfully");
         })
         .then(() => {
           handleUpdateUserProfile(data.username);
@@ -53,9 +51,7 @@ const SignUp = () => {
             data.confirmPassword
           );
 
-          navigate("/login");
         })
-
         .catch((error: any) => {
           toast.error("Error creating user. Please try again.");
         });
@@ -75,7 +71,7 @@ const SignUp = () => {
       .catch((error: any) => console.error(error));
   };
 
-  const saveUser = (
+  const saveUser = async (
     username: string,
     phoneNumber: string,
     email: string,
@@ -88,13 +84,20 @@ const SignUp = () => {
       email,
       password,
     };
-    // fetch("https:localhost:3000/api/signup", {
-    // method: "POST",
-    // headers: {
-    // "Content-Type": "application/json",
-    // },
-    // body: JSON.stringify(user),
-    // });
+    const response = await fetch("https://halalbondhon-server.vercel.app/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    const responseData = await response.json();
+    if(responseData.success){
+      navigate("/login");
+    }
+    else{
+      toast.error(responseData.message)
+    }
   };
 
   // Watch the password field

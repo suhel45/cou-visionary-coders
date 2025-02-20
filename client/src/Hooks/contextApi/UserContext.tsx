@@ -6,6 +6,8 @@ import {
     User,
     UserCredential,
     updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup,
   } from "firebase/auth";
   import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../../components/firebase/Firebase.config";
@@ -17,6 +19,7 @@ type authContextProps = {
     updateUserProfile: (profile: UserProfile) => Promise<void>;
     loginUser:(email:string,password:string)=>Promise<UserCredential>,
     logOut:()=>Promise<void>,
+    signInWithGoogle: () => Promise<UserCredential>;
     loading:boolean
 }
 
@@ -25,6 +28,12 @@ type authContextProps = {
   const AuthProvider = ( { children }: { children: ReactNode; }) => {
     const [loading, setLoading] = useState(true);
     const [user,setUser] = useState<User|null>(null);
+    const provider = new GoogleAuthProvider();
+
+    const signInWithGoogle = () => {
+      setLoading(false);
+      return signInWithPopup(auth, provider);
+    };
   
     const createUser = (email:string, password:string) => {
       setLoading(true);
@@ -66,6 +75,7 @@ type authContextProps = {
       loginUser,
       logOut,
       updateUserProfile,
+      signInWithGoogle,
       loading,
     };
   
