@@ -1,11 +1,10 @@
-import { Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 import { ExpectedLifePartner } from '../interfaces/lifePartner.interface';
 
 const ageHeightSchema = new Schema({
   min: { type: Number, required: true },
   max: { type: Number, required: true },
 });
-
 
 export const expectedLifePartnerSchema = new Schema<ExpectedLifePartner>({
   age: { type: ageHeightSchema, required: true },

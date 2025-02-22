@@ -1,4 +1,4 @@
-import { Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 import { AddressInfo } from '../interfaces/address.interface';
 
 const addressSchema = new Schema({
@@ -11,4 +11,3 @@ export const addressInfoSchema = new Schema<AddressInfo>({
   permanentAddress: { type: addressSchema, required: true },
   presentAddress: { type: addressSchema, required: true },
 });
-
