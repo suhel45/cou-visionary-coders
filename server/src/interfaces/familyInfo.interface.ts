@@ -1,8 +1,7 @@
-
-export type GardianInfo = {
-    aliveStatus: boolean;
-    profession: string;
-}
+type GardianInfo = {
+  aliveStatus: boolean;
+  profession: string;
+};
 
 export type FamilyInfo = {
   father: GardianInfo;
@@ -17,4 +16,4 @@ export type FamilyInfo = {
     aboutSiblings: string;
   };
   financialStatus: string;
-}
+};
