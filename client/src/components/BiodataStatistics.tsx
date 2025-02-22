@@ -1,4 +1,7 @@
 import Count from "./Count";
+import manImg from "../../public/man.png";
+import womenImg from "../../public/woman.png";
+import couple from "../../public/cpl.png";
 
 const BiodataStatistics: React.FC = () => {
   return (
@@ -8,17 +11,17 @@ const BiodataStatistics: React.FC = () => {
       </h2>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-evenly gap-5 p-6">
         <Count
-          imageSrc="public/man.png"
+          imageSrc={manImg}
           title="মোট পাত্রের বায়োডাটা"
           cnt={"Update soon"} // Or a number if you have the count
         />
         <Count
-          imageSrc="../../public/woman.png"
+          imageSrc={womenImg}
           title="মোট পাত্রীর বায়োডাটা"
           cnt={"Update soon"} // Or a number if you have the count
         />
         <Count
-          imageSrc="public/cpl.png"
+          imageSrc={couple}
           title="মোট পাত্র-পাত্রীর বায়োডাটা"
           cnt={"Update soon"} // Or a number if you have the count
         />
