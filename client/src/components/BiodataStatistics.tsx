@@ -13,7 +13,7 @@ const BiodataStatistics: React.FC = () => {
           cnt={"Update soon"} // Or a number if you have the count
         />
         <Count
-          imageSrc="public/woman.png"
+          imageSrc="../../public/woman.png"
           title="মোট পাত্রীর বায়োডাটা"
           cnt={"Update soon"} // Or a number if you have the count
         />
