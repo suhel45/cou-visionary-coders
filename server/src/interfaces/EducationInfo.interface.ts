@@ -5,7 +5,7 @@ export type AcademicRecord = {
   gpa: number;
 };
 
-export type Education = {
+export type EducationInfo = {
   ssc: AcademicRecord;
   hsc: AcademicRecord;
   university: {
