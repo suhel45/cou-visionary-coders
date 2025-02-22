@@ -186,7 +186,7 @@ const SignUp = () => {
             type="password"
             {...register("confirmPassword", {
               required: "This field is required",
-              validate: (value) =>
+              validate: (value:any) =>
                 value === password || "Passwords do not match",
             })}
             placeholder="Confirm Your Password"
