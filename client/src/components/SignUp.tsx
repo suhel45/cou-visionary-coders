@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../Hooks/contextApi/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { IFormData, UserProfile } from "../interfaces/Signup.interface";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignUp = () => {
   const authContext = useContext(AuthContext);
@@ -99,6 +100,11 @@ const SignUp = () => {
       toast.error(responseData.message)
     }
   };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   // Watch the password field
   const password = watch("password");
@@ -162,7 +168,7 @@ const SignUp = () => {
         {/* Password */}
         <div className="relative w-full">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -173,6 +179,9 @@ const SignUp = () => {
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
+          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={togglePasswordVisibility}>
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
           {errors.password && (
             <span className="text-red-500">
               {errors.password.message && String(errors.password.message)}
@@ -183,7 +192,7 @@ const SignUp = () => {
         {/* Confirm Password */}
         <div className="relative w-full">
           <input
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             {...register("confirmPassword", {
               required: "This field is required",
               validate: (value:any) =>
@@ -192,6 +201,9 @@ const SignUp = () => {
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
+          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={toggleConfirmPasswordVisibility}>
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </span>
           {errors.confirmPassword && (
             <span className="text-red-500">
               {errors.confirmPassword &&
