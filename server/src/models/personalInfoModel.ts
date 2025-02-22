@@ -1,4 +1,4 @@
-import { Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 import { PersonalInfo } from '../interfaces/PersonalInfo.interface';
 
 export const personalInfoSchema = new Schema<PersonalInfo>({
@@ -17,4 +17,3 @@ export const personalInfoSchema = new Schema<PersonalInfo>({
   },
   nationality: { type: String, required: true },
 });
-

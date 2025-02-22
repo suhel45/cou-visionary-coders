@@ -9,78 +9,78 @@ export type PersonalInfo = {
   department: string;
   bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   nationality: string;
-}
+};
 
-  // address: {
-    // permanentAddress: {
-      // village: string;
-      // subdistrict: string;
-      // district: string;
-    // };
-    // presentAddress: {
-      // village: string;
-      // subdistrict: string;
-      // district: string;
-    // };
-  // };
-  // education: {
-    // ssc: {
-      // passingYear: number;
-      // group: string;
-      // gpa: number;
-    // };
-    // hsc: {
-      // passingYear: number;
-      // group: string;
-      // gpa: number;
-    // };
-    // university: {
-      // faculty: string;
-      // department: string;
-      // session: string;
-    // };
-  // };
-  // familyInformation: {
-    // father: {
-      // aliveStatus: boolean;
-      // profession: string;
-    // };
-    // mother: {
-      // aliveStatus: boolean;
-      // profession: string;
-    // };
-    // siblings: {
-      // brotherInfo: {
-        // maritalStatus: string;
-      // };
-      // sisterInfo: {
-        // maritalStatus: string;
-      // };
-      // aboutSiblings: string;
-    // };
-    // financialStatus: string;
-  // };
+// address: {
+// permanentAddress: {
+// village: string;
+// subdistrict: string;
+// district: string;
+// };
+// presentAddress: {
+// village: string;
+// subdistrict: string;
+// district: string;
+// };
+// };
+// education: {
+// ssc: {
+// passingYear: number;
+// group: string;
+// gpa: number;
+// };
+// hsc: {
+// passingYear: number;
+// group: string;
+// gpa: number;
+// };
+// university: {
+// faculty: string;
+// department: string;
+// session: string;
+// };
+// };
+// familyInformation: {
+// father: {
+// aliveStatus: boolean;
+// profession: string;
+// };
+// mother: {
+// aliveStatus: boolean;
+// profession: string;
+// };
+// siblings: {
+// brotherInfo: {
+// maritalStatus: string;
+// };
+// sisterInfo: {
+// maritalStatus: string;
+// };
+// aboutSiblings: string;
+// };
+// financialStatus: string;
+// };
 
-  // occupation: string;
-  // occupationDescription: string;
+// occupation: string;
+// occupationDescription: string;
 
-  // expectedLifePartner: {
-    // age: {
-      // min: number;
-      // max: number;
-    // };
-    // complexion: string;
-    // height: {
-      // min: number;
-      // max: number;
-    // };
-    // district: string;
-    // maritalStatus: string;
-    // profession: string;
-    // financialCondition: string;
-    // expectedQualities: string;
-  // };
-  // guardiansMobileNumber: string;
-  // candidateMobileNumber: string;
-  // candidateEmail: string;
+// expectedLifePartner: {
+// age: {
+// min: number;
+// max: number;
+// };
+// complexion: string;
+// height: {
+// min: number;
+// max: number;
+// };
+// district: string;
+// maritalStatus: string;
+// profession: string;
+// financialCondition: string;
+// expectedQualities: string;
+// };
+// guardiansMobileNumber: string;
+// candidateMobileNumber: string;
+// candidateEmail: string;
 // };
