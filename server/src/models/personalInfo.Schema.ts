@@ -7,6 +7,7 @@ export const personalInfoSchema = new Schema<PersonalInfo>({
   birthDate: { type: String, required: true },
   height: { type: Number, required: true },
   weight: { type: Number, required: true },
+  occupation: { type: String, required: true },
   complexion: { type: String, required: true },
   session: { type: String, required: true },
   department: { type: String, required: true },

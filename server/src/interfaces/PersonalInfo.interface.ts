@@ -4,6 +4,7 @@ export type PersonalInfo = {
   birthDate: string;
   height: number;
   weight: number;
+  occupation: string;
   complexion: string;
   session: string;
   department: string;
@@ -11,58 +12,6 @@ export type PersonalInfo = {
   nationality: string;
 };
 
-// address: {
-// permanentAddress: {
-// village: string;
-// subdistrict: string;
-// district: string;
-// };
-// presentAddress: {
-// village: string;
-// subdistrict: string;
-// district: string;
-// };
-// };
-// education: {
-// ssc: {
-// passingYear: number;
-// group: string;
-// gpa: number;
-// };
-// hsc: {
-// passingYear: number;
-// group: string;
-// gpa: number;
-// };
-// university: {
-// faculty: string;
-// department: string;
-// session: string;
-// };
-// };
-// familyInformation: {
-// father: {
-// aliveStatus: boolean;
-// profession: string;
-// };
-// mother: {
-// aliveStatus: boolean;
-// profession: string;
-// };
-// siblings: {
-// brotherInfo: {
-// maritalStatus: string;
-// };
-// sisterInfo: {
-// maritalStatus: string;
-// };
-// aboutSiblings: string;
-// };
-// financialStatus: string;
-// };
-
-// occupation: string;
-// occupationDescription: string;
 
 // expectedLifePartner: {
 // age: {
