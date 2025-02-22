@@ -27,7 +27,7 @@ const Login: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = async (data:any) => {
     setLoading(true);
     try {
       const result = await loginUser(data.email, data.password);
