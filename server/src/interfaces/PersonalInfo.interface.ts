@@ -1,4 +1,4 @@
-export type PersonalInfo = {
+export type PersonalInfoo = {
   biodataType: string;
   maritalStatus: string;
   birthDate: string;
