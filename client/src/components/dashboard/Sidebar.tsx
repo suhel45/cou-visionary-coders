@@ -16,9 +16,9 @@ const SidebarComponent = () => {
         <h2 className="text-3xl p-2 text-white  rounded text-center font-bold mb-6">Dashboard</h2>
         <nav>
           <ul className="space-y-4">
-            <li><Link to="/dashboard/profile" className="block p-2 hover:bg-purple-500 rounded font-semibold text-xl text-center border border-white bg-purple-700">Profile</Link></li>
-            <li><Link to="/dashboard/analytics" className="block p-2 hover:bg-pink-700 rounded font-semibold text-xl text-center border border-white bg-purple-700">Analytics</Link></li>
-            <li><Link to="/dashboard/settings" className="block p-2 hover:bg-pink-700 rounded font-semibold text-xl text-center border border-white bg-purple-700">Settings</Link></li>
+            <li><Link to="/dashboard/edit/profile" className="block p-2 hover:bg-purple-500 rounded font-semibold text-xl text-center border border-white bg-purple-700">Edit Profile</Link></li>
+            <li><Link to="/dashboard/analytics" className="block p-2 hover:bg-purple-500 rounded font-semibold text-xl text-center border border-white bg-purple-700">Analytics</Link></li>
+            <li><Link to="/dashboard/settings" className="block p-2 hover:bg-purple-500 rounded font-semibold text-xl text-center border border-white bg-purple-700">Settings</Link></li>
           </ul>
         </nav>
       </div>
