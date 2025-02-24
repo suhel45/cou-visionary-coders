@@ -4,9 +4,11 @@ import { ExpectedLifePartner } from './lifePartner.interface';
 import { ContactInfo } from './contactInfo.interface';
 import { PersonalInfoo } from './PersonalInfo.interface';
 import { AddressInfo } from './address.interface';
+import { IUser } from './users.interface';
 
 export type PesonalAllDetails = {
-  personalInfo: PersonalInfoo
+  users:IUser;
+  personalInfo: PersonalInfoo;
   address: AddressInfo;
   education: EducationInfo;
   familyInformation: FamilyInfo;
