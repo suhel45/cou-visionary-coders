@@ -1,13 +1,18 @@
-import  Sidebar  from "./Sidebar"
-
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   return (
-    <div>
-        
-        <Sidebar/>
-    </div>
-  )
-}
+    <div className="flex min-h-screen">
+      {/* Sidebar on the left */}
+      <Sidebar />
 
-export default Dashboard
+      {/* Content area beside the sidebar */}
+      <div className="flex-1 p-6">
+        <Outlet /> {/* This will render child routes dynamically */}
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
