@@ -1,3 +1,3 @@
 export type PersonalPreference = {
-    hobbies: string,
-}
+  hobbies: string;
+};

@@ -1,4 +1,4 @@
-import { Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 import { ContactInfo } from '../interfaces/contactInfo.interface';
 
 export const contactInfoSchema = new Schema<ContactInfo>({
