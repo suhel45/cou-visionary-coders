@@ -10,6 +10,7 @@ import AboutUs from "./components/AboutUs";
 import UserProfile from "./components/UserProfile";
 import AuthProvider from "./Hooks/contextApi/UserContext";
 import { BookDashedIcon } from "lucide-react";
+import UpdateBiodata from "./components/form/UpdateBiodata";
 
 function NoMatch() {
   return "Pages Not Found";
@@ -33,7 +34,9 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route path="edit/profile" element={<UpdateBiodata />} />
+            </Route>
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
