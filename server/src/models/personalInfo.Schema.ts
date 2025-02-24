@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import { PersonalInfo } from '../interfaces/PersonalInfo.interface';
+import { PersonalInfoo } from '../interfaces/PersonalInfo.interface';
 
-export const personalInfoSchema = new Schema<PersonalInfo>({
+export const personalInfoSchema = new Schema<PersonalInfoo>({
   biodataType: { type: String, required: true },
   maritalStatus: { type: String, required: true },
   birthDate: { type: String, required: true },
