@@ -8,7 +8,7 @@ const Dashboard = () => {
       <Sidebar />
 
       {/* Content area beside the sidebar */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 w-full md:p-6 scroll-start">
         <Outlet /> {/* This will render child routes dynamically */}
       </div>
     </div>
