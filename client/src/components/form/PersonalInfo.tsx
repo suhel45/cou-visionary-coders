@@ -10,6 +10,7 @@ interface FormData {
   work: string;
   birthday: string;
   gender: string;
+  religion:string;
 }
 
 interface PersonalInfoProps {
@@ -28,6 +29,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
     work: "",
     birthday: "",
     gender: "",
+    religion: "",
   });
 
   useEffect(() => {
@@ -41,6 +43,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
       work: formData.work || "",
       birthday: formData.birthday || "",
       gender: formData.gender || "",
+      religion: formData.religion || "",
     });
   }, [formData]);
 
@@ -189,6 +192,22 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               <option value="O-">O-</option>
               <option value="AB+">AB+</option>
               <option value="AB-">AB-</option>
+            </select>
+          </label>
+          <label className="label">
+            ধর্ম -
+            <select
+              name="religion"
+              value={localFormData.religion}
+              onChange={handleChange}
+              className="option-btn"
+            >
+              <option>নির্বাচন করুন</option>
+              <option value="islam">ইসলাম</option>
+              <option value="hinduism">হিন্দু</option>
+              <option value="christianity">খ্রিস্টান</option>
+              <option value="buddhism">বৌদ্ধ</option>
+              <option value="other">অন্যান্য</option>
             </select>
           </label>
 
