@@ -19,7 +19,7 @@ const steps: string[] = [
   "শিক্ষাগত যোগ্যতা",
   "বিবাহ সম্পর্কিত তথ্য",
   "প্রত্যাশিত জীবনসঙ্গী",
-  "অন্যান্য",
+  "ঠিকানা",
   "যোগাযোগ",
 ];
 
@@ -88,16 +88,24 @@ const UpdateBiodata: React.FC = () => {
       case 4:
         return <PartnerPreferences setFormData={setFormData} formData={formData} />;
       case 5:
-        return <Others setFormData={setFormData} formData={formData} />;
-      case 6:
         return <Address setFormData={setFormData} formData={formData} />;
+      case 6:
+        return <Others setFormData={setFormData} formData={formData} />;
       default:
         return <Typography>Unknown step</Typography>;
     }
   };
 
   return (
-    <Box className="md:flex md:flex-col m-4 md:p-4 p-8 rounded border-2 border-gray-100">
+    <Box className="md:flex md:flex-col m-4 md:p-4 p-8 rounded border-2 border-gray-300">
+      <div className="sm:hidden flex justify-between items-center mb-4">
+        <button disabled={activeStep === 0} onClick={handleBack} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
+          {activeStep > 0 ? "<< "+ steps[activeStep - 1] : "Initial"}
+        </button>
+        <button onClick={handleNext} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
+           {activeStep < steps.length - 1 ?   steps[activeStep + 1] + " >>": "Final"}
+        </button>
+      </div>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={!isStepSkipped(index)} className="hidden sm:block">
@@ -128,15 +136,14 @@ const UpdateBiodata: React.FC = () => {
               </button>
               <Box />
               <div className="flex flex-row justify-center gap-2">
-                <button onClick={handleSkip} className="formbtn ms-8 md:ms-0">
+                <button onClick={handleSkip} className="formbtn ms-8 md:ms-0 bg-red-600 hover:bg-red-500">
                   Skip
                 </button>
                 {activeStep === steps.length - 1 ? (
-                  <button onClick={handleSave} className="formbtn">
+                  <button onClick={handleSave} className="formbtn bg-green-700 hover:bg-green-500">
                     Finish
                   </button>
                 ) : (
-                    
                   <button onClick={handleNext} className="formbtn">
                     Next
                   </button>
