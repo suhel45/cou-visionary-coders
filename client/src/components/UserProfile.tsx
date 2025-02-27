@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
-import manImg from '../../public/man.png';
-import womenImg from '../../public/woman.png';
+import manImg from '../assets/man.png';
+import womenImg from '../assets/woman.png';
 
 const UserProfile = () => {
   const isPerson = false;

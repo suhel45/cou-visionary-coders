@@ -1,9 +1,9 @@
 import React from 'react';
 import Card from './Card';
-import member from '../../public/member.png';
-import search from '../../public/search.png';
-import call from '../../public/call.png';
-import ring from '../../public/ring.png';
+import member from '../../src/assets/member.png';
+import search from '../../src/assets/search.png';
+import call from '../../src/assets/call.png';
+import ring from '../../src/assets/ring.png';
 
 const Instructions: React.FC = () => {
   return (
