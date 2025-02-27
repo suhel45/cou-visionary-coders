@@ -90,6 +90,7 @@ const SignUp = () => {
       toast.error(responseData.message);
     }
   };
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -117,7 +118,7 @@ const SignUp = () => {
         />
         {errors.username && (
           <span className="text-red-500">
-            {errors.username.message && String(errors.username.message)}
+            {errors.username?.message && String(errors.username?.message)}
           </span>
         )}
 
@@ -135,7 +136,7 @@ const SignUp = () => {
         />
         {errors.email && (
           <span className="text-red-500">
-            {errors.email.message && String(errors.email.message)}
+            {errors.email?.message && String(errors.email?.message)}
           </span>
         )}
 
@@ -153,7 +154,7 @@ const SignUp = () => {
         />
         {errors.phoneNumber && (
           <span className="text-red-500">
-            {errors.phoneNumber && String(errors.phoneNumber.message)}
+            {errors.phoneNumber?.message && String(errors.phoneNumber?.message)}
           </span>
         )}
 
@@ -179,9 +180,9 @@ const SignUp = () => {
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
-          {errors?.password && (
+          {errors.password && (
             <span className="text-red-500">
-              {errors?.password.message && String(errors?.password.message)}
+              {errors.password?.message && String(errors.password?.message)}
             </span>
           )}
         </div>
@@ -210,11 +211,10 @@ const SignUp = () => {
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
-          {errors?.confirmPassword && (
+          {errors.confirmPassword && (
             <span className="text-red-500">
-              {errors?.confirmPassword &&
-                errors?.confirmPassword.message &&
-                String(errors?.confirmPassword.message)}
+              {errors.confirmPassword?.message &&
+                String(errors.confirmPassword?.message)}
             </span>
           )}
         </div>
