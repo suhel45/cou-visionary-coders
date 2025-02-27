@@ -182,20 +182,15 @@ const SignUp = () => {
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
-          <span
+          <button
+  type="button"
   className="absolute right-3 top-3 cursor-pointer text-gray-600"
   onClick={togglePasswordVisibility}
-  onKeyDown={(event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      togglePasswordVisibility();
-    }
-  }}
-  tabIndex={0}
-  role="button"
   aria-label="Toggle password visibility"
 >
   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-</span>
+</button>
+
 
           {errors.password && (
             <span className="text-red-500">
@@ -216,20 +211,14 @@ const SignUp = () => {
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
-          <span
+          <button
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                toggleConfirmPasswordVisibility();
-              }
-            }}
-            tabIndex={0}
-            role="button"
+            type="button"
             aria-label="Toggle password visibility"
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+          </button>
           {errors.confirmPassword && (
             <span className="text-red-500">
               {errors.confirmPassword &&
