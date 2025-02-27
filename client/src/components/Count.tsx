@@ -10,7 +10,7 @@ interface CountProps {
 const Count: React.FC<CountProps> = ({ imageSrc, title, cnt }) => {
   return (
     <div className="flex flex-col items-center justify-center border border-gray-300 p-6 basis-full rounded-lg shadow-sm hover:shadow-lg bg-gray-50">
-      <img src={imageSrc} alt="Card Image" className="w-auto h-24 " />
+      <img src={imageSrc}  className="w-auto h-24 " />
 
       <p className="font-bold text-xl text-blue-900 py-2">{title}</p>
 

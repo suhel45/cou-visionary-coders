@@ -171,12 +171,14 @@ const SignUp = () => {
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
-          <span
+          <button
+            type="button"
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={togglePasswordVisibility}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+          </button>
           {errors.password && (
             <span className="text-red-500">
               {errors.password.message && String(errors.password.message)}
@@ -196,12 +198,14 @@ const SignUp = () => {
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
-          <span
+          <button
+            type="button"
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
+            aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+          </button>
           {errors.confirmPassword && (
             <span className="text-red-500">
               {errors.confirmPassword &&
