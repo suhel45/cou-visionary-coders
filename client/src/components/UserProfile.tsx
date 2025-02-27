@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
-import manImg from '../../public/woman.png';
+import manImg from '../../public/man.png';
 import womenImg from '../../public/woman.png';
 
 const UserProfile = () => {
