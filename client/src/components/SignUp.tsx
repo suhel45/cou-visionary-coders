@@ -38,12 +38,7 @@ const SignUp = () => {
         .then(() => {
           handleUpdateUserProfile(data.username);
 
-          saveUser(
-            data.username,
-            data.phoneNumber,
-            data.email,
-            data.password,
-          );
+          saveUser(data.username, data.phoneNumber, data.email, data.password);
         })
         .catch((error: any) => {
           toast.error('Error creating user. Please try again.');

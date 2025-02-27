@@ -5,12 +5,19 @@ import { AuthContext } from '../Hooks/contextApi/UserContext';
 function Logout() {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
 
-  let user = authContext?.user;
+  const { logOut } = authContext;
 
   const handleLogout = () => {
-    user = null;
-    navigate('/login');
+    try {
+      logOut();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return <button onClick={handleLogout}>Logout</button>;

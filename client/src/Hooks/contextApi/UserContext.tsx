@@ -36,7 +36,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const createUser = (email: string, password: string) => {
-    
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
