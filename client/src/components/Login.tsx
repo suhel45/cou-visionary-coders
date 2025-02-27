@@ -130,6 +130,7 @@ const Login: React.FC = () => {
             alt="Google"
             className="w-5 h-5 mr-2"
           />
+          {' '}
           Sign in with Google
         </button>
 

@@ -144,7 +144,7 @@ const SignUp = () => {
           {...register('phoneNumber', {
             required: 'This field is required',
             pattern: {
-              value: /^[0-9]{11}$/,
+               value: /^\d{11}$/,
               message: 'Invalid phone number',
             },
           })}
