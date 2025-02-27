@@ -41,7 +41,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
         <h2 className="heading">যোগাযোগ</h2>
         <form className="md:items-center md:justify-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <label className="label py-0">
-            অভিভাবকের নাম ও সম্পর্ক {"/**/"}
+            অভিভাবকের নাম ও সম্পর্ক {/* */}
             <input
               type="text"
               name="gardian"
@@ -53,7 +53,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label py-0">
-            অভিভাবকের ফোন নাম্বার {"/**/"}
+            অভিভাবকের ফোন নাম্বার {/* */}
             <input
               type="text"
               name="gardianContact"
@@ -65,7 +65,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label py-0">
-            নিজের মোবাইল নাম্বার {"/**/"}
+            নিজের মোবাইল নাম্বার {/* */}
             <input
               type="text"
               name="groomNumber"
@@ -77,7 +77,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label py-0">
-            নিজের ইমেইল {"/**/"}
+            নিজের ইমেইল {/* */}
             <input
               type="email"
               name="groomEmail"
@@ -88,7 +88,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
             />
           </label>
           <br />
-          <div> {"/**/"}
+          <div> {/* */}
             <p className="font-semibold text-red-950 shadow-md text-xs text-justify border border-red-900 sm:text-sm p-2 bg-red-100 rounded-lg">
               বিঃ দ্রঃ আপনার দেওয়া তথ্য কোনোভাবে ভুল প্রমাণিত হলে আপনার একাউন্ট
               টি বাতিল করা হবে।

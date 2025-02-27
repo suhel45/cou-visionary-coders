@@ -44,7 +44,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
         <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <h2 className="subheading">বর্তমান ঠিকানা</h2>
           <label className="label">
-            জেলা -{"/**/"}
+            জেলা -{/* */}
             <select
               name="presentDistrict"
               value={localFormData.presentDistrict}
@@ -61,7 +61,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label">
-            উপজেলা -{"/**/"}
+            উপজেলা -{/* */}
             <select
               name="presentSubDistrict"
               value={localFormData.presentSubDistrict}
@@ -81,7 +81,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
             </select>
           </label>
           <br />
-          <label className="label">গ্রাম -{"/**/"} 
+          <label className="label">গ্রাম -{/* */}
           <input
             name="presentVillage"
             value={localFormData.presentVillage}
@@ -93,7 +93,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           <br />
           <h2 className="subheading">স্থায়ী ঠিকানা</h2>
           <label className="label">
-            জেলা -{"/**/"}
+            জেলা -{/* */}
             <select
               name="permanentDistrict"
               value={localFormData.permanentDistrict}
@@ -110,7 +110,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label">
-            উপজেলা -{"/**/"}
+            উপজেলা -{/* */}
             <select
               name="permanentSubDistrict"
               value={localFormData.permanentSubDistrict}
@@ -130,7 +130,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
             </select>
           </label>
           <br />
-          <label className="label">গ্রাম -{"/**/"} 
+          <label className="label">গ্রাম -{/* */}
           <input
             name="permanentVillage"
             value={localFormData.permanentVillage}
