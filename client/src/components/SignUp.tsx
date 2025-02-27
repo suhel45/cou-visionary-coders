@@ -185,6 +185,7 @@ const SignUp = () => {
           <span
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={togglePasswordVisibility}
+             role="button"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
@@ -210,6 +211,7 @@ const SignUp = () => {
           <span
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
+            role="button"
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
