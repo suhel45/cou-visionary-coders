@@ -51,7 +51,6 @@ const SignUp = () => {
             data.password,
             data.confirmPassword
           );
-
         })
         .catch((error: any) => {
           toast.error("Error creating user. Please try again.");
@@ -85,26 +84,29 @@ const SignUp = () => {
       email,
       password,
     };
-    const response = await fetch("https://halalbondhon-server.vercel.app/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    const response = await fetch(
+      "https://halalbondhon-server.vercel.app/api/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
     const responseData = await response.json();
-    if(responseData.success){
+    if (responseData.success) {
       navigate("/login");
-    }
-    else{
-      toast.error(responseData.message)
+    } else {
+      toast.error(responseData.message);
     }
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   // Watch the password field
   const password = watch("password");
@@ -116,7 +118,8 @@ const SignUp = () => {
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3">
+        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
+      >
         <input
           type="text"
           {...register("username", { required: "This field is required" })}
@@ -179,7 +182,10 @@ const SignUp = () => {
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
-          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={togglePasswordVisibility}>
+          <span
+            className="absolute right-3 top-3 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+          >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
           {errors.password && (
@@ -195,13 +201,16 @@ const SignUp = () => {
             type={showConfirmPassword ? "text" : "password"}
             {...register("confirmPassword", {
               required: "This field is required",
-              validate: (value:any) =>
+              validate: (value: any) =>
                 value === password || "Passwords do not match",
             })}
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
-          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={toggleConfirmPasswordVisibility}>
+          <span
+            className="absolute right-3 top-3 cursor-pointer text-gray-600"
+            onClick={toggleConfirmPasswordVisibility}
+          >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
           {errors.confirmPassword && (
@@ -216,7 +225,10 @@ const SignUp = () => {
         {/* show login option */}
         <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-700 hover:text-lg hover:underline hover:text-blue-400 font-bold">
+          <Link
+            to="/login"
+            className="text-blue-700 hover:text-lg hover:underline hover:text-blue-400 font-bold"
+          >
             Login
           </Link>
         </p>
@@ -224,7 +236,8 @@ const SignUp = () => {
         <button
           type="submit"
           className="btn-primary mx-auto mt-2"
-          disabled={loading}>
+          disabled={loading}
+        >
           {loading ? "Registering..." : "Register"}
         </button>
       </form>
