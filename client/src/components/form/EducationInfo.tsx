@@ -222,7 +222,7 @@ function EducationInfo({ formData, setFormData }: Readonly<EducationInfoProps>) 
             >
               <option value="">Select Department</option>
               {departments.map((department, index) => (
-                <option key={index} value={department}>
+                <option key={department} value={department}>
                   {department}
                 </option>
               ))}
@@ -273,7 +273,7 @@ function EducationInfo({ formData, setFormData }: Readonly<EducationInfoProps>) 
             >
               <option value="">Select Department</option>
               {departments.map((department, index) => (
-                <option key={index} value={department}>
+                <option key={department} value={department}>
                   {department}
                 </option>
               ))}
