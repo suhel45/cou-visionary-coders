@@ -40,10 +40,9 @@ function Nav() {
           alt="Halal Marriage"
           className="h-14 w-auto object-contain mx-auto sm:mx-0"
         />
-        <div
+        <button
           className="block sm:hidden cursor-pointer"
           onClick={toggleMobileMenu}
-          role="button"
           aria-label="Toggle Mobile Menu"
           tabIndex={0}
           onKeyDown={(e) => {
@@ -81,7 +80,7 @@ function Nav() {
               />
             </svg>
           )}
-        </div>
+        </button>
       </div>
 
       {/* Navigation Links */}
