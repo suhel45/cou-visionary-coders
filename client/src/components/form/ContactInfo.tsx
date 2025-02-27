@@ -39,7 +39,7 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
     <div className="w-full">
       <div className="flex flex-col items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
         <h2 className="heading">যোগাযোগ</h2>
-        <form className="items-center justify-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
+        <form className="md:items-center md:justify-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <label className="label py-0">অভিভাবকের নাম ও সম্পর্ক </label>
           <input
             type="text"
