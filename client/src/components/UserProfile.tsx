@@ -9,14 +9,14 @@ const UserProfile = () => {
   const isPerson = false;
   //Fake data for biodata details
   const biodataDetails = [
-    ['Biodata Type', "Male's Biodata"],
-    ['Marital Status', 'Never Married'],
-    ['Birth Year', 'May, 1998'],
-    ['Height', "5'1"],
-    ['Complexion', 'Very Fair'],
-    ['Weight', '54 kg'],
-    ['Blood Group', 'B+'],
-    ['Nationality', 'Bangladeshi'],
+    { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
+    { id: 2, name: 'Marital Status', value: 'Never Married' },
+    { id: 3, name: 'Birth Year', value: 'May, 1998' },
+    { id: 4, name: 'Height', value: "5'1" },
+    { id: 5, name: 'Complexion', value: 'Very Fair' },
+    { id: 6, name: 'Weight', value: '54 kg' },
+    { id: 7, name: 'Blood Group', value: 'B+' },
+    { id: 8, name: 'Nationality', value: 'Bangladeshi' },
   ];
 
   return (
@@ -127,8 +127,8 @@ const UserProfile = () => {
             fontWeight: 'bold',
           }}
         >
-          {biodataDetails.map(([name, value], index) => (
-            <React.Fragment key={index}>
+          {biodataDetails.map(({ id, name, value }) => (
+            <React.Fragment key={id}>
               <Typography
                 sx={{
                   color: '#8e8e8e',
