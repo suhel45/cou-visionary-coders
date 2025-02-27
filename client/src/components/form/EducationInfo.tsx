@@ -52,7 +52,7 @@ const departments = [
   "Law",
 ];
 
-function EducationInfo({ formData, setFormData }: EducationInfoProps) {
+function EducationInfo({ formData, setFormData }: Readonly<EducationInfoProps>) {
   const [localFormData, setLocalFormData] = useState<EducationFormData>({
     ssc: {
       passingYear: "",
@@ -111,7 +111,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
         <form className="items-center justify-center w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <h2 className="subheading">এস এস সি</h2>
           <label className="label py-0">
-            জিপিএ
+            জিপিএ{/**/}
             <input
               type="number"
               step="0.01"
@@ -125,7 +125,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            পাশের সন
+            পাশের সন{/**/}
             <select
               value={localFormData.ssc.passingYear}
               onChange={(e) => handleChange(e, "ssc", "passingYear")}
@@ -141,7 +141,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            গ্রুপ
+            গ্রুপ{/**/}
             <select
               value={localFormData.ssc.group}
               onChange={(e) => handleChange(e, "ssc", "group")}
@@ -156,7 +156,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
 
           <h2 className="subheading">এইচ এস সি</h2>
           <label className="label py-0">
-            জিপিএ
+            জিপিএ{/**/}
             <input
               type="number"
               step="0.01"
@@ -169,7 +169,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
             />
           </label>
 
-          <label className="label py-0">পাশের সন</label>
+          <label className="label py-0">পাশের সন{/**/}
           <select
             value={localFormData.hsc.passingYear}
             onChange={(e) => handleChange(e, "hsc", "passingYear")}
@@ -181,10 +181,10 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
                 {year}
               </option>
             ))}
-          </select>
+          </select></label>
 
           <label className="label py-0">
-            গ্রুপ
+            গ্রুপ{/**/}
             <select
               value={localFormData.hsc.group}
               onChange={(e) => handleChange(e, "hsc", "group")}
@@ -199,7 +199,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           <hr className="my-4" />
           <h2 className="subheading">বিশ্ববিদ্যালয় (অনার্স)</h2>
           <label className="label py-0">
-            অনুষদ
+            অনুষদ{/**/}
             <select
               value={localFormData.university.faculty}
               onChange={(e) => handleChange(e, "university", "faculty")}
@@ -214,7 +214,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            বিভাগ
+            বিভাগ{/**/}
             <select
               value={localFormData.university.department}
               onChange={(e) => handleChange(e, "university", "department")}
@@ -230,7 +230,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            সেশন
+            সেশন{/**/}
             <select
               value={localFormData.university.session}
               onChange={(e) => handleChange(e, "university", "session")}
@@ -250,7 +250,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </span>
           <h2 className="subheading">বিশ্ববিদ্যালয় (মাস্টার্স)</h2>
           <label className="label py-0">
-            অনুষদ
+            অনুষদ{/**/}
             <select
               value={localFormData.university.faculty}
               onChange={(e) => handleChange(e, "university", "faculty")}
@@ -265,7 +265,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            বিভাগ
+            বিভাগ{/**/}
             <select
               value={localFormData.university.department}
               onChange={(e) => handleChange(e, "university", "department")}
@@ -281,7 +281,7 @@ function EducationInfo({ formData, setFormData }: EducationInfoProps) {
           </label>
 
           <label className="label py-0">
-            সেশন
+            সেশন{/**/}
             <select
               value={localFormData.university.session}
               onChange={(e) => handleChange(e, "university", "session")}
