@@ -103,7 +103,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
 
           {/* Father's Information */}
           <div className="flex flex-row justify-center">
-            <label className="label font-semibold">পিতা - </label>
+            <h2 className="label font-semibold">পিতা - </h2>
             <div className="flex gap-4 border border-gray-400 p-2 rounded">
               <label className="flex items-center space-x-2">
                 <input
@@ -139,7 +139,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
 
           {/* Mother's Information */}
           <div className="flex flex-row justify-center">
-            <label className="label font-semibold">মাতা - </label>
+            <h2 className="label font-semibold">মাতা - </h2>
             <div className="flex gap-4 border border-gray-400 p-2 rounded">
               <label className="flex items-center space-x-2">{/*  */}
                 <input
