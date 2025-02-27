@@ -90,6 +90,7 @@ const SignUp = () => {
       toast.error(responseData.message);
     }
   };
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -117,7 +118,7 @@ const SignUp = () => {
         />
         {errors.username && (
           <span className="text-red-500">
-            {errors.username.message && String(errors.username.message)}
+            {errors.username?.message && String(errors.username?.message)}
           </span>
         )}
 
@@ -135,7 +136,7 @@ const SignUp = () => {
         />
         {errors.email && (
           <span className="text-red-500">
-            {errors.email.message && String(errors.email.message)}
+            {errors.email?.message && String(errors.email?.message)}
           </span>
         )}
 
@@ -144,7 +145,7 @@ const SignUp = () => {
           {...register('phoneNumber', {
             required: 'This field is required',
             pattern: {
-              value: /^[0-9]{11}$/,
+              value: /^\d{11}$/,
               message: 'Invalid phone number',
             },
           })}
@@ -153,7 +154,7 @@ const SignUp = () => {
         />
         {errors.phoneNumber && (
           <span className="text-red-500">
-            {errors.phoneNumber && String(errors.phoneNumber.message)}
+            {errors.phoneNumber?.message && String(errors.phoneNumber?.message)}
           </span>
         )}
 
@@ -181,7 +182,7 @@ const SignUp = () => {
           </button>
           {errors.password && (
             <span className="text-red-500">
-              {errors.password.message && String(errors.password.message)}
+              {errors.password?.message && String(errors.password?.message)}
             </span>
           )}
         </div>
@@ -202,15 +203,18 @@ const SignUp = () => {
             type="button"
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
-            aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+            aria-label={
+              showConfirmPassword
+                ? 'Hide confirm password'
+                : 'Show confirm password'
+            }
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
           {errors.confirmPassword && (
             <span className="text-red-500">
-              {errors.confirmPassword &&
-                errors.confirmPassword.message &&
-                String(errors.confirmPassword.message)}
+              {errors.confirmPassword?.message &&
+                String(errors.confirmPassword?.message)}
             </span>
           )}
         </div>

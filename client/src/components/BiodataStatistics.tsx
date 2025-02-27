@@ -1,8 +1,8 @@
 import React from 'react';
 import Count from './Count';
-import manImg from '../../src/assets/man.png';
-import womenImg from '../../src/assets/woman.png';
-import couple from '../../src/assets/cpl.png';
+import manImg from '../assets/man.png';
+import womenImg from '../assets/woman.png';
+import couple from '../assets/cpl.png';
 
 const BiodataStatistics: React.FC = () => {
   return (
