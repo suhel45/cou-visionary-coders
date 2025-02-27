@@ -1,46 +1,48 @@
 /** @format */
 
-import React from "react";
-import { Card, CardContent, Avatar, Typography, Box } from "@mui/material";
-import manImg from "../../public/woman.png";
-import womenImg from "../../public/woman.png";
+import React from 'react';
+import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
+import manImg from '../assets/man.png';
+import womenImg from '../assets/woman.png';
 
 const UserProfile = () => {
   const isPerson = false;
   //Fake data for biodata details
   const biodataDetails = [
-    ["Biodata Type", "Male's Biodata"],
-    ["Marital Status", "Never Married"],
-    ["Birth Year", "May, 1998"],
-    ["Height", "5'1"],
-    ["Complexion", "Very Fair"],
-    ["Weight", "54 kg"],
-    ["Blood Group", "B+"],
-    ["Nationality", "Bangladeshi"],
+    { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
+    { id: 2, name: 'Marital Status', value: 'Never Married' },
+    { id: 3, name: 'Birth Year', value: 'May, 1998' },
+    { id: 4, name: 'Height', value: "5'1" },
+    { id: 5, name: 'Complexion', value: 'Very Fair' },
+    { id: 6, name: 'Weight', value: '54 kg' },
+    { id: 7, name: 'Blood Group', value: 'B+' },
+    { id: 8, name: 'Nationality', value: 'Bangladeshi' },
   ];
 
   return (
     <Card
       sx={{
         maxWidth: 450,
-        bgcolor: "#d0d3ff",
+        bgcolor: '#d0d3ff',
         borderRadius: 6,
-        m:3,
+        m: 3,
         p: 3,
-      }}>
+      }}
+    >
       <Box
         display="flex"
         gap={2}
         sx={{
           flexDirection: {
-            xs: "column",
-            sm: "row",
+            xs: 'column',
+            sm: 'row',
           },
           alignItems: {
-            xs: "center",
-            sm: "flex-start",
+            xs: 'center',
+            sm: 'flex-start',
           },
-        }}>
+        }}
+      >
         {/* Avatar Section */}
         <Avatar
           src={isPerson ? womenImg : manImg}
@@ -48,9 +50,9 @@ const UserProfile = () => {
             width: 100,
             height: 100,
             p: 1,
-            border: "2px solid #652c8b",
-            bgcolor: "#fffff2",
-            "& .MuiSvgIcon-root": { color: "#E91E63" },
+            border: '2px solid #652c8b',
+            bgcolor: '#fffff2',
+            '& .MuiSvgIcon-root': { color: '#E91E63' },
           }}
         />
 
@@ -58,21 +60,23 @@ const UserProfile = () => {
         <Box
           sx={{
             flex: 1,
-            bgcolor: "#fffff2",
+            bgcolor: '#fffff2',
             borderRadius: 4,
             p: 1,
-          }}>
+          }}
+        >
           {/* Biodata Number */}
           <Box
             sx={{
-              bgcolor: "#652c8b",
-              color: "white",
+              bgcolor: '#652c8b',
+              color: 'white',
               borderRadius: 50,
               p: 1,
               mb: 1,
-              textAlign: "center",
-            }}>
-            <Typography sx={{ fontSize: "0.875rem", fontWeight: "bold" }}>
+              textAlign: 'center',
+            }}
+          >
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
               Biodata No : BD-1234
             </Typography>
           </Box>
@@ -80,25 +84,27 @@ const UserProfile = () => {
           {/* Biodata Status */}
           <Box
             sx={{
-              bgcolor: "#652c8b",
-              color: "white",
+              bgcolor: '#652c8b',
+              color: 'white',
               borderRadius: 50,
               p: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-            <Typography sx={{ fontSize: "0.875rem", fontWeight: "bold" }}>
-              Biodata Status :{" "}
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
+              Biodata Status :{' '}
             </Typography>
             <Box
               sx={{
-                bgcolor: "#42d64c",
+                bgcolor: '#42d64c',
                 px: 1,
                 borderRadius: 50,
-                fontSize: "0.875rem",
-                fontWeight: "bold",
-              }}>
+                fontSize: '0.875rem',
+                fontWeight: 'bold',
+              }}
+            >
               Verified
             </Box>
           </Box>
@@ -108,32 +114,36 @@ const UserProfile = () => {
       {/* Details Section */}
       <CardContent
         sx={{
-          bgcolor: "#fffff2",
+          bgcolor: '#fffff2',
           borderRadius: 4,
           mt: 2,
-        }}>
+        }}
+      >
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: "auto 1fr",
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr',
             gap: 1,
-            fontWeight: "bold",
-          }}>
-          {biodataDetails.map(([name, value], index) => (
-            <React.Fragment key={index}>
+            fontWeight: 'bold',
+          }}
+        >
+          {biodataDetails.map(({ id, name, value }) => (
+            <React.Fragment key={id}>
               <Typography
                 sx={{
-                  color: "#8e8e8e",
+                  color: '#8e8e8e',
                   py: 0.5,
-                  fontWeight: "bold",
-                }}>
+                  fontWeight: 'bold',
+                }}
+              >
                 {name}
               </Typography>
               <Typography
                 sx={{
-                  color: "black",
+                  color: 'black',
                   py: 0.5,
-                }}>
+                }}
+              >
                 : {value}
               </Typography>
             </React.Fragment>

@@ -34,7 +34,7 @@ const loginUser = async (req: Request, res: Response) => {
     //set the token as an httpOnly cookie
     res.cookie('token', result, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' ? true : false,
+      secure: true,
       sameSite: 'strict',
       maxAge: 3600000, // 1 hour
     });

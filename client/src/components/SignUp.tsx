@@ -1,17 +1,15 @@
-/** @format */
-
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { AuthContext } from "../Hooks/contextApi/UserContext";
-import { Link, useNavigate } from "react-router-dom";
-import { IFormData, UserProfile } from "../interfaces/Signup.interface";
-import { Eye, EyeOff } from "lucide-react";
+import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../Hooks/contextApi/UserContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { IFormData, UserProfile } from '../interfaces/Signup.interface';
+import { Eye, EyeOff } from 'lucide-react';
 
 const SignUp = () => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
-    throw new Error("AuthContext is null");
+    throw new Error('AuthContext is null');
   }
 
   const { createUser, updateUserProfile } = authContext;
@@ -37,27 +35,17 @@ const SignUp = () => {
       });
 
       createUser(data.email, data.password)
-        .then((result: { user: any }) => {
-          const user = result.user;
-          toast.success("user created successfully");
-        })
         .then(() => {
           handleUpdateUserProfile(data.username);
 
-          saveUser(
-            data.username,
-            data.phoneNumber,
-            data.email,
-            data.password,
-            data.confirmPassword
-          );
-
+          saveUser(data.username, data.phoneNumber, data.email, data.password);
         })
         .catch((error: any) => {
-          toast.error("Error creating user. Please try again.");
+          console.log(error);
+          toast.error('Error creating user. Please try again.');
         });
     } catch (error) {
-      console.error("Error during form submission:", error);
+      console.error('Error during form submission:', error);
     } finally {
       setLoading(false);
     }
@@ -77,7 +65,6 @@ const SignUp = () => {
     phoneNumber: string,
     email: string,
     password: string,
-    confirmPassword: string
   ) => {
     const user = {
       username,
@@ -85,29 +72,33 @@ const SignUp = () => {
       email,
       password,
     };
-    const response = await fetch("https://halalbondhon-server.vercel.app/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      'https://halalbondhon-server.vercel.app/api/signup',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
       },
-      body: JSON.stringify(user),
-    });
+    );
     const responseData = await response.json();
-    if(responseData.success){
-      navigate("/login");
-    }
-    else{
-      toast.error(responseData.message)
+    if (responseData.success) {
+      toast.success('user created successfully');
+      navigate('/login');
+    } else {
+      toast.error(responseData.message);
     }
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   // Watch the password field
-  const password = watch("password");
+  const password = watch('password');
 
   return (
     <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
@@ -116,10 +107,11 @@ const SignUp = () => {
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3">
+        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
+      >
         <input
           type="text"
-          {...register("username", { required: "This field is required" })}
+          {...register('username', { required: 'This field is required' })}
           placeholder="Enter Your Name"
           className="form-input p-2 w-full"
         />
@@ -131,11 +123,11 @@ const SignUp = () => {
 
         <input
           type="email"
-          {...register("email", {
-            required: "This field is required",
+          {...register('email', {
+            required: 'This field is required',
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Invalid email address",
+              message: 'Invalid email address',
             },
           })}
           placeholder="Enter Your Email"
@@ -149,11 +141,11 @@ const SignUp = () => {
 
         <input
           type="tel"
-          {...register("phoneNumber", {
-            required: "This field is required",
+          {...register('phoneNumber', {
+            required: 'This field is required',
             pattern: {
               value: /^[0-9]{11}$/,
-              message: "Invalid phone number",
+              message: 'Invalid phone number',
             },
           })}
           placeholder="Enter Your Phone Number"
@@ -168,20 +160,25 @@ const SignUp = () => {
         {/* Password */}
         <div className="relative w-full">
           <input
-            type={showPassword ? "text" : "password"}
-            {...register("password", {
-              required: "This field is required",
+            type={showPassword ? 'text' : 'password'}
+            {...register('password', {
+              required: 'This field is required',
               minLength: {
                 value: 6,
-                message: "Password must be at least 6 characters long",
+                message: 'Password must be at least 6 characters long',
               },
             })}
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
-          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={togglePasswordVisibility}>
+          <button
+            type="button"
+            className="absolute right-3 top-3 cursor-pointer text-gray-600"
+            onClick={togglePasswordVisibility}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+          </button>
           {errors.password && (
             <span className="text-red-500">
               {errors.password.message && String(errors.password.message)}
@@ -192,18 +189,23 @@ const SignUp = () => {
         {/* Confirm Password */}
         <div className="relative w-full">
           <input
-            type={showConfirmPassword ? "text" : "password"}
-            {...register("confirmPassword", {
-              required: "This field is required",
-              validate: (value:any) =>
-                value === password || "Passwords do not match",
+            type={showConfirmPassword ? 'text' : 'password'}
+            {...register('confirmPassword', {
+              required: 'This field is required',
+              validate: (value: any) =>
+                value === password || 'Passwords do not match',
             })}
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
-          <span className="absolute right-3 top-3 cursor-pointer text-gray-600" onClick={toggleConfirmPasswordVisibility}>
+          <button
+            type="button"
+            className="absolute right-3 top-3 cursor-pointer text-gray-600"
+            onClick={toggleConfirmPasswordVisibility}
+            aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+          >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+          </button>
           {errors.confirmPassword && (
             <span className="text-red-500">
               {errors.confirmPassword &&
@@ -215,8 +217,11 @@ const SignUp = () => {
 
         {/* show login option */}
         <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-700 hover:text-lg hover:underline hover:text-blue-400 font-bold">
+          Already have an account?{' '}
+          <Link
+            to="/login"
+            className="text-blue-700 hover:text-lg hover:underline hover:text-blue-400 font-bold"
+          >
             Login
           </Link>
         </p>
@@ -224,8 +229,9 @@ const SignUp = () => {
         <button
           type="submit"
           className="btn-primary mx-auto mt-2"
-          disabled={loading}>
-          {loading ? "Registering..." : "Register"}
+          disabled={loading}
+        >
+          {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
     </div>

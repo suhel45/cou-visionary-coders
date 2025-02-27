@@ -1,21 +1,20 @@
-import { useState, useContext } from "react";
-import { Link,useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
-import profileIcon from "../assets/profile.png";
-import dashboardIcon from "../assets/dashboard.png";
-import logoutIcon from "../assets/logout.png";
-import signupIcon from "../assets/signup.png";
-import loginIcon from "../assets/login.png";
-import { AuthContext } from "../Hooks/contextApi/UserContext";
-
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import profileIcon from '../assets/profile.png';
+import dashboardIcon from '../assets/dashboard.png';
+import logoutIcon from '../assets/logout.png';
+import signupIcon from '../assets/signup.png';
+import loginIcon from '../assets/login.png';
+import { AuthContext } from '../Hooks/contextApi/UserContext';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   // Get AuthContext and ensure it's not null
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   // Check if authContext is available and extract user and logOut
   let user = authContext?.user;
   const logOut = authContext?.logOut;
@@ -27,8 +26,8 @@ function Nav() {
   const handleLogout = async () => {
     if (logOut) {
       await logOut();
-      navigate("/login");
-      user = null ;
+      navigate('/login');
+      user = null;
     }
   };
 
@@ -41,14 +40,13 @@ function Nav() {
           alt="Halal Marriage"
           className="h-14 w-auto object-contain mx-auto sm:mx-0"
         />
-        <div
+        <button
           className="block sm:hidden cursor-pointer"
           onClick={toggleMobileMenu}
-          role="button"
           aria-label="Toggle Mobile Menu"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") toggleMobileMenu();
+            if (e.key === 'Enter' || e.key === ' ') toggleMobileMenu();
           }}
         >
           {isMobileMenuOpen ? (
@@ -82,13 +80,13 @@ function Nav() {
               />
             </svg>
           )}
-        </div>
+        </button>
       </div>
 
       {/* Navigation Links */}
       <nav
         className={`${
-          isMobileMenuOpen ? "block" : "hidden"
+          isMobileMenuOpen ? 'block' : 'hidden'
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
         {user ? (
@@ -105,15 +103,12 @@ function Nav() {
               <img src={dashboardIcon} alt="Dashboard" className="w-8 px-1" />
               <Link to="/dashboard">Dashboard</Link>
             </li>
-            <li
-              className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400"
-            >
+            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
               <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         ) : (
-         
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
             <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
               <Link to="/home">Home</Link>
