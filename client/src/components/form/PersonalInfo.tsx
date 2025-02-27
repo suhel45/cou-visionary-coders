@@ -68,7 +68,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Birthday Field */}
           <label className="label">
-            জন্ম তারিখ - 
+            জন্ম তারিখ -  {/*  */}
             <input
               type="date"
               name="birthday"
@@ -80,7 +80,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Gender Field */}
           <label className="label">
-            লিঙ্গ - 
+            লিঙ্গ - {/*  */}
             <select
               name="gender"
               value={localFormData.gender}
@@ -96,7 +96,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Marital Status Field */}
           <label className="label">
-            বৈবাহিক অবস্থা -
+            বৈবাহিক অবস্থা -{/*  */}
             <select
               name="maritalStatus"
               value={localFormData.maritalStatus}
@@ -114,7 +114,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Height Field */}
           <label className="label">
-            উচ্চতা -
+            উচ্চতা -{/*  */}
             <select
               name="height"
               value={localFormData.height}
@@ -137,7 +137,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Weight Field */}
           <label className="label">
-            ওজন -
+            ওজন -{/*  */}
             <select
               name="weight"
               value={localFormData.weight}
@@ -158,7 +158,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Skin Color Field */}
           <label className="label">
-            গাত্রবর্ন -
+            গাত্রবর্ন -{/*  */}
             <select
               name="skinColor"
               value={localFormData.skinColor}
@@ -176,7 +176,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Blood Group Field */}
           <label className="label">
-            রক্তের গ্রুপ -
+            রক্তের গ্রুপ -{/*  */}
             <select
               name="blood"
               value={localFormData.blood}
@@ -195,7 +195,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
             </select>
           </label>
           <label className="label">
-            ধর্ম -
+            ধর্ম -{/*  */}
             <select
               name="religion"
               value={localFormData.religion}
@@ -213,7 +213,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Work Field */}
           <label className="label">
-            পেশা -
+            পেশা -{/*  */}
             <select
               className="option-btn"
               name="work"

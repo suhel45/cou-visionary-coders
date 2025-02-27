@@ -115,7 +115,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
                 <span className="md:text-lg font-semibold text-gray-700">জীবিত</span>
               </label>
 
-              <label className="flex items-center space-x-2">
+              <label className="flex items-center space-x-2">{/*  */}
                 <input
                   type="checkbox"
                   checked={!localFormData.fatherAliveStatus}
@@ -127,7 +127,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
             </div>
           </div>
 
-          <label className="label">পিতার পেশা
+          <label className="label">পিতার পেশা{/*  */}
           <input
             type="text"
             name="fatherProfession"
@@ -141,7 +141,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           <div className="flex flex-row justify-center">
             <label className="label font-semibold">মাতা - </label>
             <div className="flex gap-4 border border-gray-400 p-2 rounded">
-              <label className="flex items-center space-x-2">
+              <label className="flex items-center space-x-2">{/*  */}
                 <input
                   type="checkbox"
                   checked={localFormData.motherAliveStatus}
@@ -163,7 +163,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
             </div>
           </div>
 
-          <label className="label">মাতার পেশা
+          <label className="label">মাতার পেশা{/*  */}
           <input
             type="text"
             name="motherProfession"
@@ -174,7 +174,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           />
         </label>
           {/* Siblings Information */}
-          <label className="label">ভাইয়ের তথ্য
+          <label className="label">ভাইয়ের তথ্য{/*  */}
           <textarea
             name="brotherInfo"
             value={localFormData.brotherInfo}
@@ -183,7 +183,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
             placeholder="যেমনঃ ১ বড় ভাই, পেশা- ইঞ্জিনিয়ার"
           /></label>
 
-          <label className="label">বোনের তথ্য
+          <label className="label">বোনের তথ্য{/*  */}
           <textarea
             name="sisterInfo"
             value={localFormData.sisterInfo}
@@ -192,7 +192,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
             placeholder="যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার"
           /></label>
 
-          <label className="label">ভাই-বোন সম্পর্কে
+          <label className="label">ভাই-বোন সম্পর্কে{/*  */}
           <textarea
             name="aboutSiblings"
             value={localFormData.aboutSiblings}
@@ -202,7 +202,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           /></label>
 
           {/* Financial Status */}
-          <label className="label flex flex-col justify-center items-center">পারিবারিক আর্থিক অবস্থা
+          <label className="label flex flex-col justify-center items-center">পারিবারিক আর্থিক অবস্থা {/*  */}
           <select
             name="financialStatus"
             value={localFormData.financialStatus}
