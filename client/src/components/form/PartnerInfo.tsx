@@ -45,7 +45,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
           <hr />
 
           <label className="label">
-            পাত্র/পাত্রীর বৈবাহিক অবস্থা -
+            পাত্র/পাত্রীর বৈবাহিক অবস্থা -{/* */}
             <select name="PmaritalStatus" value={localFormData.PmaritalStatus} onChange={handleChange} className="option-btn">
               <option>নির্বাচন করুন</option>
               <option value="অবিবাহিত">অবিবাহিত</option>
@@ -57,7 +57,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
           </label>
 
           <label className="label">
-            পাত্র/পাত্রীর অর্থনৈতিক অবস্থা -
+            পাত্র/পাত্রীর অর্থনৈতিক অবস্থা -{/* */}
             <select name="PfamilyStatus" value={localFormData.PfamilyStatus} onChange={handleChange} className="option-btn">
               <option>নির্বাচন করুন</option>
               <option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
@@ -69,7 +69,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
           </label>
 
           <label className="label">
-            পাত্র/পাত্রীর উচ্চতা -
+            পাত্র/পাত্রীর উচ্চতা -{/* */}
             <select name="Pheight" value={localFormData.Pheight} onChange={handleChange} className="option-btn">
               <option>নির্বাচন করুন</option>
               {Array.from({ length: 36 }, (_, i) => {
@@ -86,7 +86,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
           </label>
 
           <label className="label">
-            পাত্র/পাত্রীর গাত্রবর্ন -
+            পাত্র/পাত্রীর গাত্রবর্ন -{/* */}
             <select name="PskinColor" value={localFormData.PskinColor} onChange={handleChange} className="option-btn">
               <option>নির্বাচন করুন</option>
               <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
@@ -98,7 +98,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
           </label>
 
           <label className="label">
-            পাত্র/পাত্রীর পেশা -
+            পাত্র/পাত্রীর পেশা -{/* */}
             <select className="option-btn" name="Pwork" value={localFormData.Pwork} onChange={handleChange}>
               <option>নির্বাচন করুন</option>
               <option value="শিক্ষার্থী">শিক্ষার্থী</option>
@@ -115,8 +115,8 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
             </select>
           </label>
 
-          <label className="subheading  text-sm md:text-xl">জীবনসঙ্গীর যেসব বৈশিষ্ট্যে বা গুনাবলী প্রত্যাশা করেন</label>
-          <textarea name="Pexpectation" value={localFormData.Pexpectation} onChange={handleChange} className="option-btn p-2 w-full mb-4" placeholder="Enter Your Expected Qualities" rows={4}/>
+          <label className="subheading  text-sm md:text-xl">{/* */}জীবনসঙ্গীর যেসব বৈশিষ্ট্যে বা গুনাবলী প্রত্যাশা করেন
+          <textarea name="Pexpectation" value={localFormData.Pexpectation} onChange={handleChange} className="option-btn p-2 w-full mb-4" placeholder="Enter Your Expected Qualities" rows={4}/></label>
         </form>
       </div>
     </div>
