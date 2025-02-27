@@ -2,7 +2,7 @@ import React from 'react';
 import Count from './Count';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
-import couple from '../assets/cpl.png'
+import couple from '../assets/cpl.png';
 
 const BiodataStatistics: React.FC = () => {
   return (

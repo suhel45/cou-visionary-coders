@@ -144,7 +144,7 @@ const SignUp = () => {
           {...register('phoneNumber', {
             required: 'This field is required',
             pattern: {
-               value: /^\d{11}$/,
+              value: /^\d{11}$/,
               message: 'Invalid phone number',
             },
           })}
@@ -179,9 +179,9 @@ const SignUp = () => {
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
-          {errors.password && (
+          {errors?.password && (
             <span className="text-red-500">
-              {errors.password.message && String(errors.password.message)}
+              {errors?.password.message && String(errors?.password.message)}
             </span>
           )}
         </div>
@@ -202,15 +202,19 @@ const SignUp = () => {
             type="button"
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
-            aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+            aria-label={
+              showConfirmPassword
+                ? 'Hide confirm password'
+                : 'Show confirm password'
+            }
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
-          {errors.confirmPassword && (
+          {errors?.confirmPassword && (
             <span className="text-red-500">
-              {errors.confirmPassword &&
-                errors.confirmPassword.message &&
-                String(errors.confirmPassword.message)}
+              {errors?.confirmPassword &&
+                errors?.confirmPassword.message &&
+                String(errors?.confirmPassword.message)}
             </span>
           )}
         </div>
