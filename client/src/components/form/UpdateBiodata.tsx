@@ -100,7 +100,7 @@ const UpdateBiodata: React.FC = () => {
     <Box className="md:flex md:flex-col m-4 md:p-4 p-8 rounded border-2 border-gray-300">
       <div className="sm:hidden flex justify-between items-center mb-4">
         <button disabled={activeStep === 0} onClick={handleBack} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
-          {activeStep > 0 ? "<< "+ steps[activeStep - 1] : "Initial"}
+          {activeStep > 0 ? "<< "+ steps[activeStep - 1] : "Start"}
         </button>
         <button onClick={handleNext} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
            {activeStep < steps.length - 1 ?   steps[activeStep + 1] + " >>": "Final"}
