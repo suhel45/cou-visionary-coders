@@ -23,7 +23,9 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
     setLocalFormData(formData);
   }, [formData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setLocalFormData({
       ...localFormData,
@@ -40,14 +42,15 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
       <div className="flex flex-col items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
         <h2 className="heading">ঠিকানা</h2>
         <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-       
-         
-
-          {/* Present Address */}
           <h2 className="subheading">বর্তমান ঠিকানা</h2>
           <label className="label">
             জেলা -
-            <select name="presentDistrict" value={localFormData.presentDistrict} onChange={handleChange} className="option-btn">
+            <select
+              name="presentDistrict"
+              value={localFormData.presentDistrict}
+              onChange={handleChange}
+              className="option-btn"
+            >
               <option>নির্বাচন করুন</option>
               {districts.map((district) => (
                 <option key={district} value={district}>
@@ -58,25 +61,25 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label">
-  উপজেলা -
-  <select
-    name="presentSubDistrict"
-    value={localFormData.presentSubDistrict}
-    onChange={handleChange}
-    className="option-btn"
-    disabled={!localFormData.presentDistrict}
-  >
-    <option>নির্বাচন করুন</option>
-    {localFormData.presentDistrict &&
-      subDistricts[localFormData.presentDistrict as keyof typeof subDistricts].map(
-        (subDistrict) => (
-          <option key={subDistrict} value={subDistrict}>
-            {subDistrict}
-          </option>
-        )
-      )}
-  </select>
-</label>
+            উপজেলা -
+            <select
+              name="presentSubDistrict"
+              value={localFormData.presentSubDistrict}
+              onChange={handleChange}
+              className="option-btn"
+              disabled={!localFormData.presentDistrict}
+            >
+              <option>নির্বাচন করুন</option>
+              {localFormData.presentDistrict &&
+                subDistricts[
+                  localFormData.presentDistrict as keyof typeof subDistricts
+                ].map((subDistrict) => (
+                  <option key={subDistrict} value={subDistrict}>
+                    {subDistrict}
+                  </option>
+                ))}
+            </select>
+          </label>
           <br />
           <label className="label">গ্রাম - </label>
           <input
@@ -88,12 +91,15 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
             placeholder="Enter"
           />
           <br />
-
-          {/* Permanent Address */}
           <h2 className="subheading">স্থায়ী ঠিকানা</h2>
           <label className="label">
             জেলা -
-            <select name="permanentDistrict" value={localFormData.permanentDistrict} onChange={handleChange} className="option-btn">
+            <select
+              name="permanentDistrict"
+              value={localFormData.permanentDistrict}
+              onChange={handleChange}
+              className="option-btn"
+            >
               <option>নির্বাচন করুন</option>
               {districts.map((district) => (
                 <option key={district} value={district}>
@@ -104,25 +110,25 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           </label>
           <br />
           <label className="label">
-  উপজেলা -
-  <select
-    name="permanentSubDistrict"
-    value={localFormData.permanentSubDistrict}
-    onChange={handleChange}
-    className="option-btn"
-    disabled={!localFormData.permanentDistrict}
-  >
-    <option>নির্বাচন করুন</option>
-    {localFormData.permanentDistrict &&
-      subDistricts[localFormData.permanentDistrict as keyof typeof subDistricts].map(
-        (subDistrict) => (
-          <option key={subDistrict} value={subDistrict}>
-            {subDistrict}
-          </option>
-        )
-      )}
-  </select>
-</label>
+            উপজেলা -
+            <select
+              name="permanentSubDistrict"
+              value={localFormData.permanentSubDistrict}
+              onChange={handleChange}
+              className="option-btn"
+              disabled={!localFormData.permanentDistrict}
+            >
+              <option>নির্বাচন করুন</option>
+              {localFormData.permanentDistrict &&
+                subDistricts[
+                  localFormData.permanentDistrict as keyof typeof subDistricts
+                ].map((subDistrict) => (
+                  <option key={subDistrict} value={subDistrict}>
+                    {subDistrict}
+                  </option>
+                ))}
+            </select>
+          </label>
           <br />
           <label className="label">গ্রাম - </label>
           <input
@@ -134,8 +140,6 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
             placeholder="Enter"
           />
           <br />
-
-         
         </form>
       </div>
     </div>
