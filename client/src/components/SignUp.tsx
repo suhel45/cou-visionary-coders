@@ -185,6 +185,7 @@ const SignUp = () => {
           <span
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={togglePasswordVisibility}
+            aria-hidden="true"
              role="button"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -211,6 +212,7 @@ const SignUp = () => {
           <span
             className="absolute right-3 top-3 cursor-pointer text-gray-600"
             onClick={toggleConfirmPasswordVisibility}
+             aria-hidden="true"
             role="button"
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
