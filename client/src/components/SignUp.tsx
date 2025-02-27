@@ -1,5 +1,3 @@
-/** @format */
-
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -37,9 +35,6 @@ const SignUp = () => {
       });
 
       createUser(data.email, data.password)
-        .then((result: { user: any }) => {
-          toast.success('user created successfully');
-        })
         .then(() => {
           handleUpdateUserProfile(data.username);
 
@@ -93,6 +88,7 @@ const SignUp = () => {
     );
     const responseData = await response.json();
     if (responseData.success) {
+      toast.success('user created successfully');
       navigate('/login');
     } else {
       toast.error(responseData.message);
