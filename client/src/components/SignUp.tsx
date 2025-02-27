@@ -41,6 +41,7 @@ const SignUp = () => {
           saveUser(data.username, data.phoneNumber, data.email, data.password);
         })
         .catch((error: any) => {
+          console.log(error);
           toast.error('Error creating user. Please try again.');
         });
     } catch (error) {
