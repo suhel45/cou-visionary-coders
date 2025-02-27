@@ -115,8 +115,8 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
             </select>
           </label>
 
-          <label className="subheading text-sm md:text-xl">জীবনসঙ্গীর যেসব বৈশিষ্ট্যে বা গুনাবলী প্রত্যাশা করেন</label>
-          <textarea name="Pexpectation" value={localFormData.Pexpectation} onChange={handleChange} className="form-input p-2 w-full mb-4" placeholder="Enter Your Expected Qualities" rows={4}/>
+          <label className="subheading  text-sm md:text-xl">জীবনসঙ্গীর যেসব বৈশিষ্ট্যে বা গুনাবলী প্রত্যাশা করেন</label>
+          <textarea name="Pexpectation" value={localFormData.Pexpectation} onChange={handleChange} className="option-btn p-2 w-full mb-4" placeholder="Enter Your Expected Qualities" rows={4}/>
         </form>
       </div>
     </div>
