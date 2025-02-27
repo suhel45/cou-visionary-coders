@@ -9,7 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState, useMemo } from 'react';
 import { auth } from '../../components/firebase/Firebase.config';
 import { UserProfile } from '../../interfaces/Signup.interface';
 
@@ -69,15 +69,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
-  const authValue: authContextProps = {
-    user,
-    createUser,
-    loginUser,
-    logOut,
-    updateUserProfile,
-    signInWithGoogle,
-    loading,
-  };
+  const authValue = useMemo(
+    () => ({
+      user,
+      createUser,
+      loginUser,
+      logOut,
+      updateUserProfile,
+      signInWithGoogle,
+      loading,
+    }),
+    [user, loading],
+  );
 
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
