@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
@@ -135,12 +135,12 @@ const Login: React.FC = () => {
 
         <p className="mt-6 text-center text-sm md:text-lg text-gray-500">
           Not a member?
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-indigo-700 hover:text-indigo-400 font-bold px-2"
           >
             Create Account
-          </a>
+          </Link>
         </p>
       </div>
     </div>
