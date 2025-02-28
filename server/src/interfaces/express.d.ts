@@ -1,5 +1,5 @@
-import { request } from "express"
+import { Request } from "express"
 
-export type CustomReq = request & {
+export type CustomReq = Request & {
     csrfToken: () => string
 }
