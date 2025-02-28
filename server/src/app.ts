@@ -7,6 +7,7 @@ import cors from 'cors';
 import lusca from 'lusca';
 import session from 'express-session';
 import userRoute from './routes/users.route';
+import { CustomReq } from './interfaces/express';
 
 dotenv.config();
 
@@ -31,7 +32,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET as string,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: process.env.NODE_ENV === 'production' },
   }),
 );
@@ -77,7 +78,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/csrf-token', (req: Request, res: Response) => {
-  res.json({ csrfToken: req.headers['x-csrf-token'] });
+  res.json({ csrfToken: (req as CustomReq).csrfToken() });
 });
 
 export default app;
