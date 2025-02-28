@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
+import csurf from 'csurf';
 import userRoute from './routes/users.route';
 
 const app: Express = express();
@@ -21,10 +22,14 @@ const corsOption = {
   credentials: true,
 };
 
+//CSRF protection middleware
+const csrfProtection = csurf({ cookie: true });
+
 app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
+app.use(csrfProtection);
 
 app.use(
   helmet({
@@ -44,5 +49,8 @@ app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
 
+app.get('/csrf-token', (req: Request, res: Response) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 export default app;
