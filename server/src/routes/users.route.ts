@@ -3,6 +3,7 @@ import { userController } from '../controllers/user.controller';
 import { authController } from '../controllers/auth.controller';
 import { PersonalAllDetailsModel } from './../models/PersonalAllDetails.Model';
 import { verifyToken } from '../middleware/authMiddleware';
+import { personalDetailsController } from '../controllers/personalAllDetails.controller';
 
 const router = Router();
 
@@ -12,11 +13,7 @@ router.post('/login/google', authController.loginWithGoogle);
 
 
 
-router.post('/profile/biodata', verifyToken, async (req , res) => {
-    console.log(req);
-    res.send('Hello');
-
-})
+router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
 
 router.get('/get-data', async (req, res) => {
     try {

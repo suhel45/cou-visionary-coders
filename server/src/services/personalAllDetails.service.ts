@@ -5,7 +5,7 @@ const createBiodata = async (biodata:IPersonalAllDetails) => {
     try {
         // Save the user to the database
         const newBiodata = new PersonalAllDetailsModel({
-            users: biodata.user.id,
+            users: biodata.users,
             personalInfo: biodata.personalInfo,
             address: biodata.address,
             education: biodata.education,
