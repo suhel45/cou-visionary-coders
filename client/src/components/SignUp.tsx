@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../Hooks/contextApi/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { IFormData, UserProfile } from "../interfaces/Signup.interface";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignUp = () => {
   const authContext = useContext(AuthContext);
@@ -50,7 +51,6 @@ const SignUp = () => {
             data.password,
             data.confirmPassword
           );
-
         })
         .catch((error: any) => {
           toast.error("Error creating user. Please try again.");
@@ -84,21 +84,29 @@ const SignUp = () => {
       email,
       password,
     };
-    const response = await fetch("https://halalbondhon-server.vercel.app/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    const response = await fetch(
+      "https://halalbondhon-server.vercel.app/api/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
     const responseData = await response.json();
-    if(responseData.success){
+    if (responseData.success) {
       navigate("/login");
-    }
-    else{
-      toast.error(responseData.message)
+    } else {
+      toast.error(responseData.message);
     }
   };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   // Watch the password field
   const password = watch("password");
@@ -110,7 +118,8 @@ const SignUp = () => {
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3">
+        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
+      >
         <input
           type="text"
           {...register("username", { required: "This field is required" })}
@@ -162,7 +171,7 @@ const SignUp = () => {
         {/* Password */}
         <div className="relative w-full">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -173,6 +182,16 @@ const SignUp = () => {
             placeholder="Enter Your Password"
             className="form-input p-2 w-full"
           />
+          <button
+  type="button"
+  className="absolute right-3 top-3 cursor-pointer text-gray-600"
+  onClick={togglePasswordVisibility}
+  aria-label="Toggle password visibility"
+>
+  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+</button>
+
+
           {errors.password && (
             <span className="text-red-500">
               {errors.password.message && String(errors.password.message)}
@@ -183,15 +202,23 @@ const SignUp = () => {
         {/* Confirm Password */}
         <div className="relative w-full">
           <input
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             {...register("confirmPassword", {
               required: "This field is required",
-              validate: (value:any) =>
+              validate: (value: any) =>
                 value === password || "Passwords do not match",
             })}
             placeholder="Confirm Your Password"
             className="form-input p-2 w-full"
           />
+          <button
+            className="absolute right-3 top-3 cursor-pointer text-gray-600"
+            onClick={toggleConfirmPasswordVisibility}
+            type="button"
+            aria-label="Toggle password visibility"
+          >
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
           {errors.confirmPassword && (
             <span className="text-red-500">
               {errors.confirmPassword &&
@@ -202,9 +229,12 @@ const SignUp = () => {
         </div>
 
         {/* show login option */}
-        <p className="text-center text-sm">
+        <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 hover:underline">
+          <Link
+            to="/login"
+            className="text-blue-700 hover:text-lg hover:underline hover:text-blue-400 font-bold"
+          >
             Login
           </Link>
         </p>
@@ -212,7 +242,8 @@ const SignUp = () => {
         <button
           type="submit"
           className="btn-primary mx-auto mt-2"
-          disabled={loading}>
+          disabled={loading}
+        >
           {loading ? "Registering..." : "Register"}
         </button>
       </form>
