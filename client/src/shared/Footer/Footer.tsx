@@ -1,19 +1,19 @@
 /** @format */
 
-import { Facebook, Globe, Mail } from "lucide-react";
+import { Facebook, Globe, Mail } from 'lucide-react';
 
 const Footer = () => {
   const navigationLinks = [
-    { title: "Privacy Policy", href: "/privacy" },
-    { title: "Terms and Condition", href: "/terms" },
-    { title: "FAQ", href: "/faq" },
-    { title: "About Us", href: "/about" },
+    { title: 'Privacy Policy', href: '/privacy' },
+    { title: 'Terms and Condition', href: '/terms' },
+    { title: 'FAQ', href: '/faq' },
+    { title: 'About Us', href: '/about' },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Globe, href: "#", label: "Website" },
-    { icon: Mail, href: "#", label: "Email" },
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Globe, href: '#', label: 'Website' },
+    { icon: Mail, href: '#', label: 'Email' },
   ];
 
   return (
@@ -24,12 +24,14 @@ const Footer = () => {
                        gap-1 sm:gap-4 md:gap-6 mb-4 md:mb-8 
                        py-2 sm:py-3 px-6 sm:px-4 md:px-6 
                        rounded-lg sm:rounded-full mx-auto w-fit
-                       text-sm sm:text-base sm:bg-white/10">
+                       text-sm sm:text-base sm:bg-white/10"
+        >
           {navigationLinks.map((link) => (
             <a
               key={link.title}
               href={link.href}
-              className="py-1 sm:py-0 p-2 rounded transition-all duration-200 hover:font-bold hover:opacity-80 hover:shadow-md hover:bg-white/10 sm:hover:opacity-100 sm:hover:shadow-none sm:hover:bg-transparent">
+              className="py-1 sm:py-0 p-2 rounded transition-all duration-200 hover:font-bold hover:opacity-80 hover:shadow-md hover:bg-white/10 sm:hover:opacity-100 sm:hover:shadow-none sm:hover:bg-transparent"
+            >
               {link.title}
             </a>
           ))}
@@ -43,7 +45,8 @@ const Footer = () => {
               href={link.href}
               className="p-2 sm:p-3 rounded-full hover:opacity-80 transition-all duration-200 
                          flex items-center justify-center bg-white/10"
-              aria-label={link.label}>
+              aria-label={link.label}
+            >
               <link.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
             </a>
           ))}
