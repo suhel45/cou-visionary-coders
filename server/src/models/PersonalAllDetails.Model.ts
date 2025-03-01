@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { PesonalAllDetails } from '../interfaces/personalAllDetails.interface';
+import { IPersonalAllDetails } from '../interfaces/personalAllDetails.interface';
 import { personalInfoSchema } from './personalInfo.Schema';
 import { addressInfoSchema } from './AdressInfo.Schema';
 import { educationInfoSchema } from './EducationalInfo.Schema';
@@ -8,7 +8,7 @@ import { expectedLifePartnerSchema } from './LifePartner.Schema';
 import { contactInfoSchema } from './ContactInfo.Schema';
 // import { personalPreferenceSchema } from './PersonalPreference.Model';
 
-const personalAllDetailsSchema = new Schema<PesonalAllDetails>(
+const personalAllDetailsSchema = new Schema<IPersonalAllDetails>(
   {
     users: {
       type: Schema.Types.ObjectId,
@@ -28,7 +28,7 @@ const personalAllDetailsSchema = new Schema<PesonalAllDetails>(
   },
 );
 
-export const PersonalAllDetailsModel = model<PesonalAllDetails>(
+export const PersonalAllDetailsModel = model<IPersonalAllDetails>(
   'PersonalAllDetails',
   personalAllDetailsSchema,
 );

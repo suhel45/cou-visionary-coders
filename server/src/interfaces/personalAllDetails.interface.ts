@@ -7,7 +7,7 @@ import { PersonalInfoo } from './PersonalInfo.interface';
 import { AddressInfo } from './address.interface';
 import { PersonalPreference } from './personalPreferenc.interface';
 
-export type PesonalAllDetails = {
+export type IPersonalAllDetails = {
   users: Types.ObjectId,
   personalInfo: PersonalInfoo;
   address: AddressInfo;
