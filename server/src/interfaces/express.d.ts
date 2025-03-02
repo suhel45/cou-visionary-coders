@@ -1,5 +1,5 @@
-import { Request } from "express"
-
-export type CustomReq = Request & {
-    csrfToken: () => string
+export interface CustomRequest extends Request {
+    user: {
+        id: string;
+    };
 }

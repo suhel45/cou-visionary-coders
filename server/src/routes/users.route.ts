@@ -5,6 +5,7 @@ import { PersonalAllDetailsModel } from './../models/PersonalAllDetails.Model';
 import { verifyToken } from '../middleware/authMiddleware';
 import { personalDetailsController } from '../controllers/personalAllDetails.controller';
 
+
 const router = Router();
 
 router.post('/signup', userController.createUser);
@@ -15,7 +16,7 @@ router.post('/login/google', authController.loginWithGoogle);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
 
-router.get('/get-data', async (req, res) => {
+router.get('/get-data', verifyToken, async (req, res) => {
     try {
         const result = await PersonalAllDetailsModel.find({})
             .populate('users')

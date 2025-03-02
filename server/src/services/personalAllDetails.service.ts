@@ -2,7 +2,12 @@ import { IPersonalAllDetails } from "../interfaces/personalAllDetails.interface"
 import { PersonalAllDetailsModel } from "../models/PersonalAllDetails.Model";
 
 const createBiodata = async (biodata:IPersonalAllDetails) => {
-    try {
+        // Check if the Biodata already exists
+        const existingBiodata = await PersonalAllDetailsModel.findOne({ users: biodata.users });
+        if (existingBiodata) {
+            throw new Error('Biodata already exists!');
+        }
+
         // Save the user to the database
         const newBiodata = new PersonalAllDetailsModel({
             users: biodata.users,
@@ -14,11 +19,10 @@ const createBiodata = async (biodata:IPersonalAllDetails) => {
             contactInfo: biodata.contactInfo,
             personalPreference: biodata.personalPreference
         })
+
         const result = await newBiodata.save();
         return result;
-    } catch (error) {
-        console.log(error);
-    }
+
 }
 
 export const personalDetailsService = {

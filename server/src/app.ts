@@ -2,12 +2,11 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
+import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
-import lusca from 'lusca';
-import session from 'express-session';
 import userRoute from './routes/users.route';
-import { CustomReq } from './interfaces/express';
+
 
 dotenv.config();
 
@@ -27,33 +26,12 @@ const corsOption = {
   credentials: true,
 };
 
-// Session management
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET as string,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production' },
-  }),
-);
-
-// CSRF protection middleware
-const csrfProtection = lusca.csrf({
-  cookie: {
-    name: '_csrf',
-    options: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    },
-  },
-});
-
 app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(csrfProtection);
+app.use(mongoSanitize());
 
 // Helmet configuration for XSS protection
 app.use(
@@ -77,8 +55,5 @@ app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
 
-app.get('/csrf-token', (req: Request, res: Response) => {
-  res.json({ csrfToken: (req as CustomReq).csrfToken() });
-});
 
 export default app;
