@@ -4,7 +4,7 @@ import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
 const createBiodata = async (biodata: IPersonalAllDetails) => {
   // Check if the Biodata already exists
   const existingBiodata = await PersonalAllDetailsModel.findOne({
-    users: biodata.users,
+    users: { $eq: biodata.users },
   });
   if (existingBiodata) {
     throw new Error('Biodata already exists!');
