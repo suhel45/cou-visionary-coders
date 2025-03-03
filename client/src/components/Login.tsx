@@ -4,9 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
+import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const Login: React.FC = () => {
+const Login: React.FC = async() => {
   const navigate = useNavigate();
+  const csrfToken = await GetCsrfToken();
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -28,12 +30,14 @@ const Login: React.FC = () => {
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-
       const response = await fetch(
         'https://halalbondhon-server.vercel.app/api/login',
         {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: { 
+            'content-type': 'application/json',
+            'X-CSRF-Token': csrfToken,
+           },
           body: JSON.stringify({ email: user.email, password: data.password }),
         },
       );
@@ -45,9 +49,11 @@ const Login: React.FC = () => {
       } else {
         toast.error(responseData.error);
       }
+
     } catch (error) {
-      console.error('Login error:', error);
-      toast.error('Invalid credentials. Try again.');
+     console.error('Login error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Invalid credentials. Try again.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
