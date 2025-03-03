@@ -1,7 +1,7 @@
 type Address = {
-  village: string;
-  subdistrict: string;
   district: string;
+  subdistrict: string;
+  village: string;
 };
 
 export type AddressInfo = {

@@ -7,7 +7,6 @@ import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import userRoute from './routes/users.route';
 
-
 dotenv.config();
 
 const app: Express = express();
@@ -47,13 +46,12 @@ app.use(
       },
     },
     xssFilter: true,
-  })
+  }),
 );
 
 app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
-
 
 export default app;

@@ -1,5 +1,6 @@
 export type ContactInfo = {
-  guardiansMobileNumber: string;
-  candidateMobileNumber: string;
+  guardianInfo: string;
+  guardianContact: string;
+  candidateNumber: string;
   candidateEmail: string;
 };

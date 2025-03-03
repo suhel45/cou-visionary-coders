@@ -6,14 +6,14 @@ import { educationInfoSchema } from './EducationalInfo.Schema';
 import { familyInfoSchema } from './FamilyInfo.Schema';
 import { expectedLifePartnerSchema } from './LifePartner.Schema';
 import { contactInfoSchema } from './ContactInfo.Schema';
-// import { personalPreferenceSchema } from './PersonalPreference.Model';
+import { personalPreferenceSchema } from './PersonalPreference.Model';
 
 const personalAllDetailsSchema = new Schema<IPersonalAllDetails>(
   {
     users: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required:true
+      required: true,
     },
     personalInfo: { type: personalInfoSchema, required: true },
     address: { type: addressInfoSchema, required: true },
@@ -21,7 +21,7 @@ const personalAllDetailsSchema = new Schema<IPersonalAllDetails>(
     familyInformation: { type: familyInfoSchema, required: true },
     expectedLifePartner: { type: expectedLifePartnerSchema, required: true },
     contactInfo: { type: contactInfoSchema, required: true },
-    // personalPreference: { type: personalPreferenceSchema, required: true },
+    personalPreference: { type: personalPreferenceSchema, required: true },
   },
   {
     timestamps: true,

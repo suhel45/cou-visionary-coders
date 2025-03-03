@@ -8,12 +8,12 @@ import { AddressInfo } from './address.interface';
 import { PersonalPreference } from './personalPreferenc.interface';
 
 export type IPersonalAllDetails = {
-  users: Types.ObjectId,
+  users: Types.ObjectId;
   personalInfo: PersonalInfoo;
   address: AddressInfo;
   education: EducationInfo;
   familyInformation: FamilyInfo;
   expectedLifePartner: ExpectedLifePartner;
   contactInfo: ContactInfo;
-  personalPreference?: PersonalPreference;
+  personalPreference: PersonalPreference;
 };

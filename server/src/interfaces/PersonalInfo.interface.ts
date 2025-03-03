@@ -1,13 +1,11 @@
 export type PersonalInfoo = {
-  biodataType: string;
+  gender: string;
   maritalStatus: string;
   birthDate: string;
   height: number;
   weight: number;
   occupation: string;
   complexion: string;
-  session: string;
-  department: string;
+  religion: string;
   bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
-  nationality: string;
 };
