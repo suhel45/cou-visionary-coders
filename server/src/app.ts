@@ -5,7 +5,10 @@ import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
+import lusca from 'lusca';
+import session from 'express-session';
 import userRoute from './routes/users.route';
+import { CustomReq } from './interfaces/express';
 
 dotenv.config();
 
@@ -32,6 +35,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(mongoSanitize());
 
+// Session management
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET as string,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === 'production' },
+  }),
+);
+
 // Helmet configuration for XSS protection
 app.use(
   helmet({
@@ -49,9 +62,24 @@ app.use(
   }),
 );
 
+// Lusca configuration for security
+app.use(
+  lusca({
+    csrf: true,
+    xframe: 'SAMEORIGIN',
+    p3p: 'ABCDEF',
+    hsts: { maxAge: 31536000 },
+    xssProtection: true,
+  }),
+);
+
 app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
+});
+
+app.get('/csrf-token', (req: Request, res: Response) => {
+  res.json({ csrfToken: (req as CustomReq).csrfToken() });
 });
 
 export default app;
