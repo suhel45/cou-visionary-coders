@@ -26,12 +26,12 @@ type authContextProps = {
 export const AuthContext = createContext<authContextProps | null>(null);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
-    setLoading(false);
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
 
