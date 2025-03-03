@@ -5,8 +5,10 @@ import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
 import { Eye, EyeOff } from 'lucide-react';
+import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const SignUp = () => {
+const SignUp = async() => {
+  const csrfToken = await GetCsrfToken();
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error('AuthContext is null');
@@ -78,6 +80,7 @@ const SignUp = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
         },
         body: JSON.stringify(user),
       },

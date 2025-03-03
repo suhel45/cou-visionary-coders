@@ -6,7 +6,7 @@ import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
 import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const Login: React.FC = async() => {
+const Login: React.FC = async () => {
   const navigate = useNavigate();
   const csrfToken = await GetCsrfToken();
 
@@ -34,10 +34,10 @@ const Login: React.FC = async() => {
         'https://halalbondhon-server.vercel.app/api/login',
         {
           method: 'POST',
-          headers: { 
+          headers: {
             'content-type': 'application/json',
             'X-CSRF-Token': csrfToken,
-           },
+          },
           body: JSON.stringify({ email: user.email, password: data.password }),
         },
       );
@@ -49,10 +49,12 @@ const Login: React.FC = async() => {
       } else {
         toast.error(responseData.error);
       }
-
     } catch (error) {
-     console.error('Login error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Invalid credentials. Try again.';
+      console.error('Login error:', error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Invalid credentials. Try again.';
       toast.error(errorMessage);
     } finally {
       setLoading(false);
