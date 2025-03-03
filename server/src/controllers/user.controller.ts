@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 import { userService } from '../services/users.service';
 import { ILoginInfo, IUser } from '../interfaces/users.interface';
+
+dotenv.config();
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -34,7 +37,7 @@ const loginUser = async (req: Request, res: Response) => {
     //set the token as an httpOnly cookie
     res.cookie('token', result, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 3600000, // 1 hour
     });
