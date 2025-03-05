@@ -7,7 +7,7 @@ import { IFormData, UserProfile } from '../interfaces/Signup.interface';
 import { Eye, EyeOff } from 'lucide-react';
 import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const SignUp = async() => {
+const SignUp = async () => {
   const csrfToken = await GetCsrfToken();
   const authContext = useContext(AuthContext);
   if (!authContext) {
