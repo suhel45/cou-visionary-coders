@@ -1,160 +1,188 @@
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
+import React, { useEffect,useRef,useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
-import Family from "./FamilyInfo";
-import Personal from "./PersonalInfo";
-import Education from "./EducationInfo";
-import MarrigeInfo from "./PreferenceInfo";
-import PartnerPreferences from "./PartnerInfo";
-import Others from "./ContactInfo";
-import Address from "./AddressInfo";
+import PersonalInfo from "./PersonalInfo";
+import FamilyInfo from "./FamilyInfo";
+import EducationInfo from "./EducationInfo";
+import PartnerInfo from "./PartnerInfo";
+import PreferenceInfo from "./PreferenceInfo";
+import AddressInfo from "./AddressInfo";
+import ContactInfo from "./ContactInfo";
+import { FormData } from "../../interfaces/Biodata.interface";
+import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
+import { initialFormData } from "./initialFormData";
 
-const steps: string[] = [
-  "ব্যাক্তিগত তথ্য",
-  "পারিবারিক তথ্য",
-  "শিক্ষাগত যোগ্যতা",
-  "বিবাহ সম্পর্কিত তথ্য",
-  "প্রত্যাশিত জীবনসঙ্গী",
-  "ঠিকানা",
-  "যোগাযোগ",
+const steps = [
+  "Personal Information",
+  "Family Information",
+  "Education Information",
+  "Partner Information",
+  "Hobbies and Habits",
+  "Address",
+  "Contact",
 ];
 
-interface FormData {
-  [key: string]: string | Record<string, unknown>;
-}
+const MultiStepForm: React.FC = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-const UpdateBiodata: React.FC = () => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-  const [skipped, setSkipped] = useState<Set<number>>(new Set());
-  const [formData, setFormData] = useState<FormData>({});
+  // Initialize formData with the correct structure
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  console.log(formData);
+  const handleNext = () => setActiveStep((prev) => prev + 1);
+  const handleBack = () => setActiveStep((prev) => prev - 1);
 
-  const isStepSkipped = (step: number): boolean => skipped.has(step);
-
-  const handleNext = (): void => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped);
-      newSkipped.delete(activeStep);
-    }
-    setActiveStep((prev) => prev + 1);
-    setSkipped(newSkipped);
+  const updateFormData = (section: keyof FormData, data: any) => {
+    setFormData((prev) => ({ ...prev, [section]: data }));
   };
-
-  const handleBack = (): void => {
-    if (activeStep > 0) {
-      setActiveStep((prev) => prev - 1);
-    }
-  };
-
-  const handleSkip = (): void => {
-    setSkipped((prev) => new Set(prev).add(activeStep));
-    setActiveStep((prev) => prev + 1);
-  };
-
-  const handleReset = (): void => {
-    setActiveStep(0);
-    setSkipped(new Set());
-    setFormData({});
-  };
-
-  const handleSave = async (e: React.FormEvent<HTMLButtonElement>): Promise<void> => {
-    e.preventDefault();
-    const filteredData = Object.fromEntries(
-      Object.entries(formData).filter(([_, value]) => value !== "")
-    );
+  
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setError(null);
+   
     try {
-      console.log(filteredData);
-      await axios.post(`http://localhost:3000/update/USER_ID`, filteredData);
-      handleNext();
-    } catch (error) {
-      console.error("Error saving biodata!", error);
+      const response = await axios.post("http://localhost:3000/api/submit", formData);
+      console.log("Form submitted successfully:", response.data);
+      setIsSubmitted(true);
+    } catch (err) {
+      setError("Failed to submit the form. Please try again.");
+      console.error("Error submitting form:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const getStepContent = (step: number): JSX.Element | null => {
+  const handleReset = () => {
+    setActiveStep(0);
+    setFormData(initialFormData);
+    setIsSubmitted(false);
+  };
+ 
+  const getStepContent = (step: number) => {
     switch (step) {
       case 0:
-        return <Personal setFormData={setFormData} formData={formData} />;
+        return (
+          <PersonalInfo
+            formData={formData.personalInfo}
+            setFormData={(data) => updateFormData("personalInfo", data)}
+          />
+        );
       case 1:
-        return <Family setFormData={setFormData} formData={formData} />;
+        return (
+          <FamilyInfo
+            formData={formData.familyInfo}
+            setFormData={(data) => updateFormData("familyInfo", data)}
+          />
+        );
       case 2:
-        return <Education setFormData={setFormData} formData={formData} />;
+        return (
+          <EducationInfo
+            formData={formData.educationInfo}
+            setFormData={(data) => updateFormData("educationInfo", data)}
+          />
+        );
       case 3:
-        return <MarrigeInfo setFormData={setFormData} formData={formData} />;
+        return (
+          <PartnerInfo
+            formData={formData.PartnerInfo}
+            setFormData={(data) => updateFormData("PartnerInfo", data)}
+          />
+        );
       case 4:
-        return <PartnerPreferences setFormData={setFormData} formData={formData} />;
+        return (
+          <PreferenceInfo
+            formData={formData.PreferenceInfo}
+            setFormData={(data) => updateFormData("PreferenceInfo", data)}
+          />
+        );
       case 5:
-        return <Address setFormData={setFormData} formData={formData} />;
+        return (
+          <AddressInfo
+            formData={formData.addressInfo}
+            setFormData={(data) => updateFormData("addressInfo", data)}
+          />
+        );
       case 6:
-        return <Others setFormData={setFormData} formData={formData} />;
+        return (
+          <ContactInfo
+            formData={formData.contactInfo}
+            setFormData={(data) => updateFormData("contactInfo", data)}
+          />
+        );
       default:
-        return <Typography>Unknown step</Typography>;
+        return <div>Unknown step</div>;
     }
   };
 
   return (
-    <Box className="md:flex md:flex-col m-4 md:p-4 p-8 rounded border-2 border-gray-300">
-      <div className="sm:hidden flex justify-between items-center mb-4">
-        <button disabled={activeStep === 0} onClick={handleBack} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
-          {activeStep > 0 ? "<< "+ steps[activeStep - 1] : "Start"}
-        </button>
-        <button onClick={handleNext} className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500">
-           {activeStep < steps.length - 1 ?   steps[activeStep + 1] + " >>": "Final"}
-        </button>
-      </div>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={!isStepSkipped(index)} className="hidden sm:block">
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <div className="text-center">
-        {activeStep === steps.length ? (
-          <>
-            <Typography>
-              <p className="p-4 md:p-20 text-green-900 md:text-4xl bg-green-100 m-2 rounded-sm font-bold">
-                Your Information Updated Successfully
-              </p>
-            </Typography>
-            <Box>
-              <button onClick={handleReset} className="formbtn">
-                Reset
-              </button>
-            </Box>
-          </>
-        ) : (
-          <>
+    <div className="p-4">
+      {isSubmitted ? (
+        <div>
+          <h2>Form Submitted Successfully!</h2>
+          <button onClick={handleReset}>Reset Form</button>
+        </div>
+      ) : (
+        <>
+          <div className="sm:hidden flex justify-between items-center mb-4">
+            <button
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
+            >
+              {activeStep > 0 ? <CircleArrowLeft className="w-4 h-4 mr-2" /> : null}
+              {activeStep > 0 ? steps[activeStep - 1] : "Initial State"}
+            </button>
+            <button
+              onClick={handleNext}
+              className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
+            >
+              {activeStep < steps.length - 1 ? steps[activeStep + 1] : "Final State"}
+              {activeStep < steps.length - 1 ? <CircleArrowRight className="w-4 h-4 ml-2" /> : null}
+            </button>
+          </div>
+          <Stepper activeStep={activeStep}>
+            {steps.map((label) => (
+              <Step key={label} className="hidden sm:block">
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <div className="flex flex-col justify-center">
             {getStepContent(activeStep)}
-            <Box className="flex flex-row justify-between p-4">
-              <button disabled={activeStep === 0} onClick={handleBack} className="formbtn">
+            {error && (
+              <span className="text-red-800 border border-red-900 bg-red-100 text-center font-semibold rounded p-2 my-2">
+                {error}
+              </span>
+            )}
+            <div className="flex flex-row items-center justify-between m-2 mx-6">
+              <button
+                disabled={activeStep === 0 || isLoading}
+                onClick={handleBack}
+                className="formbtn"
+              >
                 Back
               </button>
-              <Box />
-              <div className="flex flex-row justify-center gap-2">
-                <button onClick={handleSkip} className="formbtn ms-8 md:ms-0 bg-red-600 hover:bg-red-500">
-                  Skip
-                </button>
-                {activeStep === steps.length - 1 ? (
-                  <button onClick={handleSave} className="formbtn bg-green-700 hover:bg-green-500">
-                    Finish
-                  </button>
-                ) : (
-                  <button onClick={handleNext} className="formbtn">
-                    Next
-                  </button>
-                )}
-              </div>
-            </Box>
-          </>
-        )}
-      </div>
-    </Box>
+              <button
+                onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                disabled={isLoading}
+                className="formbtn"
+              >
+                {isLoading
+                  ? "Submitting..."
+                  : activeStep === steps.length - 1
+                  ? "Finish"
+                  : "Next"}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
-export default UpdateBiodata;
+export default MultiStepForm;
