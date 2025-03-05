@@ -1,32 +1,21 @@
 import { useState, useEffect, ChangeEvent } from "react";
-
-type FormDataType = {
-  gardian: string;
-  gardianContact: string;
-  groomNumber: string;
-  groomEmail: string;
-};
+import { ContactInfoData } from "../../interfaces/Biodata.interface";
 
 type ContactInfo = {
-  formData: FormDataType;
-  setFormData: (data: FormDataType) => void;
+  formData: ContactInfoData;
+  setFormData: (data: ContactInfoData) => void;
 };
 
 const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
-  const [localFormData, setLocalFormData] = useState<FormDataType>({
-    gardian: "",
-    gardianContact: "",
-    groomNumber: "",
-    groomEmail: "",
+  const [localFormData, setLocalFormData] = useState<ContactInfoData>({
+    guardianInfo: "",
+    guardianContact: "",
+    candidateNumber: "",
+    candidateEmail: "",
   });
 
   useEffect(() => {
-    setLocalFormData({
-      gardian: formData.gardian || "",
-      gardianContact: formData.gardianContact || "",
-      groomNumber: formData.groomNumber || "",
-      groomEmail: formData.groomEmail || "",
-    });
+    setLocalFormData({ ...formData });
   }, [formData]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,15 +26,15 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
+      <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
         <h2 className="heading">যোগাযোগ</h2>
         <form className="md:items-center md:justify-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <label className="label py-0">
             অভিভাবকের নাম ও সম্পর্ক {/* */}
             <input
               type="text"
-              name="gardian"
-              value={localFormData.gardian}
+              name="guardianInfo"
+              value={localFormData.guardianInfo}
               onChange={handleChange}
               className="option-btn p-2"
               placeholder="নাম ( সম্পর্ক )"
@@ -56,8 +45,8 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
             অভিভাবকের ফোন নাম্বার {/* */}
             <input
               type="text"
-              name="gardianContact"
-              value={localFormData.gardianContact}
+              name="guardianContact"
+              value={localFormData.guardianContact}
               onChange={handleChange}
               className="option-btn p-2"
               placeholder="মোবাইল নাম্বার"
@@ -68,8 +57,8 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
             নিজের মোবাইল নাম্বার {/* */}
             <input
               type="text"
-              name="groomNumber"
-              value={localFormData.groomNumber}
+              name="candidateNumber"
+              value={localFormData.candidateNumber}
               onChange={handleChange}
               className="option-btn p-2"
               placeholder="মোবাইল নাম্বার"
@@ -80,8 +69,8 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
             নিজের ইমেইল {/* */}
             <input
               type="email"
-              name="groomEmail"
-              value={localFormData.groomEmail}
+              name="camdidateEmail"
+              value={localFormData.candidateEmail}
               onChange={handleChange}
               className="option-btn p-2"
               placeholder="ইমেইল"
