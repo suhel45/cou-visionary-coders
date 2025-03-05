@@ -1,5 +1,5 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { ContactInfoData } from "../../interfaces/Biodata.interface";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { ContactInfoData } from '../../interfaces/Biodata.interface';
 
 type ContactInfo = {
   formData: ContactInfoData;
@@ -8,10 +8,10 @@ type ContactInfo = {
 
 const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
   const [localFormData, setLocalFormData] = useState<ContactInfoData>({
-    guardianInfo: "",
-    guardianContact: "",
-    candidateNumber: "",
-    candidateEmail: "",
+    guardianInfo: '',
+    guardianContact: '',
+    candidateNumber: '',
+    candidateEmail: '',
   });
 
   useEffect(() => {
@@ -77,7 +77,9 @@ const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
             />
           </label>
           <br />
-          <div> {/* */}
+          <div>
+            {' '}
+            {/* */}
             <p className="font-semibold text-red-950 shadow-md text-xs text-justify border border-red-900 sm:text-sm p-2 bg-red-100 rounded-lg">
               বিঃ দ্রঃ আপনার দেওয়া তথ্য কোনোভাবে ভুল প্রমাণিত হলে আপনার একাউন্ট
               টি বাতিল করা হবে।

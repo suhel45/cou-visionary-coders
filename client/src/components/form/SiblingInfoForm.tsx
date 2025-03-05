@@ -1,12 +1,15 @@
-import React from "react";
-import { FamilyInfoData } from "../../interfaces/Biodata.interface";
+import React from 'react';
+import { FamilyInfoData } from '../../interfaces/Biodata.interface';
 
 interface SiblingInfoFormProps {
-  siblings: FamilyInfoData["siblings"];
-  onChange: (updatedSiblings: FamilyInfoData["siblings"]) => void;
+  siblings: FamilyInfoData['siblings'];
+  onChange: (updatedSiblings: FamilyInfoData['siblings']) => void;
 }
 
-const SiblingInfoForm: React.FC<SiblingInfoFormProps> = ({ siblings, onChange }) => {
+const SiblingInfoForm: React.FC<SiblingInfoFormProps> = ({
+  siblings,
+  onChange,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 

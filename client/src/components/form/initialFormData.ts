@@ -1,89 +1,89 @@
 // src/utils/initialFormData.ts
-import { FormData } from "../../interfaces/Biodata.interface";
+import { FormData } from '../../interfaces/Biodata.interface';
 
 export const initialFormData: FormData = {
   personalInfo: {
-    gender: "",
-    maritalStatus: "",
-    birthDate: "",
-    height: "",
-    weight: "",
-    occupation: "",
-    complexion: "",
-    religion: "",
-    bloodGroup: "",
+    gender: '',
+    maritalStatus: '',
+    birthDate: '',
+    height: '',
+    weight: '',
+    occupation: '',
+    complexion: '',
+    religion: '',
+    bloodGroup: '',
   },
   familyInfo: {
     father: {
       aliveStatus: true,
-      profession: "",
+      profession: '',
     },
     mother: {
       aliveStatus: true,
-      profession: "",
+      profession: '',
     },
     siblings: {
-      brotherInfo:  "",
-      
-      sisterInfo: "",
-    
-      aboutSiblings: "",
+      brotherInfo: '',
+
+      sisterInfo: '',
+
+      aboutSiblings: '',
     },
-    financialStatus: "",
+    financialStatus: '',
   },
   educationInfo: {
     ssc: {
       passingYear: 0,
-      group: "",
+      group: '',
       gpa: 0,
     },
     hsc: {
       passingYear: 0,
-      group: "",
+      group: '',
       gpa: 0,
     },
     university: {
       honours: {
-        faculty: "",
-        department: "",
-        session: "",
+        faculty: '',
+        department: '',
+        session: '',
       },
     },
   },
   PartnerInfo: {
-    age: "",
-    complexion: "",
-    height: "",
-    district: "",
-    maritalStatus: "",
-    profession: "",
-    financialCondition: "",
-    expectedQualities: "",
+    age: '',
+    complexion: '',
+    height: '',
+    district: '',
+    maritalStatus: '',
+    profession: '',
+    financialCondition: '',
+    expectedQualities: '',
   },
   PreferenceInfo: {
-    hobbies: "",
-    healthIssues: "",
-    religiousPractice: "",
-    readingHabit: "",
-    lifeStylePreference: "",
-    additionalInfo: "",
+    hobbies: '',
+    healthIssues: '',
+    religiousPractice: '',
+    readingHabit: '',
+    lifeStylePreference: '',
+    additionalInfo: '',
   },
   addressInfo: {
     permanentAddress: {
-      district: "",
-      subdistrict: "",
-      village: "",
+      district: '',
+      subdistrict: '',
+      village: '',
     },
     presentAddress: {
-      district: "",
-      subdistrict: "",
-      village: "",
+      district: '',
+      subdistrict: '',
+      village: '',
     },
   },
   contactInfo: {
-    guardianInfo: "",
-    guardianContact: "",
-    candidateNumber: "",
-    candidateEmail: "",
+    guardianInfo: '',
+    guardianContact: '',
+    candidateNumber: '',
+    candidateEmail: '',
   },
 };

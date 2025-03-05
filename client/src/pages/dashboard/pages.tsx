@@ -1,9 +1,7 @@
-import Dashboard from "../../components/dashboard/Dashboard"
+import Dashboard from '../../components/dashboard/Dashboard';
 
 const pages = () => {
-  return (
-    <Dashboard/>
-  )
-}
+  return <Dashboard />;
+};
 
-export default pages
+export default pages;

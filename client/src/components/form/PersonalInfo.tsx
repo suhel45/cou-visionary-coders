@@ -1,29 +1,34 @@
-import { useState, useEffect } from "react";
-import { PersonalInfoData } from "../../interfaces/Biodata.interface"; // Import the interface
+import { useState, useEffect } from 'react';
+import { PersonalInfoData } from '../../interfaces/Biodata.interface'; // Import the interface
 
 interface PersonalInfoProps {
   formData: PersonalInfoData; // Use the imported interface
   setFormData: (data: PersonalInfoData) => void; // Update the type
 }
 
-const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) => {
+const PersonalInfo: React.FC<PersonalInfoProps> = ({
+  formData,
+  setFormData,
+}) => {
   const [localFormData, setLocalFormData] = useState<PersonalInfoData>({
-    gender: "",
-    maritalStatus: "",
-    birthDate: "",
-    height: "",
-    weight: "",
-    occupation: "",
-    complexion: "",
-    religion: "",
-    bloodGroup: "",
+    gender: '',
+    maritalStatus: '',
+    birthDate: '',
+    height: '',
+    weight: '',
+    occupation: '',
+    complexion: '',
+    religion: '',
+    bloodGroup: '',
   });
 
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     setLocalFormData(updatedData);
@@ -117,7 +122,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               {Array.from({ length: 91 }, (_, i) => {
                 const weight = i + 30;
                 return (
-                  <option key={weight} value={ `${weight} kg`}>
+                  <option key={weight} value={`${weight} kg`}>
                     {`${weight} kg`}
                   </option>
                 );
@@ -178,7 +183,6 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               <option value="হিন্দু">হিন্দু</option>
               <option value="খ্রিস্টান">খ্রিস্টান</option>
               <option value="বৌদ্ধ">বৌদ্ধ</option>
-              
             </select>
           </label>
 

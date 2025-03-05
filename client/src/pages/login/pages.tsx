@@ -1,10 +1,11 @@
-import Login from "../../components/Login"
-
+import Login from '../../components/Login';
 
 const pages = () => {
   return (
-    <div><Login/></div>
-  )
-}
+    <div>
+      <Login />
+    </div>
+  );
+};
 
-export default pages
+export default pages;

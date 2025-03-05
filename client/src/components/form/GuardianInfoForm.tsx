@@ -1,5 +1,5 @@
-import React from "react";
-import { GardianInfo } from "../../interfaces/Biodata.interface";
+import React from 'react';
+import { GardianInfo } from '../../interfaces/Biodata.interface';
 
 interface GuardianInfoFormProps {
   label: string;
@@ -13,11 +13,12 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
   onChange,
 }) => {
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, type } = e.target;
-    const newValue = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
-    
+    const newValue =
+      type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
     onChange({
       ...guardian,
       [name]: newValue,

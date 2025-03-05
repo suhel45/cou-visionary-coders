@@ -1,22 +1,25 @@
-import { useState, useEffect } from "react";
-import { FamilyInfoData } from "../../interfaces/Biodata.interface";
-import GuardianInfoForm from "./GuardianInfoForm";
-import SiblingInfoForm from "./SiblingInfoForm";
+import { useState, useEffect } from 'react';
+import { FamilyInfoData } from '../../interfaces/Biodata.interface';
+import GuardianInfoForm from './GuardianInfoForm';
+import SiblingInfoForm from './SiblingInfoForm';
 
 interface FamilyInfoProps {
   formData: FamilyInfoData;
-   setFormData: (data: FamilyInfoData) => void; 
-  
+  setFormData: (data: FamilyInfoData) => void;
 }
 
 const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
-  const [localFamilyInfo, setLocalFamilyInfo] = useState<FamilyInfoData>(formData);
+  const [localFamilyInfo, setLocalFamilyInfo] =
+    useState<FamilyInfoData>(formData);
 
   useEffect(() => {
     setLocalFamilyInfo(formData);
   }, [formData]);
 
-  const handleGuardianChange = (guardianType: "father" | "mother", updatedGuardian: any) => {
+  const handleGuardianChange = (
+    guardianType: 'father' | 'mother',
+    updatedGuardian: any,
+  ) => {
     setLocalFamilyInfo((prev) => ({
       ...prev,
       [guardianType]: updatedGuardian,
@@ -24,7 +27,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
     setFormData({ ...localFamilyInfo, [guardianType]: updatedGuardian });
   };
 
-  const handleSiblingChange = (updatedSiblings: FamilyInfoData["siblings"]) => {
+  const handleSiblingChange = (updatedSiblings: FamilyInfoData['siblings']) => {
     setLocalFamilyInfo((prev) => ({
       ...prev,
       siblings: updatedSiblings,
@@ -32,7 +35,9 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
     setFormData({ ...localFamilyInfo, siblings: updatedSiblings });
   };
 
-  const handleFinancialStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFinancialStatusChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const { value } = e.target;
     setLocalFamilyInfo((prev) => ({ ...prev, financialStatus: value }));
     setFormData({ ...localFamilyInfo, financialStatus: value });
@@ -48,14 +53,18 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           <GuardianInfoForm
             label="পিতা"
             guardian={localFamilyInfo.father}
-            onChange={(updatedFather) => handleGuardianChange("father", updatedFather)}
+            onChange={(updatedFather) =>
+              handleGuardianChange('father', updatedFather)
+            }
           />
 
           {/* Mother's Information */}
           <GuardianInfoForm
             label="মাতা"
             guardian={localFamilyInfo.mother}
-            onChange={(updatedMother) => handleGuardianChange("mother", updatedMother)}
+            onChange={(updatedMother) =>
+              handleGuardianChange('mother', updatedMother)
+            }
           />
 
           {/* Siblings Information */}
