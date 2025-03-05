@@ -1,8 +1,8 @@
 // src/components/AddressForm.tsx
-import { useState, useEffect } from "react";
-import subDistricts from "./subDistricts"; // Import subdistrict data as an object
-import districts from "./districtData"; // Import district data
-import  {Address}  from "../../interfaces/Biodata.interface"; // Import the Address interface
+import { useState, useEffect } from 'react';
+import subDistricts from './subDistricts'; // Import subdistrict data as an object
+import districts from './districtData'; // Import district data
+import { Address } from '../../interfaces/Biodata.interface'; // Import the Address interface
 
 interface AddressFormProps {
   address: Address; // The address object (presentAddress or permanentAddress)
@@ -10,7 +10,11 @@ interface AddressFormProps {
   title: string; // Title for the address section (e.g., "Present Address")
 }
 
-const AddressForm: React.FC<AddressFormProps> = ({ address, onChange, title }) => {
+const AddressForm: React.FC<AddressFormProps> = ({
+  address,
+  onChange,
+  title,
+}) => {
   const [localAddress, setLocalAddress] = useState<Address>(address);
 
   // Sync localAddress with address prop
@@ -19,7 +23,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ address, onChange, title }) =
   }, [address]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     const updatedAddress = { ...localAddress, [name]: value };
@@ -58,13 +62,13 @@ const AddressForm: React.FC<AddressFormProps> = ({ address, onChange, title }) =
         >
           <option>নির্বাচন করুন</option>
           {localAddress.district &&
-            subDistricts[localAddress.district as keyof typeof subDistricts].map(
-              (subDistrict) => (
+            subDistricts[
+              localAddress.district as keyof typeof subDistricts
+            ].map((subDistrict) => (
               <option key={subDistrict} value={subDistrict}>
                 {subDistrict}
               </option>
-            )
-            )}
+            ))}
         </select>
       </label>
       <br />

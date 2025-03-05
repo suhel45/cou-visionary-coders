@@ -1,27 +1,27 @@
-import React, { useEffect,useRef,useState } from "react";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import axios from "axios";
-import PersonalInfo from "./PersonalInfo";
-import FamilyInfo from "./FamilyInfo";
-import EducationInfo from "./EducationInfo";
-import PartnerInfo from "./PartnerInfo";
-import PreferenceInfo from "./PreferenceInfo";
-import AddressInfo from "./AddressInfo";
-import ContactInfo from "./ContactInfo";
-import { FormData } from "../../interfaces/Biodata.interface";
-import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
-import { initialFormData } from "./initialFormData";
+import React, { useEffect, useRef, useState } from 'react';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import axios from 'axios';
+import PersonalInfo from './PersonalInfo';
+import FamilyInfo from './FamilyInfo';
+import EducationInfo from './EducationInfo';
+import PartnerInfo from './PartnerInfo';
+import PreferenceInfo from './PreferenceInfo';
+import AddressInfo from './AddressInfo';
+import ContactInfo from './ContactInfo';
+import { FormData } from '../../interfaces/Biodata.interface';
+import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
+import { initialFormData } from './initialFormData';
 
 const steps = [
-  "Personal Information",
-  "Family Information",
-  "Education Information",
-  "Partner Information",
-  "Hobbies and Habits",
-  "Address",
-  "Contact",
+  'Personal Information',
+  'Family Information',
+  'Education Information',
+  'Partner Information',
+  'Hobbies and Habits',
+  'Address',
+  'Contact',
 ];
 
 const MultiStepForm: React.FC = () => {
@@ -39,18 +39,21 @@ const MultiStepForm: React.FC = () => {
   const updateFormData = (section: keyof FormData, data: any) => {
     setFormData((prev) => ({ ...prev, [section]: data }));
   };
-  
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
-   
+
     try {
-      const response = await axios.post("http://localhost:3000/api/submit", formData);
-      console.log("Form submitted successfully:", response.data);
+      const response = await axios.post(
+        'http://localhost:3000/api/submit',
+        formData,
+      );
+      console.log('Form submitted successfully:', response.data);
       setIsSubmitted(true);
     } catch (err) {
-      setError("Failed to submit the form. Please try again.");
-      console.error("Error submitting form:", err);
+      setError('Failed to submit the form. Please try again.');
+      console.error('Error submitting form:', err);
     } finally {
       setIsLoading(false);
     }
@@ -61,56 +64,56 @@ const MultiStepForm: React.FC = () => {
     setFormData(initialFormData);
     setIsSubmitted(false);
   };
- 
+
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
         return (
           <PersonalInfo
             formData={formData.personalInfo}
-            setFormData={(data) => updateFormData("personalInfo", data)}
+            setFormData={(data) => updateFormData('personalInfo', data)}
           />
         );
       case 1:
         return (
           <FamilyInfo
             formData={formData.familyInfo}
-            setFormData={(data) => updateFormData("familyInfo", data)}
+            setFormData={(data) => updateFormData('familyInfo', data)}
           />
         );
       case 2:
         return (
           <EducationInfo
             formData={formData.educationInfo}
-            setFormData={(data) => updateFormData("educationInfo", data)}
+            setFormData={(data) => updateFormData('educationInfo', data)}
           />
         );
       case 3:
         return (
           <PartnerInfo
             formData={formData.PartnerInfo}
-            setFormData={(data) => updateFormData("PartnerInfo", data)}
+            setFormData={(data) => updateFormData('PartnerInfo', data)}
           />
         );
       case 4:
         return (
           <PreferenceInfo
             formData={formData.PreferenceInfo}
-            setFormData={(data) => updateFormData("PreferenceInfo", data)}
+            setFormData={(data) => updateFormData('PreferenceInfo', data)}
           />
         );
       case 5:
         return (
           <AddressInfo
             formData={formData.addressInfo}
-            setFormData={(data) => updateFormData("addressInfo", data)}
+            setFormData={(data) => updateFormData('addressInfo', data)}
           />
         );
       case 6:
         return (
           <ContactInfo
             formData={formData.contactInfo}
-            setFormData={(data) => updateFormData("contactInfo", data)}
+            setFormData={(data) => updateFormData('contactInfo', data)}
           />
         );
       default:
@@ -133,15 +136,21 @@ const MultiStepForm: React.FC = () => {
               onClick={handleBack}
               className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
             >
-              {activeStep > 0 ? <CircleArrowLeft className="w-4 h-4 mr-2" /> : null}
-              {activeStep > 0 ? steps[activeStep - 1] : "Initial State"}
+              {activeStep > 0 ? (
+                <CircleArrowLeft className="w-4 h-4 mr-2" />
+              ) : null}
+              {activeStep > 0 ? steps[activeStep - 1] : 'Initial State'}
             </button>
             <button
               onClick={handleNext}
               className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
             >
-              {activeStep < steps.length - 1 ? steps[activeStep + 1] : "Final State"}
-              {activeStep < steps.length - 1 ? <CircleArrowRight className="w-4 h-4 ml-2" /> : null}
+              {activeStep < steps.length - 1
+                ? steps[activeStep + 1]
+                : 'Final State'}
+              {activeStep < steps.length - 1 ? (
+                <CircleArrowRight className="w-4 h-4 ml-2" />
+              ) : null}
             </button>
           </div>
           <Stepper activeStep={activeStep}>
@@ -167,15 +176,17 @@ const MultiStepForm: React.FC = () => {
                 Back
               </button>
               <button
-                onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                onClick={
+                  activeStep === steps.length - 1 ? handleSubmit : handleNext
+                }
                 disabled={isLoading}
                 className="formbtn"
               >
                 {isLoading
-                  ? "Submitting..."
+                  ? 'Submitting...'
                   : activeStep === steps.length - 1
-                  ? "Finish"
-                  : "Next"}
+                    ? 'Finish'
+                    : 'Next'}
               </button>
             </div>
           </div>

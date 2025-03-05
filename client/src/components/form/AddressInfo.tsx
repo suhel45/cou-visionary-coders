@@ -1,7 +1,7 @@
 // src/components/AddressInfo.tsx
-import { useState, useEffect } from "react";
-import { AddressInfoData, Address } from "../../interfaces/Biodata.interface"; // Import the AddressInfo interface
-import AddressForm from "./AddressForm"; // Import the reusable AddressForm component
+import { useState, useEffect } from 'react';
+import { AddressInfoData, Address } from '../../interfaces/Biodata.interface'; // Import the AddressInfo interface
+import AddressForm from './AddressForm'; // Import the reusable AddressForm component
 
 interface AddressInfoProps {
   formData: AddressInfoData;
@@ -17,14 +17,17 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
   }, [formData]);
 
   // Unified handler for both Present & Permanent Address
-  const handleAddressChange = (type: "presentAddress" | "permanentAddress", updatedAddress: Address) => {
+  const handleAddressChange = (
+    type: 'presentAddress' | 'permanentAddress',
+    updatedAddress: Address,
+  ) => {
     setLocalFormData((prev) => ({
       ...prev,
       [type]: updatedAddress,
     }));
     setFormData({
       ...localFormData,
-      [type]: updatedAddress
+      [type]: updatedAddress,
     });
   };
 
@@ -36,14 +39,18 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
           {/* Present Address */}
           <AddressForm
             address={localFormData.presentAddress}
-            onChange={(updatedAddress) => handleAddressChange("presentAddress", updatedAddress)}
+            onChange={(updatedAddress) =>
+              handleAddressChange('presentAddress', updatedAddress)
+            }
             title="বর্তমান ঠিকানা"
           />
 
           {/* Permanent Address */}
           <AddressForm
             address={localFormData.permanentAddress}
-            onChange={(updatedAddress) => handleAddressChange("permanentAddress", updatedAddress)}
+            onChange={(updatedAddress) =>
+              handleAddressChange('permanentAddress', updatedAddress)
+            }
             title="স্থায়ী ঠিকানা"
           />
         </form>

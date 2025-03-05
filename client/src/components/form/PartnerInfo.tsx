@@ -1,5 +1,5 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { PartnerInfoData } from "../../interfaces/Biodata.interface";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { PartnerInfoData } from '../../interfaces/Biodata.interface';
 
 type PartnerInfo = {
   formData: PartnerInfoData;
@@ -8,14 +8,14 @@ type PartnerInfo = {
 
 const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
   const [localFormData, setLocalFormData] = useState<PartnerInfoData>({
-    age: "",
-    complexion: "",
-    height: "",
-    district: "",
-    maritalStatus: "",
-    profession: "",
-    financialCondition: "",
-    expectedQualities: "",
+    age: '',
+    complexion: '',
+    height: '',
+    district: '',
+    maritalStatus: '',
+    profession: '',
+    financialCondition: '',
+    expectedQualities: '',
   });
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const PartnerInfo: React.FC<PartnerInfo> = ({ formData, setFormData }) => {
   }, [formData]);
 
   const handleChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>
+    e: ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const { name, value } = e.target;
     setLocalFormData((prevData) => ({ ...prevData, [name]: value }));
