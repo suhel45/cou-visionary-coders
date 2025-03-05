@@ -1,78 +1,48 @@
 import { useState, useEffect } from "react";
-
-interface FormData {
-  familyStatus: string;
-  maritalStatus: string;
-  height: string;
-  weight: string;
-  skinColor: string;
-  blood: string;
-  work: string;
-  birthday: string;
-  gender: string;
-  religion:string;
-}
+import { PersonalInfoData } from "../../interfaces/Biodata.interface"; // Import the interface
 
 interface PersonalInfoProps {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: PersonalInfoData; // Use the imported interface
+  setFormData: (data: PersonalInfoData) => void; // Update the type
 }
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) => {
-  const [localFormData, setLocalFormData] = useState<FormData>({
-    familyStatus: "",
+  const [localFormData, setLocalFormData] = useState<PersonalInfoData>({
+    gender: "",
     maritalStatus: "",
+    birthDate: "",
     height: "",
     weight: "",
-    skinColor: "",
-    blood: "",
-    work: "",
-    birthday: "",
-    gender: "",
+    occupation: "",
+    complexion: "",
     religion: "",
+    bloodGroup: "",
   });
 
   useEffect(() => {
-    setLocalFormData({
-      familyStatus: formData.familyStatus || "",
-      maritalStatus: formData.maritalStatus || "",
-      height: formData.height || "",
-      weight: formData.weight || "",
-      skinColor: formData.skinColor || "",
-      blood: formData.blood || "",
-      work: formData.work || "",
-      birthday: formData.birthday || "",
-      gender: formData.gender || "",
-      religion: formData.religion || "",
-    });
+    setLocalFormData({ ...formData });
   }, [formData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setLocalFormData({
-      ...localFormData,
-      [name]: value,
-    });
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const updatedData = { ...localFormData, [name]: value };
+    setLocalFormData(updatedData);
+    setFormData(updatedData); // Pass the updated object
   };
-
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
+      <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
         <h2 className="heading">ব্যক্তিগত তথ্য</h2>
         <form className="w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <h2 className="subheading">সাধারণ তথ্য</h2>
 
-          {/* Birthday Field */}
+          {/* Birth Date Field */}
           <label className="label">
-            জন্ম তারিখ -  {/*  */}
+            জন্ম তারিখ - {/* Birth Date */}
             <input
               type="date"
-              name="birthday"
-              value={localFormData.birthday}
+              name="birthDate"
+              value={localFormData.birthDate}
               onChange={handleChange}
               className="option-btn p-4"
             />
@@ -80,7 +50,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Gender Field */}
           <label className="label">
-            লিঙ্গ - {/*  */}
+            লিঙ্গ - {/* Gender */}
             <select
               name="gender"
               value={localFormData.gender}
@@ -90,13 +60,12 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               <option>নির্বাচন করুন</option>
               <option value="male">পুরুষ</option>
               <option value="female">মহিলা</option>
-              
             </select>
           </label>
 
           {/* Marital Status Field */}
           <label className="label">
-            বৈবাহিক অবস্থা -{/*  */}
+            বৈবাহিক অবস্থা - {/* Marital Status */}
             <select
               name="maritalStatus"
               value={localFormData.maritalStatus}
@@ -104,17 +73,17 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               className="option-btn"
             >
               <option>নির্বাচন করুন</option>
-              <option value="single">অবিবাহিত</option>
-              <option value="married">বিবাহিত</option>
-              <option value="divorced">ডিভোর্সড</option>
-              <option value="widowed">বিধবা</option>
-              <option value="widowed">বিপত্নীক</option>
+              <option value="অবিবাহিত">অবিবাহিত</option>
+              <option value="বিবাহিত">বিবাহিত</option>
+              <option value="ডিভোর্সড">ডিভোর্সড</option>
+              <option value="বিধবা">বিধবা</option>
+              <option value="বিপত্নীক">বিপত্নীক</option>
             </select>
           </label>
 
           {/* Height Field */}
           <label className="label">
-            উচ্চতা -{/*  */}
+            উচ্চতা - {/* Height */}
             <select
               name="height"
               value={localFormData.height}
@@ -137,7 +106,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
 
           {/* Weight Field */}
           <label className="label">
-            ওজন -{/*  */}
+            ওজন - {/* Weight */}
             <select
               name="weight"
               value={localFormData.weight}
@@ -148,7 +117,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               {Array.from({ length: 91 }, (_, i) => {
                 const weight = i + 30;
                 return (
-                  <option key={weight} value={`${weight} kg`}>
+                  <option key={weight} value={ `${weight} kg`}>
                     {`${weight} kg`}
                   </option>
                 );
@@ -156,30 +125,30 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
             </select>
           </label>
 
-          {/* Skin Color Field */}
+          {/* Complexion Field */}
           <label className="label">
-            গাত্রবর্ন -{/*  */}
+            গাত্রবর্ন - {/* Complexion */}
             <select
-              name="skinColor"
-              value={localFormData.skinColor}
+              name="complexion"
+              value={localFormData.complexion}
               onChange={handleChange}
               className="option-btn"
             >
               <option>নির্বাচন করুন</option>
-              <option value="lightFair">উজ্জ্বল ফর্সা</option>
-              <option value="fair">ফর্সা</option>
-              <option value="shemla">শ্যামলা</option>
-              <option value="brightShemla">উজ্জ্বল শ্যামলা</option>
-              <option value="black">কালো</option>
+              <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
+              <option value="ফর্সা">ফর্সা</option>
+              <option value="শ্যামলা">শ্যামলা</option>
+              <option value="উজ্জ্বল শ্যামলা">উজ্জ্বল শ্যামলা</option>
+              <option value="কালো">কালো</option>
             </select>
           </label>
 
           {/* Blood Group Field */}
           <label className="label">
-            রক্তের গ্রুপ -{/*  */}
+            রক্তের গ্রুপ - {/* Blood Group */}
             <select
-              name="blood"
-              value={localFormData.blood}
+              name="bloodGroup"
+              value={localFormData.bloodGroup}
               onChange={handleChange}
               className="option-btn text-center"
             >
@@ -194,8 +163,10 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               <option value="AB-">AB-</option>
             </select>
           </label>
+
+          {/* Religion Field */}
           <label className="label">
-            ধর্ম -{/*  */}
+            ধর্ম - {/* Religion */}
             <select
               name="religion"
               value={localFormData.religion}
@@ -203,38 +174,37 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ formData, setFormData }) =>
               className="option-btn"
             >
               <option>নির্বাচন করুন</option>
-              <option value="islam">ইসলাম</option>
-              <option value="hinduism">হিন্দু</option>
-              <option value="christianity">খ্রিস্টান</option>
-              <option value="buddhism">বৌদ্ধ</option>
-              <option value="other">অন্যান্য</option>
+              <option value="ইসলাম">ইসলাম</option>
+              <option value="হিন্দু">হিন্দু</option>
+              <option value="খ্রিস্টান">খ্রিস্টান</option>
+              <option value="বৌদ্ধ">বৌদ্ধ</option>
+              
             </select>
           </label>
 
-          {/* Work Field */}
+          {/* Occupation Field */}
           <label className="label">
-            পেশা -{/*  */}
+            পেশা - {/* Occupation */}
             <select
               className="option-btn"
-              name="work"
-              value={localFormData.work}
+              name="occupation"
+              value={localFormData.occupation}
               onChange={handleChange}
             >
               <option>নির্বাচন করুন</option>
-              <option value="student">শিক্ষার্থী</option>
-              <option value="doctor">ডাক্তার</option>
-              <option value="engineer">ইঞ্জিনিয়ার</option>
-              <option value="govt job">সরকারি চাকরি</option>
-              <option value="private job">বেসরকারি চাকরি</option>
-              <option value="businessman">ব্যবসায়ী</option>
-              <option value="teacher">শিক্ষক</option>
-              <option value="freelancer">ফ্রীল্যান্সার</option>
-              <option value="foreigner">প্রবাসী</option>
-              <option value="nothing">পেশা নাই</option>
-              <option value="others"> অন্যান্য </option>
+              <option value="শিক্ষার্থী">শিক্ষার্থী</option>
+              <option value="ডাক্তার">ডাক্তার</option>
+              <option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
+              <option value="সরকারি চাকরি">সরকারি চাকরি</option>
+              <option value="বেসরকারি চাকরি">বেসরকারি চাকরি</option>
+              <option value="ব্যবসায়ী">ব্যবসায়ী</option>
+              <option value="শিক্ষক">শিক্ষক</option>
+              <option value="ফ্রীল্যান্সার">ফ্রীল্যান্সার</option>
+              <option value="প্রবাসী">প্রবাসী</option>
+              <option value="পেশা নাই">পেশা নাই</option>
+              <option value="অন্যান্য "> অন্যান্য </option>
             </select>
           </label>
-
         </form>
       </div>
     </div>
