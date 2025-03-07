@@ -10,12 +10,10 @@ export const familyInfoSchema = new Schema<FamilyInfo>({
   father: { type: guardianInfoSchema, required: true },
   mother: { type: guardianInfoSchema, required: true },
   siblings: {
-    brotherInfo: {
-      maritalStatus: { type: String, required: true },
-    },
-    sisterInfo: {
-      maritalStatus: { type: String, required: true },
-    },
+    brotherInfo:  { type: String, required: true },
+   
+    sisterInfo:  { type: String, required: true },
+   
     aboutSiblings: { type: String, required: true },
   },
   financialStatus: { type: String, required: true },

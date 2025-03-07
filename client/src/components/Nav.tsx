@@ -27,7 +27,7 @@ function Nav() {
     if (logOut) {
       await logOut();
       navigate('/login');
-      user = null;
+      //user = null;
     }
   };
 

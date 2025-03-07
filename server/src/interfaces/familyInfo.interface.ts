@@ -7,12 +7,10 @@ export type FamilyInfo = {
   father: GardianInfo;
   mother: GardianInfo;
   siblings: {
-    brotherInfo: {
-      maritalStatus: string;
-    };
-    sisterInfo: {
-      maritalStatus: string;
-    };
+    brotherInfo: string;
+
+    sisterInfo: string;
+
     aboutSiblings: string;
   };
   financialStatus: string;

@@ -1,5 +1,5 @@
 export type PersonalPreference = {
-  hobbies: [string];
+  hobbies: string;
   healthIssues: string;
   religiousPractice: string;
   readingHabit: string;

@@ -58,7 +58,7 @@ app.use(
         upgradeInsecureRequests: [],
       },
     },
-    xssFilter: true,
+    //xssFilter: true,
   }),
 );
 
@@ -68,8 +68,8 @@ app.use(
     csrf: true,
     xframe: 'SAMEORIGIN',
     p3p: 'ABCDEF',
-    hsts: { maxAge: 31536000 },
-    xssProtection: true,
+    //hsts: { maxAge: 31536000 },
+   // xssProtection: true,
   }),
 );
 
