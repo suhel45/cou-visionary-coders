@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { EducationInfo } from '../interfaces/educationInfo.interface';
+import { EducationInfo } from '../interfaces/EducationInfo.interface';
 
 const academicRecordSchema = new Schema({
   passingYear: { type: Number, required: true },

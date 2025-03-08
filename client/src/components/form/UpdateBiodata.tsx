@@ -46,7 +46,7 @@ const MultiStepForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/submit',
+        'http://localhost:3000/api/profile/biodata',
         formData,
       );
       console.log('Form submitted successfully:', response.data);

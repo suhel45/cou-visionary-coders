@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import { PersonalPreference } from '../interfaces/personalPreference.interface';
 
 export const personalPreferenceSchema = new Schema<PersonalPreference>({
-  hobbies: { type: [String], required: true },
+  hobbies: { type: String, required: true },
   healthIssues: { type: String, required: true },
   religiousPractice: { type: String, required: true },
   readingHabit: { type: String, required: true },
