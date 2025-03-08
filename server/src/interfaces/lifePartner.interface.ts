@@ -1,6 +1,6 @@
 
 
-export type PartnerInfo = {
+export type ExpectedLifePartner = {
   age: string;
   complexion: string;
   height: string;

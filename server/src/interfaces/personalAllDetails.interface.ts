@@ -1,11 +1,11 @@
 import Types from 'mongoose';
-import { EducationInfo } from './educationInfo.interface';
+import { EducationInfo } from './EducationInfo.interface';
 import { FamilyInfo } from './familyInfo.interface';
 import { ExpectedLifePartner } from './lifePartner.interface';
 import { ContactInfo } from './contactInfo.interface';
 import { PersonalInfoo } from './PersonalInfo.interface';
 import { AddressInfo } from './address.interface';
-import { PersonalPreference } from './personalPreferenc.interface';
+import { PersonalPreference } from './personalPreference.interface';
 
 export type IPersonalAllDetails = {
   users: Types.ObjectId;

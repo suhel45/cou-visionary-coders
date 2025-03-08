@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import { PartnerInfo } from '../interfaces/lifePartner.interface';
+import { ExpectedLifePartner } from '../interfaces/lifePartner.interface';
 
 
 
-export const expectedLifePartnerSchema = new Schema<PartnerInfo>({
+export const expectedLifePartnerSchema = new Schema<ExpectedLifePartner>({
   age: { type: String, required: true },
   complexion: { type: String, required: true },
   height: { type: String, required: true },
