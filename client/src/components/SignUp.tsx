@@ -5,10 +5,8 @@ import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
 import { Eye, EyeOff } from 'lucide-react';
-import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const SignUp = async () => {
-  const csrfToken = await GetCsrfToken();
+const SignUp = () => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error('AuthContext is null');
@@ -25,41 +23,50 @@ const SignUp = async () => {
   } = useForm<IFormData>();
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+
+  // Watch the password field
+  const password = watch('password');
 
   const onSubmit = async (data: IFormData) => {
     setLoading(true);
     try {
-      //simulate a 2 second delay to submit the form
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(true);
-        }, 2000);
-      });
+      // Simulate a 2-second delay to submit the form
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      createUser(data.email, data.password)
-        .then(() => {
-          handleUpdateUserProfile(data.username);
+      // Create user with email and password
+      await createUser(data.email, data.password);
 
-          saveUser(data.username, data.phoneNumber, data.email, data.password);
-        })
-        .catch((error: any) => {
-          console.log(error);
-          toast.error('Error creating user. Please try again.');
-        });
+      // Update user profile with the provided username
+      await handleUpdateUserProfile(data.username);
+
+      // Save user data to the server
+      await saveUser(data.username, data.phoneNumber, data.email, data.password);
+
+      toast.success('User created successfully');
+      navigate('/login');
     } catch (error) {
       console.error('Error during form submission:', error);
+      toast.error('Error creating user. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleUpdateUserProfile = (name: string) => {
+  const handleUpdateUserProfile = async (name: string) => {
     const profile: UserProfile = {
       displayName: name,
     };
-    updateUserProfile(profile)
-      .then(() => {})
-      .catch((error: any) => console.error(error));
+    try {
+      await updateUserProfile(profile);
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
   };
 
   const saveUser = async (
@@ -74,50 +81,47 @@ const SignUp = async () => {
       email,
       password,
     };
-    const response = await fetch(
-      'https://halalbondhon-server.vercel.app/api/signup',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken,
+    try {
+      const response = await fetch(
+        'https://halalbondhon-server.vercel.app/api/signup',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
         },
-        body: JSON.stringify(user),
-      },
-    );
-    const responseData = await response.json();
-    if (responseData.success) {
-      toast.success('user created successfully');
-      navigate('/login');
-    } else {
-      toast.error(responseData.message);
+      );
+      const responseData = await response.json();
+      if (!responseData.success) {
+        throw new Error(responseData.message);
+      }
+    } catch (error) {
+      console.error('Error saving user:', error);
+      throw error;
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword(!showConfirmPassword);
-
-  // Watch the password field
-  const password = watch('password');
+  const inputStyle: string =
+    'm-2 outline-0 rounded-md border border-slate-300 focus:border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:p-2 focus:ring-2 focus:ring-offset-2 focus:ring-pink-600 focus:my-2 text-xs sm:text-sm sm:leading-6 p-2 w-full';
 
   return (
     <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
-      <h2 className="heading mb-4 text-2xl font-bold">Create Account</h2>
+      <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600 outline-offset-2 m-2 rounded-md text-center font-bold text-xl md:text-2xl mb-4">
+        Create Account
+      </h2>
 
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
       >
+        {/* Username */}
         <input
           type="text"
           {...register('username', { required: 'This field is required' })}
           placeholder="Enter Your Name"
-          className="form-input p-2 w-full"
+          className={inputStyle}
         />
         {errors.username && (
           <span className="text-red-500">
@@ -125,6 +129,7 @@ const SignUp = async () => {
           </span>
         )}
 
+        {/* Email */}
         <input
           type="email"
           {...register('email', {
@@ -135,7 +140,7 @@ const SignUp = async () => {
             },
           })}
           placeholder="Enter Your Email"
-          className="form-input p-2 w-full"
+          className={inputStyle}
         />
         {errors.email && (
           <span className="text-red-500">
@@ -143,6 +148,7 @@ const SignUp = async () => {
           </span>
         )}
 
+        {/* Phone Number */}
         <input
           type="tel"
           {...register('phoneNumber', {
@@ -153,7 +159,7 @@ const SignUp = async () => {
             },
           })}
           placeholder="Enter Your Phone Number"
-          className="form-input p-2 w-full"
+          className={inputStyle}
         />
         {errors.phoneNumber && (
           <span className="text-red-500">
@@ -173,7 +179,7 @@ const SignUp = async () => {
               },
             })}
             placeholder="Enter Your Password"
-            className="form-input p-2 w-full"
+            className={inputStyle}
           />
           <button
             type="button"
@@ -196,11 +202,11 @@ const SignUp = async () => {
             type={showConfirmPassword ? 'text' : 'password'}
             {...register('confirmPassword', {
               required: 'This field is required',
-              validate: (value: any) =>
+              validate: (value) =>
                 value === password || 'Passwords do not match',
             })}
             placeholder="Confirm Your Password"
-            className="form-input p-2 w-full"
+            className={inputStyle}
           />
           <button
             type="button"
@@ -222,7 +228,7 @@ const SignUp = async () => {
           )}
         </div>
 
-        {/* show login option */}
+        {/* Show login option */}
         <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
           Already have an account?{' '}
           <Link
@@ -233,9 +239,10 @@ const SignUp = async () => {
           </Link>
         </p>
 
+        {/* Submit button */}
         <button
           type="submit"
-          className="btn-primary mx-auto mt-2"
+          className="w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2"
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
