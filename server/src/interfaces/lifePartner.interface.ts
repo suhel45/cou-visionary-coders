@@ -1,5 +1,3 @@
-
-
 export type ExpectedLifePartner = {
   age: string;
   complexion: string;

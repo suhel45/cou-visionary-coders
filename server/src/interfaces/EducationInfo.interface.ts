@@ -1,4 +1,3 @@
-// filepath: /e:/team project/cou/cou-visionary-coders/server/src/interfaces/Education.interface.ts
 type AcademicRecord = {
   passingYear: number;
   group: string;
