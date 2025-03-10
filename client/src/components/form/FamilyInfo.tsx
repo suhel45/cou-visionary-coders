@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FamilyInfoData } from '../../interfaces/Biodata.interface';
 import GuardianInfoForm from './GuardianInfoForm';
 import SiblingInfoForm from './SiblingInfoForm';

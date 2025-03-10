@@ -1,5 +1,5 @@
 // src/components/AddressInfo.tsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AddressInfoData, Address } from '../../interfaces/Biodata.interface'; // Import the AddressInfo interface
 import AddressForm from './AddressForm'; // Import the reusable AddressForm component
 

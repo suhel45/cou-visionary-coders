@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PersonalInfoData } from '../../interfaces/Biodata.interface'; // Import the interface
 
 interface PersonalInfoProps {

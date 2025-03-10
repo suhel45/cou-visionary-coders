@@ -1,5 +1,4 @@
 // src/types.ts
-import PartnerInfo from './../components/form/PartnerInfo';
 export type PersonalInfoData = {
   gender: string;
   maritalStatus: string;

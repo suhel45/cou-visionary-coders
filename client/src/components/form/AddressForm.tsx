@@ -1,5 +1,5 @@
 // src/components/AddressForm.tsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import subDistricts from './subDistricts'; // Import subdistrict data as an object
 import districts from './districtData'; // Import district data
 import { Address } from '../../interfaces/Biodata.interface'; // Import the Address interface
