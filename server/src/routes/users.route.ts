@@ -12,7 +12,7 @@ router.post('/login', userController.loginUser);
 router.post('/login/google', authController.loginWithGoogle);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
-router.get('/profile/biodata/:id', verifyToken);
+router.get('/profile/biodata/:id', verifyToken, personalDetailsController.GetBiodata);
 
 router.get('/get-data', verifyToken, async (req, res) => {
   try {
