@@ -30,6 +30,20 @@ const Biodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const GetBiodata = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const email = req.params.email;
+    const result = await personalDetailsService.getBiodata(email);
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed' });
+  }
+}
+
 export const personalDetailsController = {
   Biodata,
 };
