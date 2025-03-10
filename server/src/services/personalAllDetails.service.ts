@@ -1,5 +1,6 @@
 import { IPersonalAllDetails } from '../interfaces/personalAllDetails.interface';
 import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
+import { ObjectId } from 'mongodb';
 
 const createBiodata = async (biodata: IPersonalAllDetails) => {
   // Check if the Biodata already exists
@@ -25,6 +26,10 @@ const createBiodata = async (biodata: IPersonalAllDetails) => {
   const result = await newBiodata.save();
   return result;
 };
+
+const getBiodata = async (id: string) => {
+  const filter = {users: new ObjectId(id)};
+  const result = await PersonalAllDetailsModel.findOne(filter).orFail();
 
 export const personalDetailsService = {
   createBiodata,

@@ -32,8 +32,8 @@ const Biodata = async (req: Request, res: Response): Promise<void> => {
 
 const GetBiodata = async (req: Request, res: Response): Promise<void> => {
   try {
-    const email = req.params.email;
-    const result = await personalDetailsService.getBiodata(email);
+    const id = req.params.id;
+    const result = await personalDetailsService.getBiodata(id);
 
     res.status(200).json({
       success: true,
