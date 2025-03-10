@@ -11,6 +11,10 @@ router.post('/login', userController.loginUser);
 router.post('/login/google', authController.loginWithGoogle);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
-router.get('/profile/biodata/:id', verifyToken, personalDetailsController.GetBiodata);
+router.get(
+  '/profile/biodata/:id',
+  verifyToken,
+  personalDetailsController.GetBiodata,
+);
 
 export default router;

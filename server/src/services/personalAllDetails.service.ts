@@ -28,14 +28,14 @@ const createBiodata = async (biodata: IPersonalAllDetails) => {
 };
 
 const getBiodata = async (id: string) => {
-  const filter = {users: new ObjectId(id)};
+  const filter = { users: new ObjectId(id) };
 
   const result = await PersonalAllDetailsModel.findOne(filter)
     .populate('users')
     .lean() // Convert Mongoose document to a plain JSON object
     .orFail();
-    return result;
-}
+  return result;
+};
 
 export const personalDetailsService = {
   createBiodata,
