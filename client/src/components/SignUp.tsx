@@ -46,7 +46,12 @@ const SignUp = () => {
       await handleUpdateUserProfile(data.username);
 
       // Save user data to the server
-      await saveUser(data.username, data.phoneNumber, data.email, data.password);
+      await saveUser(
+        data.username,
+        data.phoneNumber,
+        data.email,
+        data.password,
+      );
 
       toast.success('User created successfully');
       navigate('/login');

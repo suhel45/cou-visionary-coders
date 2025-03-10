@@ -1,7 +1,9 @@
 const AboutUs = () => {
   return (
     <div>
-      <h2 className="text-center text-xl sm:text-3xl rounded-full p-4 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto">আমাদের সম্পর্কে</h2>
+      <h2 className="text-center text-xl sm:text-3xl rounded-full p-4 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto">
+        আমাদের সম্পর্কে
+      </h2>
 
       <section className="bg-gray-100 py-12 px-6 md:px-16 m-4 rounded-lg shadow-md border border-gray-300">
         <div className="max-w-4xl mx-auto text-center">

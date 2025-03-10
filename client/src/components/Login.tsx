@@ -4,11 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
-//import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
 
-const Login: React.FC = async () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
-  //const csrfToken = await GetCsrfToken();
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -36,7 +34,6 @@ const Login: React.FC = async () => {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
-            //'X-CSRF-Token': csrfToken,
           },
           body: JSON.stringify({ email: user.email, password: data.password }),
         },

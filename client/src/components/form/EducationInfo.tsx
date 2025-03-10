@@ -1,30 +1,9 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import {
   EducationInfoData,
   AcademicRecord,
   UniversityRecord,
 } from '../../interfaces/Biodata.interface';
-// Define types for academic records
-// export type AcademicRecord = {
-//   passingYear: number;
-//   group: string;
-//   gpa: number;
-// };
-
-// export type UniversityRecord = {
-//   faculty: string;
-//   department: string;
-//   session: string;
-// };
-
-// export type EducationInfoData = {
-//   ssc: AcademicRecord;
-//   hsc: AcademicRecord;
-//   university: {
-//     honours: UniversityRecord;
-//     masters?: UniversityRecord;
-//   };
-// };
 
 interface EducationInfoProps {
   formData: EducationInfoData;

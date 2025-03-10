@@ -1,12 +1,12 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ContactInfoData } from '../../interfaces/Biodata.interface';
 
-type ContactInfo = {
+type IContactInfo = {
   formData: ContactInfoData;
   setFormData: (data: ContactInfoData) => void;
 };
 
-const ContactInfo: React.FC<ContactInfo> = ({ formData, setFormData }) => {
+const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
   const [localFormData, setLocalFormData] = useState<ContactInfoData>({
     guardianInfo: '',
     guardianContact: '',
