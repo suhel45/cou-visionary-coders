@@ -1,5 +1,6 @@
 import { IPersonalAllDetails } from '../interfaces/personalAllDetails.interface';
 import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
+import { ObjectId } from 'mongodb';
 
 const createBiodata = async (biodata: IPersonalAllDetails) => {
   // Check if the Biodata already exists
@@ -26,6 +27,17 @@ const createBiodata = async (biodata: IPersonalAllDetails) => {
   return result;
 };
 
+const getBiodata = async (id: string) => {
+  const filter = { users: new ObjectId(id) };
+
+  const result = await PersonalAllDetailsModel.findOne(filter)
+    .populate('users')
+    .lean() // Convert Mongoose document to a plain JSON object
+    .orFail();
+  return result;
+};
+
 export const personalDetailsService = {
   createBiodata,
+  getBiodata,
 };

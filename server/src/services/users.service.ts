@@ -26,7 +26,9 @@ const createUserIntoDB = async (user: IUser) => {
   return result;
 };
 
-const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
+const loginUserFromDB = async (
+  loginInfo: ILoginInfo,
+): Promise<{ userId: string; token: string }> => {
   const { email, password } = loginInfo;
 
   const sanitizedEmail = escape(email);
@@ -45,7 +47,7 @@ const loginUserFromDB = async (loginInfo: ILoginInfo): Promise<string> => {
   const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
     expiresIn: '1h',
   });
-  return token;
+  return { userId: user._id.toString(), token };
 };
 
 const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
