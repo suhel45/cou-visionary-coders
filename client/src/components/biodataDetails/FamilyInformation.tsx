@@ -1,7 +1,5 @@
-
-
 const FamilyInformation = () => {
-    // Sample fake data 
+  // Sample fake data
   const data = {
     fatherStatus: 'জীবিত',
     fatherOccupation: 'শিক্ষক',
@@ -10,7 +8,7 @@ const FamilyInformation = () => {
     brotherInfo: '২ জন ভাই, দুজনই চাকরি করেন',
     sisterInfo: '১ জন বোন, বিবাহিতা',
     siblingRelationship: 'খুব ভালো',
-    financialStatus: 'মধ্যবিত্ত'
+    financialStatus: 'মধ্যবিত্ত',
   };
 
   return (
@@ -79,6 +77,6 @@ const FamilyInformation = () => {
       </div>
     </div>
   );
-}
+};
 
-export default FamilyInformation
+export default FamilyInformation;
