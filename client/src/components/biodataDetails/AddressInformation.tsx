@@ -2,14 +2,14 @@
 const AddressInformation = () => {
     const data = {
         permanentAddress: {
-            "village": "village",
-            "district": "district",
-            "subdistrict": "subdistrict",
+            "village": "কুমড়ী",
+            "district": "ময়মনসিংহ",
+            "subdistrict": "গৌরীপুর",
         },
         presentAddress: {
-            "village": "village",
-            "district": "district",
-            "subdistrict": "subdistrict",
+            "village": "বাগমারা",
+            "district": "কুমিল্লা",
+            "subdistrict": "সদর দক্ষিণ",
         },
       };
 
