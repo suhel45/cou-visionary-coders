@@ -1,6 +1,6 @@
 
 
-function Error() {
+function PageNotFound() {
     return (
       <>
           <div className="flex flex-col items-center justify-center">
@@ -12,4 +12,4 @@ function Error() {
     )
   }
   
-  export default Error
+  export default PageNotFound
