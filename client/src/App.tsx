@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
+import Error from './components/Error';
 import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
@@ -12,7 +13,7 @@ import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 
 function NoMatch() {
-  return 'Pages Not Found';
+  return <Error/>;
 }
 
 export default function App() {
