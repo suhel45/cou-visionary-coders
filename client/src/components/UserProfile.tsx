@@ -1,10 +1,9 @@
 /** @format */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
-import { useContext } from 'react';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 
 const UserProfile = () => {
