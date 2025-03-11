@@ -14,7 +14,7 @@ const FamilyInformation = () => {
   };
 
   return (
-    <div className="bg-gray-100 p-4">
+    <div className="bg-[#ededed] p-4">
       <div className="max-w-2xl mx-auto bg-white rounded-3xl border-2 border-purple-700 p-6">
         {/* Header */}
         <div className="bg-purple-700 text-white text-center py-4 rounded-2xl mb-6">
