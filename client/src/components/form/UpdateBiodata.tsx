@@ -45,7 +45,7 @@ const MultiStepForm: React.FC = () => {
     setError(null);
 
     // Assuming formData contains the necessary data
-    const url = `http://localhost:3000/api/profile/biodata`;
+    const url = `https://halalbondhon-server.vercel.app/api/profile/biodata`;
 
     try {
       const response = await fetch(url, {
