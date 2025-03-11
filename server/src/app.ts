@@ -25,7 +25,7 @@ const corsOption = {
   credentials: true,
 };
 
-//app.use(limiter);
+
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
