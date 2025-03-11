@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import UserProfile from './components/UserProfile';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
+import FamilyInformation from './components/biodataDetails/FamilyInformation';
 
 function NoMatch() {
   return 'Pages Not Found';
@@ -39,7 +40,7 @@ export default function App() {
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
-
+         <FamilyInformation />
         {/* Footer component fixed at the bottom */}
         <Footer />
       </div>
