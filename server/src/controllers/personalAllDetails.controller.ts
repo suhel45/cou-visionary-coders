@@ -30,6 +30,22 @@ const Biodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const GetBiodata = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const result = await personalDetailsService.getBiodata(id);
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Failed to fetch data' });
+  }
+};
+
 export const personalDetailsController = {
   Biodata,
+  GetBiodata,
 };
