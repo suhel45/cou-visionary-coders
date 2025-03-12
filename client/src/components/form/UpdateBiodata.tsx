@@ -52,6 +52,7 @@ const MultiStepForm: React.FC = () => {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
+          //'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
         },
         body: JSON.stringify(formData), // Convert formData to JSON
         credentials: 'include',
@@ -213,3 +214,5 @@ const MultiStepForm: React.FC = () => {
 };
 
 export default MultiStepForm;
+
+
