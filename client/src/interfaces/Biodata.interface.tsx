@@ -88,10 +88,10 @@ export type ContactInfoData = {
 
 export interface FormData {
   personalInfo: PersonalInfoData;
-  familyInfo: FamilyInfoData;
-  educationInfo: EducationInfoData;
-  PartnerInfo: PartnerInfoData;
-  PreferenceInfo: PreferenceInfoData;
-  addressInfo: AddressInfoData;
+  address: AddressInfoData;
+  education: EducationInfoData;
+  familyInformation: FamilyInfoData;
+  expectedLifePartner: PartnerInfoData;
   contactInfo: ContactInfoData;
+  personalPreference: PreferenceInfoData;
 }

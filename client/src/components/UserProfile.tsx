@@ -1,13 +1,29 @@
 /** @format */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
+import { AuthContext } from '../Hooks/contextApi/UserContext';
 
 const UserProfile = () => {
   const isPerson = false;
   //Fake data for biodata details
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
+
+  const { user } = authContext;
+
+  // Ensure user is not null before accessing properties
+  if (!user) {
+    return <Typography>User is not authenticated</Typography>;
+  }
+
+  const displayName = user.displayName;
+  console.log(displayName);
   const biodataDetails = [
     { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
     { id: 2, name: 'Marital Status', value: 'Never Married' },
@@ -29,6 +45,7 @@ const UserProfile = () => {
         p: 3,
       }}
     >
+      <p>Hello {displayName}</p>
       <Box
         display="flex"
         gap={2}
