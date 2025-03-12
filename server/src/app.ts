@@ -6,11 +6,11 @@ import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import userRoute from './routes/users.route';
-import csrf from 'csurf';
+//import csrf from 'csurf';
 dotenv.config();
 // Remember , its need fix for sonarcube
 const app = express();
-const csrfProtection = csrf({ cookie: true });
+//const csrfProtection = csrf({ cookie: true });
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -26,7 +26,7 @@ const corsOption = {
   credentials: true,
 };
 
-app.use(csrfProtection);
+//app.use(csrfProtection);
 app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
@@ -51,10 +51,10 @@ app.use(
   }),
 );
 
-app.use((req, res, next) => {
-  res.cookie('XSRF-TOKEN', req.csrfToken(), { httpOnly: false, secure: true, sameSite: 'strict' });
-  next();
-});
+// app.use((req, res, next) => {
+//   res.cookie('XSRF-TOKEN', req.csrfToken(), { httpOnly: false, secure: true, sameSite: 'strict' });
+//   next();
+// });
 
 app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
