@@ -38,12 +38,13 @@ const UserProfile = () => {
   return (
     <Card
       sx={{
-        maxWidth: 750,
+        maxWidth:{ xs: 350, sm: 550 },
         bgcolor: '#d0d3ff',
         border: '4px solid #652c8b',
         borderRadius: 6,
-        m: 3,
+        m:1,
         p: 3,
+        maxHeight: { xs: 'auto', sm: 'auto' },
       }}
       className='w-full'
     >
