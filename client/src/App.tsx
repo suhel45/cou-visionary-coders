@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
+import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
@@ -7,12 +8,12 @@ import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import UserProfile from './components/UserProfile';
+import UserProfile from './pages/profile/pages';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 
 function NoMatch() {
-  return 'Pages Not Found';
+  return <PageNotFound/>;
 }
 
 export default function App() {

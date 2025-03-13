@@ -1,13 +1,29 @@
 /** @format */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
+import { AuthContext } from '../Hooks/contextApi/UserContext';
 
 const UserProfile = () => {
   const isPerson = false;
   //Fake data for biodata details
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
+
+  const { user } = authContext;
+
+  // Ensure user is not null before accessing properties
+  if (!user) {
+    return <Typography>User is not authenticated</Typography>;
+  }
+
+  const displayName = user.displayName;
+  console.log(displayName);
   const biodataDetails = [
     { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
     { id: 2, name: 'Marital Status', value: 'Never Married' },
@@ -22,12 +38,15 @@ const UserProfile = () => {
   return (
     <Card
       sx={{
-        maxWidth: 450,
+        maxWidth:{ xs: 350, sm: 550 },
         bgcolor: '#d0d3ff',
+        border: '4px solid #652c8b',
         borderRadius: 6,
-        m: 3,
+        m:1,
         p: 3,
+        maxHeight: { xs: 'auto', sm: 'auto' },
       }}
+      className='w-full'
     >
       <Box
         display="flex"
@@ -47,12 +66,12 @@ const UserProfile = () => {
         <Avatar
           src={isPerson ? womenImg : manImg}
           sx={{
-            width: 100,
-            height: 100,
             p: 1,
             border: '2px solid #652c8b',
             bgcolor: '#fffff2',
             '& .MuiSvgIcon-root': { color: '#E91E63' },
+            width: { xs: 100, sm: 150 },
+            height: { xs: 100, sm: 150 },
           }}
         />
 
@@ -63,6 +82,7 @@ const UserProfile = () => {
             bgcolor: '#fffff2',
             borderRadius: 4,
             p: 1,
+            width: { xs: '100%', sm: '50%' },
           }}
         >
           {/* Biodata Number */}
@@ -71,9 +91,10 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               mb: 1,
               textAlign: 'center',
+              width: { xs: '100%', sm: '100%' },
             }}
           >
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
@@ -87,14 +108,16 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              width: { xs: '100%', sm: '100%' },
+
             }}
           >
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
-              Biodata Status :{' '}
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' ,mx:2}}>
+              Biodata Status : {' '}
             </Typography>
             <Box
               sx={{
@@ -105,7 +128,7 @@ const UserProfile = () => {
                 fontWeight: 'bold',
               }}
             >
-              Verified
+               {"Verified"}
             </Box>
           </Box>
         </Box>
