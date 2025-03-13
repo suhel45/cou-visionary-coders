@@ -38,14 +38,15 @@ const UserProfile = () => {
   return (
     <Card
       sx={{
-        maxWidth: 450,
+        maxWidth: 750,
         bgcolor: '#d0d3ff',
+        border: '4px solid #652c8b',
         borderRadius: 6,
         m: 3,
         p: 3,
       }}
+      className='w-full'
     >
-      <p>Hello {displayName}</p>
       <Box
         display="flex"
         gap={2}
@@ -64,12 +65,12 @@ const UserProfile = () => {
         <Avatar
           src={isPerson ? womenImg : manImg}
           sx={{
-            width: 100,
-            height: 100,
             p: 1,
             border: '2px solid #652c8b',
             bgcolor: '#fffff2',
             '& .MuiSvgIcon-root': { color: '#E91E63' },
+            width: { xs: 100, sm: 150 },
+            height: { xs: 100, sm: 150 },
           }}
         />
 
@@ -80,6 +81,7 @@ const UserProfile = () => {
             bgcolor: '#fffff2',
             borderRadius: 4,
             p: 1,
+            width: { xs: '100%', sm: '50%' },
           }}
         >
           {/* Biodata Number */}
@@ -88,9 +90,10 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               mb: 1,
               textAlign: 'center',
+              width: { xs: '100%', sm: '100%' },
             }}
           >
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
@@ -104,14 +107,16 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              width: { xs: '100%', sm: '100%' },
+
             }}
           >
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
-              Biodata Status :{' '}
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' ,mx:2}}>
+              Biodata Status : {' '}
             </Typography>
             <Box
               sx={{
@@ -122,7 +127,7 @@ const UserProfile = () => {
                 fontWeight: 'bold',
               }}
             >
-              Verified
+               {"Verified"}
             </Box>
           </Box>
         </Box>
