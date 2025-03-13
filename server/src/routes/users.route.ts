@@ -12,7 +12,7 @@ router.post('/login/google', authController.loginWithGoogle);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
 router.get(
-  '/profile/biodata/:id',
+  '/profile/biodata',
   verifyToken,
   personalDetailsController.GetBiodata,
 );
