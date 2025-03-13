@@ -17,7 +17,7 @@ const EducationInformation = () => {
 
   return (
     <div className="p-4 min-h-screen">
-      <div className="max-w-3xl mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">
+      <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">
         {/* Header */}
         <div className="bg-gradient-to-r from-pink-700 to-purple-800 text-white text-center py-4 rounded-2xl mb-6">
           <h1 className="text-2xl font-bold">শিক্ষাগত তথ্য</h1>
