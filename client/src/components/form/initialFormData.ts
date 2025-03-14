@@ -13,25 +13,19 @@ export const initialFormData: FormData = {
     religion: '',
     bloodGroup: '',
   },
-  familyInfo: {
-    father: {
-      aliveStatus: true,
-      profession: '',
+  address: {
+    permanentAddress: {
+      district: '',
+      subdistrict: '',
+      village: '',
     },
-    mother: {
-      aliveStatus: true,
-      profession: '',
+    presentAddress: {
+      district: '',
+      subdistrict: '',
+      village: '',
     },
-    siblings: {
-      brotherInfo: '',
-
-      sisterInfo: '',
-
-      aboutSiblings: '',
-    },
-    financialStatus: '',
   },
-  educationInfo: {
+  education: {
     ssc: {
       passingYear: 0,
       group: '',
@@ -50,7 +44,44 @@ export const initialFormData: FormData = {
       },
     },
   },
-  PartnerInfo: {
+  familyInformation: {
+    father: {
+      aliveStatus: true,
+      profession: '',
+    },
+    mother: {
+      aliveStatus: true,
+      profession: '',
+    },
+    siblings: {
+      brotherInfo: '',
+
+      sisterInfo: '',
+
+      aboutSiblings: '',
+    },
+    financialStatus: '',
+  },
+  // education: {
+  //   ssc: {
+  //     passingYear: 0,
+  //     group: '',
+  //     gpa: 0,
+  //   },
+  //   hsc: {
+  //     passingYear: 0,
+  //     group: '',
+  //     gpa: 0,
+  //   },
+  //   university: {
+  //     honours: {
+  //       faculty: '',
+  //       department: '',
+  //       session: '',
+  //     },
+  //   },
+  // },
+  expectedLifePartner: {
     age: '',
     complexion: '',
     height: '',
@@ -60,7 +91,13 @@ export const initialFormData: FormData = {
     financialCondition: '',
     expectedQualities: '',
   },
-  PreferenceInfo: {
+  contactInfo: {
+    guardianInfo: '',
+    guardianContact: '',
+    candidateNumber: '',
+    candidateEmail: '',
+  },
+  personalPreference: {
     hobbies: '',
     healthIssues: '',
     religiousPractice: '',
@@ -68,22 +105,22 @@ export const initialFormData: FormData = {
     lifeStylePreference: '',
     additionalInfo: '',
   },
-  addressInfo: {
-    permanentAddress: {
-      district: '',
-      subdistrict: '',
-      village: '',
-    },
-    presentAddress: {
-      district: '',
-      subdistrict: '',
-      village: '',
-    },
-  },
-  contactInfo: {
-    guardianInfo: '',
-    guardianContact: '',
-    candidateNumber: '',
-    candidateEmail: '',
-  },
+  // address: {
+  //   permanentAddress: {
+  //     district: '',
+  //     subdistrict: '',
+  //     village: '',
+  //   },
+  //   presentAddress: {
+  //     district: '',
+  //     subdistrict: '',
+  //     village: '',
+  //   },
+  // },
+  // contactInfo: {
+  //   guardianInfo: '',
+  //   guardianContact: '',
+  //   candidateNumber: '',
+  //   candidateEmail: '',
+  // },
 };

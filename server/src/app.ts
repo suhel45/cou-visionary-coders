@@ -1,18 +1,16 @@
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import express, { Express, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
-import lusca from 'lusca';
-import session from 'express-session';
 import userRoute from './routes/users.route';
-import { CustomReq } from './interfaces/express';
-
+//import csrf from 'csurf';
 dotenv.config();
-
-const app: Express = express();
+// Remember , its need fix for sonarcube
+const app = express();
+//const csrfProtection = csrf({ cookie: true });
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -22,28 +20,19 @@ const limiter = rateLimit({
 });
 
 const corsOption = {
-  origin: ['http://localhost:5173', 'https://halalbondhon-server.vercel.app'],
+  origin: ['http://localhost:5173', 'https://halalbondhon-client.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization','X-CSRF-Token'],
+  allowedHeaders: ['Content-Type', 'Accept','Authorization','credentials'],
   credentials: true,
 };
 
+//app.use(csrfProtection);
 app.use(limiter);
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(mongoSanitize());
-
-// Session management
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET as string,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production' },
-  }),
-);
 
 // Helmet configuration for XSS protection
 app.use(
@@ -62,24 +51,14 @@ app.use(
   }),
 );
 
-// Lusca configuration for security
-app.use(
-  lusca({
-    csrf: true,
-    xframe: 'SAMEORIGIN',
-    p3p: 'ABCDEF',
-    hsts: { maxAge: 31536000 },
-    xssProtection: true,
-  }),
-);
+// app.use((req, res, next) => {
+//   res.cookie('XSRF-TOKEN', req.csrfToken(), { httpOnly: false, secure: true, sameSite: 'strict' });
+//   next();
+// });
 
 app.use('/api', userRoute);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
-});
-
-app.get('/csrf-token', (req: Request, res: Response) => {
-  res.json({ csrfToken: (req as CustomReq).csrfToken() });
 });
 
 export default app;

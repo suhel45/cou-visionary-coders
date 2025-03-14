@@ -46,7 +46,12 @@ const SignUp = () => {
       await handleUpdateUserProfile(data.username);
 
       // Save user data to the server
-      await saveUser(data.username, data.phoneNumber, data.email, data.password);
+      await saveUser(
+        data.username,
+        data.phoneNumber,
+        data.email,
+        data.password,
+      );
 
       toast.success('User created successfully');
       navigate('/login');
@@ -106,7 +111,7 @@ const SignUp = () => {
     'm-2 outline-0 rounded-md border border-slate-300 focus:border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:p-2 focus:ring-2 focus:ring-offset-2 focus:ring-pink-600 focus:my-2 text-xs sm:text-sm sm:leading-6 p-2 w-full';
 
   return (
-    <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
+    <div className="flex flex-col items-center justify-center shadow-lg bg-indigo-50 py-8 px-2 border-2 border-pink-700 m-4 rounded-md">
       <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600 outline-offset-2 m-2 rounded-md text-center font-bold text-xl md:text-2xl mb-4">
         Create Account
       </h2>
@@ -114,7 +119,7 @@ const SignUp = () => {
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
+        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border-2 shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
       >
         {/* Username */}
         <input
@@ -171,11 +176,13 @@ const SignUp = () => {
         <div className="relative w-full">
           <input
             type={showPassword ? 'text' : 'password'}
-            {...register('password', {
-              required: 'This field is required',
-              minLength: {
-                value: 6,
-                message: 'Password must be at least 6 characters long',
+            {...register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message:
+                  "Password must be 8+ characters, include uppercase, lowercase, number & symbol.",
               },
             })}
             placeholder="Enter Your Password"

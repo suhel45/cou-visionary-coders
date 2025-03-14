@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PersonalInfoData } from '../../interfaces/Biodata.interface'; // Import the interface
 
 interface PersonalInfoProps {
@@ -34,33 +34,35 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     setLocalFormData(updatedData);
     setFormData(updatedData); // Pass the updated object
   };
+  const inputStyle :string= "block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6";
+  const levelStyle :string= "text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center";
   return (
     <div className="w-full">
       <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
-        <h2 className="heading">ব্যক্তিগত তথ্য</h2>
+        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl">ব্যক্তিগত তথ্য</h2>
         <form className="w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-          <h2 className="subheading">সাধারণ তথ্য</h2>
+          <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl">সাধারণ তথ্য</h2>
 
           {/* Birth Date Field */}
-          <label className="label">
+          <label className={levelStyle}>
             জন্ম তারিখ - {/* Birth Date */}
             <input
               type="date"
               name="birthDate"
               value={localFormData.birthDate}
               onChange={handleChange}
-              className="option-btn p-4"
+              className={inputStyle}
             />
           </label>
 
           {/* Gender Field */}
-          <label className="label">
+          <label className={levelStyle}>
             লিঙ্গ - {/* Gender */}
             <select
               name="gender"
               value={localFormData.gender}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               <option value="male">পুরুষ</option>
@@ -69,13 +71,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Marital Status Field */}
-          <label className="label">
+          <label className={levelStyle}>
             বৈবাহিক অবস্থা - {/* Marital Status */}
             <select
               name="maritalStatus"
               value={localFormData.maritalStatus}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               <option value="অবিবাহিত">অবিবাহিত</option>
@@ -87,13 +89,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Height Field */}
-          <label className="label">
+          <label className={levelStyle}>
             উচ্চতা - {/* Height */}
             <select
               name="height"
               value={localFormData.height}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               {Array.from({ length: 36 }, (_, i) => {
@@ -110,13 +112,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Weight Field */}
-          <label className="label">
+          <label className={levelStyle}>
             ওজন - {/* Weight */}
             <select
               name="weight"
               value={localFormData.weight}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               {Array.from({ length: 91 }, (_, i) => {
@@ -131,13 +133,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Complexion Field */}
-          <label className="label">
+          <label className={levelStyle}>
             গাত্রবর্ন - {/* Complexion */}
             <select
               name="complexion"
               value={localFormData.complexion}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
@@ -149,13 +151,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Blood Group Field */}
-          <label className="label">
+          <label className={levelStyle}>
             রক্তের গ্রুপ - {/* Blood Group */}
             <select
               name="bloodGroup"
               value={localFormData.bloodGroup}
               onChange={handleChange}
-              className="option-btn text-center"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               <option value="A+">A+</option>
@@ -170,13 +172,13 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Religion Field */}
-          <label className="label">
+          <label className={levelStyle}>
             ধর্ম - {/* Religion */}
             <select
               name="religion"
               value={localFormData.religion}
               onChange={handleChange}
-              className="option-btn"
+              className={inputStyle}
             >
               <option>নির্বাচন করুন</option>
               <option value="ইসলাম">ইসলাম</option>
@@ -187,10 +189,10 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
           </label>
 
           {/* Occupation Field */}
-          <label className="label">
+          <label className={levelStyle}>
             পেশা - {/* Occupation */}
             <select
-              className="option-btn"
+              className={inputStyle}
               name="occupation"
               value={localFormData.occupation}
               onChange={handleChange}

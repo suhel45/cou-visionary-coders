@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import axios from 'axios';
+
 import PersonalInfo from './PersonalInfo';
 import FamilyInfo from './FamilyInfo';
 import EducationInfo from './EducationInfo';
@@ -11,7 +11,7 @@ import PreferenceInfo from './PreferenceInfo';
 import AddressInfo from './AddressInfo';
 import ContactInfo from './ContactInfo';
 import { FormData } from '../../interfaces/Biodata.interface';
-import { CircleArrowLeft, CircleArrowRight } from 'lucide-react';
+import { CircleArrowLeft, CircleArrowRight ,Check} from 'lucide-react';
 import { initialFormData } from './initialFormData';
 
 const steps = [
@@ -19,7 +19,7 @@ const steps = [
   'Family Information',
   'Education Information',
   'Partner Information',
-  'Hobbies and Habits',
+  'Hobbies and Others',
   'Address',
   'Contact',
 ];
@@ -39,17 +39,31 @@ const MultiStepForm: React.FC = () => {
   const updateFormData = (section: keyof FormData, data: any) => {
     setFormData((prev) => ({ ...prev, [section]: data }));
   };
-
+  
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
 
+    // Assuming formData contains the necessary data
+    const url = `https://halalbondhon-server.vercel.app/api/profile/biodata`;
+
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/profile/biodata',
-        formData,
-      );
-      console.log('Form submitted successfully:', response.data);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          //'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+        },
+        body: JSON.stringify(formData), // Convert formData to JSON
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      const data = await response.json();
+      console.log('Form submitted successfully:', data);
       setIsSubmitted(true);
     } catch (err) {
       setError('Failed to submit the form. Please try again.');
@@ -77,36 +91,36 @@ const MultiStepForm: React.FC = () => {
       case 1:
         return (
           <FamilyInfo
-            formData={formData.familyInfo}
-            setFormData={(data) => updateFormData('familyInfo', data)}
+            formData={formData.familyInformation}
+            setFormData={(data) => updateFormData('familyInformation', data)}
           />
         );
       case 2:
         return (
           <EducationInfo
-            formData={formData.educationInfo}
-            setFormData={(data) => updateFormData('educationInfo', data)}
+            formData={formData.education}
+            setFormData={(data) => updateFormData('education', data)}
           />
         );
       case 3:
         return (
           <PartnerInfo
-            formData={formData.PartnerInfo}
-            setFormData={(data) => updateFormData('PartnerInfo', data)}
+            formData={formData.expectedLifePartner}
+            setFormData={(data) => updateFormData('expectedLifePartner', data)}
           />
         );
       case 4:
         return (
           <PreferenceInfo
-            formData={formData.PreferenceInfo}
-            setFormData={(data) => updateFormData('PreferenceInfo', data)}
+            formData={formData.personalPreference}
+            setFormData={(data) => updateFormData('personalPreference', data)}
           />
         );
       case 5:
         return (
           <AddressInfo
-            formData={formData.addressInfo}
-            setFormData={(data) => updateFormData('addressInfo', data)}
+            formData={formData.address}
+            setFormData={(data) => updateFormData('address', data)}
           />
         );
       case 6:
@@ -117,19 +131,22 @@ const MultiStepForm: React.FC = () => {
           />
         );
       default:
-        return <div>Unknown step</div>;
+        return <div>page not found</div>;
     }
   };
-
+  
   return (
     <div className="p-4">
       {isSubmitted ? (
-        <div>
-          <h2>Form Submitted Successfully!</h2>
-          <button onClick={handleReset}>Reset Form</button>
-        </div>
+         <div className="flex flex-col items-center p-4 md:p-8 m-4 rounded bg-green-100 gap-2">
+         <Check className='text-white font-bold rounded-full bg-green-900 p-1'/>
+         <h2 className='text-lg md:text-4xl my-2 font-bold text-green-800'>Form Submitted Successfully!</h2>
+         <p className='text-sm font-semibold text-white bg-green-800 rounded p-2'>Visit Your Profile for Checking Update</p>
+         <button onClick={handleReset} className="py-2 px-4 bg-red-700 md:text-lg text-white font-semibold rounded-full shadow-md hover:bg-red-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-400 focus:ring-opacity-75">Reset</button>
+       </div>
       ) : (
         <>
+       
           <div className="sm:hidden flex justify-between items-center mb-4">
             <button
               disabled={activeStep === 0}
@@ -171,7 +188,7 @@ const MultiStepForm: React.FC = () => {
               <button
                 disabled={activeStep === 0 || isLoading}
                 onClick={handleBack}
-                className="formbtn"
+                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
                 Back
               </button>
@@ -180,7 +197,7 @@ const MultiStepForm: React.FC = () => {
                   activeStep === steps.length - 1 ? handleSubmit : handleNext
                 }
                 disabled={isLoading}
-                className="formbtn"
+                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
                 {isLoading
                   ? 'Submitting...'
@@ -197,3 +214,5 @@ const MultiStepForm: React.FC = () => {
 };
 
 export default MultiStepForm;
+
+

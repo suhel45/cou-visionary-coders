@@ -32,19 +32,20 @@ const loginUser = async (req: Request, res: Response) => {
   try {
     const loginInfo: ILoginInfo = req.body;
 
-    const result = await userService.loginUserFromDB(loginInfo);
+    const { userId, token } = await userService.loginUserFromDB(loginInfo);
 
     //set the token as an httpOnly cookie
-    res.cookie('token', result, {
+    res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'none',
       maxAge: 3600000, // 1 hour
     });
 
     res.status(200).json({
       success: true,
       message: 'User logged in successfully',
+      userId: userId,
     });
   } catch (error) {
     console.error('Unexpected error:', error);

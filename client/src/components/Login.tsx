@@ -4,11 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
-//import { GetCsrfToken } from '../utils/csrfToken/GetCsrfToken';
+import { Eye, EyeOff } from "lucide-react";
 
-const Login: React.FC = async () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
-  //const csrfToken = await GetCsrfToken();
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -24,6 +23,7 @@ const Login: React.FC = async () => {
   } = useForm<IFormInput>();
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: any) => {
     setLoading(true);
@@ -34,15 +34,17 @@ const Login: React.FC = async () => {
         'https://halalbondhon-server.vercel.app/api/login',
         {
           method: 'POST',
+          credentials: "include",
           headers: {
             'content-type': 'application/json',
-            //'X-CSRF-Token': csrfToken,
+          
           },
           body: JSON.stringify({ email: user.email, password: data.password }),
         },
       );
 
       const responseData = await response.json();
+      console.log(responseData);
       if (responseData.success) {
         toast.success('User login sucessfully');
         navigate('/profile');
@@ -68,7 +70,8 @@ const Login: React.FC = async () => {
           src="https://cdn.dribbble.com/users/756147/screenshots/2494603/unlock_animaiton.gif"
           alt="Login"
         />
-        <h2 className="mt-5 heading">Log in</h2>
+        <h2 className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
+">Log in</h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
@@ -89,30 +92,42 @@ const Login: React.FC = async () => {
               className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
             />
             {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
+              <span className="text-red-500 font-semibold  p-2">{errors.email.message}</span>
             )}
           </div>
 
           {/* Password */}
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Password
             </label>
             <div className="relative mt-1">
               <input
                 id="password"
-                {...register('password', { required: 'Password is required' })}
-                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "Password must be 8+ characters, include uppercase, lowercase, number & symbol.",
+                  },
+                })}
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 className="block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
               />
-              {errors.password && (
-                <span className="text-red-500">{errors.password.message}</span>
-              )}
+              <button
+                type="button"
+                className="absolute inset-y-0 right-2 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
+            {errors.password && (
+              <span className="text-red-500 font-semibold">{errors.password.message}</span>
+            )}
           </div>
 
           {/* Submit */}

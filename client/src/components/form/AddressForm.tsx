@@ -1,5 +1,5 @@
 // src/components/AddressForm.tsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import subDistricts from './subDistricts'; // Import subdistrict data as an object
 import districts from './districtData'; // Import district data
 import { Address } from '../../interfaces/Biodata.interface'; // Import the Address interface
@@ -32,15 +32,18 @@ const AddressForm: React.FC<AddressFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col md:items-center">
-      <h2 className="subheading">{title}</h2>
-      <label className="label">
+    <div className="flex flex-col items-stretch md:items-center justify-center">
+      <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl
+">{title}</h2>
+      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+">
         জেলা -{/* District */}
         <select
           name="district"
           value={localAddress.district}
           onChange={handleChange}
-          className="option-btn"
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:p-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6
+"
         >
           <option>নির্বাচন করুন</option>
           {districts.map((district) => (
@@ -51,13 +54,15 @@ const AddressForm: React.FC<AddressFormProps> = ({
         </select>
       </label>
       <br />
-      <label className="label">
+      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+">
         উপজেলা -{/* Subdistrict */}
         <select
           name="subdistrict"
           value={localAddress.subdistrict}
           onChange={handleChange}
-          className="option-btn"
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6
+"
           disabled={!localAddress.district}
         >
           <option>নির্বাচন করুন</option>
@@ -72,13 +77,15 @@ const AddressForm: React.FC<AddressFormProps> = ({
         </select>
       </label>
       <br />
-      <label className="label">
+      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+">
         গ্রাম -{/* Village */}
         <input
           name="village"
           value={localAddress.village}
           onChange={handleChange}
-          className="option-btn p-2"
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6
+ p-2"
           disabled={!localAddress.subdistrict}
           placeholder="Enter"
         />

@@ -9,17 +9,17 @@ interface CustomRequest extends Request {
 
 const Biodata = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = (req as CustomRequest).user.id;
-    req.body.users = userId;
-
-    const result = await personalDetailsService.createBiodata(req.body);
+     const userId = (req as CustomRequest).user.id;
+     req.body.users = userId;
+     const result = await personalDetailsService.createBiodata(req.body);
 
     res.status(200).json({
       success: true,
       message: 'Biodata created successfully',
-      data: result,
+       data: result,
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof Error && error.message === 'Biodata already exists!') {
       res.status(400).json({
         success: false,
@@ -30,6 +30,22 @@ const Biodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const GetBiodata = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const result = await personalDetailsService.getBiodata(id);
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Failed to fetch data' });
+  }
+};
+
 export const personalDetailsController = {
   Biodata,
+  GetBiodata,
 };
