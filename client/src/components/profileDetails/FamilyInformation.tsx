@@ -1,15 +1,11 @@
-const FamilyInformation = () => {
-  // Sample fake data
-  const data = {
-    fatherStatus: 'জীবিত',
-    fatherOccupation: 'শিক্ষক',
-    motherStatus: 'জীবিত',
-    motherOccupation: 'গৃহিণী',
-    brotherInfo: '২ জন ভাই, দুজনই চাকরি করেন',
-    sisterInfo: '১ জন বোন, বিবাহিতা',
-    siblingRelationship: 'খুব ভালো',
-    financialStatus: 'মধ্যবিত্ত',
-  };
+import React from "react";
+import { FamilyInfoData } from "../../interfaces/Biodata.interface";
+
+interface FamilyInfoProps {
+  data: FamilyInfoData
+}
+
+const FamilyInformation:React.FC<FamilyInfoProps> = ({data}) => {
 
   return (
     <div className="p-4 min-h-screen">

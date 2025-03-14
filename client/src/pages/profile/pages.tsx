@@ -4,14 +4,16 @@ import FamilyInformation from '../../components/profileDetails/FamilyInformation
 import EducationInformation from '../../components/profileDetails/EducationalInformation'
 import AddressInformation from '../../components/profileDetails/AddressInformation'
 import axios from 'axios'
-import { AddressInfoData, EducationInfoData, PersonalInfoData } from '../../interfaces/Biodata.interface'
+import { AddressInfoData, EducationInfoData, FamilyInfoData, PersonalInfoData } from '../../interfaces/Biodata.interface'
+
 
 const pages = () => {
   interface UserData {
     data:any,
     personalInfo: PersonalInfoData; 
     education: EducationInfoData;
-    address: AddressInfoData
+    address: AddressInfoData,
+    FamilyInformation: FamilyInfoData
   }
 
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -47,7 +49,7 @@ const pages = () => {
         {userData && <UserProfile data={userData?.data?.personalInfo}/>}
         </div>
         <div className="flex flex-col items-stretch bg-gray-50 md:w-2/3">
-        <FamilyInformation/>
+        <FamilyInformation data={userData?.data?.FamilyInformation}/>
         <EducationInformation data={userData?.data?.education}/>
         <AddressInformation data={userData?.data?.address}/>
         </div>
