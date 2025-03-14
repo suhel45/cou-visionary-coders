@@ -16,8 +16,12 @@ function Nav() {
   const navigate = useNavigate();
 
   // Check if authContext is available and extract user and logOut
-  let user = authContext?.user;
-  const logOut = authContext?.logOut;
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
+
+  const { user } = authContext;
+  const {logOut }= authContext;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
