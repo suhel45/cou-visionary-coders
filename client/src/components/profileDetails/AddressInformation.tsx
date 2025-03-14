@@ -1,16 +1,10 @@
-const AddressInformation = () => {
-  const data = {
-    permanentAddress: {
-      village: 'কুমড়ী',
-      district: 'ময়মনসিংহ',
-      subdistrict: 'গৌরীপুর',
-    },
-    presentAddress: {
-      village: 'বাগমারা',
-      district: 'কুমিল্লা',
-      subdistrict: 'সদর দক্ষিণ',
-    },
-  };
+import React from "react";
+import { AddressInfoData } from "../../interfaces/Biodata.interface";
+interface AddressInProps {
+  data: AddressInfoData
+}
+
+const AddressInformation:React.FC<AddressInProps> = ({data}) => {
 
   return (
     <div className="p-4 min-h-screen">
