@@ -13,7 +13,7 @@ const pages = () => {
     personalInfo: PersonalInfoData; 
     education: EducationInfoData;
     address: AddressInfoData,
-    FamilyInformation: FamilyInfoData
+    familyInformation: FamilyInfoData
   }
 
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -49,7 +49,7 @@ const pages = () => {
         {userData && <UserProfile data={userData?.data?.personalInfo}/>}
         </div>
         <div className="flex flex-col items-stretch bg-gray-50 md:w-2/3">
-        <FamilyInformation data={userData?.data?.FamilyInformation}/>
+        <FamilyInformation data={userData?.data?.familyInformation}/>
         <EducationInformation data={userData?.data?.education}/>
         <AddressInformation data={userData?.data?.address}/>
         </div>
