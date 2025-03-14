@@ -29,7 +29,7 @@ const Login: React.FC = () => {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
       const response = await fetch(
-        'https://halalbondhon-server.vercel.app/api/login',
+        'http://localhost:3000/api/login',
         {
           method: 'POST',
           credentials: "include",
