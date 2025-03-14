@@ -7,5 +7,5 @@ export type PersonalInfoo = {
   occupation: string;
   complexion: string;
   religion: string;
-  bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+  bloodGroup: string;
 };

@@ -17,7 +17,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-cyan-950 text-white py-4 sm:py-6 md:py-8">
+    <footer className="bg-cyan-950 text-white py-4 sm:py-6 md:py-8 rounded-t-xl">
       <div className="max-w-4xl mx-auto px-4">
         <nav
           className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center 
@@ -55,7 +55,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center text-sm sm:text-base">
-          <p>© 2025 - halal-biye.com</p>
+          <p>© 2025 - halal-bondhon.com</p>
         </div>
       </div>
     </footer>

@@ -1,12 +1,9 @@
-type AgeHeightLimit = {
-  min: number;
-  max: number;
-};
+
 
 export type ExpectedLifePartner = {
-  age: AgeHeightLimit;
+  age: string;
   complexion: string;
-  height: AgeHeightLimit;
+  height: string;
   district: string;
   maritalStatus: string;
   profession: string;
