@@ -10,7 +10,7 @@ const createBiodata = async (biodata: IPersonalAllDetails) => {
   if (existingBiodata) {
     throw new Error('Biodata already exists!');
   }
-
+  
   // Save the Biodata to the database
   const newBiodata = new PersonalAllDetailsModel({
     users: biodata.users,
