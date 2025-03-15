@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     throw new Error('AuthContext is null');
   }
 
-  const { loginUser } = authContext;
+  const { loginUser,setValid} = authContext;
 
   const {
     register,
@@ -47,6 +47,7 @@ const Login: React.FC = () => {
       console.log(responseData);
       if (responseData.success) {
         toast.success('User login sucessfully');
+        setValid(true);
         navigate('/profile');
       } else {
         toast.error(responseData.error);
