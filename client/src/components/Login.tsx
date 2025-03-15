@@ -54,6 +54,7 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       console.error('Login error:', error);
+      setValid(false);
       const errorMessage =
         error instanceof Error
           ? error.message
