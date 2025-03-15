@@ -10,9 +10,14 @@ const createBiodata = async (biodata: IPersonalAllDetails) => {
   if (existingBiodata) {
     throw new Error('Biodata already exists!');
   }
+
+  // Get the total count of biodata to generate a unique biodata number
+  const totalBiodataCount = await PersonalAllDetailsModel.countDocuments();
+  const uniqueBiodataNo = totalBiodataCount + 1;
   
   // Save the Biodata to the database
   const newBiodata = new PersonalAllDetailsModel({
+    biodataNo: uniqueBiodataNo,
     users: biodata.users,
     personalInfo: biodata.personalInfo,
     address: biodata.address,
