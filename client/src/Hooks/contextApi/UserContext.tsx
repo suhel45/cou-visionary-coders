@@ -45,6 +45,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const loginUser = (email: string, password: string) => {
     setLoading(true);
+    setValid(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
