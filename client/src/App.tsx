@@ -5,6 +5,7 @@ import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
 import Home from './pages/Home/pages';
+import Biodata from './pages/biodata/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<UserProfile />} />
+              <Route path="/biodata" element={<Biodata />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
               </Route>
