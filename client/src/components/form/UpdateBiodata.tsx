@@ -29,7 +29,6 @@ const MultiStepForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
   // Initialize formData with the correct structure
   const [formData, setFormData] = useState<FormData>(initialFormData);
   console.log(formData);
