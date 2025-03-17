@@ -9,14 +9,14 @@ interface CustomRequest extends Request {
 
 const Biodata = async (req: Request, res: Response): Promise<void> => {
   try {
-     const userId = (req as CustomRequest).user.id;
-     req.body.users = userId;
-     const result = await personalDetailsService.createBiodata(req.body);
+    const userId = (req as CustomRequest).user.id;
+    req.body.users = userId;
+    const result = await personalDetailsService.createBiodata(req.body);
 
     res.status(200).json({
       success: true,
       message: 'Biodata created successfully',
-       data: result,
+      data: result,
     });
   } catch (error) {
     console.log(error);
