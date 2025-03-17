@@ -1,16 +1,16 @@
-
 import React from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
 import { PersonalInfoData } from '../interfaces/Biodata.interface';
 interface UserProfileProps {
-  data: PersonalInfoData
+  data: PersonalInfoData;
+  biodataNo: number;
 }
 
-const UserProfile:React.FC<UserProfileProps> = ({data}) => {
-  const isPerson = data.gender==='Female';
- 
+const UserProfile: React.FC<UserProfileProps> = ({ data, biodataNo }) => {
+  const isPerson = data.gender === 'Female';
+
   // Dynamically populate userProfile data
   const biodataDetails = [
     { id: 1, name: 'Gender', value: data.gender },
@@ -27,15 +27,15 @@ const UserProfile:React.FC<UserProfileProps> = ({data}) => {
   return (
     <Card
       sx={{
-        maxWidth:{ xs: 350, sm: 550 },
+        maxWidth: { xs: 350, sm: 550 },
         bgcolor: '#d0d3ff',
         border: '4px solid #652c8b',
         borderRadius: 6,
-        m:1,
+        m: 1,
         p: 3,
         maxHeight: { xs: 'auto', sm: 'auto' },
       }}
-      className='w-full'
+      className="w-full"
     >
       <Box
         display="flex"
@@ -87,7 +87,7 @@ const UserProfile:React.FC<UserProfileProps> = ({data}) => {
             }}
           >
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
-              Biodata No : BD-1234
+              Biodata No : {biodataNo}
             </Typography>
           </Box>
 
@@ -102,11 +102,12 @@ const UserProfile:React.FC<UserProfileProps> = ({data}) => {
               alignItems: 'center',
               justifyContent: 'center',
               width: { xs: '100%', sm: '100%' },
-
             }}
           >
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' ,mx:2}}>
-              Biodata Status : {' '}
+            <Typography
+              sx={{ fontSize: '0.875rem', fontWeight: 'bold', mx: 2 }}
+            >
+              Biodata Status :{' '}
             </Typography>
             <Box
               sx={{
@@ -117,7 +118,7 @@ const UserProfile:React.FC<UserProfileProps> = ({data}) => {
                 fontWeight: 'bold',
               }}
             >
-               {"Verified"}
+              {'Verified'}
             </Box>
           </Box>
         </Box>

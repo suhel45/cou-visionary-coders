@@ -33,10 +33,16 @@ const AddressForm: React.FC<AddressFormProps> = ({
 
   return (
     <div className="flex flex-col items-stretch md:items-center justify-center">
-      <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl
-">{title}</h2>
-      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-">
+      <h2
+        className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl
+"
+      >
+        {title}
+      </h2>
+      <label
+        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+"
+      >
         জেলা -{/* District */}
         <select
           name="district"
@@ -54,8 +60,10 @@ const AddressForm: React.FC<AddressFormProps> = ({
         </select>
       </label>
       <br />
-      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-">
+      <label
+        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+"
+      >
         উপজেলা -{/* Subdistrict */}
         <select
           name="subdistrict"
@@ -77,8 +85,10 @@ const AddressForm: React.FC<AddressFormProps> = ({
         </select>
       </label>
       <br />
-      <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-">
+      <label
+        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+"
+      >
         গ্রাম -{/* Village */}
         <input
           name="village"

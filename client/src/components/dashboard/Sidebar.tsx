@@ -1,5 +1,15 @@
 import { useState } from 'react';
-import { LayoutGrid, X, BarChart, User, Settings, Heart, ShoppingCart, HelpCircle,ShieldUser } from 'lucide-react';
+import {
+  LayoutGrid,
+  X,
+  BarChart,
+  User,
+  Settings,
+  Heart,
+  ShoppingCart,
+  HelpCircle,
+  ShieldUser,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const sidebarLinks = [
@@ -20,8 +30,10 @@ const SidebarComponent = () => {
     <div className="flex">
       {/* Desktop Sidebar */}
       <div className="hidden md:flex flex-col w-80 min-h-screen bg-purple-950 text-white p-6">
-        <h2 className="text-3xl p-2 text-white rounded text-center font-bold mb-6">Dashboard</h2>
-        <nav className='flex flex-col items-center'>
+        <h2 className="text-3xl p-2 text-white rounded text-center font-bold mb-6">
+          Dashboard
+        </h2>
+        <nav className="flex flex-col items-center">
           <ul className="space-y-4">
             {sidebarLinks.map(({ to, label, icon: Icon }) => (
               <li key={to}>
@@ -67,7 +79,9 @@ const SidebarComponent = () => {
         >
           <X size={24} />
         </button>
-        <h2 className="text-2xl p-2 text-white rounded text-center font-bold mb-6">Dashboard</h2>
+        <h2 className="text-2xl p-2 text-white rounded text-center font-bold mb-6">
+          Dashboard
+        </h2>
         <nav>
           <ul className="space-y-4">
             {sidebarLinks.map(({ to, label, icon: Icon }) => (

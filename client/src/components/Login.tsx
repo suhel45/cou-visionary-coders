@@ -28,18 +28,14 @@ const Login: React.FC = () => {
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-      const response = await fetch(
-        'http://localhost:3000/api/login',
-        {
-          method: 'POST',
-          credentials: "include",
-          headers: {
-            'content-type': 'application/json',
-          
-          },
-          body: JSON.stringify({ email: user.email, password: data.password }),
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json',
         },
-      );
+        body: JSON.stringify({ email: user.email, password: data.password }),
+      });
 
       const responseData = await response.json();
       console.log(responseData);
@@ -68,8 +64,12 @@ const Login: React.FC = () => {
           src="https://cdn.dribbble.com/users/756147/screenshots/2494603/unlock_animaiton.gif"
           alt="Login"
         />
-        <h2 className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
-">Log in</h2>
+        <h2
+          className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
+"
+        >
+          Log in
+        </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">

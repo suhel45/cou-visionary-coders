@@ -1,12 +1,11 @@
-import React from "react";
-import { FamilyInfoData } from "../../interfaces/Biodata.interface";
+import React from 'react';
+import { FamilyInfoData } from '../../interfaces/Biodata.interface';
 
 interface FamilyInfoProps {
-  data: FamilyInfoData
+  data: FamilyInfoData;
 }
 
-const FamilyInformation:React.FC<FamilyInfoProps> = ({data}) => {
-console.log("faimily",data)
+const FamilyInformation: React.FC<FamilyInfoProps> = ({ data }) => {
   return (
     <div className="p-4 min-h-screen">
       <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">

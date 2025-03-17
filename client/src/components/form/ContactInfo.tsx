@@ -27,11 +27,17 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
-        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
-">যোগাযোগ</h2>
+        <h2
+          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
+"
+        >
+          যোগাযোগ
+        </h2>
         <form className="md:items-center md:justify-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
- py-0">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+ py-0"
+          >
             অভিভাবকের নাম ও সম্পর্ক {/* */}
             <input
               type="text"
@@ -44,8 +50,10 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
             />
           </label>
           <br />
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
- py-0">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+ py-0"
+          >
             অভিভাবকের ফোন নাম্বার {/* */}
             <input
               type="text"
@@ -58,8 +66,10 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
             />
           </label>
           <br />
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
- py-0">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+ py-0"
+          >
             নিজের মোবাইল নাম্বার {/* */}
             <input
               type="text"
@@ -72,8 +82,10 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
             />
           </label>
           <br />
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
- py-0">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+ py-0"
+          >
             নিজের ইমেইল {/* */}
             <input
               type="text"

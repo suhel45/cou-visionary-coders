@@ -13,7 +13,7 @@ import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 
 function NoMatch() {
-  return <PageNotFound/>;
+  return <PageNotFound />;
 }
 
 export default function App() {

@@ -1,11 +1,10 @@
-import React from "react";
-import { AddressInfoData } from "../../interfaces/Biodata.interface";
+import React from 'react';
+import { AddressInfoData } from '../../interfaces/Biodata.interface';
 interface AddressInProps {
-  data: AddressInfoData
+  data: AddressInfoData;
 }
 
-const AddressInformation:React.FC<AddressInProps> = ({data}) => {
-
+const AddressInformation: React.FC<AddressInProps> = ({ data }) => {
   return (
     <div className="p-4 min-h-screen">
       <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">

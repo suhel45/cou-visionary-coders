@@ -1,12 +1,11 @@
-import React from "react";
-import { EducationInfoData } from "../../interfaces/Biodata.interface";
+import React from 'react';
+import { EducationInfoData } from '../../interfaces/Biodata.interface';
 
 interface EducationProps {
-  data: EducationInfoData
+  data: EducationInfoData;
 }
 
-const EducationInformation:React.FC<EducationProps> = ({data}) => {
-
+const EducationInformation: React.FC<EducationProps> = ({ data }) => {
   return (
     <div className="p-4 min-h-screen">
       <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">
