@@ -3,7 +3,7 @@ import { LayoutGrid, X, BarChart, User, Settings, Heart, ShoppingCart, HelpCircl
 import { Link } from 'react-router-dom';
 
 const sidebarLinks = [
-  { to: '/dashboard/', label: 'Analytics', icon: BarChart },
+  { to: '/dashboard', label: 'Analytics', icon: BarChart },
   { to: '/dashboard/edit/profile', label: 'Edit Biodata', icon: User },
   { to: '/dashboard/edit/verify', label: 'Verify Profile', icon: ShieldUser },
   { to: '/dashboard/favourite', label: 'Favourite List', icon: Heart },
