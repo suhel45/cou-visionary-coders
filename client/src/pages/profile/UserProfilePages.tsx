@@ -12,15 +12,15 @@ import {
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
 
-const pages = () => {
-  interface UserData {
-    data: any;
-    personalInfo: PersonalInfoData;
-    education: EducationInfoData;
-    address: AddressInfoData;
-    familyInformation: FamilyInfoData;
-  }
+interface UserData {
+  data: any;
+  personalInfo: PersonalInfoData;
+  education: EducationInfoData;
+  address: AddressInfoData;
+  familyInformation: FamilyInfoData;
+}
 
+const UserProfilePages = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -68,4 +68,4 @@ const pages = () => {
   );
 };
 
-export default pages;
+export default UserProfilePages;
