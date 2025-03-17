@@ -12,7 +12,8 @@ import AboutUs from './components/AboutUs';
 import UserProfile from './pages/profile/pages';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute';
+import Analytic from './components/dashboard/analytics/Analytic';
 
 function NoMatch() {
   return <PageNotFound/>;
@@ -35,13 +36,14 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route element={<PrivateRoute />}>
+            {/* <Route element={<PrivateRoute />}> */}
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/biodata" element={<Biodata />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
+                <Route path="" element={<Analytic />} />
               </Route>
-            </Route>
+            {/* </Route> */}
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
