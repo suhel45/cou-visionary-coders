@@ -12,6 +12,7 @@
     "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write src",
     "preview": "vite preview"
+    
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
