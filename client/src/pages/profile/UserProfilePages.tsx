@@ -23,11 +23,13 @@ interface UserData {
 const UserProfilePages = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        setError(null);
         const response = await axios.get(
           'http://localhost:3000/api/profile/biodata',
           {
@@ -37,6 +39,7 @@ const UserProfilePages = () => {
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setError('Failed to load profile data. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -49,20 +52,32 @@ const UserProfilePages = () => {
     return <Loading />;
   }
 
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-red-600">
+        {error}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col md:flex-row  gap-2  bg-gray-50 h-auto ">
       <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/3">
         {userData && (
           <UserProfile
-            data={userData?.data?.personalInfo}
-            biodataNo={userData?.data?.biodataNo}
+            data={userData.data.personalInfo}
+            biodataNo={userData.data.biodataNo}
           />
         )}
       </div>
       <div className="flex flex-col items-stretch bg-gray-50 md:w-2/3">
-        <FamilyInformation data={userData?.data?.familyInformation} />
-        <EducationInformation data={userData?.data?.education} />
-        <AddressInformation data={userData?.data?.address} />
+        {userData && (
+          <>
+            <FamilyInformation data={userData.data.familyInformation} />
+            <EducationInformation data={userData.data.education} />
+            <AddressInformation data={userData.data.address} />
+          </>
+        )}
       </div>
     </div>
   );

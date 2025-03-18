@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
     throw new Error('AuthContext is null');
   }
 
-  const { loginUser } = authContext;
+  const { loginUser, setValid } = authContext;
 
   const {
     register,
@@ -22,6 +23,7 @@ const Login: React.FC = () => {
   } = useForm<IFormInput>();
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: any) => {
     setLoading(true);
@@ -41,12 +43,14 @@ const Login: React.FC = () => {
       console.log(responseData);
       if (responseData.success) {
         toast.success('User login sucessfully');
+        setValid(true);
         navigate('/profile');
       } else {
         toast.error(responseData.error);
       }
     } catch (error) {
       console.error('Login error:', error);
+      setValid(false);
       const errorMessage =
         error instanceof Error
           ? error.message
@@ -90,30 +94,46 @@ const Login: React.FC = () => {
               className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
             />
             {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
+              <span className="text-red-500 font-semibold  p-2">
+                {errors.email.message}
+              </span>
             )}
           </div>
 
           {/* Password */}
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Password
             </label>
             <div className="relative mt-1">
               <input
                 id="password"
-                {...register('password', { required: 'Password is required' })}
-                type="password"
+                {...register('password', {
+                  required: 'Password is required',
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      'Password must be 8+ characters, include uppercase, lowercase, number & symbol.',
+                  },
+                })}
+                type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 className="block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
               />
-              {errors.password && (
-                <span className="text-red-500">{errors.password.message}</span>
-              )}
+              <button
+                type="button"
+                className="absolute inset-y-0 right-2 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
+            {errors.password && (
+              <span className="text-red-500 font-semibold">
+                {errors.password.message}
+              </span>
+            )}
           </div>
 
           {/* Submit */}

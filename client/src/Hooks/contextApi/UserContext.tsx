@@ -21,12 +21,15 @@ type authContextProps = {
   logOut: () => Promise<void>;
   signInWithGoogle: () => Promise<UserCredential>;
   loading: boolean;
+  valid: boolean;
+  setValid: (value: boolean) => void;
 };
 
 export const AuthContext = createContext<authContextProps | null>(null);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
+  const [valid, setValid] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const provider = new GoogleAuthProvider();
 
@@ -42,11 +45,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const loginUser = (email: string, password: string) => {
     setLoading(true);
+    setValid(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
     setLoading(true);
+    setValid(false);
     return signOut(auth);
   };
 
@@ -78,8 +83,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       updateUserProfile,
       signInWithGoogle,
       loading,
+      valid,
+      setValid,
     }),
-    [user, loading],
+    [user, loading, valid],
   );
 
   return (

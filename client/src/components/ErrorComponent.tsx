@@ -1,7 +1,7 @@
 function PageNotFound() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-4xl font-bold text-gray-400 pt-20 p-2">
+      <p className="text-2xl sm:text-4xl font-bold text-gray-500 pt-20 p-2">
         Oops! Page not found.
       </p>
       <img
