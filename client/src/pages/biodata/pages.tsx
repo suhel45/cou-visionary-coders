@@ -1,12 +1,12 @@
-import React from 'react'
-import BiodataList from '../../components/biodata/BiodataList'
+import React from 'react';
+import BiodataList from '../../components/biodata/BiodataList';
 
 const pages = () => {
   return (
     <>
-    <BiodataList />
+      <BiodataList />
     </>
-  )
-}
+  );
+};
 
-export default pages
+export default pages;

@@ -1,20 +1,11 @@
-const EducationInformation = () => {
-  // Sample fake data
-  const data = {
-    ssc: { gpa: '5.00', year: '2018', group: 'বিজ্ঞান' },
-    hsc: { gpa: '4.80', year: '2020', group: 'বিজ্ঞান' },
-    honours: {
-      degree: 'বিএসসি ইন কম্পিউটার সায়েন্স',
-      department: 'কম্পিউটার সায়েন্স ও প্রকৌশল',
-      session: '2021-2025',
-    },
-    masters: {
-      degree: 'এমএসসি ইন কম্পিউটার সায়েন্স',
-      department: 'কম্পিউটার সায়েন্স ও প্রকৌশল',
-      session: '2026-2028',
-    },
-  };
+import React from 'react';
+import { EducationInfoData } from '../../interfaces/Biodata.interface';
 
+interface EducationProps {
+  data: EducationInfoData;
+}
+
+const EducationInformation: React.FC<EducationProps> = ({ data }) => {
   return (
     <div className="p-4 min-h-screen">
       <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">
@@ -34,7 +25,7 @@ const EducationInformation = () => {
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">পাশের সন - </span>
-            {data.ssc.year}
+            {data.ssc.passingYear}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বিভাগ - </span>
@@ -53,7 +44,7 @@ const EducationInformation = () => {
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">পাশের সন - </span>
-            {data.hsc.year}
+            {data.hsc.passingYear}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বিভাগ - </span>
@@ -68,15 +59,15 @@ const EducationInformation = () => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">অনুষদ - </span>
-            {data.honours.degree}
+            {data.university.honours.faculty}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বিভাগ - </span>
-            {data.honours.department}
+            {data.university.honours.department}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">সেশন - </span>
-            {data.honours.session}
+            {data.university.honours.session}
           </p>
         </div>
 
@@ -87,15 +78,15 @@ const EducationInformation = () => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">অনুষদ - </span>
-            {data.masters.degree}
+            {data.university.masters?.faculty}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বিভাগ - </span>
-            {data.masters.department}
+            {data.university.masters?.department}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">সেশন - </span>
-            {data.masters.session}
+            {data.university.masters?.session}
           </p>
         </div>
       </div>

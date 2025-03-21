@@ -176,13 +176,13 @@ const SignUp = () => {
         <div className="relative w-full">
           <input
             type={showPassword ? 'text' : 'password'}
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
               pattern: {
                 value:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                 message:
-                  "Password must be 8+ characters, include uppercase, lowercase, number & symbol.",
+                  'Password must be 8+ characters, include uppercase, lowercase, number & symbol.',
               },
             })}
             placeholder="Enter Your Password"

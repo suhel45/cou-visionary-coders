@@ -34,17 +34,25 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
-        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
-">প্রত্যাশিত জীবনসঙ্গী</h2>
+        <h2
+          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
+"
+        >
+          প্রত্যাশিত জীবনসঙ্গী
+        </h2>
         <form className="w-full md:items-center md:justify-center md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-          <p className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-xl
- ">
+          <p
+            className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-xl
+ "
+          >
             কেমন পাত্র/পাত্রী পছন্দ সেই হিসেবে নিম্নে নির্বাচন করুন
           </p>
           <hr />
 
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর বৈবাহিক অবস্থা -{/* */}
             <select
               name="maritalStatus"
@@ -61,8 +69,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               <option value="বিপত্নীক">বিপত্নীক</option>
             </select>
           </label>
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর বয়স -{/* */}
             <input
               type="text"
@@ -74,8 +84,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               placeholder="Enter Age"
             />
           </label>
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর অর্থনৈতিক অবস্থা -{/* */}
             <select
               name="financialCondition"
@@ -93,8 +105,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </select>
           </label>
 
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর উচ্চতা -{/* */}
             <select
               name="height"
@@ -117,8 +131,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </select>
           </label>
 
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর গাত্রবর্ন -{/* */}
             <select
               name="complexion"
@@ -136,8 +152,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </select>
           </label>
 
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
             পাত্র/পাত্রীর পেশা -{/* */}
             <select
               className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
@@ -160,9 +178,11 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               <option value="অন্যান্য">অন্যান্য</option>
             </select>
           </label>
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-">
-          পাত্র/পাত্রীর জেলা -{/* District */}
+          <label
+            className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
+"
+          >
+            পাত্র/পাত্রীর জেলা -{/* District */}
             <select
               name="district"
               value={localFormData.district}
@@ -178,8 +198,10 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               ))}
             </select>
           </label>
-          <p className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-xl
- ">
+          <p
+            className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-xl
+ "
+          >
             {/* */}জীবনসঙ্গীর যেসব বৈশিষ্ট্যে বা গুনাবলী প্রত্যাশা করেন
           </p>
           <textarea

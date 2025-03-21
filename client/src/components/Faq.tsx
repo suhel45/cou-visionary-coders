@@ -9,7 +9,8 @@ import { ChevronDown } from 'lucide-react';
 
 const faqData = [
   {
-    question: 'React is a JavaScript library for building user interfaces, maintained by Facebook.',
+    question:
+      'React is a JavaScript library for building user interfaces, maintained by Facebook.',
     answer:
       'React is a JavaScript library for building user interfaces, maintained by Facebook.',
   },
@@ -29,10 +30,10 @@ const FAQ = () => {
   return (
     <div className="flex flex-col items-center m-5 p-4 gap-4 border border-gray-100 rounded-md shadow-md">
       <Typography
-      sx={{
-        fontSize: { xs: '1rem', sm: '2rem'},
-        p:3,
-      }}
+        sx={{
+          fontSize: { xs: '1rem', sm: '2rem' },
+          p: 3,
+        }}
         gutterBottom
         className="text-center  rounded-full p-4 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto"
       >
@@ -53,7 +54,7 @@ const FAQ = () => {
                 color: '#043667',
                 fontWeight: 'bold',
                 fontSize: { xs: '1rem', sm: '1.5rem' },
-                p:2,
+                p: 2,
                 textAlign: 'justify',
               }}
             >
@@ -67,7 +68,7 @@ const FAQ = () => {
                 fontSize: { xs: '1rem', sm: '1.5rem' },
                 textAlign: 'justify',
                 bgcolor: '#f8f9fa',
-                p:2,
+                p: 2,
               }}
             >
               {item.answer}

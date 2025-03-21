@@ -1,16 +1,11 @@
-const FamilyInformation = () => {
-  // Sample fake data
-  const data = {
-    fatherStatus: 'জীবিত',
-    fatherOccupation: 'শিক্ষক',
-    motherStatus: 'জীবিত',
-    motherOccupation: 'গৃহিণী',
-    brotherInfo: '২ জন ভাই, দুজনই চাকরি করেন',
-    sisterInfo: '১ জন বোন, বিবাহিতা',
-    siblingRelationship: 'খুব ভালো',
-    financialStatus: 'মধ্যবিত্ত',
-  };
+import React from 'react';
+import { FamilyInfoData } from '../../interfaces/Biodata.interface';
 
+interface FamilyInfoProps {
+  data: FamilyInfoData;
+}
+
+const FamilyInformation: React.FC<FamilyInfoProps> = ({ data }) => {
   return (
     <div className="p-4 min-h-screen">
       <div className="max-w-auto mx-auto bg-purple-100 rounded-3xl shadow-lg border-4 border-purple-900 p-6">
@@ -26,11 +21,11 @@ const FamilyInformation = () => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">অবস্থা - </span>
-            {data.fatherStatus}
+            {data?.father?.aliveStatus || 'N/A'}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">পেশা - </span>
-            {data.fatherOccupation}
+            {data?.father?.profession || 'N/A'}
           </p>
         </div>
 
@@ -41,11 +36,11 @@ const FamilyInformation = () => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">অবস্থা - </span>
-            {data.motherStatus}
+            {data.mother.aliveStatus}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">পেশা - </span>
-            {data.motherOccupation}
+            {data.mother.profession}
           </p>
         </div>
 
@@ -56,15 +51,15 @@ const FamilyInformation = () => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">ভাইয়ের সংখ্যা - </span>
-            {data.brotherInfo}
+            {data?.siblings?.brotherInfo || 'N/A'}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বোনের সংখ্যা - </span>
-            {data.sisterInfo}
+            {data.siblings.sisterInfo}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">সম্পর্ক - </span>
-            {data.siblingRelationship}
+            {data?.siblings?.aboutSiblings || 'N/A'}
           </p>
         </div>
 

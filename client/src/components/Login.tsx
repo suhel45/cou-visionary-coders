@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     throw new Error('AuthContext is null');
   }
 
-  const { loginUser,setValid} = authContext;
+  const { loginUser, setValid } = authContext;
 
   const {
     register,
@@ -30,18 +30,14 @@ const Login: React.FC = () => {
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-      const response = await fetch(
-        'https://halalbondhon-server.vercel.app/api/login',
-        {
-          method: 'POST',
-          credentials: "include",
-          headers: {
-            'content-type': 'application/json',
-          
-          },
-          body: JSON.stringify({ email: user.email, password: data.password }),
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json',
         },
-      );
+        body: JSON.stringify({ email: user.email, password: data.password }),
+      });
 
       const responseData = await response.json();
       console.log(responseData);
@@ -72,8 +68,12 @@ const Login: React.FC = () => {
           src="https://cdn.dribbble.com/users/756147/screenshots/2494603/unlock_animaiton.gif"
           alt="Login"
         />
-        <h2 className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
-">Log in</h2>
+        <h2
+          className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
+"
+        >
+          Log in
+        </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
@@ -94,7 +94,9 @@ const Login: React.FC = () => {
               className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
             />
             {errors.email && (
-              <span className="text-red-500 font-semibold  p-2">{errors.email.message}</span>
+              <span className="text-red-500 font-semibold  p-2">
+                {errors.email.message}
+              </span>
             )}
           </div>
 
@@ -106,8 +108,8 @@ const Login: React.FC = () => {
             <div className="relative mt-1">
               <input
                 id="password"
-                {...register("password", {
-                  required: "Password is required",
+                {...register('password', {
+                  required: 'Password is required',
                   pattern: {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
@@ -115,7 +117,7 @@ const Login: React.FC = () => {
                       "Password is required",
                   },
                 })}
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 className="block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
               />
@@ -128,7 +130,9 @@ const Login: React.FC = () => {
               </button>
             </div>
             {errors.password && (
-              <span className="text-red-500 font-semibold">{errors.password.message}</span>
+              <span className="text-red-500 font-semibold">
+                {errors.password.message}
+              </span>
             )}
           </div>
 

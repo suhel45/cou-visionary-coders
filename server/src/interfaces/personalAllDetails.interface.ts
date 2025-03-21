@@ -8,6 +8,7 @@ import { AddressInfo } from './address.interface';
 import { PersonalPreference } from './personalPreference.interface';
 
 export type IPersonalAllDetails = {
+  biodataNo: number;
   users: Types.ObjectId;
   personalInfo: PersonalInfoo;
   address: AddressInfo;

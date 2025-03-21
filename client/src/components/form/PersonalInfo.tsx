@@ -34,14 +34,20 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     setLocalFormData(updatedData);
     setFormData(updatedData); // Pass the updated object
   };
-  const inputStyle :string= "block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6";
-  const levelStyle :string= "text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center";
+  const inputStyle: string =
+    'block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6';
+  const levelStyle: string =
+    'text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center';
   return (
     <div className="w-full">
       <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
-        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl">ব্যক্তিগত তথ্য</h2>
+        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl">
+          ব্যক্তিগত তথ্য
+        </h2>
         <form className="w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-          <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl">সাধারণ তথ্য</h2>
+          <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl">
+            সাধারণ তথ্য
+          </h2>
 
           {/* Birth Date Field */}
           <label className={levelStyle}>

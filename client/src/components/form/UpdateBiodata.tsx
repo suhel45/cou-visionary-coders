@@ -11,7 +11,7 @@ import PreferenceInfo from './PreferenceInfo';
 import AddressInfo from './AddressInfo';
 import ContactInfo from './ContactInfo';
 import { FormData } from '../../interfaces/Biodata.interface';
-import { CircleArrowLeft, CircleArrowRight ,Check} from 'lucide-react';
+import { CircleArrowLeft, CircleArrowRight, Check } from 'lucide-react';
 import { initialFormData } from './initialFormData';
 
 const steps = [
@@ -38,7 +38,7 @@ const MultiStepForm: React.FC = () => {
   const updateFormData = (section: keyof FormData, data: any) => {
     setFormData((prev) => ({ ...prev, [section]: data }));
   };
-  
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
@@ -133,19 +133,27 @@ const MultiStepForm: React.FC = () => {
         return <div>page not found</div>;
     }
   };
-  
+
   return (
     <div className="p-4">
       {isSubmitted ? (
-         <div className="flex flex-col items-center p-4 md:p-8 m-4 rounded bg-green-100 gap-2">
-         <Check className='text-white font-bold rounded-full bg-green-900 p-1'/>
-         <h2 className='text-lg md:text-4xl my-2 font-bold text-green-800'>Form Submitted Successfully!</h2>
-         <p className='text-sm font-semibold text-white bg-green-800 rounded p-2'>Visit Your Profile for Checking Update</p>
-         <button onClick={handleReset} className="py-2 px-4 bg-red-700 md:text-lg text-white font-semibold rounded-full shadow-md hover:bg-red-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-400 focus:ring-opacity-75">Reset</button>
-       </div>
+        <div className="flex flex-col items-center p-4 md:p-8 m-4 rounded bg-green-100 gap-2">
+          <Check className="text-white font-bold rounded-full bg-green-900 p-1" />
+          <h2 className="text-lg md:text-4xl my-2 font-bold text-green-800">
+            Form Submitted Successfully!
+          </h2>
+          <p className="text-sm font-semibold text-white bg-green-800 rounded p-2">
+            Visit Your Profile for Checking Update
+          </p>
+          <button
+            onClick={handleReset}
+            className="py-2 px-4 bg-red-700 md:text-lg text-white font-semibold rounded-full shadow-md hover:bg-red-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-400 focus:ring-opacity-75"
+          >
+            Reset
+          </button>
+        </div>
       ) : (
         <>
-       
           <div className="sm:hidden flex justify-between items-center mb-4">
             <button
               disabled={activeStep === 0}
@@ -213,5 +221,3 @@ const MultiStepForm: React.FC = () => {
 };
 
 export default MultiStepForm;
-
-

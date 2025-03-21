@@ -1,52 +1,41 @@
-/** @format */
-
-import React, { useContext } from 'react';
+import React from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
+import { PersonalInfoData } from '../interfaces/Biodata.interface';
+interface UserProfileProps {
+  data: PersonalInfoData;
+  biodataNo: number;
+}
 
-const UserProfile = () => {
-  const isPerson = false;
-  //Fake data for biodata details
-  const authContext = useContext(AuthContext);
+const UserProfile: React.FC<UserProfileProps> = ({ data, biodataNo }) => {
+  const isPerson = data.gender === 'Female';
 
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { user } = authContext;
-
-  // Ensure user is not null before accessing properties
-  if (!user) {
-    return <Typography>User is not authenticated</Typography>;
-  }
-
-  const displayName = user.displayName;
-  console.log(displayName);
+  // Dynamically populate userProfile data
   const biodataDetails = [
-    { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
-    { id: 2, name: 'Marital Status', value: 'Never Married' },
-    { id: 3, name: 'Birth Year', value: 'May, 1998' },
-    { id: 4, name: 'Height', value: "5'1" },
-    { id: 5, name: 'Complexion', value: 'Very Fair' },
-    { id: 6, name: 'Weight', value: '54 kg' },
-    { id: 7, name: 'Blood Group', value: 'B+' },
-    { id: 8, name: 'Nationality', value: 'Bangladeshi' },
+    { id: 1, name: 'Gender', value: data.gender },
+    { id: 2, name: 'Marital Status', value: data.maritalStatus },
+    { id: 3, name: 'Birth Date', value: data.birthDate },
+    { id: 4, name: 'Height', value: data.height },
+    { id: 5, name: 'Complexion', value: data.complexion },
+    { id: 6, name: 'Weight', value: data.weight },
+    { id: 7, name: 'Blood Group', value: data.bloodGroup },
+    { id: 8, name: 'Occupation', value: data.occupation },
+    { id: 9, name: 'Religion', value: data.religion },
   ];
 
   return (
     <Card
       sx={{
-        maxWidth:{ xs: 350, sm: 650 },
+        maxWidth: { xs: 350, sm: 650 },
         bgcolor: '#d0d3ff',
         border: '4px solid #652c8b',
         borderRadius: 6,
-        m:3,
+        m: 3,
         p: 3,
         maxHeight: { xs: 'auto', sm: 'auto' },
       }}
-      className='w-full'
+      className="w-full"
     >
       <Box
         display="flex"
@@ -98,7 +87,7 @@ const UserProfile = () => {
             }}
           >
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
-              Biodata No : BD-1234
+              Biodata No : {biodataNo}
             </Typography>
           </Box>
 
@@ -113,11 +102,12 @@ const UserProfile = () => {
               alignItems: 'center',
               justifyContent: 'center',
               width: { xs: '100%', sm: '100%' },
-
             }}
           >
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' ,mx:2}}>
-              Biodata Status : {' '}
+            <Typography
+              sx={{ fontSize: '0.875rem', fontWeight: 'bold', mx: 2 }}
+            >
+              Biodata Status :{' '}
             </Typography>
             <Box
               sx={{
@@ -128,7 +118,7 @@ const UserProfile = () => {
                 fontWeight: 'bold',
               }}
             >
-               {"Verified"}
+              {'Verified'}
             </Box>
           </Box>
         </Box>

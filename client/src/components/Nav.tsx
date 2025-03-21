@@ -20,8 +20,7 @@ function Nav() {
     throw new Error('AuthContext is null');
   }
 
-  
-  const {user,logOut,valid }= authContext;
+  const { user, logOut, valid } = authContext;
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -92,7 +91,7 @@ function Nav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
-        {(user && valid) ? (
+        {user && valid ? (
           // If the user is logged in
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
             <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
