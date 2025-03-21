@@ -20,7 +20,9 @@ const SiblingInfoForm: React.FC<SiblingInfoFormProps> = ({
   };
   return (
     <div className="flex flex-col items-stretch sm:items-center sm:justify-center justify-stretch border border-gray-400  p-2 rounded-md shadow-lg">
-      <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl">ভাই-বোন সম্পর্কিত তথ্য</h2>
+      <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-xl">
+        ভাই-বোন সম্পর্কিত তথ্য
+      </h2>
 
       <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center">
         ভাইয়ের তথ্য{/* Brother's Information */}

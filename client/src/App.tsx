@@ -5,17 +5,16 @@ import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
 import Home from './pages/Home/pages';
-import Biodata from './pages/biodata/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import UserProfile from './pages/profile/pages';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
+import UserProfilePages from './pages/profile/UserProfilePages';
 import PrivateRoute from './components/PrivateRoute';
 
 function NoMatch() {
-  return <PageNotFound/>;
+  return <PageNotFound />;
 }
 
 export default function App() {
@@ -36,8 +35,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/biodata" element={<Biodata />} />
+              <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
               </Route>

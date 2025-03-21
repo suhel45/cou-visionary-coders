@@ -10,6 +10,7 @@ import { personalPreferenceSchema } from './PersonalPreference.Model';
 
 const personalAllDetailsSchema = new Schema<IPersonalAllDetails>(
   {
+    biodataNo: { type: Number, unique: true, required: true },
     users: {
       type: Schema.Types.ObjectId,
       ref: 'User',
