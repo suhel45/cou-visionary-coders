@@ -112,7 +112,7 @@ const Login: React.FC = () => {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                     message:
-                      "Password must be 8+ characters, include uppercase, lowercase, number & symbol.",
+                      "Password is required",
                   },
                 })}
                 type={showPassword ? "text" : "password"}
