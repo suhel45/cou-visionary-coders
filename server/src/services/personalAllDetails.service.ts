@@ -42,7 +42,14 @@ const getBiodata = async (id: string) => {
   return result;
 };
 
+const getPublicBiodata = async () => {
+  const result = await PersonalAllDetailsModel.find({})
+  return result;
+};
+
+
 export const personalDetailsService = {
   createBiodata,
   getBiodata,
+  getPublicBiodata,
 };

@@ -53,10 +53,14 @@ const GetPublicBiodata = async (req: Request, res: Response): Promise<void> => {
       success: true,
       data: result,
     });
+  }catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
 }
 
 export const personalDetailsController = {
   Biodata,
   GetBiodata,
+  GetPublicBiodata,
 };
