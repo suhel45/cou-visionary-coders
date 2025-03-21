@@ -45,6 +45,17 @@ const GetBiodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const GetPublicBiodata = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const result = await personalDetailsService.getPublicBiodata();
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  }
+}
+
 export const personalDetailsController = {
   Biodata,
   GetBiodata,
