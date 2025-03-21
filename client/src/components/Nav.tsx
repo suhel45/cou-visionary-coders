@@ -95,35 +95,35 @@ function Nav() {
         {(user && valid) ? (
           // If the user is logged in
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
-            <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <Link to="/biodata">Biodata</Link>
             </li>
-            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={profileIcon} alt="Profile" className="w-8 px-1" />
               <Link to="/profile">Profile</Link>
             </li>
-            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={dashboardIcon} alt="Dashboard" className="w-8 px-1" />
               <Link to="/dashboard">Dashboard</Link>
             </li>
-            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
               <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         ) : (
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
-            <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <Link to="/home">Home</Link>
             </li>
-            <li className="px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <Link to="/aboutus">About Us</Link>
             </li>
-            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
               <Link to="/signup">Sign Up</Link>
             </li>
-            <li className="flex flex-row px-2 py-1 m-1 rounded-md border-2 hover:font-bold sm:m-0 grow hover:bg-pink-400">
+            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
               <img src={loginIcon} alt="Log In" className="w-8 px-1" />
               <Link to="/login">Log In</Link>
             </li>
