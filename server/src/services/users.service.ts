@@ -1,6 +1,6 @@
 import { ILoginInfo, IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
-import { escape } from 'validator';
+import validator from 'validator';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -10,7 +10,7 @@ dotenv.config();
 const createUserIntoDB = async (user: IUser) => {
   const { username, phoneNumber, email, password } = user;
 
-  const sanitizedEmail = escape(email);
+  const sanitizedEmail = validator.escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
   if (existingUser) {
     throw new Error('User already exists!');
@@ -31,7 +31,7 @@ const loginUserFromDB = async (
 ): Promise<{ userId: string; token: string }> => {
   const { email, password } = loginInfo;
 
-  const sanitizedEmail = escape(email);
+  const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
   if (!user) {
     throw new Error('User not found');
@@ -51,7 +51,7 @@ const loginUserFromDB = async (
 };
 
 const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
-  const sanitizedEmail = escape(email);
+  const sanitizedEmail = validator.escape(email);
   let user = await userModel.findOne({ email: sanitizedEmail });
   if (!user) {
     // Create a new user with a default password

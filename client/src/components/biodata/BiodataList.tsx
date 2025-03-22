@@ -82,21 +82,15 @@ const BiodataList = () => {
 
   return (
     <div className="mx-2 md:mx-10">
-      <h4 className="text-center text-2xl sm:text-3xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
-        Biodata List
-      </h4>
+      <h4 className="text-center text-2xl sm:text-5xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">Biodata List</h4>
       <ul className="flex flex-col md:flex-row flex-wrap md:items-center md:justify-center py-12">
         {users.map((user) => (
           <li key={user._id} className="md:basis-1/3">
             <div className="flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-2 rounded-lg m-2 shadow-lg">
               <img
-                src={
-                  user.gender === 'male'
-                    ? 'src/assets/man.png'
-                    : 'src/assets/woman.png'
-                }
-                alt={user.gender === 'male' ? 'Man' : 'Woman'}
-                className="h-24 w-24 bg-white rounded-lg"
+                src={user.gender === "male" ? "src/assets/man.png" : "src/assets/woman.png"}
+                alt={user.gender === "male" ? "Man" : "Woman"}
+                className="h-24 md:h-32 md:w-32 w-24 bg-white rounded-lg"
               />
               <div className="w-full md:text-center p-4 bg-violet-900 rounded-md">
                 <p className="text-violet-100 bg-violet-950 font-bold text-xl rounded-lg border text-center p-2">
@@ -113,10 +107,7 @@ const BiodataList = () => {
                     পেশা : {user.work}
                   </p>
                 </div>
-                <button
-                  className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2"
-                  onClick={() => showDetails(user._id)}
-                >
+                <button className="bg-white cursor-pointer py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2" onClick={() => showDetails(user._id)}>
                   View Profile
                 </button>
               </div>
