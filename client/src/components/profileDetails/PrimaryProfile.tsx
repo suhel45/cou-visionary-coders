@@ -35,7 +35,7 @@ const LinkField: React.FC<LinkFieldProps> = ({ msgData, linkData, linkurl, onCom
     </div>
   );
 };
-
+// implement primary profile component
 const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
   const [isVerified, setIsVerified] = useState(false);
   const [isBiodataCreated, setIsBiodataCreated] = useState(false);
