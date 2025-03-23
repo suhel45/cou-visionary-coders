@@ -16,6 +16,10 @@ router.get(
   verifyToken,
   personalDetailsController.GetBiodata,
 );
+router.get(
+  '/profile/biodata',
+  personalDetailsController.GetBiodata,
+);
 router.get('/biodata',personalDetailsController.GetPublicBiodata);
 
 export default router;

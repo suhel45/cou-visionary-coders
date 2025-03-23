@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { personalDetailsService } from '../services/personalAllDetails.service';
+import { CustomReq } from '../interfaces/express';
 
 interface CustomRequest extends Request {
   user: {
@@ -45,13 +46,15 @@ const GetBiodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const GetPublicBiodata = async (req: Request, res: Response): Promise<void> => {
+const GetPublicBiodata = async (req: CustomReq, res: Response): Promise<void> => {
   try {
-    const result = await personalDetailsService.getPublicBiodata();
+
+    const { biodata, totalbiodata } = await personalDetailsService.getPublicBiodata(req);
 
     res.status(200).json({
       success: true,
-      data: result,
+      totalbiodata,
+      data: biodata,
     });
   }catch (error) {
     console.log(error);
