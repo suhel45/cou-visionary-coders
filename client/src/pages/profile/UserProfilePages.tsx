@@ -9,8 +9,10 @@ import {
   EducationInfoData,
   FamilyInfoData,
   PersonalInfoData,
+  // PartnerInfoData,
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
+//import PartnerInformation from './../../components/profileDetails/PartnerInformation';
 
 interface UserData {
   data: any;
@@ -18,6 +20,7 @@ interface UserData {
   education: EducationInfoData;
   address: AddressInfoData;
   familyInformation: FamilyInfoData;
+  //partnerInformation: PartnerInfoData;
 }
 
 const UserProfilePages = () => {
@@ -76,6 +79,7 @@ const UserProfilePages = () => {
             <FamilyInformation data={userData.data.familyInformation} />
             <EducationInformation data={userData.data.education} />
             <AddressInformation data={userData.data.address} />
+            {/* <PartnerInformation data={userData.data.partnerInformation} /> */}
           </>
         )}
       </div>
