@@ -11,7 +11,6 @@ import AboutUs from './components/AboutUs';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Biodata from './components/biodata/BiodataList';
-// import PrivateRoute from './components/PrivateRoute';
 import Analytic from './components/dashboard/analytics/Analytic';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import PrivateRoute from './components/PrivateRoute';
@@ -37,9 +36,7 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            {/* <Route element={<PrivateRoute />}> */}
-              <Route path="/profile" element={<UserProfilePages />} />
-              <Route path="/biodata" element={<Biodata />} />
+            <Route path="/biodata" element={<Biodata />} />
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
