@@ -41,7 +41,7 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
   const [isBiodataCreated, setIsBiodataCreated] = useState(false);
 
   useEffect(() => {
-    // Fetch user verification and biodata status from backend
+    // Fetch user verification and biodata status from serv
     const fetchUserData = async () => {
       try {
         const response = await fetch("/api/user-status"); // Adjust API endpoint as needed
