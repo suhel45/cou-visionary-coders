@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { PersonalInfoData } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
+import { Link } from 'react-router-dom';
 
 interface User {
   _id: string;
@@ -16,7 +17,7 @@ const fetchData = async (page: number, biodataPerPage: number) => {
   const response = await axios.get(
     `http://localhost:3000/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
   );
-
+    console.log(response.data);
   return response.data;
 };
 
@@ -73,7 +74,7 @@ const BiodataList = () => {
                 </p>
                 <div className=" p-2 text-lg md:text-xl">
                   <p className="text-white py-1 font-bold rounded-md">
-                    বয়স : {user.personalInfo.birthDate}
+                    জন্ম তারিখ : {user.personalInfo.birthDate}
                   </p>
                   <p className="text-white py-1 font-bold rounded-md">
                     উচ্চতা : {user.personalInfo.height}
@@ -82,14 +83,19 @@ const BiodataList = () => {
                     পেশা : {user.personalInfo.occupation}
                   </p>
                 </div>
-                <button className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2">
+                <Link 
+                  to={`/biodata/profile/${user._id}`} 
+                  className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2 inline-block"
+                >
                   View Profile
-                </button>
+                </Link>
               </div>
             </div>
           </li>
         ))}
       </ul>
+
+      {/*Render pagination*/}
       <div className="flex flex-col items-center my-4 p-2">
         <Stack spacing={2}>
           <Pagination
