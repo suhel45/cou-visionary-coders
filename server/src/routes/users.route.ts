@@ -17,8 +17,8 @@ router.get(
   personalDetailsController.GetBiodata,
 );
 router.get(
-  '/profile/biodata',
-  personalDetailsController.GetBiodata,
+  '/profile/biodata/:id',
+  personalDetailsController.GetPublicBiodataDetails,
 );
 router.get('/biodata',personalDetailsController.GetPublicBiodata);
 
