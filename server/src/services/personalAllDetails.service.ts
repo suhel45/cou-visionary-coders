@@ -60,6 +60,9 @@ const biodata = await PersonalAllDetailsModel.find()
   return { biodata, totalbiodata };
 };
 
+const getPublicBiodataDetails = async (id: string) => {
+  const filter = { _id: new ObjectId(id) };
+
 
 export const personalDetailsService = {
   createBiodata,
