@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       const errorMessage =
         error instanceof Error
           ? error.message
-          : 'Invalid credentials. Try again.';
+          : 'Something went wrong. Please try again later.';
       toast.error(errorMessage);
     } finally {
       setLoading(false);
