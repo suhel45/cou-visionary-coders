@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       const errorMessage =
         error instanceof Error
           ? error.message
-          : 'Invalid credentials. Try again.';
+          : 'Something went wrong. Please try again later.';
       toast.error(errorMessage);
     } finally {
       setLoading(false);
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                     message:
-                      'Password must be 8+ characters, include uppercase, lowercase, number & symbol.',
+                      "Password is required",
                   },
                 })}
                 type={showPassword ? 'text' : 'password'}
@@ -139,7 +139,7 @@ const Login: React.FC = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold"
+            className="cursor-pointer w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold"
             disabled={loading}
           >
             {loading ? 'Signing in...' : 'Sign in'}
@@ -153,7 +153,7 @@ const Login: React.FC = () => {
         </div>
 
         {/* Google Sign-In */}
-        <button className="flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100">
+        <button className="cursor-pointer flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100">
           <img
             src="https://imgs.search.brave.com/0dfkmCFWC2zrjWCenB_rDnfa_wKBmKDmxG4qSB78iQs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMtMDAuaWNvbmR1/Y2suY29tL2Fzc2V0/cy4wMC9nb29nbGUt/aWNvbi01MTJ4NTEy/LXRxYzllbDNyLnBu/Zw"
             alt="Google"

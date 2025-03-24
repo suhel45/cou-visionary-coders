@@ -10,7 +10,7 @@ dotenv.config();
 const createUserIntoDB = async (user: IUser) => {
   const { username, phoneNumber, email, password } = user;
 
-  const sanitizedEmail = validator.escape(email.trim());
+  const sanitizedEmail = validator.escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
   if (existingUser) {
     throw new Error('User already exists!');
@@ -31,7 +31,7 @@ const loginUserFromDB = async (
 ): Promise<{ userId: string; token: string }> => {
   const { email, password } = loginInfo;
 
-  const sanitizedEmail = validator.escape(email.trim());
+  const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
   if (!user) {
     throw new Error('User not found');
@@ -51,7 +51,7 @@ const loginUserFromDB = async (
 };
 
 const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
-  const sanitizedEmail = validator.escape(email.trim());
+  const sanitizedEmail = validator.escape(email);
   let user = await userModel.findOne({ email: sanitizedEmail });
   if (!user) {
     // Create a new user with a default password

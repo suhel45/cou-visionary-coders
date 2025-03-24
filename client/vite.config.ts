@@ -19,4 +19,7 @@ export default defineConfig({
       '/api': 'http://localhost:5173',
     },
   },
+  build: {
+    outDir: 'dist',  // Ensure output directory is set
+  }
 });

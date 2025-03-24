@@ -52,9 +52,7 @@ const BiodataList = () => {
 
   return (
     <div className="mx-2 md:mx-10">
-      <h4 className="text-center text-2xl sm:text-3xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
-        Biodata List
-      </h4>
+      <h4 className="text-center text-2xl sm:text-5xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">Biodata List</h4>
       <ul className="flex flex-col md:flex-row flex-wrap md:items-center md:justify-center py-12">
         {data.data.map((user: User) => (
           <li key={user._id} className="md:basis-1/3">

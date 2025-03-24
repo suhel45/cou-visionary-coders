@@ -20,7 +20,7 @@ const BiodataVisit = () => {
       <div className="flex flex-col items-center justify-center m-2 border-2 border-gray-300 rounded-lg p-4">
         <div className="flex items-center justify-center border-2 border-purple-700 p-10 rounded-xl bg-indigo-200 shadow-lg w-full md:w-2/3">
           <button className="px-8 py-3 md:text-2xl font-semibold text-white bg-gradient-to-r from-blue-700 to-indigo-900 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <Link to="/visit/biodata">Visit Biodata</Link>
+            <Link to="/biodata">Visit Biodata</Link>
           </button>
         </div>
 
