@@ -12,7 +12,7 @@ export type PersonalInfoData = {
 };
 
 export type GardianInfo = {
-  aliveStatus: boolean;
+  aliveStatus: string;
   profession: string;
 };
 

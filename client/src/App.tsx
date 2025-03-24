@@ -14,6 +14,8 @@ import Biodata from './components/biodata/BiodataList';
 import Analytic from './components/dashboard/analytics/Analytic';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import PrivateRoute from './components/PrivateRoute';
+import BiodataList from './components/biodata/BiodataList';
+import BiodataDetailsProfile from './pages/profile/BiodataDetailsProfile';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -36,7 +38,11 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/biodata" element={<Biodata />} />
+            <Route path="/biodata" element={<BiodataList />} />
+            <Route
+              path="/biodata/profile/:id"
+              element={<BiodataDetailsProfile />}
+            />
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
