@@ -176,13 +176,15 @@ const SignUp = () => {
         <div className="relative w-full">
           <input
             type={showPassword ? 'text' : 'password'}
-            {...register('password', {
-              required: 'Password is required',
-              pattern: {
-                value:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                message:
-                  'Password must be 8+ characters, include uppercase, lowercase, number & symbol.',
+            {...register("password", {
+              required: "Password is required",
+              validate: (value) => {
+                if (value.length < 8) return "Password must be at least 8 characters long.";
+                if (!/[A-Z]/.test(value)) return "Password must include at least one uppercase letter.";
+                if (!/[a-z]/.test(value)) return "Password must include at least one lowercase letter.";
+                if (!/\d/.test(value)) return "Password must include at least one number.";
+                if (!/[@$!%*?&]/.test(value)) return "Password must include at least one special character (@$!%*?&).";
+                return true;
               },
             })}
             placeholder="Enter Your Password"
@@ -249,7 +251,7 @@ const SignUp = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2"
+          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2"
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
