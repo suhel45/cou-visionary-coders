@@ -20,6 +20,6 @@ router.get(
   '/profile/biodata/:id',
   personalDetailsController.GetPublicBiodataDetails,
 );
-router.get('/biodata',personalDetailsController.GetPublicBiodata);
+router.get('/biodata', personalDetailsController.GetPublicBiodata);
 
 export default router;

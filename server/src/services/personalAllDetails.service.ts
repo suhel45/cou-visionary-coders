@@ -43,18 +43,17 @@ const getBiodata = async (id: string) => {
   return result;
 };
 
-const getPublicBiodata = async (req:CustomReq) => {
+const getPublicBiodata = async (req: CustomReq) => {
+  // Get page and limit from query params
+  const page = parseInt(req.query._page) || 1;
+  const limit = parseInt(req.query._limit) || 10;
+  const skip = (page - 1) * limit;
 
-  // Get page and limit from query params 
-const page = parseInt(req.query._page ) || 1;
-const limit = parseInt(req.query._limit) || 10;
-const skip = (page - 1) * limit;
-
-// Fetch the posts with pagination
-const biodata = await PersonalAllDetailsModel.find()
-.skip(skip)         
-.limit(limit)       
-.exec();
+  // Fetch the posts with pagination
+  const biodata = await PersonalAllDetailsModel.find()
+    .skip(skip)
+    .limit(limit)
+    .exec();
 
   const totalbiodata = await PersonalAllDetailsModel.countDocuments();
   return { biodata, totalbiodata };
@@ -66,7 +65,6 @@ const getPublicBiodataDetails = async (id: string) => {
   const result = await PersonalAllDetailsModel.findOne(filter);
   return result;
 };
-
 
 export const personalDetailsService = {
   createBiodata,

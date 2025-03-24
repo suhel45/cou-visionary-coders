@@ -46,25 +46,31 @@ const GetBiodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const GetPublicBiodata = async (req: CustomReq, res: Response): Promise<void> => {
+const GetPublicBiodata = async (
+  req: CustomReq,
+  res: Response,
+): Promise<void> => {
   try {
-
-    const { biodata, totalbiodata } = await personalDetailsService.getPublicBiodata(req);
+    const { biodata, totalbiodata } =
+      await personalDetailsService.getPublicBiodata(req);
 
     res.status(200).json({
       success: true,
       totalbiodata,
       data: biodata,
     });
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
-}
+};
 
-const GetPublicBiodataDetails = async (req: Request, res: Response): Promise<void> => {
+const GetPublicBiodataDetails = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const id  = req.params.id;
+    const id = req.params.id;
     console.log(id);
     const biodata = await personalDetailsService.getPublicBiodataDetails(id);
 
@@ -76,7 +82,7 @@ const GetPublicBiodataDetails = async (req: Request, res: Response): Promise<voi
     console.log(error);
     res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
-}
+};
 
 export const personalDetailsController = {
   Biodata,
