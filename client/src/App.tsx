@@ -37,7 +37,10 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/biodata" element={<BiodataList />} />
-            <Route path="/biodata/profile/:id" element={<BiodataDetailsProfile />} />
+            <Route
+              path="/biodata/profile/:id"
+              element={<BiodataDetailsProfile />}
+            />
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>

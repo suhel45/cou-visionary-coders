@@ -17,7 +17,7 @@ const fetchData = async (page: number, biodataPerPage: number) => {
   const response = await axios.get(
     `http://localhost:3000/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
   );
-    console.log(response.data);
+  console.log(response.data);
   return response.data;
 };
 
@@ -83,8 +83,8 @@ const BiodataList = () => {
                     পেশা : {user.personalInfo.occupation}
                   </p>
                 </div>
-                <Link 
-                  to={`/biodata/profile/${user._id}`} 
+                <Link
+                  to={`/biodata/profile/${user._id}`}
                   className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2 inline-block"
                 >
                   View Profile
