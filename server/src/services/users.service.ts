@@ -78,7 +78,8 @@ const ForgetPassword = async (
   newPassword: string,
   confirmPassword: string,
 ) => {
- let message = '';
+  let message = '';
+
   // Input validation
   if (!email) {
     message = 'Email is required';
@@ -86,35 +87,34 @@ const ForgetPassword = async (
   }
 
   // Check if passwords match
-    if (newPassword !== confirmPassword) {
-      message = 'Passwords do not match';
-      return message;
-    }
+  if (newPassword !== confirmPassword) {
+    message = 'Passwords do not match';
+    return message;
+  }
 
-     // Validate password strength
-     if (newPassword.length < 8) { 
-        message = 'Password must be at least 8 characters long' 
-        return message;
-    }
+  // Validate password strength
+  if (newPassword.length < 8) {
+    message = 'Password must be at least 8 characters long';
+    return message;
+  }
 
-    // Find user by email
-    const sanitizedEmail = validator.escape(email);
-    const user = await userModel.findOne({ email:sanitizedEmail });
-    
-    if (!user) {
-      message = 'User not found';
-      return message;
-    }
+  // Find user by email
+  const sanitizedEmail = validator.escape(email);
+  const user = await userModel.findOne({ email: sanitizedEmail });
+
+  if (!user) {
+    message = 'User not found';
+    return message;
+  }
 
   const hashedPassword = await argon2.hash(newPassword);
 
-  
-    // Update user's password
-    user.password = hashedPassword;
-    await user.save();
+  // Update user's password
+  user.password = hashedPassword;
+  await user.save();
 
-    message = 'Password updated successfully';
-    return message;
+  message = 'Password updated successfully';
+  return message;
 };
 
 export const userService = {
