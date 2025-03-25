@@ -60,13 +60,15 @@ const forgetPassword = async (req: Request, res: Response) => {
     const { email, newPassword, confirmPassword } = req.body;
     
     const result = await userService.ForgetPassword(email, newPassword, confirmPassword);
-    //send response
+    
     res.status(200).json({
+      message: result
     });
+    
   } catch (error) {
-    console.error('Unexpected error:', error);
-    res.status(500).json({
-      
+    console.error('Forget Password Error:', error);
+    res.status(500).json({ 
+      message: 'Server error occurred', 
     });
   }
 }
@@ -74,4 +76,5 @@ const forgetPassword = async (req: Request, res: Response) => {
 export const userController = {
   createUser,
   loginUser,
+  forgetPassword,
 };
