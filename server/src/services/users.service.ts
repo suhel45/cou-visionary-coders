@@ -103,12 +103,13 @@ if (!user) {
    return message;
  }
 
-
-  // Check if passwords match
-  if (newPassword !== confirmPassword) {
-    message = 'Passwords do not match';
-    return message;
-  }
+ // Prevent using the same password
+ const isSamePassword = await argon2.verify(newPassword, user.password);
+ 
+ if (isSamePassword) {
+   message = 'New password cannot be the same as the current password'
+    return message
+ }
 
   // Validate password strength
   if (newPassword.length < 8) {
