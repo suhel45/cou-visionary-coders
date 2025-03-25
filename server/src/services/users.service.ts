@@ -96,7 +96,7 @@ if (!user) {
 }
 
  // Verify current password
- const isMatch = await argon2.verify(currentPassword, user.password);
+ const isMatch = await argon2.verify(user.password, currentPassword);
 
  if (!isMatch) {
   message = 'Current password is incorrect'
@@ -104,8 +104,8 @@ if (!user) {
  }
 
  // Prevent using the same password
- const isSamePassword = await argon2.verify(newPassword, user.password);
- 
+ const isSamePassword = await argon2.verify(user.password, newPassword);
+
  if (isSamePassword) {
    message = 'New password cannot be the same as the current password'
     return message

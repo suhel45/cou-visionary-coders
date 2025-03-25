@@ -69,7 +69,7 @@ const resetPassword = async (req: Request, res: Response) => {
       message: result,
     });
   } catch (error) {
-    console.error('Forget Password Error:', error);
+    console.error('Reset Password Error:', error);
     res.status(500).json({
       message: 'Server error occurred',
     });
