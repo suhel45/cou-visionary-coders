@@ -78,14 +78,34 @@ const ForgetPassword = async (
   newPassword: string,
   confirmPassword: string,
 ) => {
-
+ let message = '';
+  // Input validation
+  if (!email) {
+    message = 'Email is required';
+    return message;
+  }
 
   // Check if passwords match
-  if (newPassword !== confirmPassword) {
-    return res.status(400).json({ message: 'Passwords do not match' });
-  }
-  
-  const sanitizedEmail = validator.escape(email);
+    if (newPassword !== confirmPassword) {
+      message = 'Passwords do not match';
+      return message;
+    }
+
+     // Validate password strength
+     if (newPassword.length < 8) { 
+        message = 'Password must be at least 8 characters long' 
+        return message;
+    }
+
+    // Find user by email
+    const sanitizedEmail = validator.escape(email);
+    const user = await userModel.findOne({ email:sanitizedEmail });
+    
+    if (!user) {
+      message = 'User not found';
+      return message;
+    }
+
   const hashedPassword = await argon2.hash(newPassword);
   const result = await userModel.findOneAndUpdate(
     { email
