@@ -55,14 +55,14 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-const forgetPassword = async (req: Request, res: Response) => {
+const resetPassword = async (req: Request, res: Response) => {
   try {
-    const { email, newPassword, confirmPassword } = req.body;
+    const { email, currentPassword, newPassword } = req.body;
 
-    const result = await userService.ForgetPassword(
+    const result = await userService.ResetPassword(
       email,
-      newPassword,
-      confirmPassword,
+      currentPassword,
+      newPassword
     );
 
     res.status(200).json({
@@ -79,5 +79,5 @@ const forgetPassword = async (req: Request, res: Response) => {
 export const userController = {
   createUser,
   loginUser,
-  forgetPassword,
+  resetPassword,
 };

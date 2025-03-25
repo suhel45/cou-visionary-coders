@@ -73,16 +73,16 @@ const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
   return token;
 };
 
-const ForgetPassword = async (
+const ResetPassword = async (
   email: string,
+  currentPassword: string,
   newPassword: string,
-  confirmPassword: string,
 ) => {
   let message = '';
 
   // Input validation
-  if (!email) {
-    message = 'Email is required';
+  if (!email || !currentPassword || !newPassword) {
+    message = 'All fields are required'
     return message;
   }
 
@@ -103,7 +103,7 @@ const ForgetPassword = async (
   const user = await userModel.findOne({ email: sanitizedEmail });
 
   if (!user) {
-    message = 'User not found';
+    message = 'User not found.Please enter a validate email address';
     return message;
   }
 
@@ -121,5 +121,5 @@ export const userService = {
   createUserIntoDB,
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
-  ForgetPassword,
+  ResetPassword,
 };

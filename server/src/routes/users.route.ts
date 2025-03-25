@@ -9,7 +9,7 @@ const router = Router();
 router.post('/signup', userController.createUser);
 router.post('/login', userController.loginUser);
 router.post('/login/google', authController.loginWithGoogle);
-router.patch('/forget-password', verifyToken, userController.forgetPassword);
+router.patch('/reset-password', verifyToken, userController.resetPassword);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
 router.get(
