@@ -73,6 +73,27 @@ const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
   return token;
 };
 
+const ForgetPassword = async (
+  email: string,
+  newPassword: string,
+  confirmPassword: string,
+) => {
+
+  // Input validation
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' });
+  }
+  const sanitizedEmail = validator.escape(email);
+  const hashedPassword = await argon2.hash(newPassword);
+  const result = await userModel.findOneAndUpdate(
+    { email
+    },
+    { password: hashedPassword },
+    { new: true },
+  );
+  return result;
+};
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,

@@ -57,8 +57,8 @@ const loginUser = async (req: Request, res: Response) => {
 
 const forgetPassword = async (req: Request, res: Response) => {
   try {
-    //will call service function to send this data
-    const result = await userService.forgetPassword(req);
+    const { email, newPassword, confirmPassword } = req.body;
+    const result = await userService.ForgetPassword(email, newPassword, confirmPassword);
     //send response
     res.status(200).json({
     });
@@ -68,6 +68,7 @@ const forgetPassword = async (req: Request, res: Response) => {
       
     });
   }
+}
 
 export const userController = {
   createUser,
