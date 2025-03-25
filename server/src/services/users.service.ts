@@ -107,17 +107,19 @@ const ForgetPassword = async (
     }
 
   const hashedPassword = await argon2.hash(newPassword);
-  const result = await userModel.findOneAndUpdate(
-    { email
-    },
-    { password: hashedPassword },
-    { new: true },
-  );
-  return result;
+
+  
+    // Update user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    message = 'Password updated successfully';
+    return message;
 };
 
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
+  ForgetPassword,
 };
