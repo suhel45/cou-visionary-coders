@@ -69,6 +69,12 @@ if (newPassword !== confirmPassword) {
   return res.status(400).json({ message: 'Passwords do not match' });
 }
 
+// Validate password strength
+if (newPassword.length < 8) {
+  return res.status(400).json({ 
+    message: 'Password must be at least 8 characters long' 
+  });
+}
     const result = await userService.ForgetPassword(email, newPassword, confirmPassword);
     //send response
     res.status(200).json({
