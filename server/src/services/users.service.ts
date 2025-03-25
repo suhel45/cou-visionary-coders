@@ -86,6 +86,24 @@ const ResetPassword = async (
     return message;
   }
 
+  // Find user by email
+const sanitizedEmail = validator.escape(email);
+const user = await userModel.findOne({ email: sanitizedEmail });
+
+if (!user) {
+  message = 'User not found.Please enter a validate email address';
+  return message;
+}
+
+ // Verify current password
+ const isMatch = await argon2.verify(currentPassword, user.password);
+
+ if (!isMatch) {
+  message = 'Current password is incorrect'
+   return message;
+ }
+
+
   // Check if passwords match
   if (newPassword !== confirmPassword) {
     message = 'Passwords do not match';
@@ -95,15 +113,6 @@ const ResetPassword = async (
   // Validate password strength
   if (newPassword.length < 8) {
     message = 'Password must be at least 8 characters long';
-    return message;
-  }
-
-  // Find user by email
-  const sanitizedEmail = validator.escape(email);
-  const user = await userModel.findOne({ email: sanitizedEmail });
-
-  if (!user) {
-    message = 'User not found.Please enter a validate email address';
     return message;
   }
 
