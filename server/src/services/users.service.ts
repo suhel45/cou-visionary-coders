@@ -83,6 +83,7 @@ const ForgetPassword = async (
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
   }
+  
   const sanitizedEmail = validator.escape(email);
   const hashedPassword = await argon2.hash(newPassword);
   const result = await userModel.findOneAndUpdate(
