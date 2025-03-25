@@ -82,34 +82,34 @@ const ResetPassword = async (
 
   // Input validation
   if (!email || !currentPassword || !newPassword) {
-    message = 'All fields are required'
+    message = 'All fields are required';
     return message;
   }
 
   // Find user by email
-const sanitizedEmail = validator.escape(email);
-const user = await userModel.findOne({ email: sanitizedEmail });
+  const sanitizedEmail = validator.escape(email);
+  const user = await userModel.findOne({ email: sanitizedEmail });
 
-if (!user) {
-  message = 'User not found.Please enter a validate email address';
-  return message;
-}
+  if (!user) {
+    message = 'User not found.Please enter a validate email address';
+    return message;
+  }
 
- // Verify current password
- const isMatch = await argon2.verify(user.password, currentPassword);
+  // Verify current password
+  const isMatch = await argon2.verify(user.password, currentPassword);
 
- if (!isMatch) {
-  message = 'Current password is incorrect'
-   return message;
- }
+  if (!isMatch) {
+    message = 'Current password is incorrect';
+    return message;
+  }
 
- // Prevent using the same password
- const isSamePassword = await argon2.verify(user.password, newPassword);
+  // Prevent using the same password
+  const isSamePassword = await argon2.verify(user.password, newPassword);
 
- if (isSamePassword) {
-   message = 'New password cannot be the same as the current password'
-    return message
- }
+  if (isSamePassword) {
+    message = 'New password cannot be the same as the current password';
+    return message;
+  }
 
   // Validate password strength
   if (newPassword.length < 8) {

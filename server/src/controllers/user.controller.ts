@@ -62,7 +62,7 @@ const resetPassword = async (req: Request, res: Response) => {
     const result = await userService.ResetPassword(
       email,
       currentPassword,
-      newPassword
+      newPassword,
     );
 
     res.status(200).json({
