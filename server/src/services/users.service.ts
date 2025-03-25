@@ -79,9 +79,10 @@ const ForgetPassword = async (
   confirmPassword: string,
 ) => {
 
-  // Input validation
-  if (!email) {
-    return res.status(400).json({ message: 'Email is required' });
+
+  // Check if passwords match
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
   }
   
   const sanitizedEmail = validator.escape(email);

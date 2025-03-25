@@ -58,6 +58,17 @@ const loginUser = async (req: Request, res: Response) => {
 const forgetPassword = async (req: Request, res: Response) => {
   try {
     const { email, newPassword, confirmPassword } = req.body;
+
+     // Input validation
+ if (!email) {
+  return res.status(400).json({ message: 'Email is required' });
+}
+
+// Check if passwords match
+if (newPassword !== confirmPassword) {
+  return res.status(400).json({ message: 'Passwords do not match' });
+}
+
     const result = await userService.ForgetPassword(email, newPassword, confirmPassword);
     //send response
     res.status(200).json({
