@@ -8,8 +8,8 @@ const PrivateRoute = () => {
     throw new Error('AuthContext is null');
   }
 
-  const { user, valid } = authContext;
-  return user && valid ? <Outlet /> : <Navigate to="/login" />;
+  const { user } = authContext;
+  return user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

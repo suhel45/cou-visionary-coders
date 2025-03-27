@@ -55,7 +55,29 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email, currentPassword, newPassword } = req.body;
+
+    const result = await userService.ResetPassword(
+      email,
+      currentPassword,
+      newPassword,
+    );
+
+    res.status(200).json({
+      message: result,
+    });
+  } catch (error) {
+    console.error('Reset Password Error:', error);
+    res.status(500).json({
+      message: 'Server error occurred',
+    });
+  }
+};
+
 export const userController = {
   createUser,
   loginUser,
+  resetPassword,
 };
