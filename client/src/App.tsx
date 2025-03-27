@@ -13,6 +13,7 @@ import UpdateBiodata from './components/form/UpdateBiodata';
 import Biodata from './components/biodata/BiodataList';
 import Analytic from './components/dashboard/analytics/Analytic';
 import UserProfilePages from './pages/profile/UserProfilePages';
+import Verify from './components/dashboard/verify/Verify';
 import PrivateRoute from './components/PrivateRoute';
 
 function NoMatch() {
@@ -42,6 +43,7 @@ export default function App() {
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
                 <Route path="" element={<Analytic />} />
+                <Route path="edit/verify" element={<Verify />} />
               </Route>
             </Route>
             <Route path="*" element={<NoMatch />} />
