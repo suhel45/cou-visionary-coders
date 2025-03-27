@@ -73,8 +73,63 @@ const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
   return token;
 };
 
+const ResetPassword = async (
+  email: string,
+  currentPassword: string,
+  newPassword: string,
+) => {
+  let message = '';
+
+  // Input validation
+  if (!email || !currentPassword || !newPassword) {
+    message = 'All fields are required';
+    return message;
+  }
+
+  // Find user by email
+  const sanitizedEmail = validator.escape(email);
+  const user = await userModel.findOne({ email: sanitizedEmail });
+
+  if (!user) {
+    message = 'User not found.Please enter a validate email address';
+    return message;
+  }
+
+  // Verify current password
+  const isMatch = await argon2.verify(user.password, currentPassword);
+
+  if (!isMatch) {
+    message = 'Current password is incorrect';
+    return message;
+  }
+
+  // Prevent using the same password
+  const isSamePassword = await argon2.verify(user.password, newPassword);
+
+  if (isSamePassword) {
+    message = 'New password cannot be the same as the current password';
+    return message;
+  }
+
+  // Validate password strength
+  if (newPassword.length < 8) {
+    message = 'Password must be at least 8 characters long';
+    return message;
+  }
+
+  const hashedPassword = await argon2.hash(newPassword);
+
+  // Update user's password
+  user.password = hashedPassword;
+  await user.save();
+
+  message = 'Password updated successfully';
+  return message;
+};
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
+  ResetPassword,
 };
