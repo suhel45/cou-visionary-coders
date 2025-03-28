@@ -17,7 +17,6 @@ const fetchData = async (page: number, biodataPerPage: number) => {
   const response = await axios.get(
     `${import.meta.env.VITE_BACKEND_BASE_URL}/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
   );
-  console.log(response.data);
   return response.data;
 };
 
