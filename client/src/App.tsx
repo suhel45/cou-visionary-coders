@@ -43,7 +43,7 @@ export default function App() {
               element={<BiodataDetailsProfile />}
             />
             <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<UserProfilePages />} />
+              <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
                 <Route path="" element={<Analytic />} />

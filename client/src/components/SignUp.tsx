@@ -176,14 +176,19 @@ const SignUp = () => {
         <div className="relative w-full">
           <input
             type={showPassword ? 'text' : 'password'}
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
               validate: (value) => {
-                if (value.length < 8) return "Password must be at least 8 characters long.";
-                if (!/[A-Z]/.test(value)) return "Password must include at least one uppercase letter.";
-                if (!/[a-z]/.test(value)) return "Password must include at least one lowercase letter.";
-                if (!/\d/.test(value)) return "Password must include at least one number.";
-                if (!/[@$!%*?&]/.test(value)) return "Password must include at least one special character (@$!%*?&).";
+                if (value.length < 8)
+                  return 'Password must be at least 8 characters long.';
+                if (!/[A-Z]/.test(value))
+                  return 'Password must include at least one uppercase letter.';
+                if (!/[a-z]/.test(value))
+                  return 'Password must include at least one lowercase letter.';
+                if (!/\d/.test(value))
+                  return 'Password must include at least one number.';
+                if (!/[@$!%*?&]/.test(value))
+                  return 'Password must include at least one special character (@$!%*?&).';
                 return true;
               },
             })}

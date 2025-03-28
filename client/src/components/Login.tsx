@@ -33,13 +33,16 @@ const Login: React.FC = () => {
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ email: user.email, password: data.password }),
         },
-        body: JSON.stringify({ email: user.email, password: data.password }),
-      });
+      );
 
       const responseData = await response.json();
 
@@ -49,7 +52,6 @@ const Login: React.FC = () => {
       } else {
         toast.error(responseData.error);
       }
-
     } catch (error) {
       console.error('Login error:', error);
       const errorMessage =
@@ -115,8 +117,7 @@ const Login: React.FC = () => {
                   pattern: {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message:
-                      "Password is required",
+                    message: 'Password is required',
                   },
                 })}
                 type={showPassword ? 'text' : 'password'}

@@ -11,7 +11,14 @@ import {
   browserLocalPersistence,
   setPersistence,
 } from 'firebase/auth';
-import { createContext, ReactNode, useEffect, useState, useMemo, useCallback } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import { auth } from '../../components/firebase/Firebase.config';
 import { UserProfile } from '../../interfaces/Signup.interface';
 
@@ -52,12 +59,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Authenticate with persistence
   const authenticateWithPersistence = async (
-    authMethod: () => Promise<UserCredential>
+    authMethod: () => Promise<UserCredential>,
   ) => {
     try {
       // Ensure persistence is set
       await setPersistence(auth, browserLocalPersistence);
-      
+
       // Perform authentication
       setLoading(true);
       const result = await authMethod();
@@ -76,14 +83,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const createUser = (email: string, password: string) => {
-    return authenticateWithPersistence(() => 
-      createUserWithEmailAndPassword(auth, email, password)
+    return authenticateWithPersistence(() =>
+      createUserWithEmailAndPassword(auth, email, password),
     );
   };
 
   const loginUser = (email: string, password: string) => {
-    return authenticateWithPersistence(() => 
-      signInWithEmailAndPassword(auth, email, password)
+    return authenticateWithPersistence(() =>
+      signInWithEmailAndPassword(auth, email, password),
     );
   };
 
@@ -117,11 +124,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Authentication state listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
-      auth, 
+      auth,
       async (currentUser) => {
         console.log('Auth State Changed:', {
           user: currentUser,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         });
 
         if (currentUser) {
@@ -145,11 +152,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       (error) => {
         console.error('Authentication State Change Error:', error);
         setUser(null);
-        
+
         if (initializing) {
           setInitializing(false);
         }
-      }
+      },
     );
 
     return () => unsubscribe();
@@ -187,7 +194,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       initializing,
       refreshUser,
     }),
-    [user, loading, initializing, refreshUser]
+    [user, loading, initializing, refreshUser],
   );
 
   // Prevent rendering children during initialization
@@ -196,9 +203,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={authValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 

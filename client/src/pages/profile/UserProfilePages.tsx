@@ -40,7 +40,7 @@ const UserProfilePages = () => {
           },
         );
         setUserData(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to load profile data. Please try again later.');

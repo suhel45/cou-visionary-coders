@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import profileIcon from '../assets/profile.png';
 import dashboardIcon from '../assets/dashboard.png';
@@ -20,14 +20,14 @@ function Nav() {
   }
 
   const { user, logOut } = authContext;
- 
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleLogout = async () => {
-      await logOut();
-    }
+    await logOut();
+  };
 
   return (
     <header className="flex flex-col sm:flex-row items-center justify-between drop-shadow-xl bg-gradient-to-r from-sky-800 to-pink-600 text-white sm:px-6">
@@ -87,7 +87,7 @@ function Nav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
-        {user  ? (
+        {user ? (
           // If the user is logged in
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
             <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
