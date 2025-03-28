@@ -49,7 +49,7 @@ const Login: React.FC = () => {
       } else {
         toast.error(responseData.error);
       }
-      
+
     } catch (error) {
       console.error('Login error:', error);
       const errorMessage =
@@ -112,12 +112,12 @@ const Login: React.FC = () => {
                 id="password"
                 {...register('password', {
                   required: 'Password is required',
-                  // pattern: {
-                    // value:
-                      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    // message:
-                      // "Password is required",
-                  // },
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "Password is required",
+                  },
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
