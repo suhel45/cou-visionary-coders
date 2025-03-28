@@ -1,20 +1,26 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Login: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // location page the user was trying to access
+  const from = location.state?.from || '/';
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error('AuthContext is null');
   }
 
-  const { loginUser, setValid } = authContext;
+  const { loginUser } = authContext;
 
   const {
     register,
@@ -22,17 +28,13 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
   const onSubmit: SubmitHandler<IFormInput> = async (data: any) => {
     setLoading(true);
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-      const response = await fetch('http://localhost:3000/api/login', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'content-type': 'application/json',
         },
@@ -40,17 +42,16 @@ const Login: React.FC = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+
       if (responseData.success) {
         toast.success('User login sucessfully');
-        setValid(true);
-        navigate('/profile');
+        navigate(from, { replace: true });
       } else {
         toast.error(responseData.error);
       }
+      
     } catch (error) {
       console.error('Login error:', error);
-      setValid(false);
       const errorMessage =
         error instanceof Error
           ? error.message
@@ -60,6 +61,7 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 shadow-md rounded-md border border-pink-600 m-4">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
@@ -110,12 +112,12 @@ const Login: React.FC = () => {
                 id="password"
                 {...register('password', {
                   required: 'Password is required',
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message:
-                      "Password is required",
-                  },
+                  // pattern: {
+                    // value:
+                      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    // message:
+                      // "Password is required",
+                  // },
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"

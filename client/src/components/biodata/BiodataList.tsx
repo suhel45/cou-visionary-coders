@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, QueryClient, useQuery } from '@tanstack/react-query';
 import { PersonalInfoData } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ interface User {
 
 const fetchData = async (page: number, biodataPerPage: number) => {
   const response = await axios.get(
-    `http://localhost:3000/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
+    `${import.meta.env.VITE_BACKEND_BASE_URL}/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
   );
   console.log(response.data);
   return response.data;
@@ -23,29 +23,42 @@ const fetchData = async (page: number, biodataPerPage: number) => {
 
 const BiodataList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const queryClient = new QueryClient();
   const biodataPerPage = 3;
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ['biodata', currentPage],
     queryFn: () => fetchData(currentPage, biodataPerPage),
-    placeholderData: (prevData) => prevData ?? { data: [], totalPosts: 0 }, // Keep previous data while fetching new data
+    placeholderData: keepPreviousData, // Keep previous data while fetching new data
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
-  const pageCount = Math.ceil(data.totalbiodata / biodataPerPage);
+  // Separate useEffect for prefetching
+  useEffect(() => {
+    if (data?.totalbiodata && data.totalbiodata > currentPage * biodataPerPage) {
+      queryClient.prefetchQuery({
+        queryKey: ['biodata', currentPage + 1],
+        queryFn: () => fetchData(currentPage + 1, biodataPerPage)
+      });
+    }
+  }, [currentPage, data, queryClient, biodataPerPage]);
+
+  const pageCount = data ? Math.ceil(data.totalbiodata / biodataPerPage) : 0;
 
   // Handle page change
-  const handlePageChange = (event: any, value: number) => {
+  const handlePageChange = (event:React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loading />;
   }
 
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600">
-        {error.message}
+       {error instanceof Error ? error.message : 'An unknown error occurred'}
       </div>
     );
   }
@@ -59,7 +72,7 @@ const BiodataList = () => {
             <div className="flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-2 rounded-lg m-2 shadow-lg">
               <img
                 src={
-                  user.personalInfo.gender === 'male'
+                  user.personalInfo.gender.toLowerCase() === 'male'
                     ? 'src/assets/man.png'
                     : 'src/assets/woman.png'
                 }

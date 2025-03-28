@@ -34,12 +34,13 @@ const UserProfilePages = () => {
         setLoading(true);
         setError(null);
         const response = await axios.get(
-          'http://localhost:3000/api/profile/biodata',
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
           {
             withCredentials: true,
           },
         );
         setUserData(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to load profile data. Please try again later.');
@@ -68,7 +69,7 @@ const UserProfilePages = () => {
       <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/3">
         {userData && (
           <UserProfile
-            data={userData.data.personalInfo}
+            data={userData?.data?.personalInfo}
             biodataNo={userData.data.biodataNo}
           />
         )}

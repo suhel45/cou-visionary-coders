@@ -10,7 +10,7 @@ import AddressInformation from '../../components/profileDetails/AddressInformati
 
 const fetchBiodataDetail = async (id: string) => {
   const response = await axios.get(
-    `http://localhost:3000/api/profile/biodata/${id}`,
+    `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata/${id}`,
   );
   return response.data;
 };
