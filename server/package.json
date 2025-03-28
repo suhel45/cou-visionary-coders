@@ -1,11 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "vercel-build": "npm run build",
-    "build": "npx tsc",
+    "vercel-build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc",
     "start": "node dist/server.js",
     "dev": "nodemon --exec npx tsx src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
