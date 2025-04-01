@@ -1,7 +1,57 @@
+import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Hooks/contextApi/UserContext";
+import toast from "react-hot-toast";
+import axios from "axios";
+
 const GoogleSignIn = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const from = location.state?.from?.pathname || "/";
+
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("AuthContext is null");
+  }
+
+  const { signInWithGoogle } = authContext;
+
+  const handleGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const user = result.user;
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login/google`,
+        { email: user.email,username:user.displayName },  // This is the request body
+        {
+          withCredentials: true, 
+          headers: { "Content-Type": "application/json" }
+        }
+      );
+
+      const responseData = response.data;
+      console.log(responseData);
+      
+      if(responseData.success) {
+        toast.success('User login successfully');
+        navigate(from, { replace: true });
+      } else {
+        // Handle unsuccessful login despite 200 response
+        toast.error(responseData.message || "Login failed. Please try again.");
+      }
+
+    } catch (error) {
+      console.error("Google login error:", error);
+      const errorMessage = error.response?.data?.message || "Google login failed. Try again.";
+      toast.error(errorMessage);
+    }
+  };
+
   return (
     <button
-    onClick={signInWithGoogle}
+      onClick={handleGoogle}
       className="cursor-pointer flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100"
     >
       <img

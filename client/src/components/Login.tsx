@@ -38,6 +38,7 @@ const Login: React.FC = () => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
         {
           method: 'POST',
+          credentials:'include',
           headers: {
             'content-type': 'application/json',
           },
@@ -115,11 +116,11 @@ const Login: React.FC = () => {
                 id="password"
                 {...register('password', {
                   required: 'Password is required',
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: 'Password is required',
-                  },
+                  // pattern: {
+                    // value:
+                      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    // message: 'Password is required',
+                  // },
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"

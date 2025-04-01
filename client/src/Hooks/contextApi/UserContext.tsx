@@ -10,6 +10,7 @@ import {
   signInWithPopup,
   browserLocalPersistence,
   setPersistence,
+  deleteUser as firebaseDeleteUser
 } from 'firebase/auth';
 import {
   createContext,
@@ -31,7 +32,9 @@ type authContextProps = {
   signInWithGoogle: () => Promise<UserCredential>;
   loading: boolean;
   initializing: boolean;
+  isNewlyRegistered:boolean;
   refreshUser: () => Promise<void>;
+  deleteUser: (user: User) => Promise<void>; 
 };
 
 export const AuthContext = createContext<authContextProps | null>(null);
@@ -40,6 +43,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isNewlyRegistered, setIsNewlyRegistered] = useState(false);
   const provider = new GoogleAuthProvider();
 
   // Refresh user method
@@ -83,15 +87,37 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const createUser = (email: string, password: string) => {
-    return authenticateWithPersistence(() =>
-      createUserWithEmailAndPassword(auth, email, password),
-    );
+    return authenticateWithPersistence(async () => {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Set this flag when user signs up
+      setIsNewlyRegistered(true);
+      return userCredential;
+    });
+  };
+
+  const deleteUser = async (user: User) => {
+    try {
+      setLoading(true);
+      await firebaseDeleteUser(user);
+      // If the deleted user is the current user, update state
+      if (user.uid === auth.currentUser?.uid) {
+        setUser(null);
+        setIsNewlyRegistered(false);
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loginUser = (email: string, password: string) => {
-    return authenticateWithPersistence(() =>
-      signInWithEmailAndPassword(auth, email, password),
-    );
+    return authenticateWithPersistence(async () => {
+      // Clear the flag during normal login
+      setIsNewlyRegistered(false);
+      return signInWithEmailAndPassword(auth, email, password);
+    });
   };
 
   const logOut = async () => {
@@ -99,6 +125,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       await signOut(auth);
       setUser(null);
+       // Reset the flag when logging out
+    setIsNewlyRegistered(false);
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
@@ -193,8 +221,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       loading,
       initializing,
       refreshUser,
+      isNewlyRegistered,
+      deleteUser
     }),
-    [user, loading, initializing, refreshUser],
+    [user, loading, initializing, refreshUser, isNewlyRegistered],
   );
 
   // Prevent rendering children during initialization

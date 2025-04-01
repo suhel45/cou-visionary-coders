@@ -12,7 +12,7 @@ const SignUp = () => {
     throw new Error('AuthContext is null');
   }
 
-  const { createUser, updateUserProfile } = authContext;
+  const { createUser, updateUserProfile, user, deleteUser } = authContext;
   const navigate = useNavigate();
 
   const {
@@ -34,30 +34,43 @@ const SignUp = () => {
   const password = watch('password');
 
   const onSubmit = async (data: IFormData) => {
-    setLoading(true);
+    setLoading(true);;
+    
     try {
-      // Simulate a 2-second delay to submit the form
+      // Simulate a 2-second delay to submit the form (if needed)
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Create user with email and password
+      // Create user with email and password in Firebase
       await createUser(data.email, data.password);
 
-      // Update user profile with the provided username
+      // Update user profile 
       await handleUpdateUserProfile(data.username);
 
-      // Save user data to the server
-      await saveUser(
-        data.username,
-        data.phoneNumber,
-        data.email,
-        data.password,
-      );
-
-      toast.success('User created successfully');
-      navigate('/login');
+      // Save user data db
+      try {
+        await saveUser(
+          data.username,
+          data.email,
+          data.password,
+        );
+        
+        // If we reach here, both Firebase and DB operations succeeded
+        toast.success('User created successfully');
+        navigate('/login');
+      } catch (dbError) {
+        // If saving to DB fails, delete the Firebase user to maintain consistency
+        console.error('Error saving user to database:', dbError);
+        
+        // Use the user state from context
+        if (user) {
+          await deleteUser(user);
+        }
+        
+        throw new Error('Failed to save user data. Registration cancelled.');
+      }
     } catch (error) {
       console.error('Error during form submission:', error);
-      toast.error('Error creating user. Please try again.');
+      toast.error(error instanceof Error ? error.message : 'Error creating user. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -71,40 +84,38 @@ const SignUp = () => {
       await updateUserProfile(profile);
     } catch (error) {
       console.error('Error updating user profile:', error);
+      throw error; 
     }
   };
 
   const saveUser = async (
     username: string,
-    phoneNumber: string,
     email: string,
     password: string,
   ) => {
     const user = {
       username,
-      phoneNumber,
       email,
       password,
     };
-    try {
-      const response = await fetch(
-        'https://halalbondhon-server.vercel.app/api/signup',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(user),
+    
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_BASE_URL}/api/signup`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
-      const responseData = await response.json();
-      if (!responseData.success) {
-        throw new Error(responseData.message);
-      }
-    } catch (error) {
-      console.error('Error saving user:', error);
-      throw error;
+        body: JSON.stringify(user),
+      },
+    );
+    
+    const responseData = await response.json();
+    if (!responseData.success) {
+      throw new Error(responseData.message || 'Failed to save user to database');
     }
+    
+    return responseData;
   };
 
   const inputStyle: string =
@@ -150,25 +161,6 @@ const SignUp = () => {
         {errors.email && (
           <span className="text-red-500">
             {errors.email?.message && String(errors.email?.message)}
-          </span>
-        )}
-
-        {/* Phone Number */}
-        <input
-          type="tel"
-          {...register('phoneNumber', {
-            required: 'This field is required',
-            pattern: {
-              value: /^\d{11}$/,
-              message: 'Invalid phone number',
-            },
-          })}
-          placeholder="Enter Your Phone Number"
-          className={inputStyle}
-        />
-        {errors.phoneNumber && (
-          <span className="text-red-500">
-            {errors.phoneNumber?.message && String(errors.phoneNumber?.message)}
           </span>
         )}
 
@@ -243,7 +235,7 @@ const SignUp = () => {
         </div>
 
         {/* Show login option */}
-        <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
+        <p className="text-center text-sm   text-gray-800">
           Already have an account?{' '}
           <Link
             to="/login"
