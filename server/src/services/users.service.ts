@@ -3,12 +3,13 @@ import userModel from '../models/user.Model';
 import validator from 'validator';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto'; 
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const createUserIntoDB = async (user: IUser) => {
-  const { username, phoneNumber, email, password } = user;
+  const { username, email, password } = user;
 
   const sanitizedEmail = validator.escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
@@ -18,7 +19,6 @@ const createUserIntoDB = async (user: IUser) => {
   const hashedPassword = await argon2.hash(password);
   const newUser = new userModel({
     username,
-    phoneNumber,
     email,
     password: hashedPassword,
   });
@@ -50,26 +50,38 @@ const loginUserFromDB = async (
   return { userId: user._id.toString(), token };
 };
 
-const loginOrCreateUserWithGoogle = async (email: string): Promise<string> => {
+const loginOrCreateUserWithGoogle = async (email: string,username:string): Promise<string> => {
+  
+  if (!validator.isEmail(email)) {
+    throw new Error('Invalid email format');
+  }
+  
   const sanitizedEmail = validator.escape(email);
   let user = await userModel.findOne({ email: sanitizedEmail });
+
   if (!user) {
-    // Create a new user with a default password
+    // Generate a random password
+    const randomPassword = crypto.randomBytes(16).toString('hex');
+    // Hash the random password
+    const hashedPassword = await argon2.hash(randomPassword);
+
     const newUser = new userModel({
-      username: sanitizedEmail.split('@')[0], // Use the part before @ as username
-      phoneNumber: '00000000000', // Default empty phone number
-      email: sanitizedEmail,
-      password: await argon2.hash('defaultPassword'), // Default password
+      username,
+      email: sanitizedEmail, 
+      password: hashedPassword,
     });
-    user = await newUser.save();
+    user = await newUser.save(); 
   }
+
   const secretKey = process.env.JWT_SECRET_KEY;
   if (!secretKey) {
-    throw new Error('Internal server error');
+    throw new Error('JWT secret key not configured');
   }
+  
   const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
     expiresIn: '1h',
   });
+  
   return token;
 };
 
