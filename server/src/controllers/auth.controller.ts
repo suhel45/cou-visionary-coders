@@ -3,11 +3,14 @@ import { userService } from '../services/users.service';
 
 const loginWithGoogle = async (req: Request, res: Response) => {
   try {
-    const { email,username } = req.body;
+    const { email, username } = req.body;
     if (!email) {
       res.status(400).json({ message: 'Email is required' });
     }
-    const result = await userService.loginOrCreateUserWithGoogle(email,username);
+    const result = await userService.loginOrCreateUserWithGoogle(
+      email,
+      username,
+    );
     //set the token as an httpOnly cookie
     res.cookie('token', result, {
       httpOnly: true,

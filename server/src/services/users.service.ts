@@ -3,7 +3,7 @@ import userModel from '../models/user.Model';
 import validator from 'validator';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto'; 
+import crypto from 'crypto';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -50,12 +50,14 @@ const loginUserFromDB = async (
   return { userId: user._id.toString(), token };
 };
 
-const loginOrCreateUserWithGoogle = async (email: string,username:string): Promise<string> => {
-  
+const loginOrCreateUserWithGoogle = async (
+  email: string,
+  username: string,
+): Promise<string> => {
   if (!validator.isEmail(email)) {
     throw new Error('Invalid email format');
   }
-  
+
   const sanitizedEmail = validator.escape(email);
   let user = await userModel.findOne({ email: sanitizedEmail });
 
@@ -67,21 +69,21 @@ const loginOrCreateUserWithGoogle = async (email: string,username:string): Promi
 
     const newUser = new userModel({
       username,
-      email: sanitizedEmail, 
+      email: sanitizedEmail,
       password: hashedPassword,
     });
-    user = await newUser.save(); 
+    user = await newUser.save();
   }
 
   const secretKey = process.env.JWT_SECRET_KEY;
   if (!secretKey) {
     throw new Error('JWT secret key not configured');
   }
-  
+
   const token = jwt.sign({ id: user._id, email: user.email }, secretKey, {
     expiresIn: '1h',
   });
-  
+
   return token;
 };
 
