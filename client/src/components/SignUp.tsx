@@ -32,7 +32,6 @@ const SignUp = () => {
     setLoading(true);
 
     try {
-
       // Create user with email and password in Firebase
       await createUser(data.email, data.password);
 
