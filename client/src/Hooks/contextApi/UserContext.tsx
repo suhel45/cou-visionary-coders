@@ -10,7 +10,7 @@ import {
   signInWithPopup,
   browserLocalPersistence,
   setPersistence,
-  deleteUser as firebaseDeleteUser
+  deleteUser as firebaseDeleteUser,
 } from 'firebase/auth';
 import {
   createContext,
@@ -32,9 +32,9 @@ type authContextProps = {
   signInWithGoogle: () => Promise<UserCredential>;
   loading: boolean;
   initializing: boolean;
-  isNewlyRegistered:boolean;
+  isNewlyRegistered: boolean;
   refreshUser: () => Promise<void>;
-  deleteUser: (user: User) => Promise<void>; 
+  deleteUser: (user: User) => Promise<void>;
 };
 
 export const AuthContext = createContext<authContextProps | null>(null);
@@ -88,7 +88,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const createUser = (email: string, password: string) => {
     return authenticateWithPersistence(async () => {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       // Set this flag when user signs up
       setIsNewlyRegistered(true);
       return userCredential;
@@ -125,8 +129,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       await signOut(auth);
       setUser(null);
-       // Reset the flag when logging out
-    setIsNewlyRegistered(false);
+      // Reset the flag when logging out
+      setIsNewlyRegistered(false);
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
@@ -222,7 +226,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       initializing,
       refreshUser,
       isNewlyRegistered,
-      deleteUser
+      deleteUser,
     }),
     [user, loading, initializing, refreshUser, isNewlyRegistered],
   );

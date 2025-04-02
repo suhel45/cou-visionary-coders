@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import GoogleSignIn from './GoogleSignIn';
+import { useAuth } from '../Hooks/useAuth/useAuth';
+import OrDivider from '../utils/OrDivider/OrDivider';
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -16,12 +17,7 @@ const Login: React.FC = () => {
   // location page the user was trying to access
   const from = location.state?.from || '/';
 
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { loginUser } = authContext;
+  const { loginUser } = useAuth();
 
   const {
     register,
@@ -38,7 +34,7 @@ const Login: React.FC = () => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
         {
           method: 'POST',
-          credentials:'include',
+          credentials: 'include',
           headers: {
             'content-type': 'application/json',
           },
@@ -117,9 +113,9 @@ const Login: React.FC = () => {
                 {...register('password', {
                   required: 'Password is required',
                   // pattern: {
-                    // value:
-                      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    // message: 'Password is required',
+                  // value:
+                  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  // message: 'Password is required',
                   // },
                 })}
                 type={showPassword ? 'text' : 'password'}
@@ -144,18 +140,22 @@ const Login: React.FC = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="cursor-pointer w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold"
+            className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="animate-spin mr-2" />
+                Logging in...
+              </>
+            ) : (
+              'Log in'
+            )}
           </button>
         </form>
 
-        <div className="relative flex py-5 items-center">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="flex-shrink mx-4 text-gray-400">OR</span>
-          <div className="flex-grow border-t border-gray-300"></div>
-        </div>
+        {/* Or Divider */}
+        <OrDivider />
 
         {/* Google Sign-In */}
         <GoogleSignIn />

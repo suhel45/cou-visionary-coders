@@ -1,18 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useAuth } from '../Hooks/useAuth/useAuth';
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { createUser, updateUserProfile, user, deleteUser } = authContext;
+  const { createUser, updateUserProfile, user, deleteUser } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -34,43 +29,40 @@ const SignUp = () => {
   const password = watch('password');
 
   const onSubmit = async (data: IFormData) => {
-    setLoading(true);;
-    
+    setLoading(true);
+
     try {
-      // Simulate a 2-second delay to submit the form (if needed)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Create user with email and password in Firebase
       await createUser(data.email, data.password);
 
-      // Update user profile 
+      // Update user profile
       await handleUpdateUserProfile(data.username);
 
       // Save user data db
       try {
-        await saveUser(
-          data.username,
-          data.email,
-          data.password,
-        );
-        
-        // If we reach here, both Firebase and DB operations succeeded
+        await saveUser(data.username, data.email, data.password);
+
         toast.success('User created successfully');
         navigate('/login');
       } catch (dbError) {
-        // If saving to DB fails, delete the Firebase user to maintain consistency
+        // If saving to DB fails,delete the Firebase user
         console.error('Error saving user to database:', dbError);
-        
+
         // Use the user state from context
         if (user) {
           await deleteUser(user);
         }
-        
+
         throw new Error('Failed to save user data. Registration cancelled.');
       }
     } catch (error) {
       console.error('Error during form submission:', error);
-      toast.error(error instanceof Error ? error.message : 'Error creating user. Please try again.');
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'Error creating user. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -84,7 +76,7 @@ const SignUp = () => {
       await updateUserProfile(profile);
     } catch (error) {
       console.error('Error updating user profile:', error);
-      throw error; 
+      throw error;
     }
   };
 
@@ -98,7 +90,7 @@ const SignUp = () => {
       email,
       password,
     };
-    
+
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_BASE_URL}/api/signup`,
       {
@@ -109,12 +101,14 @@ const SignUp = () => {
         body: JSON.stringify(user),
       },
     );
-    
+
     const responseData = await response.json();
     if (!responseData.success) {
-      throw new Error(responseData.message || 'Failed to save user to database');
+      throw new Error(
+        responseData.message || 'Failed to save user to database',
+      );
     }
-    
+
     return responseData;
   };
 
@@ -248,10 +242,17 @@ const SignUp = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2"
+          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
           disabled={loading}
         >
-          {loading ? 'Registering...' : 'Register'}
+          {loading ? (
+            <>
+              <Loader2 size={18} className="animate-spin mr-2" />
+              Registering...
+            </>
+          ) : (
+            'Register'
+          )}
         </button>
       </form>
     </div>
