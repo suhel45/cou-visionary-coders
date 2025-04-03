@@ -7,6 +7,8 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { validatePassword } from '../utils/validation.password.util';
+import logger from '../utils/logger.util';
+import { generateToken } from '../utils/token.util';
 
 dotenv.config();
 
@@ -150,17 +152,17 @@ const ForgotPassword = async (email: string) => {
   const user = await userModel.findOne({ email: sanitizedEmail });
 
   if (!user) {
+    logger.error(`User not found for email: ${email}`);
     return 'User not found. Please enter a valid email address';
   }
 
   // Generate a reset token and save it to the user's record
-  const resetToken = crypto.randomBytes(32).toString('hex');
+  const resetToken = generateToken();
   user.resetToken = resetToken;
   user.tokenExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 expiration
   await user.save();
 
   // Send the reset token to the user's email
-  console.log(process.env.EMAIL,process.env.PASSWORD);
   const transprorter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -178,7 +180,7 @@ const ForgotPassword = async (email: string) => {
 
   transprorter.sendMail(mailOptions, (error: Error | null) => {
     if (error) {
-      console.error('Error sending email:', error);
+      logger.error(`Error sending email: ${error.message}`);
       return 'Failed to send reset link. Please try again later.';
     }
   });
