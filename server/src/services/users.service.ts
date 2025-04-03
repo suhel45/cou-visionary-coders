@@ -9,11 +9,19 @@ import dotenv from 'dotenv';
 import { validatePassword } from '../utils/validation.password.util';
 import logger from '../utils/logger.util';
 import { generateToken } from '../utils/token.util';
+import { validateEmail } from '../utils/validation.email.util';
 
 dotenv.config();
 
 const createUserIntoDB = async (user: IUser) => {
   const { username, email, password } = user;
+
+  // Validate the email
+  const emailValidationError = validateEmail(email);
+  if (emailValidationError) {
+    logger.error(`Email validation failed: ${emailValidationError}`);
+    return emailValidationError;
+  }
 
   const sanitizedEmail = validator.escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
@@ -129,10 +137,10 @@ const ResetPassword = async (
     return message;
   }
 
-  // Validate password strength
-  if (newPassword.length < 8) {
-    message = 'Password must be at least 8 characters long';
-    return message;
+  // Validate the new password
+  const validationError = validatePassword(newPassword);
+  if (validationError) {
+    return validationError;
   }
 
   const hashedPassword = await argon2.hash(newPassword);
@@ -146,7 +154,6 @@ const ResetPassword = async (
 };
 
 const ForgotPassword = async (email: string) => {
-
   // Find user by email
   const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
@@ -185,23 +192,22 @@ const ForgotPassword = async (email: string) => {
     }
   });
   return 'Reset link sent to your email';
-}
+};
 
 const ResetPasswordWithToken = async (token: string, newPassword: string) => {
   // Find user by reset token
-  const user = await userModel.findOne({ 
+  const user = await userModel.findOne({
     resetToken: token,
-    tokenExpire: { $gt: Date.now() } // Check if token is not expired
+    tokenExpire: { $gt: Date.now() }, // Check if token is not expired
   });
   if (!user) {
     return 'Invalid or expired reset token';
   }
 
-  
   // Validate the new password
   const validationError = validatePassword(newPassword);
   if (validationError) {
-    return validationError; 
+    return validationError;
   }
 
   // Hash the new password
@@ -216,7 +222,7 @@ const ResetPasswordWithToken = async (token: string, newPassword: string) => {
   // Update user's password and clear reset token
   user.password = hashedPassword;
   user.resetToken = '';
-  user.tokenExpire = null; 
+  user.tokenExpire = null;
   await user.save();
   return 'Password reset successfully';
 };

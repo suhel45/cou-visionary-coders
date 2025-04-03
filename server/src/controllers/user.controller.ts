@@ -10,7 +10,7 @@ const createUser = async (req: Request, res: Response) => {
   try {
     const userInfo: IUser = req.body;
     const result = await userService.createUserIntoDB(userInfo);
-    
+
     res.status(200).json({
       success: true,
       message: 'User registered successfully',
@@ -21,6 +21,7 @@ const createUser = async (req: Request, res: Response) => {
     if (error instanceof Error && error.message === 'User already exists!') {
       logger.error(`User already exists: ${error.message}`);
       res.status(400).json({ message: 'User already exists!' });
+
     } else {
       logger.error(`Unexpected error of createuser:${error}`);
       res.status(500).json({
@@ -50,8 +51,9 @@ const loginUser = async (req: Request, res: Response) => {
       message: 'User logged in successfully',
       userId: userId,
     });
+
   } catch (error) {
-    if(error instanceof Error){
+    if (error instanceof Error) {
       logger.error(`Unexpected error:${error.message}`);
     }
     res.status(500).json({
@@ -73,9 +75,10 @@ const resetPassword = async (req: Request, res: Response) => {
     res.status(200).json({
       message: result,
     });
+
   } catch (error) {
-    if(error instanceof Error){
-        logger.error(`Reset Password Error:${error.message}`);
+    if (error instanceof Error) {
+      logger.error(`Reset Password Error:${error.message}`);
     }
     res.status(500).json({
       message: 'Server error occurred',
@@ -95,13 +98,14 @@ const forgotPassword = async (req: Request, res: Response) => {
         success: true,
         message: result,
       });
+
     } else {
       res.status(400).json({
         success: false,
         message: result,
       });
     }
-
+    
   } catch (error) {
     if (error instanceof Error) {
       logger.error(`Forget Password Error:${error.message}`);
@@ -111,16 +115,27 @@ const forgotPassword = async (req: Request, res: Response) => {
       message: 'Server error occurred.please try again later',
     });
   }
-}
+};
 
 const resetPasswordWithToken = async (req: Request, res: Response) => {
   try {
     const { token } = req.params;
     const { newPassword } = req.body;
+
     const result = await userService.ResetPasswordWithToken(token, newPassword);
-    res.status(200).json({
-      message: result,
-    });
+
+    if(result === 'Password reset successfully') {
+      res.status(200).json({
+        success: true,
+        message: result,
+      });
+    }
+    else {
+      res.status(400).json({
+        success: false,
+        message: result,
+      });
+    }
 
   } catch (error) {
     if (error instanceof Error) {
