@@ -6,6 +6,7 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import { validatePassword } from '../utils/validation.password.util';
 
 dotenv.config();
 
@@ -192,6 +193,13 @@ const ResetPasswordWithToken = async (token: string, newPassword: string) => {
   });
   if (!user) {
     return 'Invalid or expired reset token';
+  }
+
+  
+  // Validate the new password
+  const validationError = validatePassword(newPassword);
+  if (validationError) {
+    return validationError; 
   }
 
   // Hash the new password
