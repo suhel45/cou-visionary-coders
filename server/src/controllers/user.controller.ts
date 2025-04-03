@@ -105,6 +105,22 @@ const forgotPassword = async (req: Request, res: Response) => {
   }
 }
 
+const resetPasswordWithToken = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+    const { newPassword } = req.body;
+    const result = await userService.ResetPasswordWithToken(token, newPassword);
+    res.status(200).json({
+      message: result,
+    });
+  } catch (error) {
+    console.error('Reset Password with Token Error:', error);
+    res.status(500).json({
+      message: 'Server error occurred',
+    });
+  }
+};
+
 export const userController = {
   createUser,
   loginUser,
