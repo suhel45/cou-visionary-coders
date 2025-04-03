@@ -126,4 +126,5 @@ export const userController = {
   loginUser,
   resetPassword,
   forgotPassword,
+  resetPasswordWithToken,
 };

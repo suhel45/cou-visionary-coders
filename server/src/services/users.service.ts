@@ -182,15 +182,40 @@ const ForgotPassword = async (email: string) => {
     }
   });
   return 'Reset link sent to your email';
-
-
-
 }
+
+const ResetPasswordWithToken = async (token: string, newPassword: string) => {
+  // Find user by reset token
+  const user = await userModel.findOne({ 
+    resetToken: token,
+    tokenExpire: { $gt: Date.now() } // Check if token is not expired
+  });
+  if (!user) {
+    return 'Invalid or expired reset token';
+  }
+
+  // Hash the new password
+  const hashedPassword = await argon2.hash(newPassword);
+
+  // Prevent using the same password
+  const isSamePassword = await argon2.verify(user.password, newPassword);
+  if (isSamePassword) {
+    return 'New password cannot be the same as the current password';
+  }
+
+  // Update user's password and clear reset token
+  user.password = hashedPassword;
+  user.resetToken = '';
+  user.tokenExpire = null; 
+  await user.save();
+  return 'Password reset successfully';
+};
 
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
   ResetPassword,
-  ForgotPassword
+  ForgotPassword,
+  ResetPasswordWithToken,
 };
