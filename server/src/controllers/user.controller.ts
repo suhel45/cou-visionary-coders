@@ -77,19 +77,30 @@ const resetPassword = async (req: Request, res: Response) => {
   }
 };
 
-const forgetPassword = async (req: Request, res: Response) => {
+const forgotPassword = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
 
-    const result = await userService.ForgetPassword(email);
+    const result = await userService.ForgotPassword(email);
 
-    res.status(200).json({
-      'Reset link sent to your email.',
-    });
+    // Check the result and send appropriate response
+    if (result === 'Reset link sent to your email') {
+      res.status(200).json({
+        success: true,
+        message: result,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: result,
+      });
+    }
+
   } catch (error) {
     console.error('Forget Password Error:', error);
     res.status(500).json({
-      message: 'Server error occurred',
+      success: false,
+      message: 'Server error occurred.please try again later',
     });
   }
 }
@@ -98,5 +109,5 @@ export const userController = {
   createUser,
   loginUser,
   resetPassword,
-  forgetPassword,
+  forgotPassword,
 };

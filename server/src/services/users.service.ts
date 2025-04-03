@@ -1,6 +1,7 @@
 import { ILoginInfo, IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
 import validator from 'validator';
+import nodemailer from 'nodemailer';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -141,27 +142,49 @@ const ResetPassword = async (
   return message;
 };
 
-const forgetPassword = async (email: string) => {
-  // Input validation
-  if (!email) {
-    throw new Error('Email is required');
-  }
+const ForgotPassword = async (email: string) => {
 
   // Find user by email
   const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
 
   if (!user) {
-    throw new Error('User not found');
+    return 'User not found. Please enter a valid email address';
   }
 
   // Generate a reset token and save it to the user's record
   const resetToken = crypto.randomBytes(32).toString('hex');
   user.resetToken = resetToken;
-  user.tokenExpire = Date.now() + 3600000; // 1 hour expiration
+  user.tokenExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 expiration
   await user.save();
 
-  // Send the reset token to the user's email (implementation not shown)
+  // Send the reset token to the user's email
+  console.log(process.env.EMAIL,process.env.PASSWORD);
+  const transprorter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: 'Password Reset',
+    html: `Click the link to reset your password: <a href="http://localhost:5173/reset-password/${resetToken}">Reset Password</a>`,
+  };
+
+  transprorter.sendMail(mailOptions, (error: Error | null) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return 'Failed to send reset link. Please try again later.';
+    }
+  });
+  return 'Reset link sent to your email';
+
+
+
 }
 
 export const userService = {
@@ -169,4 +192,5 @@ export const userService = {
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
   ResetPassword,
+  ForgotPassword
 };
