@@ -77,8 +77,26 @@ const resetPassword = async (req: Request, res: Response) => {
   }
 };
 
+const forgetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    const result = await userService.ForgetPassword(email);
+
+    res.status(200).json({
+      'Reset link sent to your email.',
+    });
+  } catch (error) {
+    console.error('Forget Password Error:', error);
+    res.status(500).json({
+      message: 'Server error occurred',
+    });
+  }
+}
+
 export const userController = {
   createUser,
   loginUser,
   resetPassword,
+  forgetPassword,
 };
