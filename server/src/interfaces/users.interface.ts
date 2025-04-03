@@ -5,7 +5,7 @@ type IUser = {
   email: string;
   password: string;
   resetToken: string;
-  tokenExpire: Date;
+  tokenExpire: Date
 };
 
 type ILoginInfo = {

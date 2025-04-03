@@ -141,6 +141,29 @@ const ResetPassword = async (
   return message;
 };
 
+const forgetPassword = async (email: string) => {
+  // Input validation
+  if (!email) {
+    throw new Error('Email is required');
+  }
+
+  // Find user by email
+  const sanitizedEmail = validator.escape(email);
+  const user = await userModel.findOne({ email: sanitizedEmail });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Generate a reset token and save it to the user's record
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  user.resetToken = resetToken;
+  user.tokenExpire = Date.now() + 3600000; // 1 hour expiration
+  await user.save();
+
+  // Send the reset token to the user's email (implementation not shown)
+}
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
