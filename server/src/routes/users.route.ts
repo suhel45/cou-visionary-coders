@@ -11,6 +11,7 @@ router.post('/login', userController.loginUser);
 router.post('/login/google', authController.loginWithGoogle);
 router.patch('/reset-password', verifyToken, userController.resetPassword);
 router.post('/forgot-password', userController.forgotPassword);
+router.post('/reset-password/:token', userController.resetPasswordWithToken);
 
 router.post('/profile/biodata', verifyToken, personalDetailsController.Biodata);
 router.get(
