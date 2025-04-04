@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  TextField,
   Button,
   Typography,
   Container,
@@ -10,6 +9,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import PasswordInput from '../../utils/passVisibilityToggle/PasswordInput';
 
 interface FormData {
   newPassword: string;
@@ -17,12 +17,11 @@ interface FormData {
 }
 
 const ResetForgotPassword = () => {
-  const {resetToken} = useParams<{resetToken: string}>();
+  const { resetToken } = useParams<{ resetToken: string }>();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<FormData>();
@@ -82,37 +81,27 @@ const ResetForgotPassword = () => {
           Reset Password
         </Typography>
 
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-          <TextField
-            id="newPassword"
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center', // Center all child elements
+            width: '100%',
+          }}
+        >
+          <PasswordInput
             label="New Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            {...register('newPassword', {
-              required: 'New password is required',
-              minLength: {
-                value: 8,
-                message: 'Password must be at least 8 characters long',
-              },
-            })}
+            register={register}
+            name="newPassword"
             error={!!errors.newPassword}
             helperText={errors.newPassword ? errors.newPassword.message : ''}
           />
 
-          <TextField
-            id="confirmPassword"
+          <PasswordInput
             label="Confirm Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            {...register('confirmPassword', {
-              required: 'Please confirm your password',
-              validate: (value) =>
-                value === watch('newPassword') || 'Passwords do not match',
-            })}
+            register={register}
+            name="confirmPassword"
             error={!!errors.confirmPassword}
             helperText={
               errors.confirmPassword ? errors.confirmPassword.message : ''
@@ -124,7 +113,11 @@ const ResetForgotPassword = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ marginTop: 2, marginBottom: 2 }}
+            sx={{
+              width: '300px',
+              marginTop: 2,
+              textAlign: 'center',
+            }}
             disabled={loading}
           >
             {loading ? (

@@ -41,7 +41,10 @@ export default function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/biodata" element={<BiodataList />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:resetToken" element={<ResetForgotPassword />} />
+            <Route
+              path="/reset-password/:resetToken"
+              element={<ResetForgotPassword />}
+            />
             <Route
               path="/biodata/profile/:id"
               element={<BiodataDetailsProfile />}
