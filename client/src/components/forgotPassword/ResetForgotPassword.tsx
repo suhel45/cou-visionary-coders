@@ -9,13 +9,16 @@ import {
   CircularProgress,
 } from '@mui/material';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface FormData {
   newPassword: string;
   confirmPassword: string;
 }
 
-const ResetPassword = () => {
+const ResetForgotPassword = () => {
+  const {resetToken} = useParams<{resetToken: string}>();
+
   const {
     register,
     handleSubmit,
@@ -31,7 +34,7 @@ const ResetPassword = () => {
     try {
       // Send the request using Axios
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password/${resetToken}`,
         {
           newPassword: data.newPassword,
         },
@@ -90,8 +93,8 @@ const ResetPassword = () => {
             {...register('newPassword', {
               required: 'New password is required',
               minLength: {
-                value: 6,
-                message: 'Password must be at least 6 characters long',
+                value: 8,
+                message: 'Password must be at least 8 characters long',
               },
             })}
             error={!!errors.newPassword}
@@ -146,4 +149,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetForgotPassword;

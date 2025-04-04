@@ -16,6 +16,7 @@ import PrivateRoute from './components/PrivateRoute';
 import BiodataList from './components/biodata/BiodataList';
 import BiodataDetailsProfile from './pages/profile/BiodataDetailsProfile';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
+import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -40,6 +41,7 @@ export default function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/biodata" element={<BiodataList />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:resetToken" element={<ResetForgotPassword />} />
             <Route
               path="/biodata/profile/:id"
               element={<BiodataDetailsProfile />}
