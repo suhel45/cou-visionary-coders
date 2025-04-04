@@ -191,7 +191,7 @@ const ForgotPassword = async (email: string) => {
       return 'Failed to send reset link. Please try again later.';
     }
   });
-  return 'Reset link sent to your email';
+  return 'Reset link sent to your email.please check your email or email spam folder';
 };
 
 const ResetPasswordWithToken = async (token: string, newPassword: string) => {
