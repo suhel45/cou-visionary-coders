@@ -8,7 +8,7 @@ interface FormData {
 }
 
 const ForgotPassword = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors },reset } = useForm<FormData>();
   const [message, setMessage] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       // Send the request using Axios
-      const response = await axios.post('/api/forgot-password', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/forgot-password`, {
         email: data.email,
       });
 
@@ -25,14 +25,24 @@ const ForgotPassword = () => {
 
       // Check if the response is successful
       if (response.status === 200) {
-        setMessage(response.data.message || 'Check your inbox for the reset link!');
+        setMessage(response.data.message);
+        reset();
       } else {
-        // Handle server-side error messages
-        setMessage(response.data.message || 'An error occurred. Please try again.');
+        setMessage('An error occurred. Please try again.');
       }
-    } catch {
+    } catch(error) {
       setLoading(false);
-      setMessage('Error sending reset link. Please try again later.');
+
+      if (axios.isAxiosError(error) && error.response) {
+        //  specific error message from server response
+        const errorMessage = error.response.data?.message || 'Something went wrong on the server. Please try again later.';
+        setMessage(errorMessage); 
+      } else if (axios.isAxiosError(error) && error.request) {
+
+        setMessage('No response from the server. Please check your network connection.');
+      } else {
+        setMessage('Error sending reset link. Please try again later.');
+      }
     }
   };
 
@@ -67,7 +77,7 @@ const ForgotPassword = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ marginTop: 2 }}
+            sx={{ marginTop: 2 , marginBottom: 2 }}
             disabled={loading}
           >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Send Reset Link'}
@@ -77,8 +87,8 @@ const ForgotPassword = () => {
         {message && (
           <Typography
             variant="body2"
-            color={message.includes('Error') ? 'error' : 'success'}
-            sx={{ marginTop: 2, textAlign: 'center' }}
+            color={message.includes('Reset link sent') ? 'success' : 'error'}
+            sx={{ marginTop: 2,marginBottom: 2, textAlign: 'center' }}
           >
             {message}
           </Typography>
