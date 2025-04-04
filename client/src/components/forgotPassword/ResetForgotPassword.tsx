@@ -11,13 +11,15 @@ import {
 import axios from 'axios';
 
 interface FormData {
-  email: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     reset,
   } = useForm<FormData>();
@@ -29,9 +31,9 @@ const ForgotPassword = () => {
     try {
       // Send the request using Axios
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/forgot-password`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password`,
         {
-          email: data.email,
+          newPassword: data.newPassword,
         },
       );
 
@@ -39,7 +41,7 @@ const ForgotPassword = () => {
 
       // Check if the response is successful
       if (response.status === 200) {
-        setMessage(response.data.message);
+        setMessage('Password reset successfully.');
         reset();
       } else {
         setMessage('An error occurred. Please try again.');
@@ -48,7 +50,7 @@ const ForgotPassword = () => {
       setLoading(false);
 
       if (axios.isAxiosError(error) && error.response) {
-        //  specific error message from server response
+        // specific error message from server response
         const errorMessage =
           error.response.data?.message ||
           'Something went wrong on the server. Please try again later.';
@@ -58,7 +60,7 @@ const ForgotPassword = () => {
           'No response from the server. Please check your network connection.',
         );
       } else {
-        setMessage('Error sending reset link. Please try again later.');
+        setMessage('Error resetting password. Please try again later.');
       }
     }
   };
@@ -74,26 +76,44 @@ const ForgotPassword = () => {
         }}
       >
         <Typography variant="h5" component="h2" gutterBottom>
-          Forgot Password
+          Reset Password
         </Typography>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
           <TextField
-            id="email"
-            label="Email"
-            type="email"
+            id="newPassword"
+            label="New Password"
+            type="password"
             fullWidth
             variant="outlined"
             margin="normal"
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: 'Invalid email address',
+            {...register('newPassword', {
+              required: 'New password is required',
+              minLength: {
+                value: 6,
+                message: 'Password must be at least 6 characters long',
               },
             })}
-            error={!!errors.email}
-            helperText={errors.email ? errors.email.message : ''}
+            error={!!errors.newPassword}
+            helperText={errors.newPassword ? errors.newPassword.message : ''}
+          />
+
+          <TextField
+            id="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            fullWidth
+            variant="outlined"
+            margin="normal"
+            {...register('confirmPassword', {
+              required: 'Please confirm your password',
+              validate: (value) =>
+                value === watch('newPassword') || 'Passwords do not match',
+            })}
+            error={!!errors.confirmPassword}
+            helperText={
+              errors.confirmPassword ? errors.confirmPassword.message : ''
+            }
           />
 
           <Button
@@ -107,7 +127,7 @@ const ForgotPassword = () => {
             {loading ? (
               <CircularProgress size={24} color="inherit" />
             ) : (
-              'Send Reset Link'
+              'Reset Password'
             )}
           </Button>
         </form>
@@ -115,7 +135,7 @@ const ForgotPassword = () => {
         {message && (
           <Typography
             variant="body2"
-            color={message.includes('Reset link sent') ? 'success' : 'error'}
+            color={message.includes('successfully') ? 'success' : 'error'}
             sx={{ marginTop: 2, marginBottom: 2, textAlign: 'center' }}
           >
             {message}
@@ -126,4 +146,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
