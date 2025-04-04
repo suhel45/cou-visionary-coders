@@ -2,7 +2,6 @@ import { Request } from 'express';
 
 type IUser = {
   username: string;
-  phoneNumber: string;
   email: string;
   password: string;
 };

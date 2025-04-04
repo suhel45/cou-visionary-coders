@@ -1,20 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { IFormInput } from '../interfaces/Login.interface';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import GoogleSignIn from './GoogleSignIn';
+import { useAuth } from '../Hooks/useAuth/useAuth';
+import OrDivider from '../utils/OrDivider/OrDivider';
 
 const Login: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
+  // location page the user was trying to access
+  const from = location.state?.from || '/';
 
-  const { loginUser, setValid } = authContext;
+  const { loginUser } = useAuth();
 
   const {
     register,
@@ -22,35 +25,33 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
   const onSubmit: SubmitHandler<IFormInput> = async (data: any) => {
     setLoading(true);
     try {
       const result = await loginUser(data.email, data.password);
       const user = result.user;
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'content-type': 'application/json',
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ email: user.email, password: data.password }),
         },
-        body: JSON.stringify({ email: user.email, password: data.password }),
-      });
+      );
 
       const responseData = await response.json();
-      console.log(responseData);
+
       if (responseData.success) {
         toast.success('User login sucessfully');
-        setValid(true);
-        navigate('/profile');
+        navigate(from, { replace: true });
       } else {
         toast.error(responseData.error);
       }
     } catch (error) {
       console.error('Login error:', error);
-      setValid(false);
       const errorMessage =
         error instanceof Error
           ? error.message
@@ -60,6 +61,7 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 shadow-md rounded-md border border-pink-600 m-4">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
@@ -110,12 +112,11 @@ const Login: React.FC = () => {
                 id="password"
                 {...register('password', {
                   required: 'Password is required',
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message:
-                      "Password is required",
-                  },
+                  // pattern: {
+                  // value:
+                  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  // message: 'Password is required',
+                  // },
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
@@ -139,28 +140,25 @@ const Login: React.FC = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="cursor-pointer w-full bg-indigo-600 text-white p-2 rounded-md shadow-md hover:bg-indigo-700 font-bold"
+            className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="animate-spin mr-2" />
+                Logging in...
+              </>
+            ) : (
+              'Log in'
+            )}
           </button>
         </form>
 
-        <div className="relative flex py-5 items-center">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="flex-shrink mx-4 text-gray-400">OR</span>
-          <div className="flex-grow border-t border-gray-300"></div>
-        </div>
+        {/* Or Divider */}
+        <OrDivider />
 
         {/* Google Sign-In */}
-        <button className="cursor-pointer flex items-center justify-center w-full bg-white border border-gray-300 text-gray-700 p-2 rounded-md shadow-md hover:bg-gray-100">
-          <img
-            src="https://imgs.search.brave.com/0dfkmCFWC2zrjWCenB_rDnfa_wKBmKDmxG4qSB78iQs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMtMDAuaWNvbmR1/Y2suY29tL2Fzc2V0/cy4wMC9nb29nbGUt/aWNvbi01MTJ4NTEy/LXRxYzllbDNyLnBu/Zw"
-            alt="Google"
-            className="w-5 h-5 mr-2"
-          />{' '}
-          Sign in with Google
-        </button>
+        <GoogleSignIn />
 
         <p className="mt-6 text-center text-sm md:text-lg text-gray-500">
           Not a member?

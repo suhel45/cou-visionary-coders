@@ -1,11 +1,11 @@
-import React from 'react'
-import ProfileView from './ProfileView'
+import React from 'react';
+import ProfileView from './ProfileView';
 const Analytic = () => {
   return (
     <div>
-        <ProfileView/>
+      <ProfileView />
     </div>
-  )
-}
+  );
+};
 
-export default Analytic
+export default Analytic;

@@ -71,7 +71,6 @@ const GetPublicBiodataDetails = async (
 ): Promise<void> => {
   try {
     const id = req.params.id;
-    console.log(id);
     const biodata = await personalDetailsService.getPublicBiodataDetails(id);
 
     res.status(200).json({

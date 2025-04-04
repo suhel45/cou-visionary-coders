@@ -10,7 +10,6 @@ import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
-import Biodata from './components/biodata/BiodataList';
 import Analytic from './components/dashboard/analytics/Analytic';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import PrivateRoute from './components/PrivateRoute';
