@@ -182,7 +182,7 @@ const ForgotPassword = async (email: string) => {
     from: process.env.EMAIL,
     to: email,
     subject: 'Password Reset',
-    html: `Click the link to reset your password.This validate for 15 minutes: <a href="http://localhost:5173/reset-password/${resetToken}">Reset Password</a>`,
+    html: `Click the link to reset your password.This link validate for 15 minutes: <a href="http://localhost:5173/reset-password/${resetToken}">Reset Password</a>`,
   };
 
   transprorter.sendMail(mailOptions, (error: Error | null) => {

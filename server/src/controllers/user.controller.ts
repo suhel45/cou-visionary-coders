@@ -89,7 +89,10 @@ const forgotPassword = async (req: Request, res: Response) => {
     const result = await userService.ForgotPassword(email);
 
     // Check the result and send appropriate response
-    if (result === 'Reset link sent to your email.please check your email or email spam folder') {
+    if (
+      result ===
+      'Reset link sent to your email.please check your email or email spam folder'
+    ) {
       res.status(200).json({
         success: true,
         message: result,
