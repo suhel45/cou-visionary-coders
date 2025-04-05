@@ -22,6 +22,7 @@ import {
 } from 'react';
 import { auth } from '../../components/firebase/Firebase.config';
 import { UserProfile } from '../../interfaces/Signup.interface';
+import Loading from '../../utils/Loading/Loading';
 
 type authContextProps = {
   user: User | null;
@@ -233,7 +234,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Prevent rendering children during initialization
   if (initializing) {
-    return <div>Initializing authentication...</div>;
+    return <Loading message="please wait..." />
   }
 
   return (
