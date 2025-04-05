@@ -13,8 +13,8 @@ export const validatePassword = (password: string): string | null => {
   if (!/\d/.test(password)) {
     errors.push('one number');
   }
-  if (!/[@$!%*?&]/.test(password)) {
-    errors.push('one special character (e.g., @$!%*?&)');
+  if (!/[@#$!%*?&]/.test(password)) {
+    errors.push('one special character (e.g., @#$!%*?&)');
   }
 
   if (errors.length > 0) {
