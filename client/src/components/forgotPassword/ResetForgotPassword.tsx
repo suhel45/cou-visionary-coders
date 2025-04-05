@@ -1,15 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  Button,
-  Typography,
-  Container,
-  Box,
-  CircularProgress,
-} from '@mui/material';
+import { Typography, Container, Box, Alert } from '@mui/material';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import PasswordInput from '../../utils/passVisibilityToggle/PasswordInput';
+import CommonButton from '../../utils/Button/CommonButton';
 
 interface FormData {
   newPassword: string;
@@ -18,20 +13,26 @@ interface FormData {
 
 const ResetForgotPassword = () => {
   const { resetToken } = useParams<{ resetToken: string }>();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<FormData>();
-  const [message, setMessage] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error'>('error');
+  const [loading, setLoading] = useState(false);
+
+  const watchNewPassword = watch('newPassword');
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
+
     try {
-      // Send the request using Axios
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password/${resetToken}`,
         {
@@ -41,18 +42,23 @@ const ResetForgotPassword = () => {
 
       setLoading(false);
 
-      // Check if the response is successful
       if (response.status === 200) {
-        setMessage('Password reset successfully.');
+        setMessage('Password reset successfully. Redirecting to login...');
+        setMessageType('success');
         reset();
+
+        // Redirect to login page after 3 seconds
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       } else {
         setMessage('An error occurred. Please try again.');
+        setMessageType('error');
       }
     } catch (error) {
       setLoading(false);
 
       if (axios.isAxiosError(error) && error.response) {
-        // specific error message from server response
         const errorMessage =
           error.response.data?.message ||
           'Something went wrong on the server. Please try again later.';
@@ -64,7 +70,16 @@ const ResetForgotPassword = () => {
       } else {
         setMessage('Error resetting password. Please try again later.');
       }
+      setMessageType('error');
     }
+  };
+
+  const passwordValidation = {
+    required: 'New password is required',
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters',
+    },
   };
 
   return (
@@ -81,62 +96,56 @@ const ResetForgotPassword = () => {
           Reset Password
         </Typography>
 
+        {message && (
+          <Alert severity={messageType} sx={{ width: '100%', marginBottom: 2 }}>
+            {message}
+          </Alert>
+        )}
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center', // Center all child elements
+            alignItems: 'center',
             width: '100%',
           }}
         >
           <PasswordInput
             label="New Password"
-            register={register}
             name="newPassword"
+            register={register}
+            required={true}
+            validation={passwordValidation}
             error={!!errors.newPassword}
-            helperText={errors.newPassword ? errors.newPassword.message : ''}
+            helperText={errors.newPassword?.message || ''}
+            placeholder="Enter your new password"
           />
 
           <PasswordInput
             label="Confirm Password"
-            register={register}
             name="confirmPassword"
+            register={register}
+            required={true}
+            validation={{
+              required: 'Please confirm your password',
+              validate: (value: string) =>
+                value === watchNewPassword || 'Passwords do not match',
+            }}
             error={!!errors.confirmPassword}
-            helperText={
-              errors.confirmPassword ? errors.confirmPassword.message : ''
-            }
+            helperText={errors.confirmPassword?.message || ''}
+            placeholder="Confirm your new password"
           />
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{
-              width: '300px',
-              marginTop: 2,
-              textAlign: 'center',
-            }}
-            disabled={loading}
-          >
-            {loading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'Reset Password'
-            )}
-          </Button>
+          <Box sx={{ width: '300px', mt: 2, mb: 2 }}>
+            <CommonButton
+              type="submit"
+              label="Reset Password"
+              loading={loading}
+              fullWidth
+            />
+          </Box>
         </form>
-
-        {message && (
-          <Typography
-            variant="body2"
-            color={message.includes('successfully') ? 'success' : 'error'}
-            sx={{ marginTop: 2, marginBottom: 2, textAlign: 'center' }}
-          >
-            {message}
-          </Typography>
-        )}
       </Box>
     </Container>
   );

@@ -3,8 +3,11 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../Hooks/useAuth/useAuth';
+import CommonButton from '../utils/Button/CommonButton';
+import GoogleSignIn from './GoogleSignIn';
+import OrDivider from '../utils/OrDivider/OrDivider';
 
 const SignUp = () => {
   const { createUser, updateUserProfile, user, deleteUser } = useAuth();
@@ -125,6 +128,12 @@ const SignUp = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border-2 shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
       >
+        {/* Google Sign In Button */}
+        <GoogleSignIn />
+
+        {/* Divider */}
+        <OrDivider />
+
         {/* Username */}
         <input
           type="text"
@@ -133,7 +142,7 @@ const SignUp = () => {
           className={inputStyle}
         />
         {errors.username && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.username?.message && String(errors.username?.message)}
           </span>
         )}
@@ -152,7 +161,7 @@ const SignUp = () => {
           className={inputStyle}
         />
         {errors.email && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.email?.message && String(errors.email?.message)}
           </span>
         )}
@@ -172,7 +181,7 @@ const SignUp = () => {
                   return 'Password must include at least one lowercase letter.';
                 if (!/\d/.test(value))
                   return 'Password must include at least one number.';
-                if (!/[@$!%*?&]/.test(value))
+                if (!/[@#$!%*?&]/.test(value))
                   return 'Password must include at least one special character (@$!%*?&).';
                 return true;
               },
@@ -189,7 +198,7 @@ const SignUp = () => {
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
           {errors.password && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.password?.message && String(errors.password?.message)}
             </span>
           )}
@@ -220,7 +229,7 @@ const SignUp = () => {
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
           {errors.confirmPassword && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.confirmPassword?.message &&
                 String(errors.confirmPassword?.message)}
             </span>
@@ -228,7 +237,7 @@ const SignUp = () => {
         </div>
 
         {/* Show login option */}
-        <p className="text-center text-sm   text-gray-800">
+        <p className="text-center text-sm text-gray-800">
           Already have an account?{' '}
           <Link
             to="/login"
@@ -239,20 +248,12 @@ const SignUp = () => {
         </p>
 
         {/* Submit button */}
-        <button
+        <CommonButton
           type="submit"
-          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
-          disabled={loading}
-        >
-          {loading ? (
-            <>
-              <Loader2 size={18} className="animate-spin mr-2" />
-              Registering...
-            </>
-          ) : (
-            'Register'
-          )}
-        </button>
+          label="Register"
+          loading={loading}
+          fullWidth
+        />
       </form>
     </div>
   );

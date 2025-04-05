@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   TextField,
-  Button,
   Typography,
   Container,
   Box,
-  CircularProgress,
+  Alert,
+  InputAdornment,
+  Link,
 } from '@mui/material';
+import { Mail } from 'lucide-react';
 import axios from 'axios';
+import { Link as RouterLink } from 'react-router-dom';
+import CommonButton from '../../utils/Button/CommonButton';
 
 interface FormData {
   email: string;
@@ -21,13 +25,16 @@ const ForgotPassword = () => {
     formState: { errors },
     reset,
   } = useForm<FormData>();
-  const [message, setMessage] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error'>('error');
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
+    setMessage('');
+
     try {
-      // Send the request using Axios
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/forgot-password`,
         {
@@ -37,18 +44,22 @@ const ForgotPassword = () => {
 
       setLoading(false);
 
-      // Check if the response is successful
       if (response.status === 200) {
-        setMessage(response.data.message);
+        setMessageType('success');
+        setMessage(
+          response.data.message ||
+            'Reset link sent successfully. Please check your email.',
+        );
         reset();
       } else {
+        setMessageType('error');
         setMessage('An error occurred. Please try again.');
       }
     } catch (error) {
       setLoading(false);
+      setMessageType('error');
 
       if (axios.isAxiosError(error) && error.response) {
-        //  specific error message from server response
         const errorMessage =
           error.response.data?.message ||
           'Something went wrong on the server. Please try again later.';
@@ -64,63 +75,103 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ mb: 3 }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           paddingTop: 4,
+          padding: 3,
+          backgroundColor: 'white',
+          borderRadius: 2,
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          marginTop: 4,
         }}
       >
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography variant="h5" component="h2" gutterBottom fontWeight="500">
           Forgot Password
         </Typography>
 
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mb: 3, textAlign: 'center' }}
+        >
+          Enter your email address below and we'll send you a link to reset your
+          password.
+        </Typography>
+
+        {message && (
+          <Alert severity={messageType} sx={{ width: '100%', marginBottom: 2 }}>
+            {message}
+          </Alert>
+        )}
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
           <TextField
             id="email"
-            label="Email"
+            label="Email Address"
             type="email"
             fullWidth
             variant="outlined"
             margin="normal"
+            placeholder="Enter your email address"
+            size="small"
+            sx={{
+              '& .MuiInputBase-root': {
+                borderRadius: '0.375rem',
+                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Mail size={20} />
+                </InputAdornment>
+              ),
+            }}
             {...register('email', {
               required: 'Email is required',
               pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,4}$/,
-                message: 'Invalid email address',
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: 'Please enter a valid email address',
               },
             })}
             error={!!errors.email}
             helperText={errors.email ? errors.email.message : ''}
           />
 
-          <Button
+          <CommonButton
             type="submit"
-            variant="contained"
-            color="primary"
+            label="Send Reset Link"
+            loading={loading}
             fullWidth
-            sx={{ marginTop: 2, marginBottom: 2 }}
-            disabled={loading}
-          >
-            {loading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'Send Reset Link'
-            )}
-          </Button>
+            sx={{ mt: 2, mb: 2 }}
+          />
         </form>
 
-        {message && (
-          <Typography
-            variant="body2"
-            color={message.includes('Reset link sent') ? 'success' : 'error'}
-            sx={{ marginTop: 2, marginBottom: 2, textAlign: 'center' }}
-          >
-            {message}
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
+            Remember your password?{' '}
+            <Link
+              component={RouterLink}
+              to="/login"
+              underline="hover"
+              sx={{ fontWeight: 500 }}
+            >
+              Back to Login
+            </Link>
           </Typography>
-        )}
+        </Box>
       </Box>
     </Container>
   );

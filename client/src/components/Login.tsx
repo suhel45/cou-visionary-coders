@@ -130,8 +130,14 @@ const Login: React.FC = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+            <Link
+              to="/forgot-password"
+              className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+            >
+              Forgot password?
+            </Link>
             {errors.password && (
-              <span className="text-red-500 font-semibold">
+              <span className="text-red-500 text-sm font-semibold">
                 {errors.password.message}
               </span>
             )}

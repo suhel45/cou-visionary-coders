@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, InputAdornment } from '@mui/material';
 import PasswordVisibilityToggle from './PasswordVisibilityToggle';
 
 interface PasswordInputProps {
@@ -8,6 +8,9 @@ interface PasswordInputProps {
   helperText?: string;
   register: any;
   name: string;
+  placeholder?: string;
+  required?: boolean;
+  validation?: object;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -16,10 +19,12 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   name,
   error,
   helperText,
+  placeholder,
+  required = false,
+  validation = {},
 }) => {
-  const [showPassword, setShowPassword] = useState(false); // Track password visibility state
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Toggle visibility of the password
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -32,6 +37,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       variant="outlined"
       margin="normal"
       size="small"
+      placeholder={placeholder}
       sx={{
         '& .MuiInputBase-root': {
           padding: '8px',
@@ -46,16 +52,19 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       }}
       error={error}
       helperText={helperText}
-      {...register(name)}
-      slotProps={{
-        input: {
-          endAdornment: (
+      {...register(name, {
+        required: required ? `${label} is required` : false,
+        ...validation,
+      })}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
             <PasswordVisibilityToggle
               visibilityState={showPassword}
               toggleVisibility={togglePasswordVisibility}
             />
-          ),
-        },
+          </InputAdornment>
+        ),
       }}
     />
   );
