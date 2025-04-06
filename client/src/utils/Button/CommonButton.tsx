@@ -4,6 +4,7 @@ import { Button, CircularProgress } from '@mui/material';
 interface CommonButtonProps {
   type?: 'button' | 'submit' | 'reset';
   label: string;
+  loadingLabel?: string;
   onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
@@ -19,6 +20,7 @@ interface CommonButtonProps {
 const CommonButton: React.FC<CommonButtonProps> = ({
   type = 'button',
   label,
+  loadingLabel,
   onClick,
   loading = false,
   disabled = false,
@@ -56,11 +58,14 @@ const CommonButton: React.FC<CommonButtonProps> = ({
       }}
     >
       {loading ? (
-        <CircularProgress
-          size={size === 'small' ? 20 : 24}
-          color="inherit"
-          sx={{ mx: 1 }}
-        />
+        <>
+          <CircularProgress
+            size={size === 'small' ? 18 : 20}
+            color="inherit"
+            sx={{ mx: 1 }}
+          />
+          {loadingLabel}
+        </>
       ) : (
         label
       )}

@@ -234,7 +234,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Prevent rendering children during initialization
   if (initializing) {
-    return <Loading message="please wait..." />
+    return <Loading message="please wait..." />;
   }
 
   return (

@@ -14,7 +14,7 @@ const PasswordVisibilityToggle: React.FC<PasswordVisibilityToggleProps> = ({
   return (
     <InputAdornment position="end">
       <IconButton onClick={toggleVisibility} edge="end">
-        {visibilityState ? <Eye size={20} /> : <EyeOff size={20} />}
+        {visibilityState ? <Eye size={18} /> : <EyeOff size={18} />}
       </IconButton>
     </InputAdornment>
   );
