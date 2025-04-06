@@ -37,7 +37,7 @@ const BiodataDetailsProfile = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row  gap-2  bg-gray-50 h-auto ">
+    <div className="flex flex-col md:flex-row justify-between gap-4  bg-gray-50  ">
       <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/3">
         {data && (
           <UserProfile
@@ -46,7 +46,7 @@ const BiodataDetailsProfile = () => {
           />
         )}
       </div>
-      <div className="flex flex-col items-stretch bg-gray-50 md:w-2/3">
+      <div className="flex flex-col items-stretch bg-gray-50 md:w-3/5 ">
         {data && (
           <>
             <FamilyInformation data={data.data.familyInformation} />
