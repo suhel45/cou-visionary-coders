@@ -13,6 +13,7 @@ import ContactInfo from './ContactInfo';
 import { FormData } from '../../interfaces/Biodata.interface';
 import { CircleArrowLeft, CircleArrowRight, Check } from 'lucide-react';
 import { initialFormData } from './initialFormData';
+import toast from 'react-hot-toast';
 
 const steps = [
   'Personal Information',
@@ -31,7 +32,6 @@ const MultiStepForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   // Initialize formData with the correct structure
   const [formData, setFormData] = useState<FormData>(initialFormData);
-  console.log(formData);
   const handleNext = () => setActiveStep((prev) => prev + 1);
   const handleBack = () => setActiveStep((prev) => prev - 1);
 
@@ -63,9 +63,11 @@ const MultiStepForm: React.FC = () => {
 
       const data = await response.json();
       console.log('Form submitted successfully:', data);
+      toast.success('Form submitted successfully.');
       setIsSubmitted(true);
     } catch (err) {
-      setError('Failed to submit the form. Please try again.');
+      toast.error('Failed ! Please try again.');
+      setError('Failed ! Please try again.');
       console.error('Error submitting form:', err);
     } finally {
       setIsLoading(false);
@@ -130,7 +132,12 @@ const MultiStepForm: React.FC = () => {
           />
         );
       default:
-        return <div>page not found</div>;
+        return (
+          <ContactInfo
+            formData={formData.contactInfo}
+            setFormData={(data) => updateFormData('contactInfo', data)}
+          />
+        );
     }
   };
 
@@ -187,7 +194,7 @@ const MultiStepForm: React.FC = () => {
           <div className="flex flex-col justify-center">
             {getStepContent(activeStep)}
             {error && (
-              <span className="text-red-800 border border-red-900 bg-red-100 text-center font-semibold rounded p-2 my-2">
+              <span className="text-red-800 text-center font-semibold rounded md:text-lg">
                 {error}
               </span>
             )}

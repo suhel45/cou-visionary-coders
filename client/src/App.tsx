@@ -10,7 +10,7 @@ import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
-import Biodata from './components/biodata/BiodataList';
+//import Biodata from './components/biodata/BiodataList';
 import Analytic from './components/dashboard/analytics/Analytic';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import Verify from './components/dashboard/verify/Verify';
@@ -45,12 +45,12 @@ export default function App() {
               element={<BiodataDetailsProfile />}
             />
             <Route element={<PrivateRoute />}>
-              <Route path="/profile" element={<UserProfilePages />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route path="edit/profile" element={<UpdateBiodata />} />
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
               </Route>
+              <Route path="/profile" element={<UserProfilePages />} />
             </Route>
             <Route path="*" element={<NoMatch />} />
           </Routes>
