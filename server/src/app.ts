@@ -19,7 +19,7 @@ const limiter = rateLimit({
 });
 
 const corsOption = {
-  origin: ['http://localhost:5173', 'https://halal-bondhon-client.vercel.app'],
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Accept', 'Authorization', 'credentials'],
   credentials: true,

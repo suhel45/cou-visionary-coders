@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import profileIcon from '../assets/profile.png';
 import dashboardIcon from '../assets/dashboard.png';
@@ -13,24 +13,20 @@ function Nav() {
 
   // Get AuthContext and ensure it's not null
   const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
 
   // Check if authContext is available and extract user and logOut
   if (!authContext) {
     throw new Error('AuthContext is null');
   }
 
-  const { user, logOut, valid } = authContext;
+  const { user, isNewlyRegistered, logOut } = authContext;
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleLogout = async () => {
-    if (logOut) {
-      await logOut();
-      navigate('/login');
-      //user = null;
-    }
+    await logOut();
   };
 
   return (
@@ -91,7 +87,7 @@ function Nav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
-        {user && valid ? (
+        {user && !isNewlyRegistered ? (
           // If the user is logged in
           <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
             <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
