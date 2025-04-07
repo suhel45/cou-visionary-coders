@@ -32,15 +32,15 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
   };
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col itmes-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
+    <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
+      <div className="flex flex-col items-stretch md:items-center   p-2 ">
         <h2
-          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-4xl;
+          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
 "
         >
           ঠিকানা
         </h2>
-        <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
+        <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">         
           {/* Present Address */}
           <AddressForm
             address={localFormData.presentAddress}

@@ -46,7 +46,7 @@ const LinkField: React.FC<LinkFieldProps> = ({
 // implement primary profile component
 const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
   const [isVerified, setIsVerified] = useState(false);
-  const [isBiodataCreated, setIsBiodataCreated] = useState(false);
+  const [isBiodataCreated, setIsBiodataCreated] = useState(true);
 
   useEffect(() => {
     // Fetch user verification and biodata status from serv
