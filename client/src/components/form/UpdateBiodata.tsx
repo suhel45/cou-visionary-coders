@@ -79,7 +79,45 @@ const MultiStepForm: React.FC = () => {
     setFormData(initialFormData);
     setIsSubmitted(false);
   };
-
+  const areAllFieldsFilled = (data: Record<string, any>): boolean => {
+    for (const key in data) {
+      const value = data[key];
+      if (typeof value === 'object' && value !== null) {
+        if (!areAllFieldsFilled(value)) return false; // recursively check nested fields
+      } else if (
+        value === '' ||
+        value === null ||
+        value === undefined ||
+        (typeof value === 'number' && value === 0)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  const isCurrentStepValid = (): boolean => {
+    switch (activeStep) {
+      case 0:
+        return areAllFieldsFilled(formData.personalInfo);
+      case 1:
+        return areAllFieldsFilled(formData.familyInformation);
+      case 2:
+        return areAllFieldsFilled(formData.education);
+      case 3:
+        return areAllFieldsFilled(formData.expectedLifePartner);
+      case 4:
+        return areAllFieldsFilled(formData.personalPreference);
+      case 5:
+        return areAllFieldsFilled(formData.address);
+      case 6:
+        return areAllFieldsFilled(formData.contactInfo);
+      default:
+        return false;
+    }
+  };
+  
+  
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -210,8 +248,12 @@ const MultiStepForm: React.FC = () => {
                 onClick={
                   activeStep === steps.length - 1 ? handleSubmit : handleNext
                 }
-                disabled={isLoading}
-                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
+                disabled={isLoading || !isCurrentStepValid()}
+                className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
+                  ${isLoading || !isCurrentStepValid()
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'}
+                `}
               >
                 {isLoading
                   ? 'Submitting...'

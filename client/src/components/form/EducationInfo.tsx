@@ -67,6 +67,8 @@ function AcademicDetails({
  p-2"
           placeholder="যেমনঃ 3.21"
         />
+        {(formData[section].gpa < 1.00 || formData[section].gpa > 5.00) && formData[section].gpa != 0 && (
+          <span className="text-red-500 text-sm"> Enter valid GPA </span>)}
       </label>
       <label
         className="text-center text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
