@@ -46,11 +46,11 @@ export const initialFormData: FormData = {
   },
   familyInformation: {
     father: {
-      aliveStatus: true,
+      aliveStatus: '',
       profession: '',
     },
     mother: {
-      aliveStatus: true,
+      aliveStatus: '',
       profession: '',
     },
     siblings: {

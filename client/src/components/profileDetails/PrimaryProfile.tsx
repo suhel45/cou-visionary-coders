@@ -46,7 +46,7 @@ const LinkField: React.FC<LinkFieldProps> = ({
 // implement primary profile component
 const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
   const [isVerified, setIsVerified] = useState(false);
-  const [isBiodataCreated, setIsBiodataCreated] = useState(false);
+  const [isBiodataCreated, setIsBiodataCreated] = useState(true);
 
   useEffect(() => {
     // Fetch user verification and biodata status from serv
@@ -64,7 +64,7 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center p-6 rounded-md shadow-lg sm:w-1/3 text-center border border-gray-200 m-2">
+    <div className="flex flex-col items-center p-6 rounded-lg shadow-lg  text-center border-4 border-violet-900 m-4">
       <h2 className="flex gap-2 items-center py-2 px-4 text-2xl font-semibold text-indigo-900 border border-gray-200 rounded-full">
         <CircleUserRound size={32} /> Welcome, {username}
       </h2>
@@ -91,7 +91,7 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
           <LinkField
             msgData="আপনার প্রোফাইল ভেরিফাই করুন"
             linkData="Verify Profile"
-            linkurl="dashboard verify"
+            linkurl="dashboard edit/verify"
             onComplete={() => setIsVerified(true)}
           />
         )}
@@ -99,15 +99,15 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
           <LinkField
             msgData="আপনার বায়োডাটা তৈরী করুন"
             linkData="Biodata Form"
-            linkurl="dashboard edit biodata"
+            linkurl="dashboard edit/biodata"
             onComplete={() => setIsBiodataCreated(true)}
           />
         )}
         {isBiodataCreated && (
           <LinkField
-            msgData="আপনার বায়োডাটা দেখুন"
-            linkData="View Biodata"
-            linkurl="dashboard/view-biodata"
+            msgData="আপনার বায়োডাটা আপডেট করুন"
+            linkData="Update Biodata"
+            linkurl="dashboard/edit/biodata"
             onComplete={() => {}}
             isGreen={true}
           />
