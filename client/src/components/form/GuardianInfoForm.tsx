@@ -38,8 +38,8 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
         <label className="flex items-center  space-x-2">
           <input
             type="checkbox"
-            checked={guardian.aliveStatus}
-            onChange={() => onChange({ ...guardian, aliveStatus: true })}
+            checked={guardian.aliveStatus === 'জীবিত'}
+            onChange={() => onChange({ ...guardian, aliveStatus: 'জীবিত' })}
             className="accent-green-600 md:h-4 md:w-4"
           />
           <span className="md:text-xl font-semibold text-gray-700">জীবিত</span>
@@ -48,8 +48,8 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
-            checked={!guardian.aliveStatus}
-            onChange={() => onChange({ ...guardian, aliveStatus: false })}
+            checked={guardian.aliveStatus === 'মৃত'}
+            onChange={() => onChange({ ...guardian, aliveStatus: 'মৃত' })}
             className="accent-red-600 md:h-4 md:w-4"
           />
           <span className="md:text-xl font-semibold text-gray-700">মৃত</span>

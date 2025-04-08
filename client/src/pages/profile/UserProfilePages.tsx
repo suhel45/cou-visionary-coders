@@ -12,6 +12,7 @@ import {
   // PartnerInfoData,
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
+import PrimaryProfile from '../../components/profileDetails/PrimaryProfile';
 //import PartnerInformation from './../../components/profileDetails/PartnerInformation';
 
 interface UserData {
@@ -66,17 +67,18 @@ const UserProfilePages = () => {
 
   return (
     <div className="flex flex-col md:flex-row  gap-2  bg-gray-50 h-auto ">
-      <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/3">
+      <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/2">
         {userData && (
-          <UserProfile
-            data={userData?.data?.personalInfo}
-            biodataNo={userData.data.biodataNo}
-          />
+          <PrimaryProfile username="Shuvo"/>
         )}
       </div>
-      <div className="flex flex-col items-stretch bg-gray-50 md:w-2/3">
+      <div className="flex flex-col items-stretch bg-gray-50 md:w-1/2">
         {userData && (
           <>
+            <UserProfile
+              data={userData?.data?.personalInfo}
+              biodataNo={userData.data.biodataNo}
+            />
             <FamilyInformation data={userData.data.familyInformation} />
             <EducationInformation data={userData.data.education} />
             <AddressInformation data={userData.data.address} />

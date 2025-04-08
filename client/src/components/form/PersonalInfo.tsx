@@ -21,7 +21,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     religion: '',
     bloodGroup: '',
   });
-  
+
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);
@@ -31,8 +31,9 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   ) => {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
+    if(calculateAge(updatedData.birthDate) >= 18) { setFormData(updatedData)}
     setLocalFormData(updatedData);
-    setFormData(updatedData); // Pass the updated object
+    //setFormData(updatedData); // Pass the updated object
   };
   const calculateAge = (birthDate: string): number => {
     const birth = new Date(birthDate);
@@ -40,16 +41,15 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
     const dayDiff = today.getDate() - birth.getDate();
-  
+
     // Adjust age if the birth date hasn't occurred yet this year
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
-  
+
     return age;
   };
-  
-  
+
   const inputStyle: string =
     'block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border  border-slate-500 sm:px-8 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6';
   const levelStyle: string =
@@ -65,7 +65,6 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
             সাধারণ তথ্য
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-
             {/* Birth Date Field */}
             <label className={levelStyle}>
               জন্ম তারিখ - {/* Birth Date */}
@@ -77,8 +76,11 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
                 className={inputStyle}
                 required
               />
-
-            {calculateAge(localFormData.birthDate) < 18 && <span className='text-red-500'>আপনার বয়স কমপক্ষে ১৮ বছর হতে হবে</span>}
+              {calculateAge(localFormData.birthDate) < 18 && (
+                <span className="text-red-500 text-sm">
+                  আপনার বয়স কমপক্ষে ১৮ বছর হতে হবে
+                </span>
+              )}
             </label>
             {/* Gender Field */}
             <label className={levelStyle}>

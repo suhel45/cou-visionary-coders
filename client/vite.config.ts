@@ -21,5 +21,10 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',  // Ensure output directory is set
-  }
+  },
+  test: {
+    environment: 'jsdom', // for DOM testing
+    globals: true,         // so you can use describe(), it(), expect() globally
+    setupFiles: './src/setupTests.ts', // optional setup file
+  },
 });
