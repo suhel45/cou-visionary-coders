@@ -45,6 +45,7 @@ const Login: React.FC = () => {
 
       toast.success('User login successfully');
       navigate(from, { replace: true });
+
     } catch (error) {
       //check firebase or backend sever errors
       if (
@@ -52,13 +53,16 @@ const Login: React.FC = () => {
         !(error instanceof Error && error.name === 'AxiosError')
       ) {
         setMessage('Incorrect email or password');
+
       } else if (axios.isAxiosError(error) && error.request) {
         setMessage(
           'No response from the server. Please check your network connection.',
         );
+
       } else {
         setMessage('Login Failed. Please try again later.');
       }
+
     } finally {
       setLoading(false);
     }
@@ -80,6 +84,7 @@ const Login: React.FC = () => {
         </h2>
       </div>
 
+      {/* show error messae*/}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         {message && (
           <Alert severity="error" sx={{ width: '100%', marginBottom: 2 }}>
@@ -120,11 +125,6 @@ const Login: React.FC = () => {
                 id="password"
                 {...register('password', {
                   required: 'Password is required',
-                  // pattern: {
-                  // value:
-                  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  // message: 'Password is required',
-                  // },
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
@@ -135,7 +135,7 @@ const Login: React.FC = () => {
                 className="absolute inset-y-0 right-2 flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
               </button>
             </div>
             <Link
@@ -151,7 +151,7 @@ const Login: React.FC = () => {
             )}
           </div>
 
-          {/* Submit */}
+          {/* Submit button*/}
           <CommonButton
             type="submit"
             label="Log in"

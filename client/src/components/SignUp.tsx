@@ -10,6 +10,7 @@ import GoogleSignIn from './GoogleSignIn';
 import OrDivider from '../utils/OrDivider/OrDivider';
 import axios from 'axios';
 import { Alert } from '@mui/material';
+import { ValidatePassword } from '../utils/passwordValidation/ValidatePassword';
 
 const SignUp = () => {
   const { createUser, updateUserProfile, user, deleteUser } = useAuth();
@@ -180,17 +181,11 @@ const SignUp = () => {
             {...register('password', {
               required: 'Password is required',
               validate: (value) => {
-                if (value.length < 8)
-                  return 'Password must be at least 8 characters long.';
-                if (!/[A-Z]/.test(value))
-                  return 'Password must include at least one uppercase letter.';
-                if (!/[a-z]/.test(value))
-                  return 'Password must include at least one lowercase letter.';
-                if (!/\d/.test(value))
-                  return 'Password must include at least one number.';
-                if (!/[@#$!%*?&]/.test(value))
-                  return 'Password must include at least one special character (@$!%*?&).';
-                return true;
+                const validationError = ValidatePassword(value);
+                if (validationError) {
+                  return validationError; 
+                }
+                return true; 
               },
             })}
             placeholder="Enter Your Password"
