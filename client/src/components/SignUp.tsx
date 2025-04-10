@@ -1,18 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useAuth } from '../Hooks/useAuth/useAuth';
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { createUser, updateUserProfile } = authContext;
+  const { createUser, updateUserProfile, user, deleteUser } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -35,29 +30,38 @@ const SignUp = () => {
 
   const onSubmit = async (data: IFormData) => {
     setLoading(true);
-    try {
-      // Simulate a 2-second delay to submit the form
-      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Create user with email and password
+    try {
+      // Create user with email and password in Firebase
       await createUser(data.email, data.password);
 
-      // Update user profile with the provided username
+      // Update user profile
       await handleUpdateUserProfile(data.username);
 
-      // Save user data to the server
-      await saveUser(
-        data.username,
-        data.phoneNumber,
-        data.email,
-        data.password,
-      );
+      // Save user data db
+      try {
+        await saveUser(data.username, data.email, data.password);
 
-      toast.success('User created successfully');
-      navigate('/login');
+        toast.success('User created successfully');
+        navigate('/login');
+      } catch (dbError) {
+        // If saving to DB fails,delete the Firebase user
+        console.error('Error saving user to database:', dbError);
+
+        // Use the user state from context
+        if (user) {
+          await deleteUser(user);
+        }
+
+        throw new Error('Failed to save user data. Registration cancelled.');
+      }
     } catch (error) {
       console.error('Error during form submission:', error);
-      toast.error('Error creating user. Please try again.');
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'Error creating user. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -71,40 +75,40 @@ const SignUp = () => {
       await updateUserProfile(profile);
     } catch (error) {
       console.error('Error updating user profile:', error);
+      throw error;
     }
   };
 
   const saveUser = async (
     username: string,
-    phoneNumber: string,
     email: string,
     password: string,
   ) => {
     const user = {
       username,
-      phoneNumber,
       email,
       password,
     };
-    try {
-      const response = await fetch(
-        'https://halalbondhon-server.vercel.app/api/signup',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(user),
+
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_BASE_URL}/api/signup`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(user),
+      },
+    );
+
+    const responseData = await response.json();
+    if (!responseData.success) {
+      throw new Error(
+        responseData.message || 'Failed to save user to database',
       );
-      const responseData = await response.json();
-      if (!responseData.success) {
-        throw new Error(responseData.message);
-      }
-    } catch (error) {
-      console.error('Error saving user:', error);
-      throw error;
     }
+
+    return responseData;
   };
 
   const inputStyle: string =
@@ -153,37 +157,23 @@ const SignUp = () => {
           </span>
         )}
 
-        {/* Phone Number */}
-        <input
-          type="tel"
-          {...register('phoneNumber', {
-            required: 'This field is required',
-            pattern: {
-              value: /^\d{11}$/,
-              message: 'Invalid phone number',
-            },
-          })}
-          placeholder="Enter Your Phone Number"
-          className={inputStyle}
-        />
-        {errors.phoneNumber && (
-          <span className="text-red-500">
-            {errors.phoneNumber?.message && String(errors.phoneNumber?.message)}
-          </span>
-        )}
-
         {/* Password */}
         <div className="relative w-full">
           <input
             type={showPassword ? 'text' : 'password'}
-            {...register("password", {
-              required: "Password is required",
+            {...register('password', {
+              required: 'Password is required',
               validate: (value) => {
-                if (value.length < 8) return "Password must be at least 8 characters long.";
-                if (!/[A-Z]/.test(value)) return "Password must include at least one uppercase letter.";
-                if (!/[a-z]/.test(value)) return "Password must include at least one lowercase letter.";
-                if (!/\d/.test(value)) return "Password must include at least one number.";
-                if (!/[@$!%*?&]/.test(value)) return "Password must include at least one special character (@$!%*?&).";
+                if (value.length < 8)
+                  return 'Password must be at least 8 characters long.';
+                if (!/[A-Z]/.test(value))
+                  return 'Password must include at least one uppercase letter.';
+                if (!/[a-z]/.test(value))
+                  return 'Password must include at least one lowercase letter.';
+                if (!/\d/.test(value))
+                  return 'Password must include at least one number.';
+                if (!/[@$!%*?&]/.test(value))
+                  return 'Password must include at least one special character (@$!%*?&).';
                 return true;
               },
             })}
@@ -238,7 +228,7 @@ const SignUp = () => {
         </div>
 
         {/* Show login option */}
-        <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
+        <p className="text-center text-sm   text-gray-800">
           Already have an account?{' '}
           <Link
             to="/login"
@@ -251,10 +241,17 @@ const SignUp = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2"
+          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
           disabled={loading}
         >
-          {loading ? 'Registering...' : 'Register'}
+          {loading ? (
+            <>
+              <Loader2 size={18} className="animate-spin mr-2" />
+              Registering...
+            </>
+          ) : (
+            'Register'
+          )}
         </button>
       </form>
     </div>

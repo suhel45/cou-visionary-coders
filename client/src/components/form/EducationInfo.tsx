@@ -63,10 +63,12 @@ function AcademicDetails({
           max="5.00"
           value={formData[section].gpa}
           onChange={(e) => handleChange(e, 'gpa')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6
  p-2"
           placeholder="যেমনঃ 3.21"
         />
+        {(formData[section].gpa < 1.00 || formData[section].gpa > 5.00) && formData[section].gpa != 0 && (
+          <span className="text-red-500 text-sm"> Enter valid GPA </span>)}
       </label>
       <label
         className="text-center text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
@@ -76,7 +78,7 @@ function AcademicDetails({
         <select
           value={formData[section].passingYear}
           onChange={(e) => handleChange(e, 'passingYear')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6;
  p-2"
         >
           <option value="">Select Year</option>
@@ -95,7 +97,7 @@ function AcademicDetails({
         <select
           value={formData[section].group}
           onChange={(e) => handleChange(e, 'group')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6;
  p-2"
         >
           <option value="">Select Group</option>
@@ -147,7 +149,7 @@ function UniversityDetails({
         <select
           value={formData.university[section]?.faculty || ''}
           onChange={(e) => handleChange(e, 'faculty')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6;
  p-2"
         >
           <option value="">Select Faculty</option>
@@ -165,7 +167,7 @@ function UniversityDetails({
         <select
           value={formData.university[section]?.department || ''}
           onChange={(e) => handleChange(e, 'department')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6;
  p-2"
         >
           <option value="">Select Department</option>
@@ -184,7 +186,7 @@ function UniversityDetails({
         <select
           value={formData.university[section]?.session || ''}
           onChange={(e) => handleChange(e, 'session')}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
+          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6;
  p-2 mb-4"
         >
           <option value="">Select Session</option>
@@ -205,15 +207,17 @@ function EducationInfo({
   setFormData,
 }: Readonly<EducationInfoProps>) {
   return (
-    <div className="w-full">
-      <div className="flex flex-col items-stretch md:items-center justify-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
+    <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
+      <div className="flex flex-col items-stretch md:items-center justify-center p-2 ">
         <h2
-          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-3xl;
+          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
 "
         >
           শিক্ষাগত তথ্য
         </h2>
         <form className="items-center justify-center w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 w-full">
+
           <AcademicDetails
             section="ssc"
             formData={formData}
@@ -224,18 +228,19 @@ function EducationInfo({
             formData={formData}
             setFormData={setFormData}
           />
-          <hr className="my-4" />
+          
           <UniversityDetails
             section="honours"
             formData={formData}
             setFormData={setFormData}
           />
-          <hr className="my-4" />
+      
           <UniversityDetails
             section="masters"
             formData={formData}
             setFormData={setFormData}
           />
+          </div>
         </form>
       </div>
     </div>

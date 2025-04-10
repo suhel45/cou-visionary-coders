@@ -13,20 +13,24 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
     candidateNumber: '',
     candidateEmail: '',
   });
-
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const mobileRegex = /^(?:\+88)?01[3-9]\d{8}$/;
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    if(!emailRegex.test(localFormData.candidateEmail)){localFormData.candidateEmail = ''}
+    if(!mobileRegex.test(localFormData.guardianContact)){localFormData.guardianContact = ''}
+    if(!mobileRegex.test(localFormData.candidateNumber)){localFormData.candidateNumber = ''}
     setLocalFormData((prev) => ({ ...prev, [name]: value }));
     setFormData({ ...formData, [name]: value });
   };
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col items-stretch md:items-center border border-gray-400 bg-purple-100 p-2 rounded-md md:m-4 shadow-lg">
+    <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
+      <div className="flex flex-col items-stretch md:items-center  p-2 ">
         <h2
           className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
 "
@@ -64,6 +68,7 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
  p-4"
               placeholder="মোবাইল নাম্বার"
             />
+            {(!mobileRegex.test(localFormData.guardianContact) && localFormData.guardianContact.length > 0) && (<span className='text-red-400 text-sm'>Invalid Mobile Number</span>)}
           </label>
           <br />
           <label
@@ -80,6 +85,7 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
  p-4"
               placeholder="মোবাইল নাম্বার"
             />
+             {(!mobileRegex.test(localFormData.candidateNumber) && localFormData.candidateNumber.length > 0) && (<span className='text-red-400 text-sm'>Invalid Mobile Number</span>)}
           </label>
           <br />
           <label
@@ -96,6 +102,7 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
  p-4"
               placeholder="ইমেইল"
             />
+             {(!emailRegex.test(localFormData.candidateEmail) && localFormData.candidateEmail.length > 0) && (<span className='text-red-400 text-sm'>Invalid Email</span>)}
           </label>
           <br />
           <div>

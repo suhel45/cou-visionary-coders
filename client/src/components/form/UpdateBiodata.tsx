@@ -13,6 +13,7 @@ import ContactInfo from './ContactInfo';
 import { FormData } from '../../interfaces/Biodata.interface';
 import { CircleArrowLeft, CircleArrowRight, Check } from 'lucide-react';
 import { initialFormData } from './initialFormData';
+import toast from 'react-hot-toast';
 
 const steps = [
   'Personal Information',
@@ -31,7 +32,6 @@ const MultiStepForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   // Initialize formData with the correct structure
   const [formData, setFormData] = useState<FormData>(initialFormData);
-  console.log(formData);
   const handleNext = () => setActiveStep((prev) => prev + 1);
   const handleBack = () => setActiveStep((prev) => prev - 1);
 
@@ -63,9 +63,11 @@ const MultiStepForm: React.FC = () => {
 
       const data = await response.json();
       console.log('Form submitted successfully:', data);
+      toast.success('Form submitted successfully.');
       setIsSubmitted(true);
     } catch (err) {
-      setError('Failed to submit the form. Please try again.');
+      toast.error('Failed ! Please try again.');
+      setError('Failed ! Please try again.');
       console.error('Error submitting form:', err);
     } finally {
       setIsLoading(false);
@@ -77,7 +79,45 @@ const MultiStepForm: React.FC = () => {
     setFormData(initialFormData);
     setIsSubmitted(false);
   };
-
+  const areAllFieldsFilled = (data: Record<string, any>): boolean => {
+    for (const key in data) {
+      const value = data[key];
+      if (typeof value === 'object' && value !== null) {
+        if (!areAllFieldsFilled(value)) return false; // recursively check nested fields
+      } else if (
+        value === '' ||
+        value === null ||
+        value === undefined ||
+        (typeof value === 'number' && value === 0)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  const isCurrentStepValid = (): boolean => {
+    switch (activeStep) {
+      case 0:
+        return areAllFieldsFilled(formData.personalInfo);
+      case 1:
+        return areAllFieldsFilled(formData.familyInformation);
+      case 2:
+        return areAllFieldsFilled(formData.education);
+      case 3:
+        return areAllFieldsFilled(formData.expectedLifePartner);
+      case 4:
+        return areAllFieldsFilled(formData.personalPreference);
+      case 5:
+        return areAllFieldsFilled(formData.address);
+      case 6:
+        return areAllFieldsFilled(formData.contactInfo);
+      default:
+        return false;
+    }
+  };
+  
+  
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -130,7 +170,12 @@ const MultiStepForm: React.FC = () => {
           />
         );
       default:
-        return <div>page not found</div>;
+        return (
+          <ContactInfo
+            formData={formData.contactInfo}
+            setFormData={(data) => updateFormData('contactInfo', data)}
+          />
+        );
     }
   };
 
@@ -187,7 +232,7 @@ const MultiStepForm: React.FC = () => {
           <div className="flex flex-col justify-center">
             {getStepContent(activeStep)}
             {error && (
-              <span className="text-red-800 border border-red-900 bg-red-100 text-center font-semibold rounded p-2 my-2">
+              <span className="text-red-800 text-center font-semibold rounded md:text-lg">
                 {error}
               </span>
             )}
@@ -203,8 +248,12 @@ const MultiStepForm: React.FC = () => {
                 onClick={
                   activeStep === steps.length - 1 ? handleSubmit : handleNext
                 }
-                disabled={isLoading}
-                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
+                disabled={isLoading || !isCurrentStepValid()}
+                className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
+                  ${isLoading || !isCurrentStepValid()
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'}
+                `}
               >
                 {isLoading
                   ? 'Submitting...'
