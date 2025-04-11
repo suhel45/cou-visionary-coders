@@ -153,7 +153,7 @@ const ResetPassword = async (
   return message;
 };
 
-const ForgotPassword = async (email: string) => {
+const ForgotPassword = async (email: string): Promise<string> => {
   // Find user by email
   const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
@@ -166,32 +166,42 @@ const ForgotPassword = async (email: string) => {
   // Generate a reset token and save it to the user's record
   const resetToken = generateToken();
   user.resetToken = resetToken;
-  user.tokenExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 expiration
+  user.tokenExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 minute expiration
   await user.save();
 
+  const frontendUrl = process.env.FRONTEND_BASE_URL;
+
   // Send the reset token to the user's email
-  const transprorter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASSWORD,
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
   });
+
+  const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
 
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
     subject: 'Password Reset',
-    html: `Click the link to reset your password.This link validate for 15 minutes: <a href="http://localhost:5173/reset-password/${resetToken}">Reset Password</a>`,
+    html: `Click the link to reset your password. This link is valid for 15 minutes: <a href="${resetUrl}">Reset Password</a>`,
   };
 
-  transprorter.sendMail(mailOptions, (error: Error | null) => {
-    if (error) {
-      logger.error(`Error sending email: ${error.message}`);
-      return 'Failed to send reset link. Please try again later.';
-    }
-  });
-  return 'Reset link sent to your email.please check your email or email spam folder';
+  try {
+    await transporter.sendMail(mailOptions);
+    return 'Reset link sent to your email.please check your email or email spam folder';
+  } catch (error) {
+    logger.error(`Error sending email: ${error}`);
+    return 'Failed to send reset link. Please try again later.';
+  }
 };
 
 const ResetPasswordWithToken = async (token: string, newPassword: string) => {
