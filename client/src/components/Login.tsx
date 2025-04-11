@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   const location = useLocation();
 
   // location page the user was trying to access
-  const from = location.state?.from || '/';
+  const from = location.state?.from ?? '/';
 
   const { loginUser } = useAuth();
 
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
     } catch (error) {
       //check firebase or backend sever errors
       if (
-        (axios.isAxiosError(error) && error.response) ||
+        (axios.isAxiosError(error) && error.response) ??
         !(error instanceof Error && error.name === 'AxiosError')
       ) {
         setMessage('Incorrect email or password');
