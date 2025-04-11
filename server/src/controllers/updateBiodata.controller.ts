@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { updateBiodata } from '../services/updateBiodata.service';
 
 interface CustomRequest extends Request {
   user: {
@@ -15,11 +16,15 @@ export const updateBiodataController = async (req: Request, res: Response) => {
     const updatedDocument = await updateBiodata(updateData);
 
     if (!updatedDocument) {
-      return res.status(404).json({ message: 'Document not found' });
+       res.status(404).json({ message: 'Document not found' });
     }
 
-    res.status(200).json(updatedDocument);
+    res.status(200).json({
+      success: true,
+      message: 'Biodata updated successfully',
+      data: updatedDocument,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update biodata', error: error.message });
+    res.status(500).json({ message: 'Failed to update biodata', error });
   }
 };

@@ -3,6 +3,7 @@ import { userController } from '../controllers/user.controller';
 import { authController } from '../controllers/auth.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { personalDetailsController } from '../controllers/personalAllDetails.controller';
+import { updateBiodataController } from '../controllers/updateBiodata.controller';
 
 const router = Router();
 
@@ -24,6 +25,6 @@ router.get(
   personalDetailsController.GetPublicBiodataDetails,
 );
 router.get('/biodata', personalDetailsController.GetPublicBiodata);
-router.put('/profile/update-biodata',verifyToken,)
+router.put('/profile/update-biodata',verifyToken,updateBiodataController)
 
 export default router;
