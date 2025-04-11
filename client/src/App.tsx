@@ -1,16 +1,26 @@
 import { Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
+import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
+import Dashboard from './pages/dashboard/pages';
 import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import UserProfile from './components/UserProfile';
 import AuthProvider from './Hooks/contextApi/UserContext';
+import UpdateBiodata from './components/form/UpdateBiodata';
+import Analytic from './components/dashboard/analytics/Analytic';
+import UserProfilePages from './pages/profile/UserProfilePages';
+import Verify from './components/dashboard/verify/Verify';
+import PrivateRoute from './components/PrivateRoute';
+import BiodataList from './components/biodata/BiodataList';
+import BiodataDetailsProfile from './pages/profile/BiodataDetailsProfile';
+import ForgotPassword from './components/forgotPassword/ForgotPassword';
+import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 
 function NoMatch() {
-  return 'Pages Not Found';
+  return <PageNotFound />;
 }
 
 export default function App() {
@@ -30,7 +40,24 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/biodata" element={<BiodataList />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="/reset-password/:resetToken"
+              element={<ResetForgotPassword />}
+            />
+            <Route
+              path="/biodata/profile/:id"
+              element={<BiodataDetailsProfile />}
+            />
+            <Route element={<PrivateRoute />}>
+              <Route path="/dashboard/*" element={<Dashboard />}>
+                <Route path="edit/profile" element={<UpdateBiodata />} />
+                <Route path="" element={<Analytic />} />
+                <Route path="edit/verify" element={<Verify />} />
+              </Route>
+              <Route path="/profile" element={<UserProfilePages />} />
+            </Route>
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>

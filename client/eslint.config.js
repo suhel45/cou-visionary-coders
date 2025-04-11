@@ -44,10 +44,11 @@ export default [
       ...tseslint.configs.recommended.rules,
       ...pluginReact.configs.flat.recommended.rules,
       'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-console': 'warn',
       'react/no-unescaped-entities': 'off', // Disable the rule here
     },
+    
   },
 ];

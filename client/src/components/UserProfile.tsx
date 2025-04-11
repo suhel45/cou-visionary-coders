@@ -1,33 +1,41 @@
-/** @format */
-
 import React from 'react';
 import { Card, CardContent, Avatar, Typography, Box } from '@mui/material';
 import manImg from '../assets/man.png';
 import womenImg from '../assets/woman.png';
+import { PersonalInfoData } from '../interfaces/Biodata.interface';
+interface UserProfileProps {
+  data: PersonalInfoData;
+  biodataNo: number;
+}
 
-const UserProfile = () => {
-  const isPerson = false;
-  //Fake data for biodata details
+const UserProfile: React.FC<UserProfileProps> = ({ data, biodataNo }) => {
+  const isPerson = data.gender === 'Female';
+
+  // Dynamically populate userProfile data
   const biodataDetails = [
-    { id: 1, name: 'Biodata Type', value: "Male's Biodata" },
-    { id: 2, name: 'Marital Status', value: 'Never Married' },
-    { id: 3, name: 'Birth Year', value: 'May, 1998' },
-    { id: 4, name: 'Height', value: "5'1" },
-    { id: 5, name: 'Complexion', value: 'Very Fair' },
-    { id: 6, name: 'Weight', value: '54 kg' },
-    { id: 7, name: 'Blood Group', value: 'B+' },
-    { id: 8, name: 'Nationality', value: 'Bangladeshi' },
+    { id: 1, name: 'Gender', value: data.gender },
+    { id: 2, name: 'Marital Status', value: data.maritalStatus },
+    { id: 3, name: 'Birth Date', value: data.birthDate },
+    { id: 4, name: 'Height', value: data.height },
+    { id: 5, name: 'Complexion', value: data.complexion },
+    { id: 6, name: 'Weight', value: data.weight },
+    { id: 7, name: 'Blood Group', value: data.bloodGroup },
+    { id: 8, name: 'Occupation', value: data.occupation },
+    { id: 9, name: 'Religion', value: data.religion },
   ];
 
   return (
     <Card
       sx={{
-        maxWidth: 450,
+        maxWidth: { xs: 350, sm: 850 },
         bgcolor: '#d0d3ff',
+        border: '4px solid #652c8b',
         borderRadius: 6,
-        m: 3,
+        m: 2,
         p: 3,
+        maxHeight: { xs: 'auto', sm: 'auto' },
       }}
+      className="w-full"
     >
       <Box
         display="flex"
@@ -47,12 +55,12 @@ const UserProfile = () => {
         <Avatar
           src={isPerson ? womenImg : manImg}
           sx={{
-            width: 100,
-            height: 100,
             p: 1,
             border: '2px solid #652c8b',
             bgcolor: '#fffff2',
             '& .MuiSvgIcon-root': { color: '#E91E63' },
+            width: { xs: 100, sm: 150 },
+            height: { xs: 100, sm: 150 },
           }}
         />
 
@@ -63,6 +71,7 @@ const UserProfile = () => {
             bgcolor: '#fffff2',
             borderRadius: 4,
             p: 1,
+            width: { xs: '100%', sm: '50%' },
           }}
         >
           {/* Biodata Number */}
@@ -71,13 +80,14 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               mb: 1,
               textAlign: 'center',
+              width: { xs: '100%', sm: '100%' },
             }}
           >
             <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
-              Biodata No : BD-1234
+              Biodata No : {biodataNo}
             </Typography>
           </Box>
 
@@ -87,13 +97,16 @@ const UserProfile = () => {
               bgcolor: '#652c8b',
               color: 'white',
               borderRadius: 50,
-              p: 1,
+              p: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              width: { xs: '100%', sm: '100%' },
             }}
           >
-            <Typography sx={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
+            <Typography
+              sx={{ fontSize: '0.875rem', fontWeight: 'bold', mx: 2 }}
+            >
               Biodata Status :{' '}
             </Typography>
             <Box
@@ -105,7 +118,7 @@ const UserProfile = () => {
                 fontWeight: 'bold',
               }}
             >
-              Verified
+              {'Verified'}
             </Box>
           </Box>
         </Box>

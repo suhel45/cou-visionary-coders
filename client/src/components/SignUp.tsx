@@ -1,18 +1,19 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
 import { Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '../Hooks/useAuth/useAuth';
+import CommonButton from '../utils/Button/CommonButton';
+import GoogleSignIn from './GoogleSignIn';
+import OrDivider from '../utils/OrDivider/OrDivider';
+import axios from 'axios';
+import { Alert } from '@mui/material';
+import { ValidatePassword } from '../utils/passwordValidation/ValidatePassword';
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { createUser, updateUserProfile } = authContext;
+  const { createUser, updateUserProfile, user, deleteUser } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -21,76 +22,8 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm<IFormData>();
-
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (data: IFormData) => {
-    setLoading(true);
-    try {
-      //simulate a 2 second delay to submit the form
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(true);
-        }, 2000);
-      });
-
-      createUser(data.email, data.password)
-        .then(() => {
-          handleUpdateUserProfile(data.username);
-
-          saveUser(data.username, data.phoneNumber, data.email, data.password);
-        })
-        .catch((error: any) => {
-          console.log(error);
-          toast.error('Error creating user. Please try again.');
-        });
-    } catch (error) {
-      console.error('Error during form submission:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateUserProfile = (name: string) => {
-    const profile: UserProfile = {
-      displayName: name,
-    };
-    updateUserProfile(profile)
-      .then(() => {})
-      .catch((error: any) => console.error(error));
-  };
-
-  const saveUser = async (
-    username: string,
-    phoneNumber: string,
-    email: string,
-    password: string,
-  ) => {
-    const user = {
-      username,
-      phoneNumber,
-      email,
-      password,
-    };
-    const response = await fetch(
-      'https://halalbondhon-server.vercel.app/api/signup',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      },
-    );
-    const responseData = await response.json();
-    if (responseData.success) {
-      toast.success('user created successfully');
-      navigate('/login');
-    } else {
-      toast.error(responseData.message);
-    }
-  };
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -101,27 +34,128 @@ const SignUp = () => {
   // Watch the password field
   const password = watch('password');
 
+  const onSubmit = async (data: IFormData) => {
+    setLoading(true);
+
+    try {
+      // Create user with email and password in Firebase
+      await createUser(data.email, data.password);
+
+      // Update user profile
+      await handleUpdateUserProfile(data.username);
+
+      // Save user data db
+      try {
+        await saveUser(data.username, data.email, data.password);
+
+        toast.success('User created successfully');
+        navigate('/login');
+      } catch (dbError) {
+        console.error('Error saving user data:', dbError);
+        setMessage('Registration failed. Please try again.');
+
+        // Use the user state from context
+        if (user) {
+          await deleteUser(user);
+        }
+
+        throw new Error('Failed to save user data. Registration cancelled.');
+      }
+    } catch (error) {
+      //check firebase or backend sever errors
+      if (
+        (axios.isAxiosError(error) && error.response) ||
+        !(error instanceof Error && error.name === 'AxiosError')
+      ) {
+        setMessage('Registration failed. Please try again.');
+      } else if (axios.isAxiosError(error) && error.request) {
+        setMessage(
+          'No response from the server. Please check your network connection.',
+        );
+      } else {
+        setMessage('Registration failed. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateUserProfile = async (name: string) => {
+    const profile: UserProfile = {
+      displayName: name,
+    };
+    try {
+      await updateUserProfile(profile);
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      throw error;
+    }
+  };
+
+  const saveUser = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    const user = {
+      username,
+      email,
+      password,
+    };
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_BASE_URL}/api/signup`,
+      user,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const responseData = response.data;
+    if (!responseData.success) {
+      setMessage('Registration failed. Please try again.');
+    }
+    return responseData;
+  };
+
+  const inputStyle: string =
+    'm-2 outline-0 rounded-md border border-slate-300 focus:border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:p-2 focus:ring-2 focus:ring-offset-2 focus:ring-pink-600 focus:my-2 text-xs sm:text-sm sm:leading-6 p-2 w-full';
+
   return (
-    <div className="flex flex-col items-center justify-center bg-sky-50 py-8 px-2">
-      <h2 className="heading mb-4 text-2xl font-bold">Create Account</h2>
+    <div className="flex flex-col items-center justify-center shadow-lg bg-indigo-50 py-8 px-2 border-2 border-pink-700 m-4 rounded-md">
+      <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600 outline-offset-2 m-2 rounded-md text-center font-bold text-xl md:text-2xl mb-4">
+        Create Account
+      </h2>
+
+      {message && (
+        <div className="flex justify-center items-center">
+          <Alert severity="error" sx={{ width: '100%', marginBottom: 2 }}>
+            {message}
+          </Alert>
+        </div>
+      )}
 
       {/* Email/Password Sign Up Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
+        className="bg-white border-pink-600 p-6 md:px-20 m-2 rounded-md border-2 shadow-lg flex flex-col gap-2 w-full sm:w-1/3"
       >
+        {/* Username */}
         <input
           type="text"
           {...register('username', { required: 'This field is required' })}
           placeholder="Enter Your Name"
-          className="form-input p-2 w-full"
+          className={inputStyle}
         />
         {errors.username && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.username?.message && String(errors.username?.message)}
           </span>
         )}
 
+        {/* Email */}
         <input
           type="email"
           {...register('email', {
@@ -132,29 +166,11 @@ const SignUp = () => {
             },
           })}
           placeholder="Enter Your Email"
-          className="form-input p-2 w-full"
+          className={inputStyle}
         />
         {errors.email && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.email?.message && String(errors.email?.message)}
-          </span>
-        )}
-
-        <input
-          type="tel"
-          {...register('phoneNumber', {
-            required: 'This field is required',
-            pattern: {
-              value: /^\d{11}$/,
-              message: 'Invalid phone number',
-            },
-          })}
-          placeholder="Enter Your Phone Number"
-          className="form-input p-2 w-full"
-        />
-        {errors.phoneNumber && (
-          <span className="text-red-500">
-            {errors.phoneNumber?.message && String(errors.phoneNumber?.message)}
           </span>
         )}
 
@@ -163,14 +179,17 @@ const SignUp = () => {
           <input
             type={showPassword ? 'text' : 'password'}
             {...register('password', {
-              required: 'This field is required',
-              minLength: {
-                value: 6,
-                message: 'Password must be at least 6 characters long',
+              required: 'Password is required',
+              validate: (value) => {
+                const validationError = ValidatePassword(value);
+                if (validationError) {
+                  return validationError;
+                }
+                return true;
               },
             })}
             placeholder="Enter Your Password"
-            className="form-input p-2 w-full"
+            className={inputStyle}
           />
           <button
             type="button"
@@ -178,10 +197,10 @@ const SignUp = () => {
             onClick={togglePasswordVisibility}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
           {errors.password && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.password?.message && String(errors.password?.message)}
             </span>
           )}
@@ -193,11 +212,11 @@ const SignUp = () => {
             type={showConfirmPassword ? 'text' : 'password'}
             {...register('confirmPassword', {
               required: 'This field is required',
-              validate: (value: any) =>
+              validate: (value) =>
                 value === password || 'Passwords do not match',
             })}
             placeholder="Confirm Your Password"
-            className="form-input p-2 w-full"
+            className={inputStyle}
           />
           <button
             type="button"
@@ -209,18 +228,18 @@ const SignUp = () => {
                 : 'Show confirm password'
             }
           >
-            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
           {errors.confirmPassword && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.confirmPassword?.message &&
                 String(errors.confirmPassword?.message)}
             </span>
           )}
         </div>
 
-        {/* show login option */}
-        <p className="text-center text-sm md:text-lg font-semibold text-gray-800">
+        {/* Show login option */}
+        <p className="text-center text-sm text-gray-800">
           Already have an account?{' '}
           <Link
             to="/login"
@@ -230,14 +249,20 @@ const SignUp = () => {
           </Link>
         </p>
 
-        <button
+        {/* Submit button */}
+        <CommonButton
           type="submit"
-          className="btn-primary mx-auto mt-2"
-          disabled={loading}
-        >
-          {loading ? 'Registering...' : 'Register'}
-        </button>
+          label="Register"
+          loading={loading}
+          fullWidth
+        />
       </form>
+
+      {/* Divider */}
+      <OrDivider />
+
+      {/* Google Sign In Button */}
+      <GoogleSignIn />
     </div>
   );
 };
