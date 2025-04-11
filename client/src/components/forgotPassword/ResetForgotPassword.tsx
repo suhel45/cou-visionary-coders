@@ -60,7 +60,7 @@ const ResetForgotPassword = () => {
 
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage =
-          error.response.data?.message ||
+          error.response.data?.message ??
           'Something went wrong on the server. Please try again later.';
         setMessage(errorMessage);
       } else if (axios.isAxiosError(error) && error.request) {
@@ -118,8 +118,7 @@ const ResetForgotPassword = () => {
             required={true}
             validation={passwordValidation}
             error={!!errors.newPassword}
-            helperText={errors.newPassword?.message || ''}
-            placeholder="Enter your new password"
+            helperText={errors.newPassword?.message ?? ''}
           />
 
           <PasswordInput
@@ -133,8 +132,7 @@ const ResetForgotPassword = () => {
                 value === watchNewPassword || 'Passwords do not match',
             }}
             error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message || ''}
-            placeholder="Confirm your new password"
+            helperText={errors.confirmPassword?.message ?? ''}
           />
 
           <Box sx={{ width: '300px', mt: 2, mb: 2 }}>

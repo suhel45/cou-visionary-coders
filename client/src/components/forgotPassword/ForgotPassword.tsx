@@ -6,10 +6,8 @@ import {
   Container,
   Box,
   Alert,
-  InputAdornment,
   Link,
 } from '@mui/material';
-import { Mail } from 'lucide-react';
 import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 import CommonButton from '../../utils/Button/CommonButton';
@@ -47,7 +45,7 @@ const ForgotPassword = () => {
       if (response.status === 200) {
         setMessageType('success');
         setMessage(
-          response.data.message ||
+          response.data.message ??
             'Reset link sent successfully. Please check your email.',
         );
         reset();
@@ -61,7 +59,7 @@ const ForgotPassword = () => {
 
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage =
-          error.response.data?.message ||
+          error.response.data?.message ??
           'Something went wrong on the server. Please try again later.';
         setMessage(errorMessage);
       } else if (axios.isAxiosError(error) && error.request) {

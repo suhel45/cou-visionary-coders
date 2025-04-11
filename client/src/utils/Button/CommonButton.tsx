@@ -32,6 +32,13 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   endIcon,
   sx = {},
 }) => {
+
+  const heightMap = {
+    small: '36px',
+    medium: '40px',
+    large: '48px'
+  };
+
   return (
     <Button
       type={type}
@@ -53,7 +60,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
           boxShadow: '0 5px 8px rgba(0, 0, 0, 0.15)',
         },
         minWidth: size === 'small' ? '100px' : '140px',
-        height: size === 'small' ? '36px' : size === 'large' ? '48px' : '40px',
+        height: heightMap[size] || '40px',
         ...sx,
       }}
     >
