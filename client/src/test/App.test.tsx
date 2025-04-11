@@ -1,7 +1,7 @@
 // src/test/App.test.tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter} from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from '../App';
 
@@ -21,16 +21,14 @@ function renderWithProviders(initialRoute: string = '/') {
       <MemoryRouter initialEntries={[initialRoute]}>
         <App />
       </MemoryRouter>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 }
 
 describe('App Routing and Rendering', () => {
   it('renders home page by default', () => {
     renderWithProviders('/');
-    expect(
-      screen.getByText(/about us/i)
-    ).toBeInTheDocument(); // Adjust this based on Home.tsx content
+    expect(screen.getByText(/about us/i)).toBeInTheDocument(); // Adjust this based on Home.tsx content
   });
 
   it('renders login page', () => {

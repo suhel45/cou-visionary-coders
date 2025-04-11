@@ -19,10 +19,12 @@ describe('Main App Rendering', () => {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // match text that is currently shown
-    expect(screen.getByText(/initializing authentication/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/initializing authentication/i),
+    ).toBeInTheDocument();
   });
 });

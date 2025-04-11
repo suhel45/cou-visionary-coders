@@ -10,7 +10,8 @@ const Verify: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [biodataCreated, setBiodataCreated] = useState<boolean | null>(null);
   const [image, setImage] = useState<File | null>(null);
-  const [verificationStatus, setVerificationStatus] = useState<string>('Pending');
+  const [verificationStatus, setVerificationStatus] =
+    useState<string>('Pending');
 
   useEffect(() => {
     // Fetch biodata creation status from the server
@@ -62,7 +63,7 @@ const Verify: React.FC = () => {
         method: 'POST',
         body: formData,
       });
-      
+
       if (response.ok) {
         setActiveStep(1);
       }
@@ -73,8 +74,10 @@ const Verify: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white md:shadow-lg rounded-lg mt-10 md:border border-gray-200 space-y-6">
-      <h2 className="text-2xl font-bold text-center text-indigo-900 mb-6">Verify Your Profile</h2>
-      
+      <h2 className="text-2xl font-bold text-center text-indigo-900 mb-6">
+        Verify Your Profile
+      </h2>
+
       <Stepper activeStep={activeStep} alternativeLabel className="mb-6">
         {steps.map((label, index) => (
           <Step key={index}>
@@ -89,10 +92,21 @@ const Verify: React.FC = () => {
             <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 p-4 rounded-lg cursor-pointer hover:border-blue-500">
               <UploadCloud className="w-10 h-10 text-gray-500 mb-2" />
               <span className="text-gray-600">Upload Student ID Image</span>
-              <input type="file" className="hidden" onChange={handleFileChange} />
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileChange}
+              />
             </label>
-            {image && <p className="mt-2 text-sm text-green-600">File selected: {image.name}</p>}
-            <button onClick={handleUpload} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
+            {image && (
+              <p className="mt-2 text-sm text-green-600">
+                File selected: {image.name}
+              </p>
+            )}
+            <button
+              onClick={handleUpload}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800"
+            >
               Submit ID
             </button>
           </div>
@@ -100,17 +114,25 @@ const Verify: React.FC = () => {
 
         {activeStep === 1 && (
           <div>
-            <p className="text-lg text-gray-700">Checking if biodata is created...</p>
+            <p className="text-lg text-gray-700">
+              Checking if biodata is created...
+            </p>
             {biodataCreated ? (
-              <p className="text-green-600 mt-2">Biodata verified successfully!</p>
+              <p className="text-green-600 mt-2">
+                Biodata verified successfully!
+              </p>
             ) : (
-              <p className="text-red-600 mt-2">Biodata not found. Please create your biodata first.</p>
+              <p className="text-red-600 mt-2">
+                Biodata not found. Please create your biodata first.
+              </p>
             )}
           </div>
         )}
 
         {activeStep === 2 && (
-          <p className="text-green-800 text-xl font-bold">Verification Status: {verificationStatus}</p>
+          <p className="text-green-800 text-xl font-bold">
+            Verification Status: {verificationStatus}
+          </p>
         )}
       </div>
 

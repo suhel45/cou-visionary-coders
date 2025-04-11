@@ -68,9 +68,7 @@ const UserProfilePages = () => {
   return (
     <div className="flex flex-col md:flex-row  gap-2  bg-gray-50 h-auto ">
       <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/2">
-        {userData && (
-          <PrimaryProfile username="Shuvo"/>
-        )}
+        {userData && <PrimaryProfile username="Shuvo" />}
       </div>
       <div className="flex flex-col items-stretch bg-gray-50 md:w-1/2">
         {userData && (

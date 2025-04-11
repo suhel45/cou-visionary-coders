@@ -4,6 +4,8 @@ type IUser = {
   username: string;
   email: string;
   password: string;
+  resetToken: string;
+  tokenExpire: Date | null;
 };
 
 type ILoginInfo = {

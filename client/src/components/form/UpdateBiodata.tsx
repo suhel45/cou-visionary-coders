@@ -95,7 +95,7 @@ const MultiStepForm: React.FC = () => {
     }
     return true;
   };
-  
+
   const isCurrentStepValid = (): boolean => {
     switch (activeStep) {
       case 0:
@@ -116,8 +116,7 @@ const MultiStepForm: React.FC = () => {
         return false;
     }
   };
-  
-  
+
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -250,9 +249,11 @@ const MultiStepForm: React.FC = () => {
                 }
                 disabled={isLoading || !isCurrentStepValid()}
                 className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
-                  ${isLoading || !isCurrentStepValid()
-                    ? 'bg-gray-400 text-white cursor-not-allowed'
-                    : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'}
+                  ${
+                    isLoading || !isCurrentStepValid()
+                      ? 'bg-gray-400 text-white cursor-not-allowed'
+                      : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'
+                  }
                 `}
               >
                 {isLoading
