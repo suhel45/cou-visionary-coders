@@ -33,8 +33,9 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     const updatedData = { ...localFormData, [name]: value };
     if(calculateAge(updatedData.birthDate) >= 18) { setFormData(updatedData)}
     setLocalFormData(updatedData);
-    //setFormData(updatedData); // Pass the updated object
+    
   };
+  //calculate the age 
   const calculateAge = (birthDate: string): number => {
     const birth = new Date(birthDate);
     const today = new Date();
@@ -93,8 +94,8 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
                 required
               >
                 <option>নির্বাচন করুন</option>
-                <option value="male">পুরুষ</option>
-                <option value="female">মহিলা</option>
+                <option value="পুরুষ">পুরুষ</option>
+                <option value="মহিলা">মহিলা</option>
               </select>
             </label>
 
