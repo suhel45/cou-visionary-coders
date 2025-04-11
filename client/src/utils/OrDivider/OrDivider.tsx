@@ -9,8 +9,8 @@ const OrDivider = () => {
         alignItems: 'center',
         width: '300px',
         margin: '0 auto',
-        mt:2,
-        mb:2,
+        mt: 2,
+        mb: 2,
       }}
     >
       <Divider sx={{ flexGrow: 1 }} />

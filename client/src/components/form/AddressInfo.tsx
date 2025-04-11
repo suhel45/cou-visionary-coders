@@ -40,7 +40,7 @@ const AddressInfo: React.FC<AddressInfoProps> = ({ formData, setFormData }) => {
         >
           ঠিকানা
         </h2>
-        <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">         
+        <form className="md:items-center w-full md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
           {/* Present Address */}
           <AddressForm
             address={localFormData.presentAddress}

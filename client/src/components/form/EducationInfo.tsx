@@ -67,8 +67,10 @@ function AcademicDetails({
  p-2"
           placeholder="যেমনঃ 3.21"
         />
-        {(formData[section].gpa < 1.00 || formData[section].gpa > 5.00) && formData[section].gpa != 0 && (
-          <span className="text-red-500 text-sm"> Enter valid GPA </span>)}
+        {(formData[section].gpa < 1.0 || formData[section].gpa > 5.0) &&
+          formData[section].gpa != 0 && (
+            <span className="text-red-500 text-sm"> Enter valid GPA </span>
+          )}
       </label>
       <label
         className="text-center text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
@@ -217,29 +219,28 @@ function EducationInfo({
         </h2>
         <form className="items-center justify-center w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 w-full">
+            <AcademicDetails
+              section="ssc"
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <AcademicDetails
+              section="hsc"
+              formData={formData}
+              setFormData={setFormData}
+            />
 
-          <AcademicDetails
-            section="ssc"
-            formData={formData}
-            setFormData={setFormData}
-          />
-          <AcademicDetails
-            section="hsc"
-            formData={formData}
-            setFormData={setFormData}
-          />
-          
-          <UniversityDetails
-            section="honours"
-            formData={formData}
-            setFormData={setFormData}
-          />
-      
-          <UniversityDetails
-            section="masters"
-            formData={formData}
-            setFormData={setFormData}
-          />
+            <UniversityDetails
+              section="honours"
+              formData={formData}
+              setFormData={setFormData}
+            />
+
+            <UniversityDetails
+              section="masters"
+              formData={formData}
+              setFormData={setFormData}
+            />
           </div>
         </form>
       </div>

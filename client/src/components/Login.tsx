@@ -45,7 +45,6 @@ const Login: React.FC = () => {
 
       toast.success('User login successfully');
       navigate(from, { replace: true });
-
     } catch (error) {
       //check firebase or backend sever errors
       if (
@@ -53,16 +52,13 @@ const Login: React.FC = () => {
         !(error instanceof Error && error.name === 'AxiosError')
       ) {
         setMessage('Incorrect email or password');
-
       } else if (axios.isAxiosError(error) && error.request) {
         setMessage(
           'No response from the server. Please check your network connection.',
         );
-
       } else {
         setMessage('Login Failed. Please try again later.');
       }
-
     } finally {
       setLoading(false);
     }

@@ -124,20 +124,12 @@ const ForgotPassword = () => {
             fullWidth
             variant="outlined"
             margin="normal"
-            placeholder="Enter your email address"
             size="small"
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '0.375rem',
                 boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
               },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Mail size={20} />
-                </InputAdornment>
-              ),
             }}
             {...register('email', {
               required: 'Email is required',

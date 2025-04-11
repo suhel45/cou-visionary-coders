@@ -197,24 +197,22 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 ))}
               </select>
             </label>
-          <label
-           className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+            <label
+              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
  "
-          >
-            {/* */}প্রত্যাশিত বৈশিষ্ট্যে বা গুনাবলী 
-         
-          <textarea
-            name="expectedQualities"
-            value={localFormData.expectedQualities}
-            onChange={handleChange}
-            className="block w-full md:w-screen bg-gray-50  font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-xs sm:text-sm sm:leading-6
+            >
+              {/* */}প্রত্যাশিত বৈশিষ্ট্যে বা গুনাবলী
+              <textarea
+                name="expectedQualities"
+                value={localFormData.expectedQualities}
+                onChange={handleChange}
+                className="block w-full md:w-screen bg-gray-50  font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-xs sm:text-sm sm:leading-6
  p-2  mb-4"
-            placeholder="যেই সব গুনাবলি আশা করেন"
-            rows={4}
-          />
-           </label>
+                placeholder="যেই সব গুনাবলি আশা করেন"
+                rows={4}
+              />
+            </label>
           </div>
-
         </form>
       </div>
     </div>

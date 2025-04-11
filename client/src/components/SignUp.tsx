@@ -183,9 +183,9 @@ const SignUp = () => {
               validate: (value) => {
                 const validationError = ValidatePassword(value);
                 if (validationError) {
-                  return validationError; 
+                  return validationError;
                 }
-                return true; 
+                return true;
               },
             })}
             placeholder="Enter Your Password"

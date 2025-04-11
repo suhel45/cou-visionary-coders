@@ -66,7 +66,6 @@ const PreferenceInfo: React.FC<PreferenceInfoProps> = ({
               placeholder: 'যেকোনো অতিরিক্ত তথ্য শেয়ার করুন...',
             },
           ].map((field) => (
-            
             <label
               key={field.name}
               className="w-full max-w-md flex flex-col items-center font-bold text-center p-2  text-sm md:text-xl text-cyan-950 "

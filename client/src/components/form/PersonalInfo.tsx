@@ -31,7 +31,9 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   ) => {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
-    if(calculateAge(updatedData.birthDate) >= 18) { setFormData(updatedData)}
+    if (calculateAge(updatedData.birthDate) >= 18) {
+      setFormData(updatedData);
+    }
     setLocalFormData(updatedData);
     //setFormData(updatedData); // Pass the updated object
   };

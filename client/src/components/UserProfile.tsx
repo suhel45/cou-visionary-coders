@@ -27,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ data, biodataNo }) => {
   return (
     <Card
       sx={{
-        maxWidth: { xs: 350, sm:850 },
+        maxWidth: { xs: 350, sm: 850 },
         bgcolor: '#d0d3ff',
         border: '4px solid #652c8b',
         borderRadius: 6,
