@@ -25,6 +25,6 @@ router.get(
   personalDetailsController.GetPublicBiodataDetails,
 );
 router.get('/biodata', personalDetailsController.GetPublicBiodata);
-router.put('/profile/update-biodata',verifyToken,updateBiodataController)
+router.put('/profile/update-biodata', verifyToken, updateBiodataController);
 
 export default router;

@@ -21,9 +21,7 @@ export const updateBiodataController = async (req: Request, res: Response) => {
       message: 'Biodata updated successfully',
       data: updatedDocument,
     });
-
   } catch (error) {
-    
     if (error instanceof Error) {
       logger.error('Error updating biodata:', error.message);
 
