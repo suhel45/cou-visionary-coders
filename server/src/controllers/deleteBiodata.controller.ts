@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { deleteBiodata } from "../services/deleteBiodata.service";
+import logger from "../utils/logger.util";
 
 interface CustomRequest extends Request {
   user: {
@@ -14,14 +15,24 @@ export const deleteBiodataController = async (req:Request, res:Response) => {
     const deletedBiodata = await deleteBiodata(biodataId);
 
     res.status(200).json({
+        success: true,
       message: 'Biodata deleted successfully',
       data: deletedBiodata,
     });
+    
   } catch (error) {
-    // Handle errors and send an error response
-    res.status(500).json({
-      message: 'Error deleting biodata',
-      error: error.message,
-    });
+    if (error instanceof Error) {
+        logger.error('Error deleting biodata:', error.message);
+
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
   }
 }
