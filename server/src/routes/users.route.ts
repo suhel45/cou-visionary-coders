@@ -4,6 +4,7 @@ import { authController } from '../controllers/auth.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { personalDetailsController } from '../controllers/personalAllDetails.controller';
 import { updateBiodataController } from '../controllers/updateBiodata.controller';
+import { deleteBiodataController } from '../controllers/deleteBiodata.controller';
 
 const router = Router();
 
@@ -26,6 +27,6 @@ router.get(
 );
 router.get('/biodata', personalDetailsController.GetPublicBiodata);
 router.put('/profile/update-biodata', verifyToken, updateBiodataController);
-router.delete('/profile/delete-biodata', verifyToken, );
+router.delete('/profile/delete-biodata', verifyToken, deleteBiodataController);
 
 export default router;
