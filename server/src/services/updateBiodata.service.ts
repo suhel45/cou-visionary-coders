@@ -4,7 +4,7 @@ import { IPersonalAllDetails } from '../interfaces/personalAllDetails.interface'
 export const updateBiodata = async (
   updateData: Partial<IPersonalAllDetails>,
 ): Promise<IPersonalAllDetails | null> => {
-  const id = updateData.users; // extract uses unique id
+  const id = updateData.users; // extract users unique id
 
   // Find the existing biodata for the user
   const existingBiodata = await PersonalAllDetailsModel.findOne({
