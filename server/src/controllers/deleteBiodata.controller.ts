@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { deleteBiodata } from "../services/deleteBiodata.service";
 
 interface CustomRequest extends Request {
   user: {
