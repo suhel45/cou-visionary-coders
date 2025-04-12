@@ -42,6 +42,7 @@ const loginUserFromDB = async (
   loginInfo: ILoginInfo,
 ): Promise<{ userId: string; token: string }> => {
   const { email, password } = loginInfo;
+  console.log(email)
 
   const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
