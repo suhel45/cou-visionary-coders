@@ -98,7 +98,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Religion */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="religion">Religion</label>
+            <label className="block mb-2" htmlFor="religion">ধর্ম </label>
             <select
               id="religion"
               name="religion"
@@ -114,31 +114,9 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             </select>
           </div>
 
-          {/* Blood Group */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="bloodGroup">Blood Group</label>
-            <select
-              id="bloodGroup"
-              name="bloodGroup"
-              value={searchParams.bloodGroup || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">Any</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-          </div>
-
           {/* Complexion */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="complexion">Complexion</label>
+            <label className="block mb-2" htmlFor="complexion">গাত্রবর্ন</label>
             <select
               id="complexion"
               name="complexion"
@@ -146,17 +124,18 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-              <option value="">Any</option>
-              <option value="Fair">Fair</option>
-              <option value="Medium">Medium</option>
-              <option value="Brown">Brown</option>
-              <option value="Dark">Dark</option>
+                <option>সব</option>
+<option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
+<option value="ফর্সা">ফর্সা</option>
+<option value="শ্যামলা">শ্যামলা</option>
+<option value="উজ্জ্বল শ্যামলা">উজ্জ্বল শ্যামলা</option>
+<option value="কালো">কালো</option>
             </select>
           </div>
 
           {/* Age Range */}
           <div className="mb-4">
-            <label className="block mb-2">Age Range</label>
+            <label className="block mb-2">বয়সের সীমা</label>
             <div className="flex space-x-2">
               <input
                 type="number"
@@ -179,7 +158,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Height Range */}
           <div className="mb-4">
-            <label className="block mb-2">Height Range (cm)</label>
+            <label className="block mb-2">উচ্চতার সীমা (inc)</label>
             <div className="flex space-x-2">
               <input
                 type="number"
