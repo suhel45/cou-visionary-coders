@@ -87,11 +87,12 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-              <option value="">Any</option>
-              <option value="Single">Single</option>
-              <option value="Married">Married</option>
-              <option value="Divorced">Divorced</option>
-              <option value="Widowed">Widowed</option>
+              <option value="সব">সব</option>
+              <option value="অবিবাহিত">অবিবাহিত</option>
+<option value="বিবাহিত">বিবাহিত</option>
+<option value="ডিভোর্সড">ডিভোর্সড</option>
+<option value="বিধবা">বিধবা</option>
+<option value="বিপত্নীক">বিপত্নীক</option>
             </select>
           </div>
 
@@ -105,7 +106,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-              <option value="">Any</option>
+              <option value=""></option>
               <option value="Islam">Islam</option>
               <option value="Hinduism">Hinduism</option>
               <option value="Christianity">Christianity</option>
