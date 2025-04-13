@@ -106,7 +106,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option>সব</option>
+                <option value=''>সব</option>
 <option value="ইসলাম">ইসলাম</option>
 <option value="হিন্দু">হিন্দু</option>
 <option value="খ্রিস্টান">খ্রিস্টান</option>
@@ -124,7 +124,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option>সব</option>
+                <option value=''>সব</option>
 <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
 <option value="ফর্সা">ফর্সা</option>
 <option value="শ্যামলা">শ্যামলা</option>
@@ -181,7 +181,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Occupation */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="occupation">Occupation</label>
+            <label className="block mb-2" htmlFor="occupation">পেশা</label>
             <select
               id="occupation"
               name="occupation"
@@ -221,7 +221,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Financial Status */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="financialStatus">Financial Status</label>
+            <label className="block mb-2" htmlFor="financialStatus">পারিবারিক আর্থিক অবস্থা</label>
             <select
               id="financialStatus"
               name="financialStatus"
@@ -229,11 +229,11 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-              <option value="">Any</option>
-              <option value="Upper Class">Upper Class</option>
-              <option value="Upper Middle Class">Upper Middle Class</option>
-              <option value="Middle Class">Middle Class</option>
-              <option value="Lower Middle Class">Lower Middle Class</option>
+                <option>সব</option>
+<option value="নিম্নবিত্ত">নিম্নবিত্ত</option>
+<option value="মধ্যবিত্ত">মধ্যবিত্ত</option>
+<option value="উচ্চ মধ্যবিত্ত">উচ্চ মধ্যবিত্ত</option>
+<option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
             </select>
           </div>
         </div>
