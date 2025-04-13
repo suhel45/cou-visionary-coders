@@ -1,134 +1,171 @@
-import React, { useState, useEffect } from 'react';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import React, { useState, useEffect} from 'react';
 import { UploadCloud } from 'lucide-react';
-
-const steps = ['Upload Student ID', 'Biodata Verification', 'Complete'];
-
+import axios from 'axios';
+import Loading from '../../../utils/Loading/Loading';
 const Verify: React.FC = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [biodataCreated, setBiodataCreated] = useState<boolean | null>(null);
+  const [idStatus, setIdStatus] = useState<
+    'Not Submitted' | 'Pending' | 'Approved'
+  >('Not Submitted');
+  const [biodataCreated, setBiodataCreated] = useState<boolean>(false);
   const [image, setImage] = useState<File | null>(null);
-  const [verificationStatus, setVerificationStatus] = useState<string>('Pending');
-
+  const [verificationStatus, setVerificationStatus] = useState<
+    'Not Verified' | 'Verified'
+  >('Not Verified');
+  const [loading, setLoading] = useState(true);
+ 
+  // Check if biodata is created or not
   useEffect(() => {
-    // Fetch biodata creation status from the server
-    const fetchBiodataStatus = async () => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await fetch('/api/profile/status');
-        const data = await response.json();
-        setBiodataCreated(data.status);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
+          {
+            withCredentials: true,
+          },
+        );
+        if (response.data.success) {
+          setBiodataCreated(true);
+        }
+        console.log(response.data);
       } catch (error) {
-        console.error('Error fetching biodata status:', error);
+        console.error('Error fetching data:', error);
+        setBiodataCreated(false);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchBiodataStatus();
+    fetchData();
   }, []);
-
-  const handleNext = async () => {
-    if (activeStep === 1 && !biodataCreated) {
-      alert('Please create your biodata before proceeding.');
-      return;
-    }
-    if (activeStep === 1) {
+  //console.log(loading);
+  useEffect(() => {
+    
+    // Fetch ID card status using userId
+    const fetchIdCardStatus = async () => {
       try {
-        const response = await fetch('/api/verify/status');
-        const data = await response.json();
-        setVerificationStatus(data.status);
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/identity/status`,
+          {
+            withCredentials: true,
+          },
+        );
+        setIdStatus(response.data.status);
+        console.log('ID Card Status:', response.data.status);
       } catch (error) {
-        console.error('Error verifying status:', error);
+        console.error('Error fetching ID card status:', error);
       }
-    }
-    setActiveStep((prev) => prev + 1);
-  };
+    };
 
-  const handleBack = () => setActiveStep((prev) => prev - 1);
+    fetchIdCardStatus();
+  }, []);
+  // Final verification logic
+  useEffect(() => {
+    if (idStatus === 'Approved' && biodataCreated) {
+      setVerificationStatus('Verified');
+    } else {
+      setVerificationStatus('Not Verified');
+    }
+  }, [idStatus, biodataCreated]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
     }
   };
-
+  if (loading) {
+    return <Loading />;
+  }
+  //! file upload handling logic
   const handleUpload = async () => {
     if (!image) return;
+
     const formData = new FormData();
-    formData.append('studentId', image);
+    formData.append('studentId', image); // This must match your multer field name
+
+    console.log(formData);
 
     try {
-      const response = await fetch('/api/verify/upload', {
+      await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/upload`, {
         method: 'POST',
         body: formData,
       });
-      
-      if (response.ok) {
-        setActiveStep(1);
-      }
+
+      setIdStatus('Pending');
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error('Error uploading ID card:', error);
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white md:shadow-lg rounded-lg mt-10 md:border border-gray-200 space-y-6">
-      <h2 className="text-2xl font-bold text-center text-indigo-900 mb-6">Verify Your Profile</h2>
-      
-      <Stepper activeStep={activeStep} alternativeLabel className="mb-6">
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    <div className="max-w-2xl mx-auto p-6 bg-white md:shadow-lg rounded-lg mt-10 md:border border-gray-200 space-y-6">
+      <h2 className="text-4xl font-bold text-center text-indigo-900 mb-6">
+        Profile Verification
+      </h2>
 
-      <div className="p-4 text-center ">
-        {activeStep === 0 && (
-          <div>
+      {/* Student Identity Status */}
+      <div className="flex flex-col items-center p-4 border border-gray-200 rounded-lg">
+        <h3 className="font-bold text-violet-800 text-center text-xl">
+          Student Identity Status
+        </h3>
+        <p
+          className={`mt-1 font-bold bg-gray-50 p-2 rounded-md ${idStatus === 'Approved' ? 'text-green-600' : idStatus === 'Pending' ? 'text-yellow-600' : 'text-red-600'}`}
+        >
+          {idStatus}
+        </p>
+
+        {idStatus === 'Not Submitted' && (
+          <div className="mt-4">
             <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 p-4 rounded-lg cursor-pointer hover:border-blue-500">
               <UploadCloud className="w-10 h-10 text-gray-500 mb-2" />
               <span className="text-gray-600">Upload Student ID Image</span>
-              <input type="file" className="hidden" onChange={handleFileChange} />
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileChange}
+              />
             </label>
-            {image && <p className="mt-2 text-sm text-green-600">File selected: {image.name}</p>}
-            <button onClick={handleUpload} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
-              Submit ID
+
+            {image && (
+              <p className="mt-2 text-sm text-green-600">
+                Selected: {image.name}
+              </p>
+            )}
+
+            <button
+              onClick={handleUpload} // Ensure userId is not null
+              className="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800"
+            >
+              Submit
             </button>
           </div>
         )}
-
-        {activeStep === 1 && (
-          <div>
-            <p className="text-lg text-gray-700">Checking if biodata is created...</p>
-            {biodataCreated ? (
-              <p className="text-green-600 mt-2">Biodata verified successfully!</p>
-            ) : (
-              <p className="text-red-600 mt-2">Biodata not found. Please create your biodata first.</p>
-            )}
-          </div>
-        )}
-
-        {activeStep === 2 && (
-          <p className="text-green-800 text-xl font-bold">Verification Status: {verificationStatus}</p>
-        )}
       </div>
 
-      <div className="flex justify-between mt-6">
-        <button
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          className="px-4 py-2 bg-purple-900 text-white rounded hover:bg-purple-700 cursor-pointer font-semibold"
+      {/* Biodata Creation Status */}
+      <div className="flex flex-col items-center p-4 border border-gray-200 rounded-lg">
+        <h3 className="font-bold text-violet-800 text-center text-xl">
+          Biodata Creation Status
+        </h3>
+        <p
+          className={`mt-1 font-bold bg-gray-50 p-2 rounded-md ${biodataCreated ? 'text-green-600' : 'text-red-600'}`}
         >
-          Back
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={activeStep === steps.length - 1}
-          className="px-4 py-2 bg-purple-900 text-white rounded hover:bg-purple-700 cursor-pointer font-semibold"
+          {biodataCreated ? 'Success' : 'Not Created'}
+        </p>
+      </div>
+
+      {/* Profile Verification Status */}
+      <div
+        className={`flex flex-col items-center p-4 border border-gray-200 rounded-lg ${verificationStatus === 'Verified' ? ' bg-green-50' : ' bg-red-50'}`}
+      >
+        <h3 className="font-bold text-violet-800 text-center text-xl">
+          Profile Verification Status
+        </h3>
+        <p
+          className={`mt-1 text-lg font-bold bg-gray-50 p-2 rounded-md ${verificationStatus === 'Verified' ? 'text-green-700 bg-green-100' : 'text-red-700 bg-red-100'}`}
         >
-          {activeStep === steps.length - 2 ? 'Verify' : 'Next'}
-        </button>
+          {verificationStatus}
+        </p>
       </div>
     </div>
   );
