@@ -11,9 +11,7 @@ export interface SearchParams {
   occupation?: string;
   complexion?: string;
   religion?: string;
-  bloodGroup?: string;
   district?: string;
-  educationLevel?: string;
   financialStatus?: string;
 }
 
@@ -46,7 +44,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
     e.preventDefault();
     onSearch(searchParams);
   };
-
+  console.log('Search params:', searchParams);
   // Clear filters
   const handleClearFilters = () => {
     setSearchParams({});
@@ -59,11 +57,11 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
         Search Biodata
       </h4>
 
-      <form onSubmit={handleSubmit} className="bg-violet-900 p-6 rounded-lg shadow-md mb-8 text-white">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-8 text-black">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Gender */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="gender">Gender</label>
+            <label className="block mb-2" htmlFor="gender"> লিঙ্গ</label>
             <select
               id="gender"
               name="gender"
@@ -72,8 +70,8 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               className="w-full px-3 py-2 border rounded-md text-black"
             >
               <option value="">সব</option>
-              <option value="Male">পুরুষ</option>
-              <option value="Female">মহিলা</option>
+              <option value="পুরুষ">পুরুষ</option>
+              <option value="মহিলা">মহিলা</option>
             </select>
           </div>
 
