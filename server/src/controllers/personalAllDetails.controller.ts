@@ -46,7 +46,6 @@ const GetBiodata = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
 const GetPublicBiodataDetails = async (
   req: Request,
   res: Response,
