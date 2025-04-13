@@ -46,7 +46,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
     e.preventDefault();
     onSearch(searchParams);
   };
-  console.log('Search params:', searchParams);
+  
   // Clear filters
   const handleClearFilters = () => {
     setSearchParams({});
