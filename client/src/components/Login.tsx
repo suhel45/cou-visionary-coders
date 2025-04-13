@@ -113,7 +113,10 @@ const Login: React.FC = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-900">
+            <label
+              className="block text-sm font-medium text-gray-900"
+              htmlFor="password"
+            >
               Password
             </label>
             <div className="relative mt-1">
