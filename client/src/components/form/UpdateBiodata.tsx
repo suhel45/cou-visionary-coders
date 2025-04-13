@@ -178,7 +178,8 @@ const MultiStepForm: React.FC = () => {
         );
     }
   };
-
+  console.log(formData.personalInfo)
+  console.log(isCurrentStepValid())
   return (
     <div className="p-4">
       {isSubmitted ? (
@@ -240,7 +241,7 @@ const MultiStepForm: React.FC = () => {
               <button
                 disabled={activeStep === 0 || isLoading}
                 onClick={handleBack}
-                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
+                className="cursor-pointer py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
                 Back
               </button>
@@ -252,7 +253,7 @@ const MultiStepForm: React.FC = () => {
                 className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${isLoading || !isCurrentStepValid()
                     ? 'bg-gray-400 text-white cursor-not-allowed'
-                    : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'}
+                    : 'cursor-pointer bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'}
                 `}
               >
                 {isLoading
