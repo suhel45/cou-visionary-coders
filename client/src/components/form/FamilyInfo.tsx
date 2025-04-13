@@ -51,25 +51,24 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
         </h2>
 
         <form className="w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-flow-cols-3 gap-4 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-flow-cols-3 gap-4 w-full bg-white">
+            {/* Father's Information */}
+            <GuardianInfoForm
+              label="পিতা"
+              guardian={localFamilyInfo.father}
+              onChange={(updatedFather) =>
+                handleGuardianChange('father', updatedFather)
+              }
+            />
 
-          {/* Father's Information */}
-          <GuardianInfoForm
-            label="পিতা"
-            guardian={localFamilyInfo.father}
-            onChange={(updatedFather) =>
-              handleGuardianChange('father', updatedFather)
-            }
-          />
-
-          {/* Mother's Information */}
-          <GuardianInfoForm
-            label="মাতা"
-            guardian={localFamilyInfo.mother}
-            onChange={(updatedMother) =>
-              handleGuardianChange('mother', updatedMother)
-            }
-          />
+            {/* Mother's Information */}
+            <GuardianInfoForm
+              label="মাতা"
+              guardian={localFamilyInfo.mother}
+              onChange={(updatedMother) =>
+                handleGuardianChange('mother', updatedMother)
+              }
+            />
           </div>
 
           {/* Siblings Information */}
@@ -79,7 +78,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           />
 
           {/* Financial Status */}
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center flex flex-col sm:justify-center sm:items-center justify-stretch items-stretch border border-gray-400  rounded-md">
+          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center flex flex-col sm:justify-center sm:items-center justify-stretch items-stretch bg-white  rounded-md">
             পারিবারিক আর্থিক অবস্থা{/* Financial Status */}
             <select
               name="financialStatus"
