@@ -31,11 +31,13 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
   const [searchParams, setSearchParams] = useState<SearchParams>(initialParams);
 
   // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setSearchParams(prev => ({
+    setSearchParams((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -53,15 +55,21 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
   return (
     <div className={className}>
-      <h4 className="text-center text-2xl sm:text-4xl rounded-full p-4 mb-6 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
+      <h4 className="text-center text-2xl sm:text-4xl rounded-full p-4 mb-6 mt-6 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
         Search Biodata
       </h4>
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-8 text-black">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md mb-8 text-black"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Gender */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="gender"> লিঙ্গ</label>
+            <label className="block mb-2" htmlFor="gender">
+              {' '}
+              লিঙ্গ
+            </label>
             <select
               id="gender"
               name="gender"
@@ -77,7 +85,9 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Marital Status */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="maritalStatus">বৈবাহিক অবস্থা</label>
+            <label className="block mb-2" htmlFor="maritalStatus">
+              বৈবাহিক অবস্থা
+            </label>
             <select
               id="maritalStatus"
               name="maritalStatus"
@@ -87,16 +97,18 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             >
               <option value="">সব</option>
               <option value="অবিবাহিত">অবিবাহিত</option>
-<option value="বিবাহিত">বিবাহিত</option>
-<option value="ডিভোর্সড">ডিভোর্সড</option>
-<option value="বিধবা">বিধবা</option>
-<option value="বিপত্নীক">বিপত্নীক</option>
+              <option value="বিবাহিত">বিবাহিত</option>
+              <option value="ডিভোর্সড">ডিভোর্সড</option>
+              <option value="বিধবা">বিধবা</option>
+              <option value="বিপত্নীক">বিপত্নীক</option>
             </select>
           </div>
 
           {/* Religion */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="religion">ধর্ম </label>
+            <label className="block mb-2" htmlFor="religion">
+              ধর্ম{' '}
+            </label>
             <select
               id="religion"
               name="religion"
@@ -104,17 +116,19 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option value=''>সব</option>
-<option value="ইসলাম">ইসলাম</option>
-<option value="হিন্দু">হিন্দু</option>
-<option value="খ্রিস্টান">খ্রিস্টান</option>
-<option value="বৌদ্ধ">বৌদ্ধ</option>
+              <option value="">সব</option>
+              <option value="ইসলাম">ইসলাম</option>
+              <option value="হিন্দু">হিন্দু</option>
+              <option value="খ্রিস্টান">খ্রিস্টান</option>
+              <option value="বৌদ্ধ">বৌদ্ধ</option>
             </select>
           </div>
 
           {/* Complexion */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="complexion">গাত্রবর্ন</label>
+            <label className="block mb-2" htmlFor="complexion">
+              গাত্রবর্ন
+            </label>
             <select
               id="complexion"
               name="complexion"
@@ -122,12 +136,12 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option value=''>সব</option>
-<option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
-<option value="ফর্সা">ফর্সা</option>
-<option value="শ্যামলা">শ্যামলা</option>
-<option value="উজ্জ্বল শ্যামলা">উজ্জ্বল শ্যামলা</option>
-<option value="কালো">কালো</option>
+              <option value="">সব</option>
+              <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
+              <option value="ফর্সা">ফর্সা</option>
+              <option value="শ্যামলা">শ্যামলা</option>
+              <option value="উজ্জ্বল শ্যামলা">উজ্জ্বল শ্যামলা</option>
+              <option value="কালো">কালো</option>
             </select>
           </div>
 
@@ -179,7 +193,9 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
           {/* Occupation */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="occupation">পেশা</label>
+            <label className="block mb-2" htmlFor="occupation">
+              পেশা
+            </label>
             <select
               id="occupation"
               name="occupation"
@@ -187,25 +203,26 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option>সব</option>
-<option value="শিক্ষার্থী">শিক্ষার্থী</option>
-<option value="ডাক্তার">ডাক্তার</option>
-<option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
-<option value="সরকারি চাকরি">সরকারি চাকরি</option>
-<option value="বেসরকারি চাকরি">বেসরকারি চাকরি</option>
-<option value="ব্যবসায়ী">ব্যবসায়ী</option>
-<option value="শিক্ষক">শিক্ষক</option>
-<option value="ফ্রীল্যান্সার">ফ্রীল্যান্সার</option>
-<option value="প্রবাসী">প্রবাসী</option>
-<option value="পেশা নাই">পেশা নাই</option>
-<option value="অন্যান্য "> অন্যান্য </option>
+              <option value="">সব</option>
+              <option value="শিক্ষার্থী">শিক্ষার্থী</option>
+              <option value="ডাক্তার">ডাক্তার</option>
+              <option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
+              <option value="সরকারি চাকরি">সরকারি চাকরি</option>
+              <option value="বেসরকারি চাকরি">বেসরকারি চাকরি</option>
+              <option value="ব্যবসায়ী">ব্যবসায়ী</option>
+              <option value="শিক্ষক">শিক্ষক</option>
+              <option value="ফ্রীল্যান্সার">ফ্রীল্যান্সার</option>
+              <option value="প্রবাসী">প্রবাসী</option>
+              <option value="পেশা নাই">পেশা নাই</option>
+              <option value="অন্যান্য "> অন্যান্য </option>
             </select>
-
           </div>
 
           {/* District */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="district">District</label>
+            <label className="block mb-2" htmlFor="district">
+              জেলা
+            </label>
             <input
               type="text"
               id="district"
@@ -213,13 +230,15 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               value={searchParams.district || ''}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
-              placeholder="Search in both addresses"
+              placeholder="district name"
             />
           </div>
 
           {/* Financial Status */}
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="financialStatus">পারিবারিক আর্থিক অবস্থা</label>
+            <label className="block mb-2" htmlFor="financialStatus">
+              পারিবারিক আর্থিক অবস্থা
+            </label>
             <select
               id="financialStatus"
               name="financialStatus"
@@ -227,11 +246,11 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-                <option>সব</option>
-<option value="নিম্নবিত্ত">নিম্নবিত্ত</option>
-<option value="মধ্যবিত্ত">মধ্যবিত্ত</option>
-<option value="উচ্চ মধ্যবিত্ত">উচ্চ মধ্যবিত্ত</option>
-<option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
+              <option value="">সব</option>
+              <option value="নিম্নবিত্ত">নিম্নবিত্ত</option>
+              <option value="মধ্যবিত্ত">মধ্যবিত্ত</option>
+              <option value="উচ্চ মধ্যবিত্ত">উচ্চ মধ্যবিত্ত</option>
+              <option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
             </select>
           </div>
         </div>
@@ -246,7 +265,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-white text-violet-900 rounded-md hover:bg-gray-100 font-bold"
+            className="px-4 py-2 bg-white text-violet-900 rounded-md hover:bg-gray-100 font-bold cursor-pointer"
           >
             Search Biodata
           </button>

@@ -32,11 +32,10 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   endIcon,
   sx = {},
 }) => {
-
   const heightMap = {
     small: '36px',
     medium: '40px',
-    large: '48px'
+    large: '48px',
   };
 
   return (

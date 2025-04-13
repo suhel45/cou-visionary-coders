@@ -35,9 +35,8 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
       setFormData(updatedData);
     }
     setLocalFormData(updatedData);
-    
   };
-  //calculate the age 
+  //calculate the age
   const calculateAge = (birthDate: string): number => {
     const birth = new Date(birthDate);
     const today = new Date();
