@@ -1,15 +1,27 @@
 import { ILoginInfo, IUser } from '../interfaces/users.interface';
 import userModel from '../models/user.Model';
 import validator from 'validator';
+import nodemailer from 'nodemailer';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import { validatePassword } from '../utils/validation.password.util';
+import logger from '../utils/logger.util';
+import { generateToken } from '../utils/token.util';
+import { validateEmail } from '../utils/validation.email.util';
 
 dotenv.config();
 
 const createUserIntoDB = async (user: IUser) => {
   const { username, email, password } = user;
+
+  // Validate the email
+  const emailValidationError = validateEmail(email);
+  if (emailValidationError) {
+    logger.error(`Email validation failed: ${emailValidationError}`);
+    return emailValidationError;
+  }
 
   const sanitizedEmail = validator.escape(email);
   const existingUser = await userModel.findOne({ email: sanitizedEmail });
@@ -125,10 +137,10 @@ const ResetPassword = async (
     return message;
   }
 
-  // Validate password strength
-  if (newPassword.length < 8) {
-    message = 'Password must be at least 8 characters long';
-    return message;
+  // Validate the new password
+  const validationError = validatePassword(newPassword);
+  if (validationError) {
+    return validationError;
   }
 
   const hashedPassword = await argon2.hash(newPassword);
@@ -141,9 +153,95 @@ const ResetPassword = async (
   return message;
 };
 
+const ForgotPassword = async (email: string): Promise<string> => {
+  // Find user by email
+  const sanitizedEmail = validator.escape(email);
+  const user = await userModel.findOne({ email: sanitizedEmail });
+
+  if (!user) {
+    logger.error(`User not found for email: ${email}`);
+    return 'User not found. Please enter a valid email address';
+  }
+
+  // Generate a reset token and save it to the user's record
+  const resetToken = generateToken();
+  user.resetToken = resetToken;
+  user.tokenExpire = new Date(Date.now() + 15 * 60 * 1000); // 15 minute expiration
+  await user.save();
+
+  const frontendUrl = process.env.FRONTEND_BASE_URL;
+
+  // Send the reset token to the user's email
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: 'Password Reset',
+    html: `Click the link to reset your password. This link is valid for 15 minutes: <a href="${resetUrl}">Reset Password</a>`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return 'Reset link sent to your email.please check your email or email spam folder';
+  } catch (error) {
+    logger.error(`Error sending email: ${error}`);
+    return 'Failed to send reset link. Please try again later.';
+  }
+};
+
+const ResetPasswordWithToken = async (token: string, newPassword: string) => {
+  // Find user by reset token
+  const user = await userModel.findOne({
+    resetToken: token,
+    tokenExpire: { $gt: Date.now() }, // Check if token is not expired
+  });
+  if (!user) {
+    return 'Invalid or expired reset token';
+  }
+
+  // Validate the new password
+  const validationError = validatePassword(newPassword);
+  if (validationError) {
+    return validationError;
+  }
+
+  // Hash the new password
+  const hashedPassword = await argon2.hash(newPassword);
+
+  // Prevent using the same password
+  const isSamePassword = await argon2.verify(user.password, newPassword);
+  if (isSamePassword) {
+    return 'New password cannot be the same as the current password';
+  }
+
+  // Update user's password and clear reset token
+  user.password = hashedPassword;
+  user.resetToken = '';
+  user.tokenExpire = null;
+  await user.save();
+  return 'Password reset successfully';
+};
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
   loginOrCreateUserWithGoogle,
   ResetPassword,
+  ForgotPassword,
+  ResetPasswordWithToken,
 };

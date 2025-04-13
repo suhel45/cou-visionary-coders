@@ -95,7 +95,7 @@ const MultiStepForm: React.FC = () => {
     }
     return true;
   };
-  
+
   const isCurrentStepValid = (): boolean => {
     switch (activeStep) {
       case 0:
@@ -116,8 +116,7 @@ const MultiStepForm: React.FC = () => {
         return false;
     }
   };
-  
-  
+
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:

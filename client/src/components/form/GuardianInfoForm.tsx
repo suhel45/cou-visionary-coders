@@ -13,7 +13,9 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
   onChange,
 }) => {
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     const { name, value, type } = e.target;
     const newValue =

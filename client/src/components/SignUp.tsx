@@ -3,8 +3,14 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { IFormData, UserProfile } from '../interfaces/Signup.interface';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../Hooks/useAuth/useAuth';
+import CommonButton from '../utils/Button/CommonButton';
+import GoogleSignIn from './GoogleSignIn';
+import OrDivider from '../utils/OrDivider/OrDivider';
+import axios from 'axios';
+import { Alert } from '@mui/material';
+import { ValidatePassword } from '../utils/passwordValidation/ValidatePassword';
 
 const SignUp = () => {
   const { createUser, updateUserProfile, user, deleteUser } = useAuth();
@@ -16,7 +22,7 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm<IFormData>();
-
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -45,8 +51,8 @@ const SignUp = () => {
         toast.success('User created successfully');
         navigate('/login');
       } catch (dbError) {
-        // If saving to DB fails,delete the Firebase user
-        console.error('Error saving user to database:', dbError);
+        console.error('Error saving user data:', dbError);
+        setMessage('Registration failed. Please try again.');
 
         // Use the user state from context
         if (user) {
@@ -56,12 +62,19 @@ const SignUp = () => {
         throw new Error('Failed to save user data. Registration cancelled.');
       }
     } catch (error) {
-      console.error('Error during form submission:', error);
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Error creating user. Please try again.',
-      );
+      //check firebase or backend sever errors
+      if (
+        (axios.isAxiosError(error) && error.response) ||
+        !(error instanceof Error && error.name === 'AxiosError')
+      ) {
+        setMessage('Registration failed. Please try again.');
+      } else if (axios.isAxiosError(error) && error.request) {
+        setMessage(
+          'No response from the server. Please check your network connection.',
+        );
+      } else {
+        setMessage('Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -90,24 +103,20 @@ const SignUp = () => {
       password,
     };
 
-    const response = await fetch(
+    const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_BASE_URL}/api/signup`,
+      user,
       {
-        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user),
       },
     );
 
-    const responseData = await response.json();
+    const responseData = response.data;
     if (!responseData.success) {
-      throw new Error(
-        responseData.message || 'Failed to save user to database',
-      );
+      setMessage('Registration failed. Please try again.');
     }
-
     return responseData;
   };
 
@@ -119,6 +128,14 @@ const SignUp = () => {
       <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600 outline-offset-2 m-2 rounded-md text-center font-bold text-xl md:text-2xl mb-4">
         Create Account
       </h2>
+
+      {message && (
+        <div className="flex justify-center items-center">
+          <Alert severity="error" sx={{ width: '100%', marginBottom: 2 }}>
+            {message}
+          </Alert>
+        </div>
+      )}
 
       {/* Email/Password Sign Up Form */}
       <form
@@ -133,7 +150,7 @@ const SignUp = () => {
           className={inputStyle}
         />
         {errors.username && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.username?.message && String(errors.username?.message)}
           </span>
         )}
@@ -152,7 +169,7 @@ const SignUp = () => {
           className={inputStyle}
         />
         {errors.email && (
-          <span className="text-red-500">
+          <span className="text-red-500 text-sm">
             {errors.email?.message && String(errors.email?.message)}
           </span>
         )}
@@ -164,16 +181,10 @@ const SignUp = () => {
             {...register('password', {
               required: 'Password is required',
               validate: (value) => {
-                if (value.length < 8)
-                  return 'Password must be at least 8 characters long.';
-                if (!/[A-Z]/.test(value))
-                  return 'Password must include at least one uppercase letter.';
-                if (!/[a-z]/.test(value))
-                  return 'Password must include at least one lowercase letter.';
-                if (!/\d/.test(value))
-                  return 'Password must include at least one number.';
-                if (!/[@$!%*?&]/.test(value))
-                  return 'Password must include at least one special character (@$!%*?&).';
+                const validationError = ValidatePassword(value);
+                if (validationError) {
+                  return validationError;
+                }
                 return true;
               },
             })}
@@ -186,10 +197,10 @@ const SignUp = () => {
             onClick={togglePasswordVisibility}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
           {errors.password && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.password?.message && String(errors.password?.message)}
             </span>
           )}
@@ -217,10 +228,10 @@ const SignUp = () => {
                 : 'Show confirm password'
             }
           >
-            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
           {errors.confirmPassword && (
-            <span className="text-red-500">
+            <span className="text-red-500 text-sm">
               {errors.confirmPassword?.message &&
                 String(errors.confirmPassword?.message)}
             </span>
@@ -228,7 +239,7 @@ const SignUp = () => {
         </div>
 
         {/* Show login option */}
-        <p className="text-center text-sm   text-gray-800">
+        <p className="text-center text-sm text-gray-800">
           Already have an account?{' '}
           <Link
             to="/login"
@@ -239,21 +250,19 @@ const SignUp = () => {
         </p>
 
         {/* Submit button */}
-        <button
+        <CommonButton
           type="submit"
-          className="cursor-pointer w-1/2 py-2 px-5 bg-violet-700 text-white font-semibold rounded-full shadow-md hover:bg-violet-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-violet-400 focus:ring-opacity-75 mx-auto mt-2 flex items-center justify-center"
-          disabled={loading}
-        >
-          {loading ? (
-            <>
-              <Loader2 size={18} className="animate-spin mr-2" />
-              Registering...
-            </>
-          ) : (
-            'Register'
-          )}
-        </button>
+          label="Register"
+          loading={loading}
+          fullWidth
+        />
       </form>
+
+      {/* Divider */}
+      <OrDivider />
+
+      {/* Google Sign In Button */}
+      <GoogleSignIn />
     </div>
   );
 };
