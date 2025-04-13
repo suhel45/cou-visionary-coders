@@ -71,7 +71,7 @@ const Login: React.FC = () => {
           alt="Login"
         />
         <h2
-          className="mt-5 bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl;
+          className="mt-2  text-violet-700 py-2 px-6   m-2 rounded-md text-center font-bold text-xl md:text-4xl
 "
         >
           Log in
