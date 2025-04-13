@@ -182,14 +182,27 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
           {/* Occupation */}
           <div className="mb-4">
             <label className="block mb-2" htmlFor="occupation">Occupation</label>
-            <input
-              type="text"
+            <select
               id="occupation"
               name="occupation"
               value={searchParams.occupation || ''}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
-            />
+            >
+                <option>সব</option>
+<option value="শিক্ষার্থী">শিক্ষার্থী</option>
+<option value="ডাক্তার">ডাক্তার</option>
+<option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
+<option value="সরকারি চাকরি">সরকারি চাকরি</option>
+<option value="বেসরকারি চাকরি">বেসরকারি চাকরি</option>
+<option value="ব্যবসায়ী">ব্যবসায়ী</option>
+<option value="শিক্ষক">শিক্ষক</option>
+<option value="ফ্রীল্যান্সার">ফ্রীল্যান্সার</option>
+<option value="প্রবাসী">প্রবাসী</option>
+<option value="পেশা নাই">পেশা নাই</option>
+<option value="অন্যান্য "> অন্যান্য </option>
+            </select>
+
           </div>
 
           {/* District */}
