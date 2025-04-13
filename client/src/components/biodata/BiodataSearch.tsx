@@ -71,9 +71,9 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
               onChange={handleInputChange}
               className="w-full px-3 py-2 border rounded-md text-black"
             >
-              <option value="">Any</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="">সব</option>
+              <option value="Male">পুরুষ</option>
+              <option value="Female">মহিলা</option>
             </select>
           </div>
 
