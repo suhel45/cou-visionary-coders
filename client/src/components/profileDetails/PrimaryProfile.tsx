@@ -73,7 +73,7 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = ({ username }) => {
       >
         <BadgeCheck className="text-white" />
         <span className="text-sm sm:text-lg font-semibold">
-          Verification Status:
+          Verification Status: {''}
           <span
             className={`text-white py-1 px-4 rounded-full m-2 ${isVerified ? 'bg-green-600' : 'bg-red-600'}`}
           >
