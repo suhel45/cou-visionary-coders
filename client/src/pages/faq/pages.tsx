@@ -1,10 +1,6 @@
 import React from 'react';
-import FAQ from '../../components/Faq';
+import Faq from '../../components/Faq';
 
 export const pages = () => {
-  return (
-    <>
-      <FAQ />
-    </>
-  );
+  return <Faq />;
 };

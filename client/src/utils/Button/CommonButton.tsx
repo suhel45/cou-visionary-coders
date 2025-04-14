@@ -60,7 +60,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
           boxShadow: '0 5px 8px rgba(0, 0, 0, 0.15)',
         },
         minWidth: size === 'small' ? '100px' : '140px',
-        height: heightMap[size] || '40px',
+        height: heightMap[size] ?? '40px',
         ...sx,
       }}
     >
