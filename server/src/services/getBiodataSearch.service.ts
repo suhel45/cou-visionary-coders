@@ -91,6 +91,15 @@ export const getBiodataSearch = async (req: CustomReq) => {
     ];
   }
 
+  // subdistrict filter (check both permanent and present address)
+  if (req.query.subdistrict) {
+    const subdistrictRegex = new RegExp(req.query.subdistrict as string, 'i');
+    query['$or'] = [
+      { 'address.permanentAddress.subdistrict': subdistrictRegex },
+      { 'address.presentAddress.subdistrict': subdistrictRegex },
+    ];
+  }
+
   // Financial Status filter
   if (req.query.financialStatus) {
     query['familyInformation.financialStatus'] = req.query.financialStatus;
