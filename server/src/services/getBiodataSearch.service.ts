@@ -2,92 +2,118 @@ import { CustomReq } from '../interfaces/express';
 import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
 import escapeStringRegexp from 'escape-string-regexp';
 
+// Helper function to validate and sanitize string input
+const sanitizeString = (input: any): string | null => {
+  if (typeof input !== 'string' || input.trim() === '') {
+    return null;
+  }
+  // Remove any potentially dangerous characters
+  return input.trim();
+};
+
+// Helper function to validate and parse numeric input
+const parseNumeric = (input: any, defaultValue: number): number => {
+  if (input === undefined || input === null) {
+    return defaultValue;
+  }
+  
+  const parsed = parseInt(input as string);
+  return isNaN(parsed) ? defaultValue : parsed;
+};
+
 // Helper function to add range conditions to a field
-const addRangeToQuery = (field: string, min?: string, max?: string) => {
+const addRangeToQuery = (min?: string, max?: string) => {
   const conditions: any = {};
   
   if (min) {
-    conditions['$gte'] = parseInt(min);
+    const minVal = parseNumeric(min, 0);
+    conditions['$gte'] = minVal;
   }
   
   if (max) {
-    conditions['$lte'] = parseInt(max);
+    const maxVal = parseNumeric(max, 0);
+    conditions['$lte'] = maxVal;
   }
   
   return conditions;
 };
 
 export const getBiodataSearch = async (req: CustomReq) => {
-  // Get page and limit from query params
-  const page = parseInt(req.query._page as string) || 1;
-  const limit = parseInt(req.query._limit as string) || 10;
+  // Get page and limit from query params with validation
+  const page = parseNumeric(req.query._page, 1);
+  const limit = parseNumeric(req.query._limit, 10);
   const skip = (page - 1) * limit;
 
   // Build query based on search parameters
   const query: any = {};
 
-  // Simple field filters
-  if (req.query.gender) {
-    query['personalInfo.gender'] = req.query.gender;
+  // Simple field filters with validation
+  const gender = sanitizeString(req.query.gender);
+  if (gender) {
+    query['personalInfo.gender'] = gender;
   }
   
-  if (req.query.maritalStatus) {
-    query['personalInfo.maritalStatus'] = req.query.maritalStatus;
+  const maritalStatus = sanitizeString(req.query.maritalStatus);
+  if (maritalStatus) {
+    query['personalInfo.maritalStatus'] = maritalStatus;
   }
   
-  if (req.query.religion) {
-    query['personalInfo.religion'] = req.query.religion;
+  const religion = sanitizeString(req.query.religion);
+  if (religion) {
+    query['personalInfo.religion'] = religion;
   }
   
-  if (req.query.bloodGroup) {
-    query['personalInfo.bloodGroup'] = req.query.bloodGroup;
+  const bloodGroup = sanitizeString(req.query.bloodGroup);
+  if (bloodGroup) {
+    query['personalInfo.bloodGroup'] = bloodGroup;
   }
   
-  if (req.query.complexion) {
-    query['personalInfo.complexion'] = req.query.complexion;
+  const complexion = sanitizeString(req.query.complexion);
+  if (complexion) {
+    query['personalInfo.complexion'] = complexion;
   }
 
-  // Age Range filter - using a flat structure to avoid nesting
+  // Age Range filter with validation
   const today = new Date();
   
-  if (req.query.ageMin) {
-    const minBirthYear = today.getFullYear() - parseInt(req.query.ageMin as string);
+  const ageMin = parseNumeric(req.query.ageMin, 0);
+  if (ageMin > 0) {
+    const minBirthYear = today.getFullYear() - ageMin;
     const maxDate = new Date(minBirthYear, today.getMonth(), today.getDate());
     query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
     query['personalInfo.birthDate']['$lte'] = maxDate.toISOString().split('T')[0];
   }
   
-  if (req.query.ageMax) {
-    const maxBirthYear = today.getFullYear() - parseInt(req.query.ageMax as string);
+  const ageMax = parseNumeric(req.query.ageMax, 0);
+  if (ageMax > 0) {
+    const maxBirthYear = today.getFullYear() - ageMax;
     const minDate = new Date(maxBirthYear, today.getMonth(), today.getDate());
     query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
     query['personalInfo.birthDate']['$gte'] = minDate.toISOString().split('T')[0];
   }
 
-  // Height Range filter - avoiding nesting by pre-checking
-  if (req.query.heightMin || req.query.heightMax) {
-    query['personalInfo.height'] = addRangeToQuery(
-      'personalInfo.height',
-      req.query.heightMin as string,
-      req.query.heightMax as string
-    );
+  // Height Range filter with validation
+  const heightMin = sanitizeString(req.query.heightMin);
+  const heightMax = sanitizeString(req.query.heightMax);
+  if (heightMin || heightMax) {
+    query['personalInfo.height'] = addRangeToQuery(heightMin ?? undefined, heightMax ?? undefined);
   }
 
-  // Occupation filter with secure regex handling using escapeStringRegexp
-  if (req.query.occupation) {
-    const occupation = req.query.occupation as string;
+  // Occupation filter with secure regex handling and validation
+  const occupation = sanitizeString(req.query.occupation);
+  if (occupation) {
     const safeOccupation = escapeStringRegexp(occupation);
     query['personalInfo.occupation'] = {
       $regex: new RegExp(safeOccupation, 'i'),
     };
   }
 
-  // Location filters
+  // Location filters with validation
   const orConditions = [];
   
   // District filter with secure regex handling
-  if (req.query.district) {
-    const district = req.query.district as string;
+  const district = sanitizeString(req.query.district);
+  if (district) {
     const safeDistrict = escapeStringRegexp(district);
     const districtRegex = new RegExp(safeDistrict, 'i');
     orConditions.push(
@@ -97,8 +123,8 @@ export const getBiodataSearch = async (req: CustomReq) => {
   }
   
   // Subdistrict filter with secure regex handling
-  if (req.query.subdistrict) {
-    const subdistrict = req.query.subdistrict as string;
+  const subdistrict = sanitizeString(req.query.subdistrict);
+  if (subdistrict) {
     const safeSubdistrict = escapeStringRegexp(subdistrict);
     const subdistrictRegex = new RegExp(safeSubdistrict, 'i');
     orConditions.push(
@@ -112,9 +138,10 @@ export const getBiodataSearch = async (req: CustomReq) => {
     query['$or'] = orConditions;
   }
 
-  // Financial Status filter
-  if (req.query.financialStatus) {
-    query['familyInformation.financialStatus'] = req.query.financialStatus;
+  // Financial Status filter with validation
+  const financialStatus = sanitizeString(req.query.financialStatus);
+  if (financialStatus) {
+    query['familyInformation.financialStatus'] = financialStatus;
   }
 
   // Fetch the biodata with filters and pagination
