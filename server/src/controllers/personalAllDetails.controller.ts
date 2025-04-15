@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { personalDetailsService } from '../services/personalAllDetails.service';
-import { CustomReq } from '../interfaces/express';
 
 interface CustomRequest extends Request {
   user: {
