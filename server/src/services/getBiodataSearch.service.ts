@@ -16,7 +16,7 @@ const parseNumeric = (input: any, defaultValue: number): number => {
   if (input === undefined || input === null) {
     return defaultValue;
   }
-  
+
   const parsed = parseInt(input as string);
   return isNaN(parsed) ? defaultValue : parsed;
 };
@@ -24,17 +24,17 @@ const parseNumeric = (input: any, defaultValue: number): number => {
 // Helper function to add range conditions to a field
 const addRangeToQuery = (min?: string, max?: string) => {
   const conditions: any = {};
-  
+
   if (min) {
     const minVal = parseNumeric(min, 0);
     conditions['$gte'] = minVal;
   }
-  
+
   if (max) {
     const maxVal = parseNumeric(max, 0);
     conditions['$lte'] = maxVal;
   }
-  
+
   return conditions;
 };
 
@@ -52,22 +52,22 @@ export const getBiodataSearch = async (req: CustomReq) => {
   if (gender) {
     query['personalInfo.gender'] = gender;
   }
-  
+
   const maritalStatus = sanitizeString(req.query.maritalStatus);
   if (maritalStatus) {
     query['personalInfo.maritalStatus'] = maritalStatus;
   }
-  
+
   const religion = sanitizeString(req.query.religion);
   if (religion) {
     query['personalInfo.religion'] = religion;
   }
-  
+
   const bloodGroup = sanitizeString(req.query.bloodGroup);
   if (bloodGroup) {
     query['personalInfo.bloodGroup'] = bloodGroup;
   }
-  
+
   const complexion = sanitizeString(req.query.complexion);
   if (complexion) {
     query['personalInfo.complexion'] = complexion;
@@ -75,28 +75,35 @@ export const getBiodataSearch = async (req: CustomReq) => {
 
   // Age Range filter with validation
   const today = new Date();
-  
+
   const ageMin = parseNumeric(req.query.ageMin, 0);
   if (ageMin > 0) {
     const minBirthYear = today.getFullYear() - ageMin;
     const maxDate = new Date(minBirthYear, today.getMonth(), today.getDate());
     query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
-    query['personalInfo.birthDate']['$lte'] = maxDate.toISOString().split('T')[0];
+    query['personalInfo.birthDate']['$lte'] = maxDate
+      .toISOString()
+      .split('T')[0];
   }
-  
+
   const ageMax = parseNumeric(req.query.ageMax, 0);
   if (ageMax > 0) {
     const maxBirthYear = today.getFullYear() - ageMax;
     const minDate = new Date(maxBirthYear, today.getMonth(), today.getDate());
     query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
-    query['personalInfo.birthDate']['$gte'] = minDate.toISOString().split('T')[0];
+    query['personalInfo.birthDate']['$gte'] = minDate
+      .toISOString()
+      .split('T')[0];
   }
 
   // Height Range filter with validation
   const heightMin = sanitizeString(req.query.heightMin);
   const heightMax = sanitizeString(req.query.heightMax);
   if (heightMin || heightMax) {
-    query['personalInfo.height'] = addRangeToQuery(heightMin ?? undefined, heightMax ?? undefined);
+    query['personalInfo.height'] = addRangeToQuery(
+      heightMin ?? undefined,
+      heightMax ?? undefined,
+    );
   }
 
   // Occupation filter with secure regex handling and validation
@@ -110,7 +117,7 @@ export const getBiodataSearch = async (req: CustomReq) => {
 
   // Location filters with validation
   const orConditions = [];
-  
+
   // District filter with secure regex handling
   const district = sanitizeString(req.query.district);
   if (district) {
@@ -118,10 +125,10 @@ export const getBiodataSearch = async (req: CustomReq) => {
     const districtRegex = new RegExp(safeDistrict, 'i');
     orConditions.push(
       { 'address.permanentAddress.district': districtRegex },
-      { 'address.presentAddress.district': districtRegex }
+      { 'address.presentAddress.district': districtRegex },
     );
   }
-  
+
   // Subdistrict filter with secure regex handling
   const subdistrict = sanitizeString(req.query.subdistrict);
   if (subdistrict) {
@@ -129,10 +136,10 @@ export const getBiodataSearch = async (req: CustomReq) => {
     const subdistrictRegex = new RegExp(safeSubdistrict, 'i');
     orConditions.push(
       { 'address.permanentAddress.subdistrict': subdistrictRegex },
-      { 'address.presentAddress.subdistrict': subdistrictRegex }
+      { 'address.presentAddress.subdistrict': subdistrictRegex },
     );
   }
-  
+
   // Only add $or if we have conditions
   if (orConditions.length > 0) {
     query['$or'] = orConditions;
