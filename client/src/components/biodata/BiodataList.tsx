@@ -72,7 +72,7 @@ const BiodataList: React.FC = () => {
   const totalResults = data?.totalbiodata ?? 0;
 
   // Loading and error states
-  if (isLoading ?? isFetching) return <Loading />;
+  if (isLoading || isFetching) return <Loading />;
 
   if (error) {
     return (
