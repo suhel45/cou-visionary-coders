@@ -1,5 +1,6 @@
 import { CustomReq } from '../interfaces/express';
 import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
+import escapeStringRegexp from 'escape-string-regexp';
 
 // Helper function to add range conditions to a field
 const addRangeToQuery = (field: string, min?: string, max?: string) => {
@@ -18,12 +19,14 @@ const addRangeToQuery = (field: string, min?: string, max?: string) => {
 
 export const getBiodataSearch = async (req: CustomReq) => {
   // Get page and limit from query params
-  const page = parseInt(req.query._page as string) ?? 1;
-  const limit = parseInt(req.query._limit as string) ?? 10;
+  const page = parseInt(req.query._page as string) || 1;
+  const limit = parseInt(req.query._limit as string) || 10;
   const skip = (page - 1) * limit;
 
+  // Build query based on search parameters
   const query: any = {};
 
+  // Simple field filters
   if (req.query.gender) {
     query['personalInfo.gender'] = req.query.gender;
   }
@@ -50,19 +53,19 @@ export const getBiodataSearch = async (req: CustomReq) => {
   if (req.query.ageMin) {
     const minBirthYear = today.getFullYear() - parseInt(req.query.ageMin as string);
     const maxDate = new Date(minBirthYear, today.getMonth(), today.getDate());
-    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
+    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
     query['personalInfo.birthDate']['$lte'] = maxDate.toISOString().split('T')[0];
   }
   
   if (req.query.ageMax) {
     const maxBirthYear = today.getFullYear() - parseInt(req.query.ageMax as string);
     const minDate = new Date(maxBirthYear, today.getMonth(), today.getDate());
-    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
+    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
     query['personalInfo.birthDate']['$gte'] = minDate.toISOString().split('T')[0];
   }
 
   // Height Range filter - avoiding nesting by pre-checking
-  if (req.query.heightMin ?? req.query.heightMax) {
+  if (req.query.heightMin || req.query.heightMax) {
     query['personalInfo.height'] = addRangeToQuery(
       'personalInfo.height',
       req.query.heightMin as string,
@@ -70,13 +73,12 @@ export const getBiodataSearch = async (req: CustomReq) => {
     );
   }
 
-  // Occupation filter with secure regex handling
+  // Occupation filter with secure regex handling using escapeStringRegexp
   if (req.query.occupation) {
     const occupation = req.query.occupation as string;
-    // Escape special regex characters before creating the RegExp
-    const escapedOccupation = occupation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const safeOccupation = escapeStringRegexp(occupation);
     query['personalInfo.occupation'] = {
-      $regex: new RegExp(escapedOccupation, 'i'),
+      $regex: new RegExp(safeOccupation, 'i'),
     };
   }
 
@@ -86,8 +88,8 @@ export const getBiodataSearch = async (req: CustomReq) => {
   // District filter with secure regex handling
   if (req.query.district) {
     const district = req.query.district as string;
-    const escapedDistrict = district.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const districtRegex = new RegExp(escapedDistrict, 'i');
+    const safeDistrict = escapeStringRegexp(district);
+    const districtRegex = new RegExp(safeDistrict, 'i');
     orConditions.push(
       { 'address.permanentAddress.district': districtRegex },
       { 'address.presentAddress.district': districtRegex }
@@ -97,8 +99,8 @@ export const getBiodataSearch = async (req: CustomReq) => {
   // Subdistrict filter with secure regex handling
   if (req.query.subdistrict) {
     const subdistrict = req.query.subdistrict as string;
-    const escapedSubdistrict = subdistrict.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const subdistrictRegex = new RegExp(escapedSubdistrict, 'i');
+    const safeSubdistrict = escapeStringRegexp(subdistrict);
+    const subdistrictRegex = new RegExp(safeSubdistrict, 'i');
     orConditions.push(
       { 'address.permanentAddress.subdistrict': subdistrictRegex },
       { 'address.presentAddress.subdistrict': subdistrictRegex }
