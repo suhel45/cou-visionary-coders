@@ -62,7 +62,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="gender"
             name="gender"
             label="লিঙ্গ"
-            value={searchParams.gender || ''}
+            value={searchParams.gender ?? ''}
             options={genderOptions}
             onChange={handleInputChange}
           />
@@ -72,7 +72,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="maritalStatus"
             name="maritalStatus"
             label="বৈবাহিক অবস্থা"
-            value={searchParams.maritalStatus || ''}
+            value={searchParams.maritalStatus ?? ''}
             options={maritalStatusOptions}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border rounded-md text-black sm:px-2 sm:py-1 sm:text-sm"
@@ -83,7 +83,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="religion"
             name="religion"
             label="ধর্ম"
-            value={searchParams.religion || ''}
+            value={searchParams.religion ?? ''}
             options={religionOptions}
             onChange={handleInputChange}
           />
@@ -93,7 +93,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="complexion"
             name="complexion"
             label="গাত্রবর্ন"
-            value={searchParams.complexion || ''}
+            value={searchParams.complexion ?? ''}
             options={complexionOptions}
             onChange={handleInputChange}
           />
@@ -103,8 +103,8 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             label="বয়সের সীমা"
             minName="ageMin"
             maxName="ageMax"
-            minValue={searchParams.ageMin || ''}
-            maxValue={searchParams.ageMax || ''}
+            minValue={searchParams.ageMin ?? ''}
+            maxValue={searchParams.ageMax ?? ''}
             onChange={handleInputChange}
           />
 
@@ -113,8 +113,8 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             label="উচ্চতার সীমা (inc)"
             minName="heightMin"
             maxName="heightMax"
-            minValue={searchParams.heightMin || ''}
-            maxValue={searchParams.heightMax || ''}
+            minValue={searchParams.heightMin ?? ''}
+            maxValue={searchParams.heightMax ?? ''}
             onChange={handleInputChange}
           />
 
@@ -123,7 +123,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="occupation"
             name="occupation"
             label="পেশা"
-            value={searchParams.occupation || ''}
+            value={searchParams.occupation ?? ''}
             options={occupationOptions}
             onChange={handleInputChange}
           />
@@ -133,7 +133,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="district"
             name="district"
             label="জেলা"
-            value={searchParams.district || ''}
+            value={searchParams.district ?? ''}
             onChange={handleInputChange}
             placeholder="district name"
           />
@@ -143,7 +143,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="subdistrict"
             name="subdistrict"
             label="উপজেলা"
-            value={searchParams.subdistrict || ''}
+            value={searchParams.subdistrict ?? ''}
             onChange={handleInputChange}
             placeholder="upazila name"
           />
@@ -153,7 +153,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             id="financialStatus"
             name="financialStatus"
             label="পারিবারিক আর্থিক অবস্থা"
-            value={searchParams.financialStatus || ''}
+            value={searchParams.financialStatus ?? ''}
             options={financialStatusOptions}
             onChange={handleInputChange}
           />

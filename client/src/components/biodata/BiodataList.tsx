@@ -68,11 +68,11 @@ const BiodataList: React.FC = () => {
 
   // Calculated values
   const pageCount = data ? Math.ceil(data.totalbiodata / ITEMS_PER_PAGE) : 0;
-  const biodata = data?.data || [];
-  const totalResults = data?.totalbiodata || 0;
+  const biodata = data?.data ?? [];
+  const totalResults = data?.totalbiodata ?? 0;
 
   // Loading and error states
-  if (isLoading || isFetching) return <Loading />;
+  if (isLoading ?? isFetching) return <Loading />;
 
   if (error) {
     return (
