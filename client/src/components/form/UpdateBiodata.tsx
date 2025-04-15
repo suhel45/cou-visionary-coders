@@ -108,7 +108,7 @@ const MultiStepForm: React.FC = () => {
 
   const getStepContent = (step: number) => {
     const { Component, section } = stepComponents[step] ?? stepComponents[stepComponents.length - 1];
-    const StepComponent = Component as React.FC<StepComponentProps<any>>;
+    const StepComponent: React.FC<StepComponentProps<any>> = Component;
 
     return (
       <StepComponent
@@ -153,7 +153,15 @@ const MultiStepForm: React.FC = () => {
 
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
-  const nextButtonText = isLoading ? 'Submitting...' : isLastStep ? 'Finish' : 'Next';
+  let nextButtonText = '';
+
+  if (isLoading) {
+    nextButtonText = 'Submitting...';
+  } else if (isLastStep) {
+    nextButtonText = 'Finish';
+  } else {
+    nextButtonText = 'Next';
+  }
 
   return (
     <div className="p-4">
