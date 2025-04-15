@@ -20,7 +20,7 @@ const RangeField: React.FC<RangeFieldProps> = ({
   minValue,
   maxValue,
   onChange,
-  placeholder = { min: "Min", max: "Max" }
+  placeholder = { min: 'Min', max: 'Max' },
 }) => {
   return (
     <div className="mb-4">

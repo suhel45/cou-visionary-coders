@@ -16,8 +16,8 @@ const TextField: React.FC<TextFieldProps> = ({
   label,
   value,
   onChange,
-  placeholder = "",
-  className = "w-full px-3 py-2 border rounded-md text-black"
+  placeholder = '',
+  className = 'w-full px-3 py-2 border rounded-md text-black',
 }) => {
   return (
     <div className="mb-4">

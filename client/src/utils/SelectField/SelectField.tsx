@@ -22,7 +22,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   value,
   options,
   onChange,
-  className = "w-full px-3 py-2 border rounded-md text-black"
+  className = 'w-full px-3 py-2 border rounded-md text-black',
 }) => {
   return (
     <div className="mb-4">

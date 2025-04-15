@@ -5,9 +5,12 @@ import {
   religionOptions,
   complexionOptions,
   occupationOptions,
-  financialStatusOptions
+  financialStatusOptions,
 } from '../../constants/searchOptions';
-import { BiodataSearchProps, SearchParams } from '../../interfaces/Search.interface';
+import {
+  BiodataSearchProps,
+  SearchParams,
+} from '../../interfaces/Search.interface';
 import SelectField from '../../utils/SelectField/SelectField';
 import RangeField from '../../utils/RangeField/RangeField';
 import TextField from '../../utils/TextField/TextField';
@@ -36,7 +39,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
     e.preventDefault();
     onSearch(searchParams);
   };
-  
+
   // Clear filters
   const handleClearFilters = () => {
     setSearchParams({});
@@ -168,8 +171,19 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
             type="submit"
             className="px-6 py-2.5 bg-violet-900 text-white rounded-lg shadow-md flex items-center gap-2 cursor-pointer"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
             Search Biodata
           </button>
