@@ -80,7 +80,7 @@ export const getBiodataSearch = async (req: CustomReq) => {
   if (ageMin > 0) {
     const minBirthYear = today.getFullYear() - ageMin;
     const maxDate = new Date(minBirthYear, today.getMonth(), today.getDate());
-    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
+    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
     query['personalInfo.birthDate']['$lte'] = maxDate.toISOString().split('T')[0];
   }
   
@@ -88,7 +88,7 @@ export const getBiodataSearch = async (req: CustomReq) => {
   if (ageMax > 0) {
     const maxBirthYear = today.getFullYear() - ageMax;
     const minDate = new Date(maxBirthYear, today.getMonth(), today.getDate());
-    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] || {};
+    query['personalInfo.birthDate'] = query['personalInfo.birthDate'] ?? {};
     query['personalInfo.birthDate']['$gte'] = minDate.toISOString().split('T')[0];
   }
 
