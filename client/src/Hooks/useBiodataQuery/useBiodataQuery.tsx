@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { SearchParams } from '../../components/biodata/BiodataSearch';
 import { BiodataResponse } from '../../interfaces/BiodataSearch.interface';
+import { SearchParams } from '../../interfaces/Search.interface';
 
 export function useBiodataQuery(
   page: number,

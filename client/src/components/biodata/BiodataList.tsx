@@ -2,10 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Loading from '../../utils/Loading/Loading';
-import BiodataSearch, { SearchParams } from './BiodataSearch';
 import BiodataCard from './BiodataCard';
 import useUrlParams from '../../Hooks/useUrlParams/useUrlParams';
 import useBiodataQuery from '../../Hooks/useBiodataQuery/useBiodataQuery';
+import { SearchParams } from '../../interfaces/Search.interface';
+import BiodataSearch from './BiodataSearch';
 
 const ITEMS_PER_PAGE = 3;
 

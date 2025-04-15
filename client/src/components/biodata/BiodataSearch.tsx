@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
-
-// Define search parameters interface for reusability
-export interface SearchParams {
-  gender?: string;
-  maritalStatus?: string;
-  ageMin?: string;
-  ageMax?: string;
-  heightMin?: string;
-  heightMax?: string;
-  occupation?: string;
-  complexion?: string;
-  religion?: string;
-  district?: string;
-  financialStatus?: string;
-}
-
-interface BiodataSearchProps {
-  onSearch: (params: SearchParams) => void;
-  onClear: () => void;
-  initialParams?: SearchParams;
-  className?: string;
-}
+import {
+  genderOptions,
+  maritalStatusOptions,
+  religionOptions,
+  complexionOptions,
+  occupationOptions,
+  financialStatusOptions
+} from '../../constants/searchOptions';
+import { BiodataSearchProps, SearchParams } from '../../interfaces/Search.interface';
+import SelectField from '../../utils/SelectField/SelectField';
+import RangeField from '../../utils/RangeField/RangeField';
+import TextField from '../../utils/TextField/TextField';
 
 const BiodataSearch: React.FC<BiodataSearchProps> = ({
   onSearch,
@@ -65,208 +55,122 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Gender */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="gender">
-              {' '}
-              লিঙ্গ
-            </label>
-            <select
-              id="gender"
-              name="gender"
-              value={searchParams.gender || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="পুরুষ">পুরুষ</option>
-              <option value="মহিলা">মহিলা</option>
-            </select>
-          </div>
+          <SelectField
+            id="gender"
+            name="gender"
+            label="লিঙ্গ"
+            value={searchParams.gender || ''}
+            options={genderOptions}
+            onChange={handleInputChange}
+          />
 
           {/* Marital Status */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="maritalStatus">
-              বৈবাহিক অবস্থা
-            </label>
-            <select
-              id="maritalStatus"
-              name="maritalStatus"
-              value={searchParams.maritalStatus || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="অবিবাহিত">অবিবাহিত</option>
-              <option value="বিবাহিত">বিবাহিত</option>
-              <option value="ডিভোর্সড">ডিভোর্সড</option>
-              <option value="বিধবা">বিধবা</option>
-              <option value="বিপত্নীক">বিপত্নীক</option>
-            </select>
-          </div>
+          <SelectField
+            id="maritalStatus"
+            name="maritalStatus"
+            label="বৈবাহিক অবস্থা"
+            value={searchParams.maritalStatus || ''}
+            options={maritalStatusOptions}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border rounded-md text-black sm:px-2 sm:py-1 sm:text-sm"
+          />
 
           {/* Religion */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="religion">
-              ধর্ম{' '}
-            </label>
-            <select
-              id="religion"
-              name="religion"
-              value={searchParams.religion || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="ইসলাম">ইসলাম</option>
-              <option value="হিন্দু">হিন্দু</option>
-              <option value="খ্রিস্টান">খ্রিস্টান</option>
-              <option value="বৌদ্ধ">বৌদ্ধ</option>
-            </select>
-          </div>
+          <SelectField
+            id="religion"
+            name="religion"
+            label="ধর্ম"
+            value={searchParams.religion || ''}
+            options={religionOptions}
+            onChange={handleInputChange}
+          />
 
           {/* Complexion */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="complexion">
-              গাত্রবর্ন
-            </label>
-            <select
-              id="complexion"
-              name="complexion"
-              value={searchParams.complexion || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
-              <option value="ফর্সা">ফর্সা</option>
-              <option value="শ্যামলা">শ্যামলা</option>
-              <option value="উজ্জ্বল শ্যামলা">উজ্জ্বল শ্যামলা</option>
-              <option value="কালো">কালো</option>
-            </select>
-          </div>
+          <SelectField
+            id="complexion"
+            name="complexion"
+            label="গাত্রবর্ন"
+            value={searchParams.complexion || ''}
+            options={complexionOptions}
+            onChange={handleInputChange}
+          />
 
           {/* Age Range */}
-          <div className="mb-4">
-            <label className="block mb-2">বয়সের সীমা</label>
-            <div className="flex space-x-2">
-              <input
-                type="number"
-                name="ageMin"
-                placeholder="Min"
-                value={searchParams.ageMin || ''}
-                onChange={handleInputChange}
-                className="w-1/2 px-3 py-2 border rounded-md text-black"
-              />
-              <input
-                type="number"
-                name="ageMax"
-                placeholder="Max"
-                value={searchParams.ageMax || ''}
-                onChange={handleInputChange}
-                className="w-1/2 px-3 py-2 border rounded-md text-black"
-              />
-            </div>
-          </div>
+          <RangeField
+            label="বয়সের সীমা"
+            minName="ageMin"
+            maxName="ageMax"
+            minValue={searchParams.ageMin || ''}
+            maxValue={searchParams.ageMax || ''}
+            onChange={handleInputChange}
+          />
 
           {/* Height Range */}
-          <div className="mb-4">
-            <label className="block mb-2">উচ্চতার সীমা (inc)</label>
-            <div className="flex space-x-2">
-              <input
-                type="number"
-                name="heightMin"
-                placeholder="Min"
-                value={searchParams.heightMin || ''}
-                onChange={handleInputChange}
-                className="w-1/2 px-3 py-2 border rounded-md text-black"
-              />
-              <input
-                type="number"
-                name="heightMax"
-                placeholder="Max"
-                value={searchParams.heightMax || ''}
-                onChange={handleInputChange}
-                className="w-1/2 px-3 py-2 border rounded-md text-black"
-              />
-            </div>
-          </div>
+          <RangeField
+            label="উচ্চতার সীমা (inc)"
+            minName="heightMin"
+            maxName="heightMax"
+            minValue={searchParams.heightMin || ''}
+            maxValue={searchParams.heightMax || ''}
+            onChange={handleInputChange}
+          />
 
           {/* Occupation */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="occupation">
-              পেশা
-            </label>
-            <select
-              id="occupation"
-              name="occupation"
-              value={searchParams.occupation || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="শিক্ষার্থী">শিক্ষার্থী</option>
-              <option value="ডাক্তার">ডাক্তার</option>
-              <option value="ইঞ্জিনিয়ার">ইঞ্জিনিয়ার</option>
-              <option value="সরকারি চাকরি">সরকারি চাকরি</option>
-              <option value="বেসরকারি চাকরি">বেসরকারি চাকরি</option>
-              <option value="ব্যবসায়ী">ব্যবসায়ী</option>
-              <option value="শিক্ষক">শিক্ষক</option>
-              <option value="ফ্রীল্যান্সার">ফ্রীল্যান্সার</option>
-              <option value="প্রবাসী">প্রবাসী</option>
-              <option value="পেশা নাই">পেশা নাই</option>
-              <option value="অন্যান্য "> অন্যান্য </option>
-            </select>
-          </div>
+          <SelectField
+            id="occupation"
+            name="occupation"
+            label="পেশা"
+            value={searchParams.occupation || ''}
+            options={occupationOptions}
+            onChange={handleInputChange}
+          />
 
           {/* District */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="district">
-              জেলা
-            </label>
-            <input
-              type="text"
-              id="district"
-              name="district"
-              value={searchParams.district || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-              placeholder="district name"
-            />
-          </div>
+          <TextField
+            id="district"
+            name="district"
+            label="জেলা"
+            value={searchParams.district || ''}
+            onChange={handleInputChange}
+            placeholder="district name"
+          />
+
+          {/* Subdistrict - Fix the field name bug in original code */}
+          <TextField
+            id="subdistrict"
+            name="subdistrict"
+            label="উপজেলা"
+            value={searchParams.subdistrict || ''}
+            onChange={handleInputChange}
+            placeholder="upazila name"
+          />
 
           {/* Financial Status */}
-          <div className="mb-4">
-            <label className="block mb-2" htmlFor="financialStatus">
-              পারিবারিক আর্থিক অবস্থা
-            </label>
-            <select
-              id="financialStatus"
-              name="financialStatus"
-              value={searchParams.financialStatus || ''}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md text-black"
-            >
-              <option value="">সব</option>
-              <option value="নিম্নবিত্ত">নিম্নবিত্ত</option>
-              <option value="মধ্যবিত্ত">মধ্যবিত্ত</option>
-              <option value="উচ্চ মধ্যবিত্ত">উচ্চ মধ্যবিত্ত</option>
-              <option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
-            </select>
-          </div>
+          <SelectField
+            id="financialStatus"
+            name="financialStatus"
+            label="পারিবারিক আর্থিক অবস্থা"
+            value={searchParams.financialStatus || ''}
+            options={financialStatusOptions}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className="flex justify-between mt-6">
           <button
             type="button"
             onClick={handleClearFilters}
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded-md  cursor-pointer"
           >
             Clear Filters
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-white text-violet-900 rounded-md hover:bg-gray-100 font-bold cursor-pointer"
+            className="px-6 py-2.5 bg-violet-900 text-white rounded-lg shadow-md flex items-center gap-2 cursor-pointer"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             Search Biodata
           </button>
         </div>

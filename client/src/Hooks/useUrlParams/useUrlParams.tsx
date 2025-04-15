@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useCallback } from 'react';
-import { SearchParams } from '../../components/biodata/BiodataSearch';
+import { SearchParams } from '../../interfaces/Search.interface';
 
 export function useUrlParams() {
   const [searchParams, setSearchParams] = useSearchParams();

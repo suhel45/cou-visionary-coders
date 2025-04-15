@@ -5,7 +5,6 @@ import { BiodataCardProps } from '../../interfaces/BiodataSearch.interface';
 const BiodataCard: React.FC<BiodataCardProps> = ({
   user,
   currentPage,
-  isSearching,
 }) => {
   const { personalInfo } = user;
   const isMan = personalInfo.gender.toLowerCase() === 'male';
@@ -32,11 +31,9 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
             <p className="text-white py-1 font-bold rounded-md">
               পেশা : {personalInfo.occupation}
             </p>
-            {isSearching && personalInfo.complexion && (
               <p className="text-white py-1 font-bold rounded-md">
                 গায়ের রং : {personalInfo.complexion}
               </p>
-            )}
           </div>
           <Link
             to={`/biodata/profile/${user._id}`}
