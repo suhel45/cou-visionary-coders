@@ -21,11 +21,11 @@ const FamilyInformation: React.FC<FamilyInfoProps> = ({ data }) => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">অবস্থা - </span>
-            {data?.father?.aliveStatus || 'N/A'}
+            {data?.father?.aliveStatus ?? 'N/A'}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">পেশা - </span>
-            {data?.father?.profession || 'N/A'}
+            {data?.father?.profession ?? 'N/A'}
           </p>
         </div>
 
@@ -51,7 +51,7 @@ const FamilyInformation: React.FC<FamilyInfoProps> = ({ data }) => {
           </h2>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">ভাইয়ের সংখ্যা - </span>
-            {data?.siblings?.brotherInfo || 'N/A'}
+            {data?.siblings?.brotherInfo ?? 'N/A'}
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">বোনের সংখ্যা - </span>
@@ -59,7 +59,7 @@ const FamilyInformation: React.FC<FamilyInfoProps> = ({ data }) => {
           </p>
           <p className="text-sm md:text-lg p-2 text-center">
             <span className="font-bold">সম্পর্ক - </span>
-            {data?.siblings?.aboutSiblings || 'N/A'}
+            {data?.siblings?.aboutSiblings ?? 'N/A'}
           </p>
         </div>
 

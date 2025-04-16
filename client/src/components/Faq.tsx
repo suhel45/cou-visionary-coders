@@ -9,17 +9,20 @@ import { ChevronDown } from 'lucide-react';
 
 const faqData = [
   {
+    id: '1',
     question:
       'React is a JavaScript library for building user interfaces, maintained by Facebook.',
     answer:
       'React is a JavaScript library for building user interfaces, maintained by Facebook.',
   },
   {
+    id: '2',
     question: 'Ques 2',
     answer:
       "Material-UI is a popular React UI framework that implements Google's Material Design.",
   },
   {
+    id: '3',
     question: 'Ques 3',
     answer:
       'You can use the Accordion component from @mui/material, with AccordionSummary and AccordionDetails to create expandable sections.',
@@ -39,9 +42,9 @@ const FAQ = () => {
       >
         Frequently Asked Questions
       </Typography>
-      {faqData.map((item, index) => (
+      {faqData.map((item) => (
         <Accordion
-          key={index}
+          key={item.id}
           className="md:w-2/3 items-stretch rounded-md  border border-indigo-800"
         >
           <AccordionSummary
