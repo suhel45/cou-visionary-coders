@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiodataCardProps } from '../../interfaces/BiodataSearch.interface';
+import FavoriteButton from '../FavoriteButton';
 
 const BiodataCard: React.FC<BiodataCardProps> = ({ user, currentPage }) => {
   const { personalInfo } = user;
@@ -8,7 +9,10 @@ const BiodataCard: React.FC<BiodataCardProps> = ({ user, currentPage }) => {
 
   return (
     <li className="md:basis-1/3">
-      <div className="flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-2 rounded-lg m-2 shadow-lg">
+      
+      <div className="relative flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-2 rounded-lg m-2 shadow-lg">
+         {/* Add FavoriteButton here */}
+  <FavoriteButton biodataId={user._id} />
         <img
           src={isMan ? 'src/assets/man.png' : 'src/assets/woman.png'}
           alt={isMan ? 'Man' : 'Woman'}
