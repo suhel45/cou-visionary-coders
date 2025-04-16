@@ -3,6 +3,8 @@ import { userController } from '../controllers/user.controller';
 import { authController } from '../controllers/auth.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { personalDetailsController } from '../controllers/personalAllDetails.controller';
+import { upload } from '../middleware/verify.middleware';
+import { checkVerificationStatus, uploadIDCard } from '../controllers/verify.controller';
 
 const router = Router();
 
@@ -24,5 +26,7 @@ router.get(
   personalDetailsController.GetPublicBiodataDetails,
 );
 router.get('/biodata', personalDetailsController.GetPublicBiodata);
+router.get('/identity/status',verifyToken,checkVerificationStatus);
 
+router.post('/upload',verifyToken, upload.single('studentId'), uploadIDCard);
 export default router;

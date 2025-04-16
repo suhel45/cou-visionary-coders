@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { userService } from '../services/users.service';
 import { ILoginInfo, IUser } from '../interfaces/users.interface';
+import userModel from '../models/user.Model';
 import logger from '../utils/logger.util';
 
 dotenv.config();
@@ -146,6 +147,7 @@ export const userController = {
   createUser,
   loginUser,
   resetPassword,
+
   forgotPassword,
   resetPasswordWithToken,
 };
