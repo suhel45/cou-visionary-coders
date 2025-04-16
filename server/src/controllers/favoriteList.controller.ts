@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { personalDetailsService } from '../services/personalAllDetails.service';
 import { favoriteListService } from '../services/favoriteList.service';
 import logger from '../utils/logger.util';
 
@@ -9,11 +8,11 @@ interface CustomRequest extends Request {
   };
 }
 
-export const favoriteController = {
-  async addToFavorites(req: Request, res: Response) {
+  const addToFavorites = async(req: Request, res: Response) =>{
     try {
         const userId = (req as CustomRequest).user.id;
       const { biodataId } = req.body;
+      console.log(biodataId)
       
       const result = await favoriteListService.addToFavorites(userId, biodataId);
       res.status(201).json({
@@ -30,17 +29,18 @@ export const favoriteController = {
             });
           }
     }
-  },
+  }
 
-  async removeFromFavorites(req: Request, res: Response) {
+  const removeFromFavorites = async(req: Request, res: Response) => {
     try {
         const userId = (req as CustomRequest).user.id;
       const { biodataId } = req.params;
+      console.log(biodataId)
       
       await favoriteListService.removeFromFavorites(userId, biodataId);
       res.status(200).json({
         success: true,
-        message: 'Removed from favorites successfully'
+        message: 'Removed favorite list successfully'
       });
     } catch (error) {
         if (error instanceof Error) {
@@ -51,9 +51,9 @@ export const favoriteController = {
             });
           }
     }
-  },
+  }
 
-  async getFavoritesList(req: Request, res: Response) {
+  const  getFavoritesList = async(req: Request, res: Response) => {
     try {
         const userId = (req as CustomRequest).user.id;
       const favorites = await favoriteListService.getFavoritesList(userId);
@@ -72,4 +72,9 @@ export const favoriteController = {
           }
     }
   }
-};
+
+  export const favoriteListController = {
+    addToFavorites,
+    removeFromFavorites,
+    getFavoritesList,
+  };

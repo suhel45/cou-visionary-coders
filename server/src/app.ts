@@ -6,6 +6,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import userRoute from './routes/users.route';
+import { favoriteRoutes } from './routes/favoriteList.route';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use(
 );
 
 app.use('/api', userRoute);
+app.use('/api', favoriteRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });

@@ -14,20 +14,20 @@ const addToFavorites = async (userId: string, biodataId: string) => {
       return result;
     } catch (error) {
       if ((error as any).code === 11000) { // Duplicate key error
-        throw new Error('Biodata already in favorites!');
+        throw new Error('Biodata already in favorite list!');
       }
       throw error;
     }
   };
   
-  const removeFromFavorites = async (userId: string, biodataId: string) => {
+  const removeFromFavorites = async(userId: string, biodataId: string) => {
     const result = await FavoriteModel.findOneAndDelete({
       user: new ObjectId(userId),
       biodata: new ObjectId(biodataId)
     });
   
     if (!result) {
-      throw new Error('Favorite not found!');
+      throw new Error('Favorite list not found!');
     }
     return result;
   };
