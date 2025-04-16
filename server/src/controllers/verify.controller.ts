@@ -23,7 +23,7 @@ export const uploadIDCard = async (req: Request, res: Response): Promise<void> =
 
     res.status(200).json({ message: 'Verification submitted' });
   } catch (err: any) {
-    res.status(500).json({ error: err.message || 'Internal Server Error' });
+    res.status(500).json({ error: err.message ?? 'Internal Server Error' });
   }
 };
 export const checkVerificationStatus = async (req: Request, res: Response): Promise<void> => {
@@ -38,6 +38,6 @@ export const checkVerificationStatus = async (req: Request, res: Response): Prom
     const status = await verificationService.checkVerificationStatus(userId);
     res.status(200).json({ status });
   } catch (err: any) {
-    res.status(500).json({ error: err.message || 'Internal Server Error' });
+    res.status(500).json({ error: err.message ?? 'Internal Server Error' });
   }
 };

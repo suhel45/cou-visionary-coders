@@ -21,7 +21,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     religion: '',
     bloodGroup: '',
   });
- const [error,setError] = useState<boolean | false>(false);
+ const [error,setError] = useState<boolean | string>(false);
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);

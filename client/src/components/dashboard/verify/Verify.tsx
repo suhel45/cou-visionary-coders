@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { UploadCloud } from 'lucide-react';
 import axios from 'axios';
 import Loading from '../../../utils/Loading/Loading';
@@ -12,7 +12,7 @@ const Verify: React.FC = () => {
     'Not Verified' | 'Verified'
   >('Not Verified');
   const [loading, setLoading] = useState(true);
- 
+
   // Check if biodata is created or not
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +38,8 @@ const Verify: React.FC = () => {
 
     fetchData();
   }, []);
-  //console.log(loading);
+
   useEffect(() => {
-    
     // Fetch ID card status using userId
     const fetchIdCardStatus = async () => {
       try {
@@ -96,7 +95,12 @@ const Verify: React.FC = () => {
       console.error('Error uploading ID card:', error);
     }
   };
-
+  const statusColorClass =
+    idStatus === 'Approved'
+      ? 'text-green-600'
+      : idStatus === 'Pending'
+        ? 'text-yellow-600'
+        : 'text-red-600';
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white md:shadow-lg rounded-lg mt-10 md:border border-gray-200 space-y-6">
       <h2 className="text-4xl font-bold text-center text-indigo-900 mb-6">
@@ -109,7 +113,7 @@ const Verify: React.FC = () => {
           Student Identity Status
         </h3>
         <p
-          className={`mt-1 font-bold bg-gray-50 p-2 rounded-md ${idStatus === 'Approved' ? 'text-green-600' : idStatus === 'Pending' ? 'text-yellow-600' : 'text-red-600'}`}
+          className={`mt-1 font-bold bg-gray-50 p-2 rounded-md ${statusColorClass}`}
         >
           {idStatus}
         </p>
