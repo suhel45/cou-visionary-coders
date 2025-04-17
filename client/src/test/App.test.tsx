@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-vi.mock('../components/firebase/Firebase.config', () => ({
+vi.mock('../../components/firebase/Firebase.config', () => ({
   auth: {},
   app: {},
 }));
