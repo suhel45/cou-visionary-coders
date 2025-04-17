@@ -57,10 +57,13 @@ interface CustomRequest extends Request {
     try {
         const userId = (req as CustomRequest).user.id;
       const favorites = await favoriteListService.getFavoritesList(userId);
+
+      // Map through favorites to get just the biodata
+    const transformedData = favorites.map(favorite => favorite.biodata);
       
       res.status(200).json({
         success: true,
-        data: favorites
+        data: transformedData
       });
     } catch (error) {
         if (error instanceof Error) {
