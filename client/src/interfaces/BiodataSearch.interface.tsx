@@ -13,6 +13,7 @@ export interface BiodataResponse {
 
 export interface BiodataCardProps {
   user: User;
-  currentPage: number;
-  isSearching: boolean;
+  currentPage?: number;
+  isSearching?: boolean;
+  mode?: 'add' | 'delete';
 }

@@ -1,57 +1,66 @@
-import React, { useState } from 'react';
-import { Heart} from 'lucide-react';
+import React from 'react';
+import { Heart, Trash } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../Hooks/useAuth/useAuth';
-import axios from 'axios';
+import { useFavorite } from '../Hooks/useFavorite/useFavorite';
 
 interface FavoriteButtonProps {
   biodataId: string;
+  mode?: 'add' | 'delete';
+  onSuccess?: () => void;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ biodataId }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({
+  biodataId,
+  mode = 'add',
+  onSuccess,
+}) => {
   const { user } = useAuth();
+  const { addToFavorites, removeFromFavorites, isLoading } = useFavorite();
 
-  const handleToggleFavorite = async () => {
+  const handleAction = async () => {
     if (!user) {
-      toast.error('Please login to add favorites');
+      toast.error('Please login first');
       return;
     }
 
-    setIsLoading(true);
     try {
-      if (isFavorite) {
-        await axios.delete(`/favoriteList/${biodataId}`);
+      if (mode === 'delete') {
+        await removeFromFavorites(biodataId);
         toast.success('Removed from favorites');
       } else {
-        await axios.post('/favoriteList', { biodataId });
+        await addToFavorites(biodataId);
         toast.success('Added to favorites');
       }
-      setIsFavorite(!isFavorite);
+
+      if (onSuccess) onSuccess();
     } catch (error) {
-      console.log(error);
-      toast.error('Something went wrong');
-    } finally {
-      setIsLoading(false);
+      console.error(error);
+      toast.error(
+        error instanceof Error ? error.message : 'Something went wrong',
+      );
     }
   };
 
+  const isDeleteMode = mode === 'delete';
+
   return (
     <button
-      onClick={handleToggleFavorite}
+      onClick={handleAction}
       disabled={isLoading}
-      className="absolute top-4 right-4 p-2 rounded-full bg-white/20 backdrop-blur-sm 
-                 hover:bg-white/30 transition-colors duration-200"
+      className={`absolute top-4 right-4 p-2 rounded-full transition-colors duration-200 
+        ${
+          isDeleteMode
+            ? 'bg-red-500 hover:bg-red-600'
+            : 'bg-white/20 backdrop-blur-sm hover:bg-white/30'
+        }`}
     >
       {isLoading ? (
         <span className="loading loading-spinner loading-sm"></span>
+      ) : isDeleteMode ? (
+        <Trash className="text-white text-xl" />
       ) : (
-        isFavorite ? (
-          <Heart className="text-red-500 text-xl" />
-        ) : (
-          <Heart className="text-white text-xl" />
-        )
+        <Heart className="text-white text-xl" />
       )}
     </button>
   );
