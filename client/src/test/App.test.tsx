@@ -1,3 +1,19 @@
+import { vi } from 'vitest';
+
+vi.mock('../components/firebase/Firebase.config', () => ({
+  auth: {},
+  app: {},
+}));
+
+vi.mock('../Hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: null,
+    signInWithGoogle: vi.fn(),
+    signOut: vi.fn(),
+    createUserWithEmailAndPassword: vi.fn(),
+    signInWithEmailAndPassword: vi.fn(),
+  }),
+}));
 import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -28,24 +44,6 @@ describe('App Component', () => {
     await waitFor(() => screen.getByText(/home/i));
     expect(screen.getByText(/home/i)).toBeInTheDocument();
   });
-
-//   it('should render the SignUp page when navigating to "/signup"', async () => {
-//     window.history.pushState({}, 'SignUp', '/signup');
-
-//     render(
-//       <QueryClientProvider client={queryClient}>
-//         <BrowserRouter>
-//           <AuthProvider>
-//             <App />
-//           </AuthProvider>
-//         </BrowserRouter>
-//       </QueryClientProvider>
-//     );
-
-//     // Try using a more specific query like by role or test ID
-//     await waitFor(() => screen.getByRole('heading', { name: /Create Account/i }));
-//     expect(screen.getByRole('heading', { name: /Create Account/i })).toBeInTheDocument();
-//   });
 
   it('should render Not Found page for invalid route', async () => {
     window.history.pushState({}, 'NoMatch', '/invalid-route');
