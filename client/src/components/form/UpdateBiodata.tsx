@@ -110,14 +110,8 @@ const MultiStepForm: React.FC = () => {
     areAllFieldsFilled(formData[stepComponents[activeStep].section]);
 
   const getStepContent = (step: number) => {
-<<<<<<< HEAD
-    const { Component, section } =
-      stepComponents[step] ?? stepComponents[stepComponents.length - 1];
-    const StepComponent = Component as React.FC<StepComponentProps<any>>;
-=======
     const { Component, section } = stepComponents[step] ?? stepComponents[stepComponents.length - 1];
     const StepComponent: React.FC<StepComponentProps<any>> = Component;
->>>>>>> eb41bb1701a469ca7fb35056a0e9c975b430d308
 
     return (
       <StepComponent
