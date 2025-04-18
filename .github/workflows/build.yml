@@ -61,4 +61,4 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: "430900147490"
           VITE_FIREBASE_APP_ID: "1:430900147490:web:d52584eea91ab5d752e17b"
           VITE_FIREBASE_MEASUREMENT_ID: "G-GKGQBD8VVX"
-          VITE_BACKEND_BASE_URL= https://halal-bondhon.vercel.app
+          VITE_BACKEND_BASE_URL: "https://halal-bondhon.vercel.app"
