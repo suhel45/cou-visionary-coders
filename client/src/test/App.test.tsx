@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi,describe, it, expect } from 'vitest';
 
 vi.mock('../../components/firebase/Firebase.config', () => ({
   auth: {},
@@ -14,7 +14,6 @@ vi.mock('../Hooks/useAuth', () => ({
     signInWithEmailAndPassword: vi.fn(),
   }),
 }));
-import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
