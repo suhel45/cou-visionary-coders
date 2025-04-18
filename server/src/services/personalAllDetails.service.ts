@@ -1,4 +1,3 @@
-import { CustomReq } from '../interfaces/express';
 import { IPersonalAllDetails } from '../interfaces/personalAllDetails.interface';
 import { PersonalAllDetailsModel } from '../models/PersonalAllDetails.Model';
 import { ObjectId } from 'mongodb';
@@ -43,22 +42,6 @@ const getBiodata = async (id: string) => {
   return result;
 };
 
-const getPublicBiodata = async (req: CustomReq) => {
-  // Get page and limit from query params
-  const page = parseInt(req.query._page) || 1;
-  const limit = parseInt(req.query._limit) || 10;
-  const skip = (page - 1) * limit;
-
-  // Fetch the posts with pagination
-  const biodata = await PersonalAllDetailsModel.find()
-    .skip(skip)
-    .limit(limit)
-    .exec();
-
-  const totalbiodata = await PersonalAllDetailsModel.countDocuments();
-  return { biodata, totalbiodata };
-};
-
 const getPublicBiodataDetails = async (id: string) => {
   const filter = { _id: new ObjectId(id) };
 
@@ -69,6 +52,5 @@ const getPublicBiodataDetails = async (id: string) => {
 export const personalDetailsService = {
   createBiodata,
   getBiodata,
-  getPublicBiodata,
   getPublicBiodataDetails,
 };
