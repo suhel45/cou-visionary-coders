@@ -54,3 +54,11 @@ jobs:
             -Dsonar.analysis.automatic=false
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          VITE_FIREBASE_API_KEY: "AIzaSyC5G67obM_4iiF_Am28z5ifbTEbzmDe9Xc"
+          VITE_FIREBASE_AUTH_DOMAIN: "cou-visionary-coders.firebaseapp.com"
+          VITE_FIREBASE_PROJECT_ID: "cou-visionary-coders"
+          VITE_FIREBASE_STORAGE_BUCKET: "cou-visionary-coders.firebasestorage.app"
+          VITE_FIREBASE_MESSAGING_SENDER_ID: "430900147490"
+          VITE_FIREBASE_APP_ID: "1:430900147490:web:d52584eea91ab5d752e17b"
+          VITE_FIREBASE_MEASUREMENT_ID: "G-GKGQBD8VVX"
+          VITE_BACKEND_BASE_URL= https://halal-bondhon.vercel.app
