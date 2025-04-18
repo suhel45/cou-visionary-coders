@@ -39,16 +39,16 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
-        # with:
-        #   args: >
-        #     -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-        #     -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
-        #     -Dsonar.organization=learnathon-by-geeky-solutions
-        #     -Dsonar.projectName="CoU Visionary Coders"
-        #     -Dsonar.sources=client/src,server/src
-        #     -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info
-        #     -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info
-        #     -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
-        #     -Dsonar.coverage.exclusions=**/test/**,**/mock/**
+        with:
+          args: >
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
+            -Dsonar.organization=learnathon-by-geeky-solutions
+            -Dsonar.projectName="coU-visionary-coders"
+            -Dsonar.sources=client/src,server/src
+            -Dsonar.javascript.lcov.reportPaths=../client/coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=../client/coverage/lcov.info
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
+            -Dsonar.coverage.exclusions=**/test/**,**/mock/**
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
