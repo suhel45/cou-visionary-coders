@@ -111,6 +111,7 @@ const MultiStepForm: React.FC = () => {
 
   const getStepContent = (step: number) => {
     const { Component, section } = stepComponents[step] ?? stepComponents[stepComponents.length - 1];
+
     const StepComponent: React.FC<StepComponentProps<any>> = Component;
 
     return (
@@ -156,6 +157,7 @@ const MultiStepForm: React.FC = () => {
 
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
+
   let nextButtonText = '';
 
   if (isLoading) {
@@ -227,7 +229,9 @@ const MultiStepForm: React.FC = () => {
 
             <div className="flex flex-row items-center justify-between m-2 mx-6">
               <button
+
                 disabled={isFirstStep ?? isLoading}
+
                 onClick={handleBack}
                 className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
@@ -235,7 +239,9 @@ const MultiStepForm: React.FC = () => {
               </button>
               <button
                 onClick={isLastStep ? handleSubmit : handleNext}
+
                 disabled={isLoading ?? !isCurrentStepValid()}
+
                 className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${
                     isLoading ?? !isCurrentStepValid()

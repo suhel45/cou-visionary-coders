@@ -178,8 +178,8 @@ const ForgotPassword = async (email: string): Promise<string> => {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
     tls: {
       rejectUnauthorized: false,

@@ -4,6 +4,14 @@ import { authController } from '../controllers/auth.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { personalDetailsController } from '../controllers/personalAllDetails.controller';
 
+import { updateBiodataController } from '../controllers/updateBiodata.controller';
+import { deleteBiodataController } from '../controllers/deleteBiodata.controller';
+import { GetBiodataSearch } from '../controllers/getBiodataSearch.controller';
+
+import { upload } from '../middleware/verify.middleware';
+import { checkVerificationStatus, uploadIDCard } from '../controllers/verify.controller';
+
+
 const router = Router();
 
 router.post('/signup', userController.createUser);
@@ -23,6 +31,11 @@ router.get(
   '/profile/biodata/:id',
   personalDetailsController.GetPublicBiodataDetails,
 );
-router.get('/biodata', personalDetailsController.GetPublicBiodata);
+router.get('/biodata', GetBiodataSearch);
+router.put('/profile/update-biodata', verifyToken, updateBiodataController);
+router.delete('/profile/delete-biodata', verifyToken, deleteBiodataController);
+router.get('/identity/status',verifyToken,checkVerificationStatus);
 
+
+router.post('/upload',verifyToken, upload.single('studentId'), uploadIDCard);
 export default router;

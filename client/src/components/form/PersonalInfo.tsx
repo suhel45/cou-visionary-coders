@@ -21,7 +21,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     religion: '',
     bloodGroup: '',
   });
-
+ const [error,setError] = useState<boolean | string>(false);
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);
@@ -33,11 +33,10 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     const updatedData = { ...localFormData, [name]: value };
     if (calculateAge(updatedData.birthDate) >= 18) {
       setFormData(updatedData);
-    }
+    }else{setError(true);}
     setLocalFormData(updatedData);
-    
   };
-  //calculate the age 
+  //calculate the age
   const calculateAge = (birthDate: string): number => {
     const birth = new Date(birthDate);
     const today = new Date();
@@ -54,7 +53,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   };
 
   const inputStyle: string =
-    'block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border  border-slate-500 sm:px-8 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6';
+    'block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border  border-slate-500 sm:px-8 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:text-lg sm:leading-6'
   const levelStyle: string =
     'text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center';
   return (
@@ -79,9 +78,10 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
                 className={inputStyle}
                 required
               />
-              {calculateAge(localFormData.birthDate) < 18 && (
+              {error && (
                 <span className="text-red-500 text-sm">
                   আপনার বয়স কমপক্ষে ১৮ বছর হতে হবে
+                 
                 </span>
               )}
             </label>
