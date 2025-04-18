@@ -1,10 +1,6 @@
 import { vi,describe, it, expect } from 'vitest';
 
-vi.mock('../../components/firebase/Firebase.config', () => ({
-  auth: {},
-  app: {},
-}));
-
+vi.mock('../../components/firebase/Firebase.config');
 vi.mock('../Hooks/useAuth', () => ({
   useAuth: () => ({
     user: null,
