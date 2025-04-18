@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`),
 });
 
-// ✅ Limit file size to 5MB
 export const upload = multer({
   storage,
   limits: {
