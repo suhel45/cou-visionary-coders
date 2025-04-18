@@ -44,7 +44,7 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
             -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
             -Dsonar.organization=learnathon-by-geeky-solutions
-            -Dsonar.projectName="CoU Visionary Coders"
+            -Dsonar.projectName="cou-visionary-coders"
             -Dsonar.sources=client/src,server/src
             -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info
             -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info
