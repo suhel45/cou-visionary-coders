@@ -13,5 +13,10 @@ export default defineConfig({
       exclude: ['node_modules/**'],
       include: ['src/**/*.{ts,tsx}'],
     },
+    server: {
+      deps: {
+        inline: ['firebase'],
+      },
+    },
   },
 });
