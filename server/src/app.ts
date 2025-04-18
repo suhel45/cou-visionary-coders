@@ -8,6 +8,7 @@ import cors from 'cors';
 import userRoute from './routes/users.route';
 import { favoriteRoutes } from './routes/favoriteList.route';
 
+import path from 'path';
 dotenv.config();
 
 const app = express();
@@ -38,7 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(mongoSanitize());
-
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Helmet configuration for XSS protection
 app.use(
   helmet({

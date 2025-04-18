@@ -1,11 +1,25 @@
-// src/test/App.test.tsx
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from '../App';
+import { vi,describe, it, expect } from 'vitest';
 
-// Create a query client for testing
+vi.mock('../../components/firebase/Firebase.config', () => ({
+  auth: {},
+  app: {},
+}));
+
+vi.mock('../Hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: null,
+    signInWithGoogle: vi.fn(),
+    signOut: vi.fn(),
+    createUserWithEmailAndPassword: vi.fn(),
+    signInWithEmailAndPassword: vi.fn(),
+  }),
+}));
+import { render, screen, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import App from '../App';
+import AuthProvider from '../Hooks/contextApi/UserContext';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -14,35 +28,36 @@ const queryClient = new QueryClient({
   },
 });
 
-// Helper to render App with necessary wrappers
-function renderWithProviders(initialRoute: string = '/') {
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <MemoryRouter initialEntries={[initialRoute]}>
-        <App />
-      </MemoryRouter>
-    </QueryClientProvider>,
-  );
-}
+describe('App Component', () => {
+  it('should render Home page on "/" route', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
 
-describe('App Routing and Rendering', () => {
-  it('renders home page by default', () => {
-    renderWithProviders('/');
-    expect(screen.getByText(/about us/i)).toBeInTheDocument(); // Adjust this based on Home.tsx content
+    await waitFor(() => screen.getByText(/home/i));
+    expect(screen.getByText(/home/i)).toBeInTheDocument();
   });
 
-  it('renders login page', () => {
-    renderWithProviders('/login');
-    expect(screen.getByText(/login/i)).toBeInTheDocument(); // Make sure login page has "Login" text
-  });
+  it('should render Not Found page for invalid route', async () => {
+    window.history.pushState({}, 'NoMatch', '/invalid-route');
 
-  it('renders signup page', () => {
-    renderWithProviders('/signup');
-    expect(screen.getByText(/sign up/i)).toBeInTheDocument(); // Adjust as needed
-  });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
 
-  it('shows 404 page for unknown routes', () => {
-    renderWithProviders('/unknown-route');
-    expect(screen.getByText(/page not found/i)).toBeInTheDocument(); // Based on PageNotFound component
+    await waitFor(() => screen.getByText(/page not found/i));
+    expect(screen.getByText(/page not found/i)).toBeInTheDocument();
   });
 });

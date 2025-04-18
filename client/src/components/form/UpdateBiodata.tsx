@@ -110,9 +110,14 @@ const MultiStepForm: React.FC = () => {
     areAllFieldsFilled(formData[stepComponents[activeStep].section]);
 
   const getStepContent = (step: number) => {
+<<<<<<< HEAD
     const { Component, section } =
       stepComponents[step] ?? stepComponents[stepComponents.length - 1];
     const StepComponent = Component as React.FC<StepComponentProps<any>>;
+=======
+    const { Component, section } = stepComponents[step] ?? stepComponents[stepComponents.length - 1];
+    const StepComponent: React.FC<StepComponentProps<any>> = Component;
+>>>>>>> eb41bb1701a469ca7fb35056a0e9c975b430d308
 
     return (
       <StepComponent
@@ -157,11 +162,15 @@ const MultiStepForm: React.FC = () => {
 
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
-  const nextButtonText = isLoading
-    ? 'Submitting...'
-    : isLastStep
-      ? 'Finish'
-      : 'Next';
+  let nextButtonText = '';
+
+  if (isLoading) {
+    nextButtonText = 'Submitting...';
+  } else if (isLastStep) {
+    nextButtonText = 'Finish';
+  } else {
+    nextButtonText = 'Next';
+  }
 
   return (
     <div className="p-4">
@@ -224,7 +233,7 @@ const MultiStepForm: React.FC = () => {
 
             <div className="flex flex-row items-center justify-between m-2 mx-6">
               <button
-                disabled={isFirstStep || isLoading}
+                disabled={isFirstStep ?? isLoading}
                 onClick={handleBack}
                 className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
@@ -232,10 +241,10 @@ const MultiStepForm: React.FC = () => {
               </button>
               <button
                 onClick={isLastStep ? handleSubmit : handleNext}
-                disabled={isLoading || !isCurrentStepValid()}
+                disabled={isLoading ?? !isCurrentStepValid()}
                 className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${
-                    isLoading || !isCurrentStepValid()
+                    isLoading ?? !isCurrentStepValid()
                       ? 'bg-gray-400 text-white cursor-not-allowed'
                       : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'
                   }
