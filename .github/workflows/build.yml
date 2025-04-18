@@ -10,12 +10,11 @@ jobs:
   sonarcloud:
     name: Analyze with SonarCloud
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Needed for SonarCloud to properly analyze the code
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -28,7 +27,11 @@ jobs:
 
       - name: Run frontend tests with coverage
         working-directory: client
-        run: npm run coverage
+        run: |
+          npm run coverage
+          # Ensure coverage files are in the expected location
+          mkdir -p coverage
+          [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
       - name: Install backend dependencies
         working-directory: server
@@ -39,5 +42,13 @@ jobs:
         with:
           args: >
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
+            -Dsonar.organization=learnathon-by-geeky-solutions
+            -Dsonar.projectName="CoU Visionary Coders"
+            -Dsonar.sources=client/src,server/src
+            -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
+            -Dsonar.coverage.exclusions=**/test/**,**/mock/**
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
