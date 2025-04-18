@@ -50,5 +50,7 @@ jobs:
             -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
             -Dsonar.coverage.exclusions=**/test/**,**/mock/**
+            -Dsonar.ci.enabled=true
+            -Dsonar.analysis.automatic=false
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
