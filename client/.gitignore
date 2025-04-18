@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 .vercel
 .env
+
+coverage/
+*.log
+*.html
+test-output/

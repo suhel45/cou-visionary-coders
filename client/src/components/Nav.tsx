@@ -20,7 +20,6 @@ function Nav() {
   }
 
   const { user, isNewlyRegistered, logOut } = authContext;
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -35,7 +34,7 @@ function Nav() {
       <div className="flex flex-row border-b-2 sm:border-none p-4 items-center justify-between w-full sm:w-auto">
         <img
           src={logo}
-          alt="Halal Marriage"
+          alt="Halal Bondhon"
           className="h-14 w-auto object-contain mx-auto sm:mx-0"
         />
         <button

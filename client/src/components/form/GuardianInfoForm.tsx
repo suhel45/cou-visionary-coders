@@ -28,7 +28,7 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-stretch md:items-center md:justify-center justify-stretch border border-gray-400  p-2 rounded-md ">
+    <div className="flex flex-col items-stretch md:items-center md:justify-center justify-stretch   p-2 rounded-md ">
       <h2
         className=" bg-violet-900 text-white my-4 py-2 px-8 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-2xl
 "
@@ -37,6 +37,7 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
       </h2>
 
       <div className="flex flex-row items-stretch gap-4  p-2 rounded ">
+        <p className="text-violet-900 text-sm sm:text-2xl font-bold">বর্তমান অবস্থা - </p>
         <label className="flex items-center  space-x-2">
           <input
             type="checkbox"
