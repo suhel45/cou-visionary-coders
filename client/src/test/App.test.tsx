@@ -1,8 +1,20 @@
-import { vi,describe, it, expect } from 'vitest';
+import { vi, describe, it, expect, beforeAll } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import App from '../App';
+import AuthProvider from '../Hooks/contextApi/UserContext';
 
+// Mock Firebase completely
 vi.mock('../../components/firebase/Firebase.config', () => ({
-  auth: {},
-  app: {},
+  auth: vi.fn(() => ({
+    currentUser: null,
+    signInWithPopup: vi.fn(),
+    signOut: vi.fn(),
+    createUserWithEmailAndPassword: vi.fn(),
+    signInWithEmailAndPassword: vi.fn(),
+  })),
+  // Add other Firebase services you use here
 }));
 
 vi.mock('../Hooks/useAuth', () => ({
@@ -14,11 +26,6 @@ vi.mock('../Hooks/useAuth', () => ({
     signInWithEmailAndPassword: vi.fn(),
   }),
 }));
-import { render, screen, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
-import App from '../App';
-import AuthProvider from '../Hooks/contextApi/UserContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +36,23 @@ const queryClient = new QueryClient({
 });
 
 describe('App Component', () => {
+  beforeAll(() => {
+    // Mock window.matchMedia which is not implemented in JSDOM
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+  });
+
   it('should render Home page on "/" route', async () => {
     render(
       <QueryClientProvider client={queryClient}>
