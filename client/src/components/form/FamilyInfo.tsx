@@ -78,7 +78,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
           />
 
           {/* Financial Status */}
-          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center flex flex-col sm:justify-center sm:items-center justify-stretch items-stretch border border-gray-400  rounded-md">
+          <label className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center flex flex-col sm:justify-center sm:items-center justify-stretch items-stretch bg-white  rounded-md">
             পারিবারিক আর্থিক অবস্থা{/* Financial Status */}
             <select
               name="financialStatus"
