@@ -4,6 +4,7 @@ import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
 import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
+import Faq from './pages/faq/pages';
 import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/faq" element={<Faq />} />
             <Route path="/biodata" element={<BiodataList />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route
