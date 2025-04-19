@@ -12,7 +12,6 @@ const addToFavorites = async (req: Request, res: Response) => {
   try {
     const userId = (req as CustomRequest).user.id;
     const { biodataId } = req.body;
-    console.log(biodataId);
 
     const result = await favoriteListService.addToFavorites(userId, biodataId);
     res.status(201).json({
@@ -35,7 +34,6 @@ const removeFromFavorites = async (req: Request, res: Response) => {
   try {
     const userId = (req as CustomRequest).user.id;
     const { biodataId } = req.params;
-    console.log(biodataId);
 
     await favoriteListService.removeFromFavorites(userId, biodataId);
     res.status(200).json({

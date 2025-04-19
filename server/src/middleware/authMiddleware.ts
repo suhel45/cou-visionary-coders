@@ -24,7 +24,7 @@ export const verifyToken = async (
       return;
     }
 
-    const decoded = (await jwt.verify(token, secretKey)) as DecodedToken;
+    const decoded = jwt.verify(token, secretKey) as DecodedToken;
     (req as CustomRequest).user = decoded;
     next();
   } catch (error) {
