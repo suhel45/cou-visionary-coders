@@ -44,8 +44,19 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
   const isDeleteMode = mode === 'delete';
 
+  const renderIcon = () => {
+    if (isLoading) {
+      return <span className="loading loading-spinner loading-sm" />;
+    }
+    if (isDeleteMode) {
+      return <Trash className="text-white text-xl" />;
+    }
+    return <Heart className="text-white text-xl" />;
+  };
+
   return (
     <button
+      type="button"
       onClick={handleAction}
       disabled={isLoading}
       className={`absolute top-4 right-4 p-2 rounded-full transition-colors duration-200 
@@ -55,13 +66,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
             : 'bg-white/20 backdrop-blur-sm hover:bg-white/30'
         }`}
     >
-      {isLoading ? (
-        <span className="loading loading-spinner loading-sm"></span>
-      ) : isDeleteMode ? (
-        <Trash className="text-white text-xl" />
-      ) : (
-        <Heart className="text-white text-xl" />
-      )}
+      {renderIcon()}
     </button>
   );
 };
