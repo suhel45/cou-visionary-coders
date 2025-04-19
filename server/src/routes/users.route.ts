@@ -6,6 +6,7 @@ import { personalDetailsController } from '../controllers/personalAllDetails.con
 
 import { updateBiodataController } from '../controllers/updateBiodata.controller';
 import { deleteBiodataController } from '../controllers/deleteBiodata.controller';
+import { GetBiodataSearch } from '../controllers/getBiodataSearch.controller';
 
 import { upload } from '../middleware/verify.middleware';
 import { checkVerificationStatus, uploadIDCard } from '../controllers/verify.controller';
@@ -30,7 +31,7 @@ router.get(
   '/profile/biodata/:id',
   personalDetailsController.GetPublicBiodataDetails,
 );
-router.get('/biodata', personalDetailsController.GetPublicBiodata);
+router.get('/biodata', GetBiodataSearch);
 router.put('/profile/update-biodata', verifyToken, updateBiodataController);
 router.delete('/profile/delete-biodata', verifyToken, deleteBiodataController);
 router.get('/identity/status',verifyToken,checkVerificationStatus);

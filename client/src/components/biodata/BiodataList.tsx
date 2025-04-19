@@ -1,64 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
-import { keepPreviousData, QueryClient, useQuery } from '@tanstack/react-query';
-import { PersonalInfoData } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
-import { Link } from 'react-router-dom';
+import BiodataCard from './BiodataCard';
+import useUrlParams from '../../Hooks/useUrlParams/useUrlParams';
+import useBiodataQuery from '../../Hooks/useBiodataQuery/useBiodataQuery';
+import { SearchParams } from '../../interfaces/Search.interface';
+import BiodataSearch from './BiodataSearch';
 
-interface User {
-  _id: string;
-  biodataNo: string;
-  personalInfo: PersonalInfoData;
-}
+const ITEMS_PER_PAGE = 3;
 
-const fetchData = async (page: number, biodataPerPage: number) => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BACKEND_BASE_URL}/api/biodata?_page=${page}&_limit=${biodataPerPage}`,
+const BiodataList: React.FC = () => {
+  const { initialPage, initialSearchParams, hasActiveFilters, updateUrl } =
+    useUrlParams();
+
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [searchFilter, setSearchFilter] =
+    useState<SearchParams>(initialSearchParams);
+  const [isSearching, setIsSearching] = useState(hasActiveFilters);
+
+  // Fetch data with react-query
+  const { data, isLoading, isFetching, error, refetch } = useBiodataQuery(
+    currentPage,
+    searchFilter,
+    ITEMS_PER_PAGE,
   );
-  return response.data;
-};
 
-const BiodataList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const queryClient = new QueryClient();
-  const biodataPerPage = 3;
-
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: ['biodata', currentPage],
-    queryFn: () => fetchData(currentPage, biodataPerPage),
-    placeholderData: keepPreviousData, // Keep previous data while fetching new data
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
-  });
-
-  // Separate useEffect for prefetching
+  // Update URL when page or filters change - with debounce
   useEffect(() => {
-    if (
-      data?.totalbiodata &&
-      data.totalbiodata > currentPage * biodataPerPage
-    ) {
-      queryClient.prefetchQuery({
-        queryKey: ['biodata', currentPage + 1],
-        queryFn: () => fetchData(currentPage + 1, biodataPerPage),
-      });
-    }
-  }, [currentPage, data, queryClient, biodataPerPage]);
+    // Use a timeout to debounce URL updates
+    const timer = setTimeout(() => {
+      updateUrl(currentPage, searchFilter);
+    }, 300); // 300ms debounce
 
-  const pageCount = data ? Math.ceil(data.totalbiodata / biodataPerPage) : 0;
+    return () => clearTimeout(timer);
+  }, [currentPage, searchFilter, updateUrl]);
 
   // Handle page change
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
-    setCurrentPage(value);
-  };
+  const handlePageChange = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      if (value !== currentPage) {
+        // Only update if value actually changed
+        setCurrentPage(value);
+      }
+    },
+    [currentPage],
+  );
 
-  if (isLoading || isFetching) {
-    return <Loading />;
-  }
+  // Handle search submission
+  const handleSearch = useCallback(
+    (params: SearchParams) => {
+      setSearchFilter(params);
+      setIsSearching(Object.values(params).some((value) => value !== ''));
+      setCurrentPage(1); // Reset to first page when searching
+      refetch();
+    },
+    [refetch],
+  );
+
+  // Handle clear filters
+  const handleClearFilters = useCallback(() => {
+    setSearchFilter({});
+    setIsSearching(false);
+    setCurrentPage(1);
+    refetch();
+  }, [refetch]);
+
+  // Calculated values
+  const pageCount = data ? Math.ceil(data.totalbiodata / ITEMS_PER_PAGE) : 0;
+  const biodata = data?.data ?? [];
+  const totalResults = data?.totalbiodata ?? 0;
+
+  // Loading and error states
+  if (isLoading || isFetching) return <Loading />;
 
   if (error) {
     return (
@@ -70,61 +84,57 @@ const BiodataList = () => {
 
   return (
     <div className="mx-2 md:mx-10">
+      {/* Search Component */}
+      <BiodataSearch
+        onSearch={handleSearch}
+        onClear={handleClearFilters}
+        initialParams={searchFilter}
+        className="mb-6"
+      />
+
+      {/* Search Results Label */}
+      {isSearching && (
+        <div className="bg-violet-100 text-violet-900 p-3 rounded-lg mb-4 text-center font-bold">
+          Found {totalResults} matching profiles.
+        </div>
+      )}
+
       <h4 className="text-center text-2xl sm:text-5xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
         Biodata List
       </h4>
+
+      {/* Biodata List */}
       <ul className="flex flex-col md:flex-row flex-wrap md:items-center md:justify-center py-12">
-        {data.data.map((user: User) => (
-          <li key={user._id} className="md:basis-1/3">
-            <div className="flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-2 rounded-lg m-2 shadow-lg">
-              <img
-                src={
-                  user.personalInfo.gender.toLowerCase() === 'male'
-                    ? 'src/assets/man.png'
-                    : 'src/assets/woman.png'
-                }
-                alt={user.personalInfo.gender === 'male' ? 'Man' : 'Woman'}
-                className="h-24 w-24 bg-white rounded-lg"
-              />
-              <div className="w-full md:text-center p-4 bg-violet-900 rounded-md">
-                <p className="text-violet-100 bg-violet-950 font-bold text-xl rounded-lg border text-center p-2">
-                  Biodata - {user?.biodataNo}
-                </p>
-                <div className=" p-2 text-lg md:text-xl">
-                  <p className="text-white py-1 font-bold rounded-md">
-                    জন্ম তারিখ : {user.personalInfo.birthDate}
-                  </p>
-                  <p className="text-white py-1 font-bold rounded-md">
-                    উচ্চতা : {user.personalInfo.height}
-                  </p>
-                  <p className="text-white py-1 font-bold rounded-md">
-                    পেশা : {user.personalInfo.occupation}
-                  </p>
-                </div>
-                <Link
-                  to={`/biodata/profile/${user._id}`}
-                  className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:px-6 font-bold mt-2 inline-block"
-                >
-                  View Profile
-                </Link>
-              </div>
-            </div>
-          </li>
-        ))}
+        {biodata.length > 0 ? (
+          biodata.map((user) => (
+            <BiodataCard
+              key={user._id}
+              user={user}
+              currentPage={currentPage}
+              isSearching={isSearching}
+            />
+          ))
+        ) : (
+          <div className="w-full text-center py-10 text-xl text-violet-800">
+            No biodata found matching your criteria.
+          </div>
+        )}
       </ul>
 
-      {/*Render pagination*/}
-      <div className="flex flex-col items-center my-4 p-2">
-        <Stack spacing={2}>
-          <Pagination
-            count={pageCount}
-            page={currentPage}
-            onChange={handlePageChange}
-            variant="outlined"
-            shape="rounded"
-          />
-        </Stack>
-      </div>
+      {/* Pagination */}
+      {pageCount > 0 && (
+        <div className="flex flex-col items-center my-4 p-2">
+          <Stack spacing={2}>
+            <Pagination
+              count={pageCount}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Stack>
+        </div>
+      )}
     </div>
   );
 };

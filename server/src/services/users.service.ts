@@ -1,4 +1,4 @@
-import { ILoginInfo, IUser } from '../interfaces/users.interface';
+import { ILoginInfo, IUser } from '../interfaces/users.interface.js';
 import userModel from '../models/user.Model';
 import validator from 'validator';
 import nodemailer from 'nodemailer';
@@ -42,7 +42,6 @@ const loginUserFromDB = async (
   loginInfo: ILoginInfo,
 ): Promise<{ userId: string; token: string }> => {
   const { email, password } = loginInfo;
-  console.log(email);
 
   const sanitizedEmail = validator.escape(email);
   const user = await userModel.findOne({ email: sanitizedEmail });
@@ -179,8 +178,8 @@ const ForgotPassword = async (email: string): Promise<string> => {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
     tls: {
       rejectUnauthorized: false,
