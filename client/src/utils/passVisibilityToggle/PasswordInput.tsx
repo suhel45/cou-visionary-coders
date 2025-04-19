@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, InputAdornment } from '@mui/material';
+import { OutlinedInput, InputAdornment, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import PasswordVisibilityToggle from './PasswordVisibilityToggle';
 
 interface PasswordInputProps {
@@ -29,44 +29,49 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
     setShowPassword(!showPassword);
   };
 
+  // Get the register props
+  const registerProps = register(name, {
+    required: required ? `${label} is required` : false,
+    ...validation,
+  });
+
   return (
-    <TextField
-      label={label}
-      type={showPassword ? 'text' : 'password'}
+    <FormControl
       fullWidth
       variant="outlined"
       margin="normal"
       size="small"
-      placeholder={placeholder}
+      error={error}
       sx={{
-        '& .MuiInputBase-root': {
-          padding: '8px',
-          borderRadius: '0.375rem',
-          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
-          height: '48px',
-        },
-        '& .MuiInputLabel-root': {
-          fontSize: '0.875rem',
-        },
         width: '300px',
       }}
-      error={error}
-      helperText={helperText}
-      {...register(name, {
-        required: required ? `${label} is required` : false,
-        ...validation,
-      })}
-      InputProps={{
-        endAdornment: (
+    >
+      <InputLabel htmlFor={name} sx={{ fontSize: '0.875rem' }}>
+        {label}
+      </InputLabel>
+      <OutlinedInput
+        id={name}
+        type={showPassword ? 'text' : 'password'}
+        label={label}
+        placeholder={placeholder}
+        endAdornment={
           <InputAdornment position="end">
             <PasswordVisibilityToggle
               visibilityState={showPassword}
               toggleVisibility={togglePasswordVisibility}
             />
           </InputAdornment>
-        ),
-      }}
-    />
+        }
+        sx={{
+          padding: '8px',
+          borderRadius: '0.375rem',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+          height: '48px',
+        }}
+        {...registerProps}
+      />
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    </FormControl>
   );
 };
 
