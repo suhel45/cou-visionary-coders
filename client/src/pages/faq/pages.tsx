@@ -1,6 +1,7 @@
 import React from 'react';
 import Faq from '../../components/Faq';
 
-export const pages = () => {
+ const pages = () => {
   return <Faq />;
 };
+export default pages;

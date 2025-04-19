@@ -35,30 +35,28 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
     <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
       <div className="flex flex-col items-stretch md:items-center justify-center p-2 ">
         <h2
-          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl
+          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-lg
 "
         >
           প্রত্যাশিত জীবনসঙ্গী
         </h2>
-        <form className="w-full md:items-center md:justify-center md:w-auto bg-white border-pink-600 p-4 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
+        <form className="w-full md:items-center md:justify-center md:w-auto bg-white border-pink-600 p-4 md:px-12 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col gap-2">
           <p
-            className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-xl
+            className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-sm md:text-lg
  "
           >
             কেমন পাত্র/পাত্রী পছন্দ সেই হিসেবে নিম্নে নির্বাচন করুন
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:justify-items-center gap-4 w-full">
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর বৈবাহিক অবস্থা -{/* */}
+              বৈবাহিক অবস্থা -{/* */}
               <select
                 name="maritalStatus"
                 value={localFormData.maritalStatus}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
               >
                 <option>নির্বাচন করুন</option>
                 <option value="অবিবাহিত">অবিবাহিত</option>
@@ -69,31 +67,27 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর বয়স -{/* */}
+              বয়স -{/* */}
               <input
                 type="text"
                 name="age"
                 value={localFormData.age}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 p-2 font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
                 placeholder="যেমন (২০-৩০) বছর"
               />
             </label>
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর অর্থনৈতিক অবস্থা -{/* */}
+              অর্থনৈতিক অবস্থা -{/* */}
               <select
                 name="financialCondition"
                 value={localFormData.financialCondition}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
               >
                 <option>নির্বাচন করুন</option>
                 <option value="উচ্চবিত্ত">উচ্চবিত্ত</option>
@@ -105,16 +99,14 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </label>
 
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর উচ্চতা -{/* */}
+              উচ্চতা -{/* */}
               <select
                 name="height"
                 value={localFormData.height}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
               >
                 <option>নির্বাচন করুন</option>
                 {Array.from({ length: 36 }, (_, i) => {
@@ -131,16 +123,14 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </label>
 
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর গাত্রবর্ন -{/* */}
+              গাত্রবর্ন -{/* */}
               <select
                 name="complexion"
                 value={localFormData.complexion}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
               >
                 <option>নির্বাচন করুন</option>
                 <option value="উজ্জ্বল ফর্সা">উজ্জ্বল ফর্সা</option>
@@ -152,13 +142,11 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             </label>
 
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর পেশা -{/* */}
+              পেশা -{/* */}
               <select
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
                 name="profession"
                 value={localFormData.profession}
                 onChange={handleChange}
@@ -178,16 +166,14 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center;
-"
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
-              পাত্র/পাত্রীর জেলা -{/* District */}
+              জেলা -{/* District */}
               <select
                 name="district"
                 value={localFormData.district}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-sm sm:leading-6;
-"
+                className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
               >
                 <option>নির্বাচন করুন</option>
                 {districts.map((district) => (
@@ -198,18 +184,17 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
             <label
-              className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
- "
+              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
             >
               {/* */}প্রত্যাশিত বৈশিষ্ট্যে বা গুনাবলী
               <textarea
                 name="expectedQualities"
                 value={localFormData.expectedQualities}
                 onChange={handleChange}
-                className="block w-full md:w-screen bg-gray-50  font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-xs sm:text-sm sm:leading-6
+                className="block w-full md:w-screen bg-gray-50  font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-xs  sm:leading-6
  p-2  mb-4"
                 placeholder="যেই সব গুনাবলি আশা করেন"
-                rows={4}
+                rows={3}
               />
             </label>
           </div>
