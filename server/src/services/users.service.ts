@@ -1,4 +1,4 @@
-import { ILoginInfo, IUser } from '../interfaces/users.interface';
+import { ILoginInfo, IUser } from '../interfaces/users.interface.js';
 import userModel from '../models/user.Model';
 import validator from 'validator';
 import nodemailer from 'nodemailer';

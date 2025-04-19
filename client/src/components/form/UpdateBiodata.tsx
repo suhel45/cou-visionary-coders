@@ -82,7 +82,10 @@ const MultiStepForm: React.FC = () => {
     setIsSubmitted(false);
   };
 
-  const updateFormData = <T extends keyof FormData>(section: T, data: FormData[T]) => {
+  const updateFormData = <T extends keyof FormData>(
+    section: T,
+    data: FormData[T],
+  ) => {
     setFormData((prev) => ({ ...prev, [section]: data }));
   };
 
@@ -190,7 +193,9 @@ const MultiStepForm: React.FC = () => {
               onClick={handleBack}
               className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
             >
-              {isFirstStep ? null : <CircleArrowLeft className="w-4 h-4 mr-2" />}
+              {isFirstStep ? null : (
+                <CircleArrowLeft className="w-4 h-4 mr-2" />
+              )}
               {steps[activeStep - 1] ?? 'Initial State'}
             </button>
             <button
@@ -198,7 +203,9 @@ const MultiStepForm: React.FC = () => {
               className="border border-gray-300 rounded-full p-2 text-xs font-bold text-gray-500 flex items-center"
             >
               {steps[activeStep + 1] ?? 'Final State'}
-              {activeStep < steps.length - 1 && <CircleArrowRight className="w-4 h-4 ml-2" />}
+              {activeStep < steps.length - 1 && (
+                <CircleArrowRight className="w-4 h-4 ml-2" />
+              )}
             </button>
           </div>
 

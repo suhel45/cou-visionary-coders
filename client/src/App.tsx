@@ -19,6 +19,7 @@ import BiodataList from './components/biodata/BiodataList';
 import BiodataDetailsProfile from './pages/profile/BiodataDetailsProfile';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
+import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -34,7 +35,7 @@ export default function App() {
 
         {/* Content area */}
         <div className="flex-1 overflow-y-auto">
-          <Toaster />
+          <Toaster position="top-right" />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -57,6 +58,7 @@ export default function App() {
                 <Route path="edit/profile" element={<UpdateBiodata />} />
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
+                <Route path="favourite" element={<FavoriteListPage />} />
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
