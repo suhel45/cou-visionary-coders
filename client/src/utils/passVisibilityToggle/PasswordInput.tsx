@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { OutlinedInput, InputAdornment, FormControl, InputLabel, FormHelperText } from '@mui/material';
+import {
+  OutlinedInput,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from '@mui/material';
 import PasswordVisibilityToggle from './PasswordVisibilityToggle';
 
 interface PasswordInputProps {

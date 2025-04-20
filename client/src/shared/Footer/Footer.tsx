@@ -1,4 +1,4 @@
-import {  Globe, Mail } from 'lucide-react';
+import { Globe, Mail } from 'lucide-react';
 import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Footer = () => {

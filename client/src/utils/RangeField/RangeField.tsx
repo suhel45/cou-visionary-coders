@@ -24,7 +24,9 @@ const RangeField: React.FC<RangeFieldProps> = ({
 }) => {
   return (
     <div className="mb-4">
-      <label htmlFor={minName} className="block mb-2">{label}</label>
+      <label htmlFor={minName} className="block mb-2">
+        {label}
+      </label>
       <div className="flex space-x-2">
         <input
           type="number"

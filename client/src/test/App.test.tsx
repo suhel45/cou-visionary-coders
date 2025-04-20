@@ -1,4 +1,4 @@
-import { vi,describe, it, expect } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 
 vi.mock('../../components/firebase/Firebase.config', () => ({
   auth: {},
@@ -37,7 +37,7 @@ describe('App Component', () => {
             <App />
           </AuthProvider>
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => screen.getByText(/home/i));
@@ -54,7 +54,7 @@ describe('App Component', () => {
             <App />
           </AuthProvider>
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => screen.getByText(/page not found/i));

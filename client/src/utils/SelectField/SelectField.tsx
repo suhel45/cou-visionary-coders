@@ -35,7 +35,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   return (
     <div className="mb-4">
       <label className="block mb-2" htmlFor={id}>
-      {required && <span className="text-red-500 mr-1">*</span>}
+        {required && <span className="text-red-500 mr-1">*</span>}
         {label}
       </label>
       <select
@@ -49,10 +49,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
         aria-invalid={!!error}
       >
         {placeholder && (
-           <option value="" disabled>
-             {placeholder}
-           </option>
-         )}
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

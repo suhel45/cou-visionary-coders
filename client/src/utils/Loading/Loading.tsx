@@ -27,7 +27,7 @@ const Loading: React.FC<LoadingProps> = ({
 }) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
         <CircularProgress
           size={size}
           color={color}
