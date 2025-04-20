@@ -32,9 +32,11 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     if (calculateAge(updatedData.birthDate) >= 18) {
+      setError(false);
       setFormData(updatedData);
     } else {
       setError(true);
+      setFormData({ ...updatedData, birthDate: '' });
     }
     setLocalFormData(updatedData);
   };
@@ -55,20 +57,20 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   };
 
   const inputStyle: string =
-    'block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border  border-slate-500 sm:px-8 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:text-lg sm:leading-6';
+    'block p-2 w-32 bg-gray-50 text-center font-bold  rounded-md border  border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm  sm:leading-6'
   const levelStyle: string =
-    'text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center';
+    'text-sm md:text-lg font-semibold text-cyan-950 p-2 md:p-4 text-center';
   return (
     <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
       <div className="flex flex-col items-stretch md:items-center   p-2 ">
-        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-xl md:text-2xl">
+        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-lg">
           ব্যক্তিগত তথ্য
         </h2>
         <form className="w-full md:w-auto bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg flex flex-col items-center gap-2">
-          <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-2xl md:w-1/2">
+          <h2 className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg  md:w-1/2">
             সাধারণ তথ্য
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
             {/* Birth Date Field */}
             <label className={levelStyle}>
               জন্ম তারিখ - {/* Birth Date */}
@@ -81,7 +83,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
                 required
               />
               {error && (
-                <span className="text-red-500 text-sm">
+                <span className="text-red-500 text-xs">
                   আপনার বয়স কমপক্ষে ১৮ বছর হতে হবে
                 </span>
               )}

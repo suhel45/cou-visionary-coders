@@ -16,4 +16,5 @@ export interface BiodataCardProps {
   currentPage?: number;
   isSearching?: boolean;
   mode?: 'add' | 'delete';
+
 }

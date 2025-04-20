@@ -32,15 +32,15 @@ const AddressForm: React.FC<AddressFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-stretch md:items-center justify-center">
+    <div className="flex flex-col items-stretch md:items-center justify-between">
       <h2
-        className="bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg md:text-2xl
+        className="md:w-48 bg-violet-900 text-white my-4 py-2 px-6 shadow-sm outline  m-2 rounded-md text-center font-bold text-lg 
 "
       >
         {title}
       </h2>
       <label
-        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+        className="text-sm md:text-lg font-semibold text-cyan-950 p-2  text-center
 "
       >
         জেলা -{/* District */}
@@ -48,7 +48,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
           name="district"
           value={localAddress.district}
           onChange={handleChange}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:p-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6
+          className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6
 "
         >
           <option>নির্বাচন করুন</option>
@@ -61,7 +61,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       </label>
       <br />
       <label
-        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+        className="text-sm md:text-lg font-semibold text-cyan-950 p-2  text-center
 "
       >
         উপজেলা -{/* Subdistrict */}
@@ -69,7 +69,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
           name="subdistrict"
           value={localAddress.subdistrict}
           onChange={handleChange}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6
+          className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6
 "
           disabled={!localAddress.district}
         >
@@ -86,7 +86,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
       </label>
       <br />
       <label
-        className="text-sm md:text-xl font-semibold text-cyan-950 p-2 md:p-4 text-center
+        className="text-sm md:text-lg font-semibold text-cyan-950 p-2 text-center
 "
       >
         গ্রাম -{/* Village */}
@@ -94,7 +94,7 @@ const AddressForm: React.FC<AddressFormProps> = ({
           name="village"
           value={localAddress.village}
           onChange={handleChange}
-          className="block w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs sm:text-lg sm:leading-6
+          className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border  border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-xs sm:leading-6
  p-2"
           disabled={!localAddress.subdistrict}
           placeholder="গ্রামের নাম"

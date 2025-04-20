@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiodataCardProps } from '../../interfaces/BiodataSearch.interface';
+
 import FavoriteButton from '../FavoriteButton';
 import manImage from '../../assets/man.png';
 import womanImage from '../../assets/woman.png';
@@ -55,6 +56,7 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
               View Profile
             </Link>
           </div>
+
         </div>
       </div>
     </li>

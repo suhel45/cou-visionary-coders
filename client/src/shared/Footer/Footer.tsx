@@ -6,7 +6,7 @@ const Footer = () => {
     { title: 'Privacy Policy', href: '/privacy' },
     { title: 'Terms and Condition', href: '/terms' },
     { title: 'FAQ', href: '/faq' },
-    { title: 'About Us', href: '/about' },
+    { title: 'About Us', href: '/aboutus' },
   ];
 
   const socialLinks = [

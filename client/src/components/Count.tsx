@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 interface CountProps {
   imageSrc: string;
@@ -17,12 +16,6 @@ const Count: React.FC<CountProps> = ({ imageSrc, title, cnt }) => {
       </h4>
     </div>
   );
-};
-
-Count.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  cnt: PropTypes.string.isRequired,
 };
 
 export default Count;
