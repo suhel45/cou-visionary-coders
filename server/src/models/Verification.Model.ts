@@ -27,7 +27,7 @@ const verificationSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const VerificationModel = model('Verification', verificationSchema);

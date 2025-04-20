@@ -9,8 +9,10 @@ import { deleteBiodataController } from '../controllers/deleteBiodata.controller
 import { GetBiodataSearch } from '../controllers/getBiodataSearch.controller';
 
 import { upload } from '../middleware/verify.middleware';
-import { checkVerificationStatus, uploadIDCard } from '../controllers/verify.controller';
-
+import {
+  checkVerificationStatus,
+  uploadIDCard,
+} from '../controllers/verify.controller';
 
 const router = Router();
 
@@ -34,8 +36,7 @@ router.get(
 router.get('/biodata', GetBiodataSearch);
 router.put('/profile/update-biodata', verifyToken, updateBiodataController);
 router.delete('/profile/delete-biodata', verifyToken, deleteBiodataController);
-router.get('/identity/status',verifyToken,checkVerificationStatus);
+router.get('/identity/status', verifyToken, checkVerificationStatus);
 
-
-router.post('/upload',verifyToken, upload.single('studentId'), uploadIDCard);
+router.post('/upload', verifyToken, upload.single('studentId'), uploadIDCard);
 export default router;

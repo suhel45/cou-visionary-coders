@@ -6,7 +6,7 @@ export function useUrlParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Get initial values from URL
-  const initialPage = parseInt(searchParams.get('page') ?? '1');
+  const initialPage = Number.parseInt(searchParams.get('page') ?? '1', 10);
 
   const getInitialSearchParams = () => {
     const params: SearchParams = {};
