@@ -11,8 +11,7 @@ if (!fs.existsSync(uploadPath)) {
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadPath),
-  filename: (_req, file, cb) =>
-    cb(null, `${Date.now()}-${file.originalname}`),
+  filename: (_req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
 });
 
 export const upload = multer({ storage });
