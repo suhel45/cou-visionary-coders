@@ -1,6 +1,5 @@
 import { VerificationModel } from '../models/Verification.Model';
 
-
 const uploadIdCard = async (userId: string, fileUrl: string) => {
   const existing = await VerificationModel.findOne({ user: userId });
 

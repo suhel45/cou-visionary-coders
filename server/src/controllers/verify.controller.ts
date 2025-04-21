@@ -9,7 +9,10 @@ interface CustomRequest extends Request {
   file?: Express.Multer.File;
 }
 
-export const uploadIDCard = async (req: Request, res: Response): Promise<void> => {
+export const uploadIDCard = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const userId = (req as CustomRequest).user.id;
     const file = req.file;
@@ -26,9 +29,12 @@ export const uploadIDCard = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ error: err.message ?? 'Internal Server Error' });
   }
 };
-export const checkVerificationStatus = async (req: Request, res: Response): Promise<void> => {
+export const checkVerificationStatus = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const userId  = (req as CustomRequest).user.id;
+    const userId = (req as CustomRequest).user.id;
 
     if (!userId) {
       res.status(400).json({ message: 'Missing userId parameter' });

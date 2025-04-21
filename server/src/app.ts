@@ -6,16 +6,24 @@ import mongoSanitize from 'express-mongo-sanitize';
 import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import userRoute from './routes/users.route';
+import { favoriteRoutes } from './routes/favoriteList.route';
+
 import path from 'path';
 dotenv.config();
 
 const app = express();
+
+app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 100,
   standardHeaders: 'draft-8',
   legacyHeaders: false,
+  validate: {
+    trustProxy: false,
+    xForwardedForHeader: false,
+  },
 });
 
 const corsOption = {
@@ -50,6 +58,7 @@ app.use(
 );
 
 app.use('/api', userRoute);
+app.use('/api', favoriteRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });

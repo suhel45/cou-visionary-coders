@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 interface CardProps {
   imageSrc: string;
@@ -17,10 +16,5 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => {
   );
 };
 
-Card.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-};
 
 export default Card;

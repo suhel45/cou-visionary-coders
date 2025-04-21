@@ -27,12 +27,12 @@ const Loading: React.FC<LoadingProps> = ({
 }) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <Box position="relative" display="inline-flex">
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
         <CircularProgress
           size={size}
           color={color}
           variant={progress !== undefined ? 'determinate' : 'indeterminate'}
-          value={progress !== undefined ? progress : 0}
+          value={progress ?? 0}
           thickness={thickness}
         />
         {progress !== undefined && (

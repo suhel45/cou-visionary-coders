@@ -167,7 +167,6 @@ const MultiStepForm: React.FC = () => {
   } else {
     nextButtonText = 'Next';
   }
-
   return (
     <div className="p-4">
       {isSubmitted ? (
@@ -212,7 +211,7 @@ const MultiStepForm: React.FC = () => {
 
           <Stepper activeStep={activeStep}>
             {steps.map((label) => (
-              <Step key={label} className="hidden sm:block">
+              <Step key={label} className="hidden sm:block text-sm">
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
@@ -233,18 +232,17 @@ const MultiStepForm: React.FC = () => {
                 disabled={isFirstStep ?? isLoading}
 
                 onClick={handleBack}
-                className="py-4 px-8 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
+                className="py-2 px-6 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
                 Back
               </button>
               <button
                 onClick={isLastStep ? handleSubmit : handleNext}
 
-                disabled={isLoading ?? !isCurrentStepValid()}
-
-                className={`py-4 px-8 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
+                disabled={Boolean(isLoading)|| !isCurrentStepValid()}
+                className={`py-2 px-6 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${
-                    isLoading ?? !isCurrentStepValid()
+                    Boolean(isLoading) || !isCurrentStepValid()
                       ? 'bg-gray-400 text-white cursor-not-allowed'
                       : 'bg-purple-700 text-white hover:bg-purple-900 focus:ring-purple-400 focus:ring-opacity-75'
                   }

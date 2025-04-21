@@ -53,7 +53,7 @@ describe('App Component', () => {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(screen.getByTestId('nav')).toBeInTheDocument();
@@ -67,7 +67,7 @@ describe('App Component', () => {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {

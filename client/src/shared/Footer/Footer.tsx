@@ -1,17 +1,16 @@
-/** @format */
-
-import { Facebook, Globe, Mail } from 'lucide-react';
+import { Globe, Mail } from 'lucide-react';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Footer = () => {
   const navigationLinks = [
     { title: 'Privacy Policy', href: '/privacy' },
     { title: 'Terms and Condition', href: '/terms' },
     { title: 'FAQ', href: '/faq' },
-    { title: 'About Us', href: '/about' },
+    { title: 'About Us', href: '/aboutus' },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: FacebookIcon, href: '#', label: 'Facebook' },
     { icon: Globe, href: '#', label: 'Website' },
     { icon: Mail, href: '#', label: 'Email' },
   ];
