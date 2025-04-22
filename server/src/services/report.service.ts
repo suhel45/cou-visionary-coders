@@ -27,3 +27,7 @@ const createReport = async (userId:string, biodataNo:number, reason:string, reas
      return report;
 
 }
+
+export const reportService = {
+    createReport
+}
