@@ -5,11 +5,18 @@ interface CustomRequest extends Request {
       id: string;
     };
   }
-  
+
 const createReport = async(req: Request, res: Response) => {
     try {
         const userId = (req as CustomRequest).user.id;
         const { biodataNo, reason, reasonDetails } = req.body;
+
+        const report = await reportService.createReport(userId, biodataNo, reason, reasonDetails);
+        res.status(201).json({
+            success: true,
+            message: "Report created successfully",
+            data: report,
+        });
 
     }catch (error) {
         console.error(error);
