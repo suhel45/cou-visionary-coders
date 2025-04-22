@@ -33,9 +33,13 @@ jobs:
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
-      - name: Install backend dependencies
+      - name: Run backend tests with coverage
         working-directory: server
-        run: npm install
+        run: |
+          npm run coverage
+          # Ensure coverage files are in the expected location
+          mkdir -p coverage
+          [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -46,8 +50,8 @@ jobs:
             -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.projectName="cou-visionary-coders"
             -Dsonar.sources=client/src,server/src
-            -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info
-            -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info,server/coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info,server/coverage/lcov.info
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**
             -Dsonar.coverage.exclusions=**/test/**,**/mock/**
             -Dsonar.ci.enabled=true
