@@ -9,6 +9,12 @@ const createReport = async (userId:string, biodataNo:number, reason:string, reas
         throw new Error("Biodata not found!");
     }
 
+    // Check if user already reported this biodataNo
+    const existingReport = await ReportModel.findOne({ biodataNo, reporter: userId });
+    if (existingReport) {
+        throw new Error("You have already reported this biodata.");
+    }
+
     // Create the report
     const newReport = new ReportModel({
         biodataNo,
