@@ -95,7 +95,7 @@ const UpdatePasswordForm: React.FC = () => {
 
         <button
           type="submit"
-          className="w-full bg-violet-700 text-white font-semibold py-2 rounded hover:bg-violet-800"
+          className="w-full bg-violet-700 cursor-pointer text-white font-semibold py-2 rounded hover:bg-violet-800"
         >
           Update Password
         </button>

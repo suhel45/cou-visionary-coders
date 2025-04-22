@@ -41,7 +41,7 @@ export default function App() {
         {!isAdminRoute && <Nav />}
 
         {/* Content area */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto md:mt-20">
           <Toaster position="top-right" />
           <Routes>
             <Route path="/" element={<Home />} />

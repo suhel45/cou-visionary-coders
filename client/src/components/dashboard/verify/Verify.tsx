@@ -142,7 +142,7 @@ const Verify: React.FC = () => {
 
             <button
               onClick={handleUpload} // Ensure userId is not null
-              className="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800"
+              className="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 cursor-pointer"
             >
               Submit
             </button>
