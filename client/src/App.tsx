@@ -21,6 +21,7 @@ import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 import ReportForm from './components/report/ReportForm';
+import SupportForm from './components/support/SupportForm';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -61,6 +62,7 @@ export default function App() {
                 <Route path="edit/verify" element={<Verify />} />
                 <Route path="favourite" element={<FavoriteListPage />} />
                 <Route path="report" element={<ReportForm />} />
+                <Route path="support" element={<SupportForm />} />
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
