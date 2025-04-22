@@ -34,6 +34,14 @@ const createReport = async (
   return report;
 };
 
+const getAllReports = async () => {
+  const reports = await ReportModel.find()
+    .populate('reporter', 'name email')
+    .sort({ createdAt: -1 })
+    .exec();
+  return reports;
+};
+
 export const reportService = {
   createReport,
 };
