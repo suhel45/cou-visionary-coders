@@ -9,6 +9,7 @@ import userRoute from './routes/users.route';
 import { favoriteRoutes } from './routes/favoriteList.route';
 
 import path from 'path';
+import { reportRoutes } from './routes/report.route';
 dotenv.config();
 
 const app = express();
@@ -59,6 +60,7 @@ app.use(
 
 app.use('/api', userRoute);
 app.use('/api', favoriteRoutes);
+app.use('/api', reportRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
