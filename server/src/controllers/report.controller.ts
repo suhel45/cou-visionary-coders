@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { reportService } from "../services/report.service";
 
 interface CustomRequest extends Request {
     user: {
