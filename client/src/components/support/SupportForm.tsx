@@ -29,13 +29,18 @@ const SupportForm: React.FC = () => {
   const onSubmit = async (data: SupportFormInputs) => {
     setServerError(null);
     setServerSuccess(null);
+    setLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/support`, data);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/support`, data,
+         { withCredentials: true },
+      );
       setServerSuccess(res.data.message);
       reset();
     } catch (err: any) {
       setServerError(err.response?.data?.message || "Failed to submit support request");
-    }
+    }finally {
+        setLoading(false);
+        }
   };
 
   return (
