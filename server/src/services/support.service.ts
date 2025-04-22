@@ -9,3 +9,7 @@ const addToSupport = async (userId:string, message:string) => {
     return support;
 
 }
+
+export const supportService = {
+    addToSupport,
+}

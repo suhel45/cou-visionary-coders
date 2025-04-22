@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { supportService } from "../services/support.service";
+import logger from "../utils/logger.util";
 
 interface CustomRequest extends Request {
     user: {
@@ -13,9 +15,14 @@ const addToSupport = async (req:Request, res:Response) => {
 
     const supportRequest = await supportService.addToSupport(userId, message);
 
-    res.status(200).json({ message: 'Support request submitted successfully' });
+    res.status(200).json({
+        success: true,
+        message: 'Support request submitted successfully',
+        data: supportRequest,
+     });
+
   } catch (error) {
-    console.error('Error adding to support:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    logger.error('Error adding to support:', error);
+    res.status(500).json({ error: 'Failed to Support request' });
   }
 }
