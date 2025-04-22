@@ -5,11 +5,13 @@ interface CustomRequest extends Request {
       id: string;
     };
   }
-  
+
 const addToSupport = async (req:Request, res:Response) => {
   try {
     const userId = (req as CustomRequest).user.id;
     const { message } = req.body;
+
+    const supportRequest = await supportService.addToSupport(userId, message);
 
     res.status(200).json({ message: 'Support request submitted successfully' });
   } catch (error) {
