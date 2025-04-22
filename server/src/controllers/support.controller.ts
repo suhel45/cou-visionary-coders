@@ -48,4 +48,5 @@ const getSupportList = async (req: Request, res: Response) => {
 
 export const supportController = {
   addToSupport,
+  getSupportList,
 };
