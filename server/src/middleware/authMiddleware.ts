@@ -14,7 +14,7 @@ export const verifyToken = async (
     const token = req.cookies.token;
 
     if (!token) {
-      res.status(401).json({ message: 'Access denied' });
+      res.status(401).json({ message: 'Unauthorized Access' });
       return;
     }
 
