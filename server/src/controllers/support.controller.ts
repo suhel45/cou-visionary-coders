@@ -29,6 +29,23 @@ const addToSupport = async (req: Request, res: Response) => {
   }
 };
 
+const getSupportList = async (req: Request, res: Response) => {
+  try {
+    const supportList = await supportService.getSupportList();
+    res.status(200).json({
+      success: true,
+      message: 'Support list retrieved successfully',
+      data: supportList,
+    });
+  } catch (error) {
+    logger.error('Error retrieving support list:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve support list',
+    });
+  }
+};
+
 export const supportController = {
   addToSupport,
 };
