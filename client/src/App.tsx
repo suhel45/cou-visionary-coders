@@ -13,6 +13,7 @@ import AboutUs from './components/AboutUs';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
+import Settings from './components/dashboard/settings/Setting';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import Verify from './components/dashboard/verify/Verify';
 import PrivateRoute from './components/PrivateRoute';
@@ -65,6 +66,7 @@ export default function App() {
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
                 <Route path="favourite" element={<FavoriteListPage />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
