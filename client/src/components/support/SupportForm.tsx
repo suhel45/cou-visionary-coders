@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Button,
   TextField,
   Typography,
   Paper,
@@ -9,6 +8,7 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import CommonButton from "../../utils/Button/CommonButton";
 
 type SupportFormInputs = {
   message: string;
@@ -68,15 +68,15 @@ const SupportForm: React.FC = () => {
             />
           )}
         />
-        <Button
+        <CommonButton
           type="submit"
+          label="Submit"
+          loading={loading}
           variant="contained"
           color="primary"
           sx={{ mt: 2 }}
           fullWidth
-        >
-          Submit
-        </Button>
+       />
         {serverSuccess && (
           <Alert severity="success" sx={{ mt: 2 }}>
             {serverSuccess}
