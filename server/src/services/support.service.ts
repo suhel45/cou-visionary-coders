@@ -2,9 +2,10 @@ import { SupportModel } from "../models/support.model"
 
 const addToSupport = async (userId:string, message:string) => {
     const newSupportRequest = new SupportModel({
-        userId,
+        user:userId,
         message,
     });
-    await newSupportRequest.save();
+    const support = await newSupportRequest.save();
+    return support;
 
 }
