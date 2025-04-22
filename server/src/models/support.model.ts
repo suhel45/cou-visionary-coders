@@ -1,24 +1,24 @@
-import mongoose, { model, Schema } from "mongoose";
-import { ISupport } from "../interfaces/support.interface";
+import mongoose, { model, Schema } from 'mongoose';
+import { ISupport } from '../interfaces/support.interface';
 
 const supportSchema = new Schema<ISupport>({
   message: {
     type: String,
-    required: true
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export const SupportModel = model<ISupport>('Support', supportSchema);
