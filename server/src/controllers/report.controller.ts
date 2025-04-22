@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { reportService } from "../services/report.service";
+import logger from "../utils/logger.util";
 
 interface CustomRequest extends Request {
     user: {
@@ -20,7 +21,17 @@ const createReport = async(req: Request, res: Response) => {
         });
 
     }catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
+        if (error instanceof Error) {
+            logger.error("Error creating report:", error.message);
+            res.status(400).json({
+                success: false,
+                message: error.message,
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: "Internal server error",
+            });
+        }
     }
 }
