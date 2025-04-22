@@ -1,7 +1,6 @@
 // models/Report.js
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 import { IReport } from './../interfaces/report.interface';
-const mongoose = require('mongoose');
 
 const reportSchema = new Schema<IReport>({
   biodataNo: {

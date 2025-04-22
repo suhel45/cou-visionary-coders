@@ -1,8 +1,5 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { ISupport } from "../interfaces/support.interface";
-
-// models/Support.js
-const mongoose = require('mongoose');
 
 const supportSchema = new Schema<ISupport>({
   message: {
