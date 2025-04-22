@@ -2,17 +2,19 @@ import { NextFunction, Request, Response } from "express";
 import { CustomRequest } from "../interfaces/users.interface";
 import logger from "../utils/logger.util";
 
-export const isAdmin = async (req:Request, res:Response, next:NextFunction) => {
+export const isAdmin = async (req:Request, res:Response, next:NextFunction):Promise<void> => {
   try {
       const user = (req as CustomRequest).user;
     // Check if user exists in request 
     if (!user) {
-      return res.status(401).json({ message: 'Unauthorized: No user found' });
+      res.status(401).json({ message: 'Unauthorized: No user found' });
+      return;
     }
     
     // Check if user has admin role
     if (typeof user !== 'object' || user === null || (user as any).role !== 'admin') {
-      return res.status(403).json({ message: 'Forbidden: Admin access required' });
+      res.status(403).json({ message: 'Forbidden: Admin access required' });
+      return;
     }
     
     // If user is admin, proceed to the next middleware or route handler
