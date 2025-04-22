@@ -24,12 +24,13 @@ const SupportForm: React.FC = () => {
 
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [serverSuccess, setServerSuccess] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
   const onSubmit = async (data: SupportFormInputs) => {
     setServerError(null);
     setServerSuccess(null);
     try {
-      const res = await axios.post("/api/support", data);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/support`, data);
       setServerSuccess(res.data.message);
       reset();
     } catch (err: any) {
