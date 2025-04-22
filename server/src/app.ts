@@ -11,6 +11,7 @@ import { favoriteRoutes } from './routes/favoriteList.route';
 import path from 'path';
 import { reportRoutes } from './routes/report.route';
 import { supportRoutes } from './routes/support.route';
+import { adminRoutes } from './routes/admin.route';
 dotenv.config();
 
 const app = express();
@@ -63,6 +64,7 @@ app.use('/api', userRoute);
 app.use('/api', favoriteRoutes);
 app.use('/api', reportRoutes);
 app.use('/api', supportRoutes);
+app.use('/api', adminRoutes);
 app.get('/', (req: Request, res: Response) => {
   res.send('my server');
 });
