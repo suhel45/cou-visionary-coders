@@ -17,6 +17,15 @@ const addToSupport = async (userId: string, message: string) => {
   return support;
 };
 
+const getSupportList = async () => {
+  const supportList = await SupportModel.find()
+    .populate('user', 'name email')
+    .sort({ createdAt: -1 })
+    .exec();
+  return supportList;
+};
+
 export const supportService = {
   addToSupport,
+  getSupportList,
 };
