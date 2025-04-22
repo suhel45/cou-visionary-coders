@@ -40,6 +40,30 @@ const createReport = async (req: Request, res: Response) => {
   }
 };
 
+const getAllReports = async (req: Request, res: Response) => {
+  try {
+    const reports = await reportService.getAllReports();
+    res.status(200).json({
+      success: true,
+      message: 'Reports retrieved successfully',
+      data: reports,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      logger.error('Error retrieving reports:', error.message);
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  }
+}
+
 export const reportController = {
   createReport,
 };
