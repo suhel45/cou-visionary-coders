@@ -11,11 +11,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 
-const reasons = [
-  { value: "spam", label: "Spam" },
-  { value: "inappropriate", label: "Inappropriate Content" },
-  { value: "other", label: "Other" },
-];
 
 type ReportFormInputs = {
   biodataNo: string;
