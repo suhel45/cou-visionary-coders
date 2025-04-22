@@ -44,4 +44,5 @@ const getAllReports = async () => {
 
 export const reportService = {
   createReport,
+  getAllReports,
 };
