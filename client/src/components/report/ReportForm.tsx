@@ -24,7 +24,7 @@ const ReportForm: React.FC = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors},
+    formState: { errors,isValid},
   } = useForm<ReportFormInputs>();
 
   const [serverError, setServerError] = React.useState<string | null>(null);
@@ -96,20 +96,36 @@ const ReportForm: React.FC = () => {
           )}
         />
         <Controller
-          name="reasonDetails"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Reason Details"
-              fullWidth
-              margin="normal"
-              multiline
-              rows={3}
-            />
-          )}
-        />
+  name="reasonDetails"
+  control={control}
+  defaultValue=""
+  rules={{
+    required: "Please provide reason details",
+    validate: value => {
+      const wordCount = value.trim().split(/\s+/).filter(word => word.length > 0).length;
+      return wordCount >= 10 || "Please provide at least 10 words";
+    }
+  }}
+  render={({ field, fieldState: { error } }) => (
+    <>
+      <TextField
+        {...field}
+        label="Reason Details"
+        fullWidth
+        margin="normal"
+        multiline
+        rows={3}
+        error={!!error}
+        helperText={error ? error.message : "Minimum 10 words required"}
+      />
+      {field.value && (
+        <Typography variant="caption" color="textSecondary">
+          Word count: {field.value.trim().split(/\s+/).filter(word => word.length > 0).length}/10
+        </Typography>
+      )}
+    </>
+  )}
+/>
         <CommonButton
           type="submit"
           label="Submit Report"
@@ -118,6 +134,7 @@ const ReportForm: React.FC = () => {
           color="primary"
           sx={{ mt: 2 }}
           fullWidth
+          disabled={!isValid || loading}
         />
         {serverSuccess && (
           <Alert severity="success" sx={{ mt: 2 }}>

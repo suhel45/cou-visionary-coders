@@ -19,7 +19,7 @@ const SupportForm: React.FC = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors,isValid },
   } = useForm<SupportFormInputs>();
 
   const [serverError, setServerError] = React.useState<string | null>(null);
@@ -49,25 +49,38 @@ const SupportForm: React.FC = () => {
         Submit a Support Request
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Controller
-          name="message"
-          control={control}
-          defaultValue=""
-          rules={{ required: "Message is required" }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Message"
-              fullWidth
-              margin="normal"
-              multiline
-              rows={4}
-              error={!!errors.message}
-              helperText={errors.message?.message}
-              required
-            />
-          )}
-        />
+      <Controller
+  name="message"
+  control={control}
+  defaultValue=""
+  rules={{ 
+    required: "Message is required",
+    validate: value => {
+      const wordCount = value.trim().split(/\s+/).filter(word => word.length > 0).length;
+      return wordCount >= 10 || "Message must contain at least 10 words";
+    }
+  }}
+  render={({ field }) => (
+    <>
+      <TextField
+        {...field}
+        label="Message"
+        fullWidth
+        margin="normal"
+        multiline
+        rows={4}
+        error={!!errors.message}
+        helperText={errors.message?.message || "Minimum 10 words required"}
+        required
+      />
+      {field.value && (
+        <Typography variant="caption" color="textSecondary" sx={{ ml: 1 }}>
+          Word count: {field.value.trim().split(/\s+/).filter(word => word.length > 0).length}/10
+        </Typography>
+      )}
+    </>
+  )}
+/>
         <CommonButton
           type="submit"
           label="Submit"
@@ -76,6 +89,7 @@ const SupportForm: React.FC = () => {
           color="primary"
           sx={{ mt: 2 }}
           fullWidth
+          disabled={!isValid || loading}
        />
         {serverSuccess && (
           <Alert severity="success" sx={{ mt: 2 }}>

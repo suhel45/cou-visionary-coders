@@ -18,7 +18,7 @@ const sidebarLinks = [
   { to: '/dashboard/edit/verify', label: 'Verify Profile', icon: ShieldUser },
   { to: '/dashboard/favourite', label: 'Favourite List', icon: Heart },
   // { to: '/dashboard/purchase', label: 'Purchase', icon: ShoppingCart },
-  { to: '/dashboard/report', label: 'Support and Report', icon: HelpCircle },
+  { to: '/dashboard/support-report', label: 'Support and Report', icon: HelpCircle },
   { to: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
