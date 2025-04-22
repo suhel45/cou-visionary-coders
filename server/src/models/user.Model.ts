@@ -7,6 +7,7 @@ const usersSchema = new Schema<IUser>(
     username: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true, trim: true },
+    role: { type: String, default: 'user' },
     resetToken: { type: String, default: '' },
     tokenExpire: { type: Date, default: null },
   },
