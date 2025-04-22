@@ -20,6 +20,7 @@ import BiodataDetailsProfile from './pages/profile/BiodataDetailsProfile';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
+import ReportForm from './components/report/ReportForm';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -59,6 +60,7 @@ export default function App() {
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
                 <Route path="favourite" element={<FavoriteListPage />} />
+                <Route path="report" element={<ReportForm />} />
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
