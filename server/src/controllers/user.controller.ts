@@ -42,7 +42,7 @@ const loginUser = async (req: Request, res: Response) => {
       sameSite: 'lax',
       path: '/',
       maxAge: 3600000, // 1 hour
-    });=2AQ``
+    });
 
     res.status(200).json({
       success: true,
