@@ -21,7 +21,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
     religion: '',
     bloodGroup: '',
   });
- const [error,setError] = useState<boolean | string>(false);
+  const [error, setError] = useState<boolean | string>(false);
   useEffect(() => {
     setLocalFormData({ ...formData });
   }, [formData]);
@@ -85,7 +85,6 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
               {error && (
                 <span className="text-red-500 text-xs">
                   আপনার বয়স কমপক্ষে ১৮ বছর হতে হবে
-                 
                 </span>
               )}
             </label>
