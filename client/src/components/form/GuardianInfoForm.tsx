@@ -37,7 +37,9 @@ const GuardianInfoForm: React.FC<GuardianInfoFormProps> = ({
       </h2>
 
       <div className="flex flex-row items-stretch gap-2  p-2 rounded ">
-        <p className="text-violet-900 text-sm sm:text-lg font-bold">বর্তমান অবস্থা - </p>
+        <p className="text-violet-900 text-sm sm:text-lg font-bold">
+          বর্তমান অবস্থা -{' '}
+        </p>
         <label className="flex items-center  space-x-2">
           <input
             type="checkbox"

@@ -56,7 +56,6 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
               View Profile
             </Link>
           </div>
-
         </div>
       </div>
     </li>

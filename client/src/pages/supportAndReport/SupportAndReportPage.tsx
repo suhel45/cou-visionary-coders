@@ -1,12 +1,12 @@
-import ReportForm from "../../components/report/ReportForm"
-import SupportForm from "../../components/support/SupportForm"
-import { Box, Stack } from "@mui/material"
+import ReportForm from '../../components/report/ReportForm';
+import SupportForm from '../../components/support/SupportForm';
+import { Box, Stack } from '@mui/material';
 
 const SupportAndReportPage = () => {
   return (
     <Box sx={{ flexGrow: 1, p: 2 }}>
       <Stack
-        direction={{ xs: "column", md: "row" }}
+        direction={{ xs: 'column', md: 'row' }}
         spacing={4}
         justifyContent="center"
         alignItems="stretch"
@@ -19,7 +19,7 @@ const SupportAndReportPage = () => {
         </Box>
       </Stack>
     </Box>
-  )
-}
+  );
+};
 
-export default SupportAndReportPage
+export default SupportAndReportPage;

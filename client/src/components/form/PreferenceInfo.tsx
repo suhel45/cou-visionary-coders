@@ -27,9 +27,7 @@ const PreferenceInfo: React.FC<PreferenceInfoProps> = ({
   return (
     <div className="w-full h-full border border-gray-400 bg-purple-50 rounded-md  shadow-lg md:m-4">
       <div className="flex flex-col items-stretch md:items-center justify-center p-2 ">
-        <h2
-          className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-lg"
-        >
+        <h2 className="bg-pink-600 text-white py-2 px-6 shadow-sm outline outline-pink-600  outline-offset-2  m-2 rounded-md text-center font-bold text-lg">
           আপনার পছন্দ ও অভ্যাস
         </h2>
         <form className="w-full md:w-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-1 bg-white border-pink-600 p-2 md:px-28 my-4 rounded-md border shadow-lg hover:shadow-lg  ">

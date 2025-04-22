@@ -60,7 +60,10 @@ export default function App() {
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
                 <Route path="favourite" element={<FavoriteListPage />} />
-                <Route path="support-report" element={<SupportAndReportPage />} />
+                <Route
+                  path="support-report"
+                  element={<SupportAndReportPage />}
+                />
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>

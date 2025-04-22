@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   TextField,
@@ -6,12 +6,11 @@ import {
   Typography,
   Paper,
   Alert,
-} from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
-import { reasons } from "../../constants/reportOptions";
-import CommonButton from "../../utils/Button/CommonButton";
-
+} from '@mui/material';
+import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
+import { reasons } from '../../constants/reportOptions';
+import CommonButton from '../../utils/Button/CommonButton';
 
 type ReportFormInputs = {
   biodataNo: string;
@@ -24,32 +23,34 @@ const ReportForm: React.FC = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors,isValid},
+    formState: { errors, isValid },
   } = useForm<ReportFormInputs>();
 
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [serverSuccess, setServerSuccess] = React.useState<string | null>(null);
-  const [loading,setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const onSubmit = async (data: ReportFormInputs) => {
     setServerError(null);
     setServerSuccess(null);
     setLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/report`, data,
-        {withCredentials: true},
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/report`,
+        data,
+        { withCredentials: true },
       );
       setServerSuccess(res.data.message);
       reset();
     } catch (err: any) {
-      setServerError(err.response?.data?.message || "Failed to submit report");
-    }finally {
+      setServerError(err.response?.data?.message || 'Failed to submit report');
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, mx: "auto", mt: 6 }}>
+    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, mx: 'auto', mt: 6 }}>
       <Typography variant="h5" gutterBottom>
         Submit a Report
       </Typography>
@@ -58,7 +59,7 @@ const ReportForm: React.FC = () => {
           name="biodataNo"
           control={control}
           defaultValue=""
-          rules={{ required: "Biodata No is required" }}
+          rules={{ required: 'Biodata No is required' }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -75,7 +76,7 @@ const ReportForm: React.FC = () => {
           name="reason"
           control={control}
           defaultValue=""
-          rules={{ required: "Reason is required" }}
+          rules={{ required: 'Reason is required' }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -96,36 +97,46 @@ const ReportForm: React.FC = () => {
           )}
         />
         <Controller
-  name="reasonDetails"
-  control={control}
-  defaultValue=""
-  rules={{
-    required: "Please provide reason details",
-    validate: value => {
-      const wordCount = value.trim().split(/\s+/).filter(word => word.length > 0).length;
-      return wordCount >= 10 || "Please provide at least 10 words";
-    }
-  }}
-  render={({ field, fieldState: { error } }) => (
-    <>
-      <TextField
-        {...field}
-        label="Reason Details"
-        fullWidth
-        margin="normal"
-        multiline
-        rows={3}
-        error={!!error}
-        helperText={error ? error.message : "Minimum 10 words required"}
-      />
-      {field.value && (
-        <Typography variant="caption" color="textSecondary">
-          Word count: {field.value.trim().split(/\s+/).filter(word => word.length > 0).length}/10
-        </Typography>
-      )}
-    </>
-  )}
-/>
+          name="reasonDetails"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Please provide reason details',
+            validate: (value) => {
+              const wordCount = value
+                .trim()
+                .split(/\s+/)
+                .filter((word) => word.length > 0).length;
+              return wordCount >= 10 || 'Please provide at least 10 words';
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <>
+              <TextField
+                {...field}
+                label="Reason Details"
+                fullWidth
+                margin="normal"
+                multiline
+                rows={3}
+                error={!!error}
+                helperText={error ? error.message : 'Minimum 10 words required'}
+              />
+              {field.value && (
+                <Typography variant="caption" color="textSecondary">
+                  Word count:{' '}
+                  {
+                    field.value
+                      .trim()
+                      .split(/\s+/)
+                      .filter((word) => word.length > 0).length
+                  }
+                  /10
+                </Typography>
+              )}
+            </>
+          )}
+        />
         <CommonButton
           type="submit"
           label="Submit Report"
