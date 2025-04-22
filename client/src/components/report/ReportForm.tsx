@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Button,
   TextField,
   MenuItem,
   Typography,
@@ -10,6 +9,8 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import { reasons } from "../../constants/reportOptions";
+import CommonButton from "../../utils/Button/CommonButton";
 
 
 type ReportFormInputs = {
@@ -23,21 +24,27 @@ const ReportForm: React.FC = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors},
   } = useForm<ReportFormInputs>();
 
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [serverSuccess, setServerSuccess] = React.useState<string | null>(null);
+  const [loading,setLoading] = React.useState(false);
 
   const onSubmit = async (data: ReportFormInputs) => {
     setServerError(null);
     setServerSuccess(null);
+    setLoading(true);
     try {
-      const res = await axios.post("/api/report", data);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/report`, data,
+        {withCredentials: true},
+      );
       setServerSuccess(res.data.message);
       reset();
     } catch (err: any) {
       setServerError(err.response?.data?.message || "Failed to submit report");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -103,15 +110,15 @@ const ReportForm: React.FC = () => {
             />
           )}
         />
-        <Button
+        <CommonButton
           type="submit"
+          label="Submit Report"
+          loading={loading}
           variant="contained"
           color="primary"
           sx={{ mt: 2 }}
           fullWidth
-        >
-          Submit
-        </Button>
+        />
         {serverSuccess && (
           <Alert severity="success" sx={{ mt: 2 }}>
             {serverSuccess}
