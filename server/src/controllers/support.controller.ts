@@ -23,7 +23,10 @@ const addToSupport = async (req:Request, res:Response) => {
 
   } catch (error) {
     logger.error('Error adding to support:', error);
-    res.status(500).json({ error: 'Failed to Support request' });
+    res.status(500).json({
+            success: false,
+            message: 'Failed to Support request'
+         });
   }
 }
 
