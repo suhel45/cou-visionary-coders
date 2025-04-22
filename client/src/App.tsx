@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
@@ -6,6 +6,7 @@ import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
 import Faq from './pages/faq/pages';
 import Home from './pages/Home/pages';
+import Admin from './pages/admin/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
@@ -26,12 +27,17 @@ function NoMatch() {
 }
 
 export default function App() {
+  const location = useLocation();
+
+  // Check if the current route is /admin
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
     // Wrap everything inside AuthProvider
     <AuthProvider>
       <div className="flex flex-col min-h-screen">
-        {/* Nav component fixed at the top */}
-        <Nav />
+        {/* Conditionally render Nav */}
+        {!isAdminRoute && <Nav />}
 
         {/* Content area */}
         <div className="flex-1 overflow-y-auto">
@@ -54,7 +60,7 @@ export default function App() {
               element={<BiodataDetailsProfile />}
             />
             <Route element={<PrivateRoute />}>
-              <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route path="/dashboard/*" element={<Dashboard />} >
                 <Route path="edit/profile" element={<UpdateBiodata />} />
                 <Route path="" element={<Analytic />} />
                 <Route path="edit/verify" element={<Verify />} />
@@ -62,12 +68,13 @@ export default function App() {
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
 
         {/* Footer component fixed at the bottom */}
-        <Footer />
+        {!isAdminRoute && <Footer />}
       </div>
     </AuthProvider>
   );

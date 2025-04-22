@@ -19,7 +19,7 @@ const Verify: React.FC = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
+          `http://localhost:3000/api/profile/biodata`,
           {
             withCredentials: true,
           },
@@ -27,7 +27,7 @@ const Verify: React.FC = () => {
         if (response.data.success) {
           setBiodataCreated(true);
         }
-        console.log(response.data);
+        console.log('Response ',response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         setBiodataCreated(false);
@@ -44,7 +44,7 @@ const Verify: React.FC = () => {
     const fetchIdCardStatus = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/identity/status`,
+          `http://localhost:3000/api/identity/status`,
           {
             withCredentials: true,
           },
@@ -68,7 +68,7 @@ const Verify: React.FC = () => {
   }, [idStatus, biodataCreated]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files?.[0]) {
       setImage(event.target.files[0]);
     }
   };
@@ -95,12 +95,16 @@ const Verify: React.FC = () => {
       console.error('Error uploading ID card:', error);
     }
   };
-  const statusColorClass =
-    idStatus === 'Approved'
-      ? 'text-green-600'
-      : idStatus === 'Pending'
-        ? 'text-yellow-600'
-        : 'text-red-600';
+  let statusColorClass = '';
+
+  if (idStatus === 'Approved') {
+    statusColorClass = 'text-green-600';
+  } else if (idStatus === 'Pending') {
+    statusColorClass = 'text-yellow-600';
+  } else {
+    statusColorClass = 'text-red-600';
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white md:shadow-lg rounded-lg mt-10 md:border border-gray-200 space-y-6">
       <h2 className="text-4xl font-bold text-center text-indigo-900 mb-6">

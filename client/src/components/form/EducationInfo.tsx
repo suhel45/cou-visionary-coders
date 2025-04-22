@@ -37,6 +37,19 @@ function AcademicDetails({
     field: keyof AcademicRecord,
   ) => {
     const { value } = e.target;
+    if (field === 'gpa') {
+      const gpaValue = parseFloat(value);
+      if (gpaValue < 1.0 || gpaValue > 5.0) {
+        setFormData({
+          ...formData,
+          [section]: {
+            ...formData[section],
+            [field]: '',
+          },
+        });
+        return;
+      }
+    }
     setFormData({
       ...formData,
       [section]: {

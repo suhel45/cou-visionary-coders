@@ -7,6 +7,7 @@ import useUrlParams from '../../Hooks/useUrlParams/useUrlParams';
 import useBiodataQuery from '../../Hooks/useBiodataQuery/useBiodataQuery';
 import { SearchParams } from '../../interfaces/Search.interface';
 import BiodataSearch from './BiodataSearch';
+import {  Filter } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -18,6 +19,7 @@ const BiodataList: React.FC = () => {
   const [searchFilter, setSearchFilter] =
     useState<SearchParams>(initialSearchParams);
   const [isSearching, setIsSearching] = useState(hasActiveFilters);
+  const [showFilters, setShowFilters] = useState(false); // State to toggle filters
 
   // Fetch data with react-query
   const { data, isLoading, isFetching, error, refetch } = useBiodataQuery(
@@ -28,7 +30,6 @@ const BiodataList: React.FC = () => {
 
   // Update URL when page or filters change - with debounce
   useEffect(() => {
-    // Use a timeout to debounce URL updates
     const timer = setTimeout(() => {
       updateUrl(currentPage, searchFilter);
     }, 300); // 300ms debounce
@@ -40,7 +41,6 @@ const BiodataList: React.FC = () => {
   const handlePageChange = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       if (value !== currentPage) {
-        // Only update if value actually changed
         setCurrentPage(value);
       }
     },
@@ -84,13 +84,26 @@ const BiodataList: React.FC = () => {
 
   return (
     <div className="mx-2 md:mx-10">
+      {/* Toggle Filter Button */}
+      <div className="flex justify-end m-4">
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="flex items-center gap-2 bg-pink-700 text-white px-4 py-2 rounded shadow hover:bg-pink-600 font-bold"
+        >
+          <Filter size={20} />
+          {showFilters ? 'ফিল্টার সরিয়ে নিন' : 'ফিল্টার সমূহ'}
+        </button>
+      </div>
+
       {/* Search Component */}
-      <BiodataSearch
-        onSearch={handleSearch}
-        onClear={handleClearFilters}
-        initialParams={searchFilter}
-        className="mb-6"
-      />
+      {showFilters && (
+        <BiodataSearch
+          onSearch={handleSearch}
+          onClear={handleClearFilters}
+          initialParams={searchFilter}
+          className="mb-6"
+        />
+      )}
 
       {/* Search Results Label */}
       {isSearching && (
@@ -99,8 +112,8 @@ const BiodataList: React.FC = () => {
         </div>
       )}
 
-      <h4 className="text-center text-2xl sm:text-5xl rounded-full p-4 m-4 sm:m-5 font-bold bg-violet-950 text-white sm:w-1/2 sm:mx-auto">
-        Biodata List
+      <h4 className="text-center text-xl sm:text-4xl rounded-full p-4 m-4 sm:m-5 font-bold text-violet-950 underline sm:w-1/2 sm:mx-auto">
+        বায়োডাটার তালিকা
       </h4>
 
       {/* Biodata List */}

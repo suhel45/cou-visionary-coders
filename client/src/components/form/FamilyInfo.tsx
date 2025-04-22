@@ -86,7 +86,7 @@ const FamilyInfo: React.FC<FamilyInfoProps> = ({ formData, setFormData }) => {
               onChange={handleFinancialStatusChange}
               className="block p-4 w-full md:w-screen bg-gray-50 text-center font-bold  rounded-md border py-2 border-slate-500 sm:py-4 text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
             >
-              <option>নির্বাচন করুন</option>
+              <option value="">নির্বাচন করুন</option>
               <option value="Lower Class">নিম্নবিত্ত</option>
               <option value="Middle Class">মধ্যবিত্ত</option>
               <option value="Upper Middle Class">উচ্চ মধ্যবিত্ত</option>

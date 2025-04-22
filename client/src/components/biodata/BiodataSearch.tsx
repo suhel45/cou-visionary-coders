@@ -54,7 +54,7 @@ const BiodataSearch: React.FC<BiodataSearchProps> = ({
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md mb-8 text-black"
+        className="bg-white p-6 rounded-lg shadow-md mb-8 text-gray-800 font-bold"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Gender */}
