@@ -19,7 +19,7 @@ const addToSupport = async (userId: string, message: string) => {
 
 const getSupportList = async () => {
   const supportList = await SupportModel.find()
-    .populate('user', 'name email')
+    .populate('user', 'username email')
     .sort({ createdAt: -1 })
     .exec();
   return supportList;

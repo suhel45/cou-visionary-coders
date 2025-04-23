@@ -11,6 +11,7 @@ interface CustomRequest extends Request {
 const addToSupport = async (req: Request, res: Response) => {
   try {
     const userId = (req as CustomRequest).user.id;
+    console.log(userId);
     const { message } = req.body;
 
     const supportRequest = await supportService.addToSupport(userId, message);
