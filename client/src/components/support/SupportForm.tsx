@@ -3,6 +3,7 @@ import { Box, TextField, Typography, Paper, Alert } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import CommonButton from '../../utils/Button/CommonButton';
+import { countWords } from '../../utils/helperFuction/WordCount';
 
 type SupportFormInputs = {
   message: string;
@@ -54,10 +55,7 @@ const SupportForm: React.FC = () => {
           rules={{
             required: 'Message is required',
             validate: (value) => {
-              const wordCount = value
-                .trim()
-                .split(/\s+/)
-                .filter((word) => word.length > 0).length;
+              const wordCount = countWords(value);
               return (
                 wordCount >= 10 || 'Message must contain at least 10 words'
               );

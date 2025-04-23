@@ -33,7 +33,9 @@ describe('BiodataVisit Component', () => {
     fireEvent.click(openBtn);
 
     // Expect dialog content to appear
-    const dialogTitle = screen.getByText('Biodata Search and Visit Information');
+    const dialogTitle = screen.getByText(
+      'Biodata Search and Visit Information',
+    );
     expect(dialogTitle).toBeInTheDocument();
 
     // Check one of the instruction items

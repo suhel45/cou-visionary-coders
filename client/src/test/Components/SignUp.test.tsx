@@ -28,10 +28,14 @@ vi.mock('axios');
 vi.mock('../../utils/passwordValidation/ValidatePassword', () => ({
   ValidatePassword: (value: string) => {
     if (value.length < 8) return 'Password must be at least 8 characters long';
-    if (!/[A-Z]/.test(value)) return 'Password must contain at least one uppercase letter';
-    if (!/[a-z]/.test(value)) return 'Password must contain at least one lowercase letter';
-    if (!/[0-9]/.test(value)) return 'Password must contain at least one number';
-    if (!/[!@#$%^&*]/.test(value)) return 'Password must contain at least one special character';
+    if (!/[A-Z]/.test(value))
+      return 'Password must contain at least one uppercase letter';
+    if (!/[a-z]/.test(value))
+      return 'Password must contain at least one lowercase letter';
+    if (!/[0-9]/.test(value))
+      return 'Password must contain at least one number';
+    if (!/[!@#$%^&*]/.test(value))
+      return 'Password must contain at least one special character';
     return null;
   },
 }));
@@ -76,7 +80,7 @@ describe('SignUp Component', () => {
           <Toaster />
           <SignUp />
         </BrowserRouter>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   };
 
@@ -85,8 +89,12 @@ describe('SignUp Component', () => {
 
     expect(screen.getByPlaceholderText('Enter Your Name')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter Your Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Enter Your Password')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Confirm Your Password')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Enter Your Password'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Confirm Your Password'),
+    ).toBeInTheDocument();
     expect(screen.getByText('Register')).toBeInTheDocument();
   });
 
@@ -110,7 +118,9 @@ describe('SignUp Component', () => {
     fireEvent.click(screen.getByText('Register'));
 
     await waitFor(() => {
-      expect(screen.getByText('Password must be at least 8 characters long')).toBeInTheDocument();
+      expect(
+        screen.getByText('Password must be at least 8 characters long'),
+      ).toBeInTheDocument();
     });
   });
 
@@ -155,9 +165,11 @@ describe('SignUp Component', () => {
     await waitFor(() => {
       expect(mockCreateUser).toHaveBeenCalledWith(
         'mahmoud@example.com',
-        'StrongPassword123!'
+        'StrongPassword123!',
       );
-      expect(mockUpdateUserProfile).toHaveBeenCalledWith({ displayName: 'Mahmoud' });
+      expect(mockUpdateUserProfile).toHaveBeenCalledWith({
+        displayName: 'Mahmoud',
+      });
     });
   });
 
@@ -182,7 +194,9 @@ describe('SignUp Component', () => {
     fireEvent.click(screen.getByText('Register'));
 
     await waitFor(() => {
-      expect(screen.getByText('Registration failed. Please try again.')).toBeInTheDocument();
+      expect(
+        screen.getByText('Registration failed. Please try again.'),
+      ).toBeInTheDocument();
     });
   });
 });

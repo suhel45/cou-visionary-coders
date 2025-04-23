@@ -19,7 +19,7 @@ describe('PrivateRoute', () => {
             </Route>
           </Routes>
         </MemoryRouter>
-      </AuthContext.Provider>
+      </AuthContext.Provider>,
     );
   };
 
@@ -36,7 +36,11 @@ describe('PrivateRoute', () => {
   });
 
   it('should render the protected component if user is authenticated', () => {
-    renderWithAuth({ initializing: false, loading: false, user: { name: 'Mahmoud' } });
+    renderWithAuth({
+      initializing: false,
+      loading: false,
+      user: { name: 'Mahmoud' },
+    });
 
     expect(screen.getByText(/Protected Route/i)).toBeInTheDocument();
   });
@@ -44,7 +48,7 @@ describe('PrivateRoute', () => {
   it('should throw error if AuthContext is not provided', () => {
     // Suppress the error message from console
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    
+
     expect(() =>
       render(
         <MemoryRouter initialEntries={['/protected']}>
@@ -53,8 +57,8 @@ describe('PrivateRoute', () => {
               <Route path="/protected" element={<TestComponent />} />
             </Route>
           </Routes>
-        </MemoryRouter>
-      )
+        </MemoryRouter>,
+      ),
     ).toThrow('AuthContext is not provided');
 
     spy.mockRestore();

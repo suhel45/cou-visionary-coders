@@ -17,7 +17,7 @@ describe('GuardianInfoForm Component', () => {
         label="পিতা"
         guardian={initialGuardian}
         onChange={mockOnChange}
-      />
+      />,
     );
 
     // Check for the label
@@ -37,7 +37,7 @@ describe('GuardianInfoForm Component', () => {
         label="পিতা"
         guardian={initialGuardian}
         onChange={mockOnChange}
-      />
+      />,
     );
 
     const aliveCheckbox = screen.getByLabelText('জীবিত') as HTMLInputElement;
@@ -64,11 +64,11 @@ describe('GuardianInfoForm Component', () => {
         label="পিতা"
         guardian={initialGuardian}
         onChange={mockOnChange}
-      />
+      />,
     );
 
     const professionTextarea = screen.getByPlaceholderText(
-      'পেশা , বিবরণসহ'
+      'পেশা , বিবরণসহ',
     ) as HTMLTextAreaElement;
 
     // Change profession textarea value

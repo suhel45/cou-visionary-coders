@@ -1,8 +1,8 @@
-import React from 'react'
-import AdminDashboard from '../../components/admin/AdminDashboard'
+import React from 'react';
+import AdminDashboard from '../../components/admin/AdminDashboard';
 
 const pages = () => {
-  return <AdminDashboard/>
-}
+  return <AdminDashboard />;
+};
 
-export default pages
+export default pages;

@@ -178,10 +178,10 @@ const MultiStepForm: React.FC = () => {
             Form Submitted Successfully!
           </h2>
           <Link to="/profile">
-  <p className="text-sm font-semibold text-white bg-green-800 rounded p-2 text-center hover:bg-green-700 transition">
-    Visit Profile 
-  </p>
-</Link>
+            <p className="text-sm font-semibold text-white bg-green-800 rounded p-2 text-center hover:bg-green-700 transition">
+              Visit Profile
+            </p>
+          </Link>
           <button
             onClick={handleReset}
             className="py-2 px-4 bg-red-700 md:text-lg text-white font-semibold rounded-full shadow-md hover:bg-red-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-400 focus:ring-opacity-75"
@@ -240,8 +240,7 @@ const MultiStepForm: React.FC = () => {
               </button>
               <button
                 onClick={isLastStep ? handleSubmit : handleNext}
-
-                disabled={Boolean(isLoading)|| !isCurrentStepValid()}
+                disabled={Boolean(isLoading) || !isCurrentStepValid()}
                 className={`cursor-pointer py-2 px-6 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${
                     Boolean(isLoading) || !isCurrentStepValid()

@@ -45,8 +45,12 @@ describe('ResetForgotPassword Component', () => {
   it('renders the form with password inputs and submit button', () => {
     renderWithRouter(<ResetForgotPassword />);
     expect(screen.getByPlaceholderText(/new password/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/confirm password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /reset password/i })).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/confirm password/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /reset password/i }),
+    ).toBeInTheDocument();
   });
 
   it('shows validation error for mismatched passwords', async () => {
@@ -59,7 +63,9 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/passwords do not match/i),
+    ).toBeInTheDocument();
   });
 
   it('shows validation error for password length', async () => {
@@ -69,7 +75,9 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/password must be at least 8 characters/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/password must be at least 8 characters/i),
+    ).toBeInTheDocument();
   });
 
   it('shows success message when password reset is successful', async () => {
@@ -87,7 +95,9 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/password reset successfully/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/password reset successfully/i),
+    ).toBeInTheDocument();
   });
 
   it('displays error message when API call fails with server error', async () => {
@@ -105,7 +115,9 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/internal server error/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/internal server error/i),
+    ).toBeInTheDocument();
   });
 
   it('displays error message when no response from server', async () => {
@@ -123,7 +135,9 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/check your network connection/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/check your network connection/i),
+    ).toBeInTheDocument();
   });
 
   it('displays fallback error for unexpected issues', async () => {
@@ -138,6 +152,8 @@ describe('ResetForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
-    expect(await screen.findByText(/error resetting password/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/error resetting password/i),
+    ).toBeInTheDocument();
   });
 });

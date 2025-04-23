@@ -13,7 +13,7 @@ const AdminDashboard = () => {
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
-    setSidebarOpen(false); 
+    setSidebarOpen(false);
   };
 
   const renderSection = () => {
@@ -45,7 +45,9 @@ const AdminDashboard = () => {
           <button
             onClick={() => handleSectionChange('overview')}
             className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
-              activeSection === 'overview' ? 'bg-purple-100 text-purple-700' : 'hover:bg-purple-50'
+              activeSection === 'overview'
+                ? 'bg-purple-100 text-purple-700'
+                : 'hover:bg-purple-50'
             }`}
           >
             <LayoutDashboard size={20} />
@@ -54,7 +56,9 @@ const AdminDashboard = () => {
           <button
             onClick={() => handleSectionChange('verification')}
             className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
-              activeSection === 'verification' ? 'bg-purple-100 text-purple-700' : 'hover:bg-purple-50'
+              activeSection === 'verification'
+                ? 'bg-purple-100 text-purple-700'
+                : 'hover:bg-purple-50'
             }`}
           >
             <ShieldCheck size={20} />
@@ -63,7 +67,9 @@ const AdminDashboard = () => {
           <button
             onClick={() => handleSectionChange('reports')}
             className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
-              activeSection === 'reports' ? 'bg-purple-100 text-purple-700' : 'hover:bg-purple-50'
+              activeSection === 'reports'
+                ? 'bg-purple-100 text-purple-700'
+                : 'hover:bg-purple-50'
             }`}
           >
             <Flag size={20} />
@@ -72,7 +78,9 @@ const AdminDashboard = () => {
           <button
             onClick={() => handleSectionChange('support')}
             className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
-              activeSection === 'support' ? 'bg-purple-100 text-purple-700' : 'hover:bg-purple-50'
+              activeSection === 'support'
+                ? 'bg-purple-100 text-purple-700'
+                : 'hover:bg-purple-50'
             }`}
           >
             <HelpCircle size={20} />

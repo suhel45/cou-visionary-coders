@@ -19,7 +19,7 @@ global.fetch = vi.fn(() =>
     blob: () => Promise.resolve(new Blob()),
     formData: () => Promise.resolve(new FormData()),
     arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-  } as unknown as Response)
+  } as unknown as Response),
 );
 
 describe('MultiStepForm', () => {
@@ -77,7 +77,7 @@ describe('MultiStepForm', () => {
         blob: () => Promise.resolve(new Blob()),
         formData: () => Promise.resolve(new FormData()),
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-      } as unknown as Response)
+      } as unknown as Response),
     );
 
     render(<MultiStepForm />);
@@ -92,7 +92,9 @@ describe('MultiStepForm', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Failed! Please try again./i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Failed! Please try again./i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -109,7 +111,9 @@ describe('MultiStepForm', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Form Submitted Successfully!/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Form Submitted Successfully!/i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -147,7 +151,9 @@ describe('MultiStepForm', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Form Submitted Successfully!/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Form Submitted Successfully!/i),
+      ).toBeInTheDocument();
     });
 
     // Click the reset button
@@ -166,6 +172,8 @@ describe('MultiStepForm', () => {
     fireEvent.click(nextButton);
 
     // Check for validation error message
-    expect(screen.getByText(/Please fill out all required fields/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Please fill out all required fields/i),
+    ).toBeInTheDocument();
   });
 });

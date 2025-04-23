@@ -21,7 +21,7 @@ describe('subDistricts', () => {
         'Morrelganj',
         'Rampal',
         'Sarankhola',
-      ])
+      ]),
     );
   });
 
@@ -35,8 +35,9 @@ describe('subDistricts', () => {
 
   it('should not contain any undefined subdistricts', () => {
     for (const division in subDistricts) {
-      const subdistrictList = subDistricts[division as keyof typeof subDistricts];
-      subdistrictList.forEach(subdistrict => {
+      const subdistrictList =
+        subDistricts[division as keyof typeof subDistricts];
+      subdistrictList.forEach((subdistrict) => {
         expect(subdistrict).toBeDefined();
         expect(typeof subdistrict).toBe('string');
       });

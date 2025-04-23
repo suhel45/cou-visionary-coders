@@ -4,14 +4,14 @@ import axios from 'axios';
 
 const UpdatePasswordForm: React.FC = () => {
   // Get AuthContext and ensure it's not null
-    const authContext = useContext(AuthContext);
-  
-    // Check if authContext is available and extract user and logOut
-    if (!authContext) {
-      throw new Error('AuthContext is null');
-    }
-  
-    const { user } = authContext;
+  const authContext = useContext(AuthContext);
+
+  // Check if authContext is available and extract user and logOut
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
+
+  const { user } = authContext;
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -44,15 +44,18 @@ const UpdatePasswordForm: React.FC = () => {
           email: user?.email,
           currentPassword,
           newPassword,
-          
         },
         {
           withCredentials: true,
-        }
+        },
       );
       console.log(currentPassword, newPassword);
       setSuccessMessage(res.data.message);
-      setFormData({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
+      setFormData({
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: '',
+      });
     } catch (err) {
       const message = axios.isAxiosError(err)
         ? err.response?.data?.message || 'An error occurred'
@@ -63,7 +66,9 @@ const UpdatePasswordForm: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 border rounded-lg shadow-md mt-8 bg-white">
-      <h2 className="text-xl font-bold text-center text-violet-700 mb-4">Update Password</h2>
+      <h2 className="text-xl font-bold text-center text-violet-700 mb-4">
+        Update Password
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="password"
@@ -100,8 +105,12 @@ const UpdatePasswordForm: React.FC = () => {
           Update Password
         </button>
 
-        {errorMessage && <p className="text-red-500 text-center text-sm">{errorMessage}</p>}
-        {successMessage && <p className="text-green-600 text-center text-sm">{successMessage}</p>}
+        {errorMessage && (
+          <p className="text-red-500 text-center text-sm">{errorMessage}</p>
+        )}
+        {successMessage && (
+          <p className="text-green-600 text-center text-sm">{successMessage}</p>
+        )}
       </form>
     </div>
   );

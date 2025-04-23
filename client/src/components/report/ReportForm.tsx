@@ -59,7 +59,13 @@ const ReportForm: React.FC = () => {
           name="biodataNo"
           control={control}
           defaultValue=""
-          rules={{ required: 'Biodata No is required' }}
+          rules={{
+            required: 'Biodata No is required',
+            pattern: {
+              value: /^\d+$/,
+              message: 'Biodata No must be a number',
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}

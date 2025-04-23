@@ -7,7 +7,7 @@ import useUrlParams from '../../Hooks/useUrlParams/useUrlParams';
 import useBiodataQuery from '../../Hooks/useBiodataQuery/useBiodataQuery';
 import { SearchParams } from '../../interfaces/Search.interface';
 import BiodataSearch from './BiodataSearch';
-import {  Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 3;
 

@@ -31,7 +31,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Check if the form fields and title are rendered
@@ -47,7 +47,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Select a district and check if the callback is called
@@ -68,16 +68,16 @@ describe('AddressForm Component', () => {
         address={{ district: 'District 1', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Wait for subdistricts to populate based on district selection
     await waitFor(() => {
       expect(screen.getByLabelText(/উপজেলা/i)).toHaveTextContent(
-        'Subdistrict 1-1'
+        'Subdistrict 1-1',
       );
       expect(screen.getByLabelText(/উপজেলা/i)).toHaveTextContent(
-        'Subdistrict 1-2'
+        'Subdistrict 1-2',
       );
     });
   });
@@ -88,7 +88,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Check if subdistrict field is disabled before district selection
@@ -98,10 +98,14 @@ describe('AddressForm Component', () => {
   it('enables village input when subdistrict is selected', () => {
     render(
       <AddressForm
-        address={{ district: 'District 1', subdistrict: 'Subdistrict 1-1', village: '' }}
+        address={{
+          district: 'District 1',
+          subdistrict: 'Subdistrict 1-1',
+          village: '',
+        }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Select a subdistrict and check if the village input is enabled
@@ -115,10 +119,14 @@ describe('AddressForm Component', () => {
   it('fires onChange when the village input changes', () => {
     render(
       <AddressForm
-        address={{ district: 'District 1', subdistrict: 'Subdistrict 1-1', village: '' }}
+        address={{
+          district: 'District 1',
+          subdistrict: 'Subdistrict 1-1',
+          village: '',
+        }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Change the village value and check if the callback is fired

@@ -9,7 +9,10 @@ vi.mock('./Sidebar', () => ({
 
 // Mock react-router-dom's Outlet
 vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
+  const actual =
+    await vi.importActual<typeof import('react-router-dom')>(
+      'react-router-dom',
+    );
   return {
     ...actual,
     Outlet: () => <div data-testid="outlet">Mock Outlet Content</div>,

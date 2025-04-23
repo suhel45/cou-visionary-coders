@@ -29,7 +29,9 @@ describe('ForgotPassword Component', () => {
   it('renders the form with email input and submit button', () => {
     renderWithRouter(<ForgotPassword />);
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /send reset link/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /send reset link/i }),
+    ).toBeInTheDocument();
   });
 
   it('shows validation error for empty email submission', async () => {
@@ -46,7 +48,9 @@ describe('ForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
-    expect(await screen.findByText(/please enter a valid email address/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/please enter a valid email address/i),
+    ).toBeInTheDocument();
   });
 
   it('displays success message when API call succeeds', async () => {
@@ -61,7 +65,9 @@ describe('ForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
-    expect(await screen.findByText(/reset link sent successfully/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/reset link sent successfully/i),
+    ).toBeInTheDocument();
   });
 
   it('displays error message when API call fails with message', async () => {
@@ -95,7 +101,9 @@ describe('ForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
-    expect(await screen.findByText(/check your network connection/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/check your network connection/i),
+    ).toBeInTheDocument();
   });
 
   it('displays fallback error for unknown issues', async () => {
@@ -107,6 +115,8 @@ describe('ForgotPassword Component', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
-    expect(await screen.findByText(/error sending reset link/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/error sending reset link/i),
+    ).toBeInTheDocument();
   });
 });

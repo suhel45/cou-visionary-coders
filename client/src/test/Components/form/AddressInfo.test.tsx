@@ -2,7 +2,10 @@ import { describe, it, expect, vi, beforeEach, afterEach, Mock } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AddressInfo from '../../../components/form/AddressInfo';
 import AddressForm from '../../../Components/form/AddressForm'; // Import the AddressForm component
-import { AddressInfoData, Address } from '../../../interfaces/Biodata.interface';
+import {
+  AddressInfoData,
+  Address,
+} from '../../../interfaces/Biodata.interface';
 
 // Mock the AddressForm component
 vi.mock('./AddressForm', () => ({
@@ -28,7 +31,7 @@ describe('AddressInfo Component', () => {
 
   it('renders AddressInfo component correctly', () => {
     render(
-      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Check if the title and address forms are rendered
@@ -39,7 +42,7 @@ describe('AddressInfo Component', () => {
 
   it('calls setFormData when present address is updated', () => {
     render(
-      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Simulate a change in the present address
@@ -62,7 +65,7 @@ describe('AddressInfo Component', () => {
 
   it('calls setFormData when permanent address is updated', () => {
     render(
-      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Simulate a change in the permanent address
@@ -85,12 +88,20 @@ describe('AddressInfo Component', () => {
 
   it('syncs form data with local state on prop change', async () => {
     const updatedFormData: AddressInfoData = {
-      presentAddress: { district: 'District 1', subdistrict: 'Subdistrict 1-1', village: 'Village 1' },
-      permanentAddress: { district: 'District 2', subdistrict: 'Subdistrict 2-1', village: 'Village 2' },
+      presentAddress: {
+        district: 'District 1',
+        subdistrict: 'Subdistrict 1-1',
+        village: 'Village 1',
+      },
+      permanentAddress: {
+        district: 'District 2',
+        subdistrict: 'Subdistrict 2-1',
+        village: 'Village 2',
+      },
     };
 
     render(
-      <AddressInfo formData={updatedFormData} setFormData={mockSetFormData} />
+      <AddressInfo formData={updatedFormData} setFormData={mockSetFormData} />,
     );
 
     // Ensure that the form data is correctly synced

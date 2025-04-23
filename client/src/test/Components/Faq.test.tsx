@@ -29,7 +29,7 @@ describe('FAQ Component', () => {
     fireEvent.click(question);
 
     const answer = screen.getByText(
-      /Material-UI is a popular React UI framework/i
+      /Material-UI is a popular React UI framework/i,
     );
     expect(answer).toBeInTheDocument();
   });
