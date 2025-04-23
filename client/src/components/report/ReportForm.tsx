@@ -11,6 +11,7 @@ import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { reasons } from '../../constants/reportOptions';
 import CommonButton from '../../utils/Button/CommonButton';
+import { countWords } from '../../utils/helperFuction/WordCount';
 
 type ReportFormInputs = {
   biodataNo: string;
@@ -109,10 +110,7 @@ const ReportForm: React.FC = () => {
           rules={{
             required: 'Please provide reason details',
             validate: (value) => {
-              const wordCount = value
-                .trim()
-                .split(/\s+/)
-                .filter((word) => word.length > 0).length;
+              const wordCount = countWords(value);
               return wordCount >= 10 || 'Please provide at least 10 words';
             },
           }}
