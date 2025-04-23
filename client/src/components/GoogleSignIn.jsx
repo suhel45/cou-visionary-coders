@@ -1,3 +1,4 @@
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -41,7 +42,9 @@ const GoogleSignIn = () => {
     } catch (error) {
       console.error('Google login error:', error.message);
       const errorMessage =
-        error.response?.data?.message || 'Google login failed. Try again.';
+        error.request
+          ? 'No response from the server. Please check your network connection.'
+          : error.response?.data?.message || 'Google login failed. Try again.';
       setMessage(errorMessage);
     } finally {
       setLoading(false);
