@@ -11,7 +11,6 @@ interface CustomRequest extends Request {
 const addToSupport = async (req: Request, res: Response) => {
   try {
     const userId = (req as CustomRequest).user.id;
-    console.log(userId);
     const { message } = req.body;
 
     const supportRequest = await supportService.addToSupport(userId, message);
@@ -25,7 +24,7 @@ const addToSupport = async (req: Request, res: Response) => {
     logger.error('Error adding to support:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to Support request',
+      message: 'Failed to submit support request',
     });
   }
 };

@@ -8,14 +8,14 @@ const createReport = async (
   reasonDetails: string,
 ) => {
   // Verify biodata exists
-  const biodata = await PersonalAllDetailsModel.findOne({ biodataNo });
+  const biodata = await PersonalAllDetailsModel.findOne({ biodataNo: { $eq: biodataNo } });
   if (!biodata) {
     throw new Error('Biodata not found!');
   }
 
   // Check if user already reported this biodataNo
   const existingReport = await ReportModel.findOne({
-    biodataNo,
+    biodataNo: { $eq: biodataNo },
     reporter: userId,
   });
   if (existingReport) {

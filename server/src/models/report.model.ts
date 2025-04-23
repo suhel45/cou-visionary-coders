@@ -1,4 +1,3 @@
-// models/Report.js
 import mongoose, { model, Schema } from 'mongoose';
 import { IReport } from './../interfaces/report.interface';
 
