@@ -31,7 +31,7 @@ const BiodataDetailsProfile = () => {
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600">
-        {(error as Error).message}
+        {error.message}
       </div>
     );
   }

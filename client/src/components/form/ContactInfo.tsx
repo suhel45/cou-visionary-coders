@@ -30,6 +30,7 @@ const ContactInfo: React.FC<IContactInfo> = ({ formData, setFormData }) => {
     if (!mobileRegex.test(localFormData.candidateNumber)) {
       localFormData.candidateNumber = '';
     }
+    
     setLocalFormData((prev) => ({ ...prev, [name]: value }));
     setFormData({ ...formData, [name]: value });
   };
