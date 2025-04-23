@@ -18,7 +18,7 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
 
   return (
     <li className="md:w-full lg:w-1/3 p-2">
-      <div className="relative flex flex-row md:flex-col items-center gap-2 bg-violet-950 p-3 rounded-lg shadow-lg h-full">
+      <div className="relative flex flex-col items-center gap-2 bg-violet-950 p-3 rounded-lg shadow-lg h-full">
         {/* Favorite Button */}
         <FavoriteButton biodataId={user._id} mode={mode} />
 
@@ -32,14 +32,14 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
         </div>
 
         {/* Info Section */}
-        <div className="w-full md:text-center p-4 bg-violet-900 rounded-md flex flex-col h-full">
+        <div className="w-full md:text-center p-4 bg-white  rounded-md flex flex-col h-full">
           {/* Biodata Number */}
-          <p className="text-violet-100 bg-violet-950 font-bold text-xl rounded-lg border text-center p-2 mb-3">
-            Biodata - {user.biodataNo}
+          <p className="text-white bg-violet-950 font-bold text-lg rounded-lg border text-center p-2 mb-3">
+            বায়োডাটা নং - {user.biodataNo}
           </p>
 
           {/* Personal Information */}
-          <div className="p-2 text-lg md:text-xl flex-grow">
+          <div className="p-2 text-sm  text-indigo-900 flex-grow">
             <InfoItem label="জন্ম তারিখ" value={personalInfo.birthDate} />
             <InfoItem label="উচ্চতা" value={personalInfo.height} />
             <InfoItem label="পেশা" value={personalInfo.occupation} />
@@ -51,7 +51,7 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
             <Link
               to={`/biodata/profile/${user._id}`}
               state={{ returnPage: currentPage }}
-              className="bg-white py-2 px-4 rounded-full text-lg text-purple-800 hover:text-pink-900 hover:bg-gray-100 transition-all font-bold inline-block"
+              className=" py-2 px-6 rounded-full text-sm bg-purple-800 text-white hover:bg-purple-700 transition-all font-bold inline-block"
             >
               View Profile
             </Link>

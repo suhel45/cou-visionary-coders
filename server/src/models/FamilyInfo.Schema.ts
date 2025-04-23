@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import { FamilyInfo } from '../interfaces/familyInfo.interface';
 
 const guardianInfoSchema = new Schema({
-  aliveStatus: { type: Boolean, required: true },
+  aliveStatus: { type: String, required: true },
   profession: { type: String, required: true },
 });
 

@@ -15,6 +15,7 @@ import { FormData } from '../../interfaces/Biodata.interface';
 import { CircleArrowLeft, CircleArrowRight, Check } from 'lucide-react';
 import { initialFormData } from './initialFormData';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const steps = [
   'Personal Information',
@@ -176,9 +177,11 @@ const MultiStepForm: React.FC = () => {
           <h2 className="text-lg md:text-4xl my-2 font-bold text-green-800">
             Form Submitted Successfully!
           </h2>
-          <p className="text-sm font-semibold text-white bg-green-800 rounded p-2">
-            Visit Your Profile for Checking Update
-          </p>
+          <Link to="/profile">
+  <p className="text-sm font-semibold text-white bg-green-800 rounded p-2 text-center hover:bg-green-700 transition">
+    Visit Profile 
+  </p>
+</Link>
           <button
             onClick={handleReset}
             className="py-2 px-4 bg-red-700 md:text-lg text-white font-semibold rounded-full shadow-md hover:bg-red-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-400 focus:ring-opacity-75"
@@ -231,14 +234,15 @@ const MultiStepForm: React.FC = () => {
               <button
                 disabled={isFirstStep ?? isLoading}
                 onClick={handleBack}
-                className="py-2 px-6 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
+                className="cursor-pointer py-2 px-6 bg-purple-700 md:text-xl text-white font-semibold rounded-full shadow-md hover:bg-purple-900 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-purple-400 focus:ring-opacity-75"
               >
                 Back
               </button>
               <button
                 onClick={isLastStep ? handleSubmit : handleNext}
-                disabled={Boolean(isLoading) || !isCurrentStepValid()}
-                className={`py-2 px-6 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
+
+                disabled={Boolean(isLoading)|| !isCurrentStepValid()}
+                className={`cursor-pointer py-2 px-6 md:text-xl font-semibold rounded-full shadow-md focus:outline-none focus:ring focus:ring-offset-2
                   ${
                     Boolean(isLoading) || !isCurrentStepValid()
                       ? 'bg-gray-400 text-white cursor-not-allowed'

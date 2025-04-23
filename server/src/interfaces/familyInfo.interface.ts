@@ -1,5 +1,5 @@
 type GardianInfo = {
-  aliveStatus: boolean;
+  aliveStatus: string;
   profession: string;
 };
 

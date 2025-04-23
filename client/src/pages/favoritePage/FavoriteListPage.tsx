@@ -30,16 +30,16 @@ function FavoriteListPage() {
     return (
       <div className="flex justify-center items-center h-64">
         <p className="text-xl font-medium text-red-500">
-          Unable to load favorites: {(error as Error).message}
+          Unable to load favorites: {error.message}
         </p>
       </div>
     );
   }
-
+  
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Your Favorite Biodatas
+      <h1 className="text-3xl font-bold text-center mb-8 text-purple-800 underline">
+        Your Favorite Biodata's
       </h1>
 
       {favorites?.data?.length === 0 ? (
