@@ -26,19 +26,19 @@ export const verifyToken = async (
     }
 
     const decoded = jwt.verify(token, secretKey) as DecodedToken;
-    
+
     // Fetch user from DB to get the role
     const user = await userModel.findById(decoded.id).lean();
     if (!user) {
-       res.status(401).json({ message: "Unauthorized: User not found" });
-       return;
+      res.status(401).json({ message: 'Unauthorized: User not found' });
+      return;
     }
 
     // Attach user with role to request
     (req as CustomRequest).user = {
       id: decoded.id,
       email: user.email,
-      role: user.role, 
+      role: user.role,
     };
 
     next();

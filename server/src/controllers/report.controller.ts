@@ -62,7 +62,7 @@ const getAllReports = async (req: Request, res: Response) => {
       });
     }
   }
-}
+};
 
 export const reportController = {
   createReport,
