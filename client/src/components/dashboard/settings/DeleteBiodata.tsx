@@ -1,19 +1,16 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext} from '../../../Hooks/contextApi/UserContext';
+import { AuthContext } from '../../../Hooks/contextApi/UserContext';
 import { useNavigate } from 'react-router-dom';
-
-
 
 const DeleteAccount: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const authContext = useContext(AuthContext);
 
-
   if (!authContext) {
     throw new Error('AuthContext is null');
   }
-  const {  logOut } = authContext;
+  const { logOut } = authContext;
 
   const navigate = useNavigate();
 

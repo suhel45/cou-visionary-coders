@@ -23,19 +23,21 @@ describe('ContactInfo Component', () => {
 
   it('renders ContactInfo component correctly', () => {
     render(
-      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Check if the title and input fields are rendered
     expect(screen.getByText(/যোগাযোগ/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/নাম \( সম্পর্ক \)/i)).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/নাম \( সম্পর্ক \)/i),
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/মোবাইল নাম্বার/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/ইমেইল/i)).toBeInTheDocument();
   });
 
   it('calls setFormData when inputs are changed', async () => {
     render(
-      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Simulate changes in the inputs
@@ -66,7 +68,7 @@ describe('ContactInfo Component', () => {
 
   it('validates mobile number input correctly', async () => {
     render(
-      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Input an invalid mobile number
@@ -84,13 +86,15 @@ describe('ContactInfo Component', () => {
 
     // Ensure validation message is removed
     await waitFor(() => {
-      expect(screen.queryByText(/Invalid Mobile Number/i)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(/Invalid Mobile Number/i),
+      ).not.toBeInTheDocument();
     });
   });
 
   it('validates email input correctly', async () => {
     render(
-      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Input an invalid email address
@@ -121,7 +125,7 @@ describe('ContactInfo Component', () => {
     };
 
     render(
-      <ContactInfo formData={updatedFormData} setFormData={mockSetFormData} />
+      <ContactInfo formData={updatedFormData} setFormData={mockSetFormData} />,
     );
 
     // Ensure that the form data is correctly synced
@@ -129,7 +133,9 @@ describe('ContactInfo Component', () => {
       expect(screen.getByDisplayValue('Alice (Mother)')).toBeInTheDocument();
       expect(screen.getByDisplayValue('+8809876543210')).toBeInTheDocument();
       expect(screen.getByDisplayValue('01987654321')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('alice.mother@example.com')).toBeInTheDocument();
+      expect(
+        screen.getByDisplayValue('alice.mother@example.com'),
+      ).toBeInTheDocument();
     });
   });
 });

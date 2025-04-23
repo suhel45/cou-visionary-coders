@@ -37,7 +37,7 @@ const renderLogin = () =>
       <BrowserRouter>
         <Login />
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthContext.Provider>,
   );
 
 describe('Login Component', () => {
@@ -72,8 +72,12 @@ describe('Login Component', () => {
 
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/Email address/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+    const emailInput = screen.getByLabelText(
+      /Email address/i,
+    ) as HTMLInputElement;
+    const passwordInput = screen.getByLabelText(
+      /Password/i,
+    ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'test1234' } });
@@ -81,11 +85,14 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /Log in/i }));
 
     await waitFor(() => {
-      expect(mockLoginUser).toHaveBeenCalledWith('test@example.com', 'test1234');
+      expect(mockLoginUser).toHaveBeenCalledWith(
+        'test@example.com',
+        'test1234',
+      );
       expect(mockedAxios.post).toHaveBeenCalledWith(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
         { email: 'test@example.com', password: 'test1234' },
-        { withCredentials: true }
+        { withCredentials: true },
       );
     });
   });
@@ -95,8 +102,12 @@ describe('Login Component', () => {
 
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/Email address/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+    const emailInput = screen.getByLabelText(
+      /Email address/i,
+    ) as HTMLInputElement;
+    const passwordInput = screen.getByLabelText(
+      /Password/i,
+    ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
@@ -104,7 +115,9 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /Log in/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/Incorrect email or password/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Incorrect email or password/i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -113,8 +126,12 @@ describe('Login Component', () => {
 
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/Email address/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+    const emailInput = screen.getByLabelText(
+      /Email address/i,
+    ) as HTMLInputElement;
+    const passwordInput = screen.getByLabelText(
+      /Password/i,
+    ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'test1234' } });
@@ -125,8 +142,8 @@ describe('Login Component', () => {
       // Use a more flexible matcher
       expect(
         screen.getByText((content) =>
-          content.includes('No response from the server')
-        )
+          content.includes('No response from the server'),
+        ),
       ).toBeInTheDocument();
     });
   });
@@ -136,8 +153,12 @@ describe('Login Component', () => {
 
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/Email address/i) as HTMLInputElement;
-    const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+    const emailInput = screen.getByLabelText(
+      /Email address/i,
+    ) as HTMLInputElement;
+    const passwordInput = screen.getByLabelText(
+      /Password/i,
+    ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'test1234' } });
@@ -145,7 +166,9 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /Log in/i }));
 
     await waitFor(() => {
-      expect(screen.getByText('Login Failed. Please try again later.')).toBeInTheDocument();
+      expect(
+        screen.getByText('Login Failed. Please try again later.'),
+      ).toBeInTheDocument();
     });
   });
 
@@ -166,7 +189,10 @@ describe('Login Component', () => {
       expect(mockedAxios.post).toHaveBeenCalledWith(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login/google`,
         { email: 'googleuser@example.com', username: 'Google User' },
-        { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
+        {
+          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' },
+        },
       );
     });
   });
@@ -179,7 +205,9 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByText(/Continue with Google/i));
 
     await waitFor(() => {
-      expect(screen.getByText(/Google login failed. Try again./i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Google login failed. Try again./i),
+      ).toBeInTheDocument();
     });
   });
 });

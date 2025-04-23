@@ -33,7 +33,7 @@ describe('BiodataCard', () => {
     render(
       <MemoryRouter>
         <BiodataCard user={mockUserMale} currentPage={1} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText('Biodata - 123')).toBeInTheDocument();
@@ -42,14 +42,17 @@ describe('BiodataCard', () => {
     expect(screen.getByText(/পেশা : Engineer/)).toBeInTheDocument();
     expect(screen.getByText(/গায়ের রং : Fair/)).toBeInTheDocument();
     expect(screen.getByAltText('Man')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /View Profile/i })).toHaveAttribute('href', '/biodata/profile/1');
+    expect(screen.getByRole('link', { name: /View Profile/i })).toHaveAttribute(
+      'href',
+      '/biodata/profile/1',
+    );
   });
 
   it('renders female user info correctly', () => {
     render(
       <MemoryRouter>
         <BiodataCard user={mockUserFemale} currentPage={2} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText('Biodata - 456')).toBeInTheDocument();
@@ -58,6 +61,9 @@ describe('BiodataCard', () => {
     expect(screen.getByText(/পেশা : Doctor/)).toBeInTheDocument();
     expect(screen.getByText(/গায়ের রং : Medium/)).toBeInTheDocument();
     expect(screen.getByAltText('Woman')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /View Profile/i })).toHaveAttribute('href', '/biodata/profile/2');
+    expect(screen.getByRole('link', { name: /View Profile/i })).toHaveAttribute(
+      'href',
+      '/biodata/profile/2',
+    );
   });
 });

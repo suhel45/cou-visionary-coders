@@ -57,7 +57,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({
   };
 
   const inputStyle: string =
-    'block p-2 w-32 bg-gray-50 text-center font-bold  rounded-md border  border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm  sm:leading-6'
+    'block p-2 w-32 bg-gray-50 text-center font-bold  rounded-md border  border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm  sm:leading-6';
   const levelStyle: string =
     'text-sm md:text-lg font-semibold text-cyan-950 p-2 md:p-4 text-center';
   return (

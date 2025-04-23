@@ -11,7 +11,9 @@ describe('PageNotFound Component', () => {
 
   it('renders the error illustration image', () => {
     render(<PageNotFound />);
-    const image = screen.getByAltText('404 error illustration') as HTMLImageElement;
+    const image = screen.getByAltText(
+      '404 error illustration',
+    ) as HTMLImageElement;
     expect(image).toBeInTheDocument();
     expect(image.src).toContain('404-error-abstract-concept'); // Partial URL check
   });

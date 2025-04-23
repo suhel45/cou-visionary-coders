@@ -5,7 +5,15 @@ import BiodataStatistics from '../../components/BiodataStatistics';
 
 // Mock the Count component
 vi.mock('./Count', () => ({
-  default: ({ imageSrc, title, cnt }: { imageSrc: string; title: string; cnt: string }) => (
+  default: ({
+    imageSrc,
+    title,
+    cnt,
+  }: {
+    imageSrc: string;
+    title: string;
+    cnt: string;
+  }) => (
     <div>
       <img src={imageSrc} alt={title} />
       <h3>{title}</h3>
@@ -23,7 +31,7 @@ describe('BiodataStatistics Component', () => {
 
   it('renders all Count cards with titles', () => {
     render(<BiodataStatistics />);
-    
+
     expect(screen.getByText('মোট পাত্রের বায়োডাটা')).toBeInTheDocument();
     expect(screen.getByText('মোট পাত্রীর বায়োডাটা')).toBeInTheDocument();
     expect(screen.getByText('মোট পাত্র-পাত্রীর বায়োডাটা')).toBeInTheDocument();

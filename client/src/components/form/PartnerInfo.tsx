@@ -48,9 +48,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
             কেমন পাত্র/পাত্রী পছন্দ সেই হিসেবে নিম্নে নির্বাচন করুন
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:justify-items-center gap-4 w-full">
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               বৈবাহিক অবস্থা -{/* */}
               <select
                 name="maritalStatus"
@@ -66,9 +64,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 <option value="বিপত্নীক">বিপত্নীক</option>
               </select>
             </label>
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               বয়স -{/* */}
               <input
                 type="text"
@@ -79,9 +75,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 placeholder="যেমন (২০-৩০) বছর"
               />
             </label>
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               অর্থনৈতিক অবস্থা -{/* */}
               <select
                 name="financialCondition"
@@ -98,9 +92,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
 
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               উচ্চতা -{/* */}
               <select
                 name="height"
@@ -122,9 +114,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
 
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               গাত্রবর্ন -{/* */}
               <select
                 name="complexion"
@@ -141,9 +131,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
 
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               পেশা -{/* */}
               <select
                 className="block w-full md:w-48 bg-gray-50 text-center font-bold  rounded-md border p-2 mt-1 border-slate-500  text-gray-600 shadow-lg ring-1 ring-inset ring-gray-300 focus:ring-2  focus:ring-pink-600 sm:max-w-xs text-sm sm:leading-6"
@@ -165,9 +153,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 <option value="অন্যান্য">অন্যান্য</option>
               </select>
             </label>
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               জেলা -{/* District */}
               <select
                 name="district"
@@ -183,9 +169,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 ))}
               </select>
             </label>
-            <label
-              className="text-sm  font-semibold text-cyan-950  p-2 text-center"
-            >
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
               {/* */}প্রত্যাশিত বৈশিষ্ট্যে বা গুনাবলী
               <textarea
                 name="expectedQualities"

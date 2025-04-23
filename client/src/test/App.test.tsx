@@ -24,7 +24,9 @@ vi.mock('../components/ErrorComponent', () => ({
 
 // Mock AuthProvider to avoid Firebase initialization
 vi.mock('../Hooks/contextApi/UserContext', () => ({
-  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  default: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
 }));
 
 // Mock Toaster to avoid side effects
@@ -81,7 +83,7 @@ describe('App Component', () => {
         <MemoryRouter initialEntries={['/invalid-route']}>
           <App />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
@@ -95,7 +97,7 @@ describe('App Component', () => {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(screen.getByTestId('nav')).toBeInTheDocument();
@@ -109,7 +111,7 @@ describe('App Component', () => {
           <MemoryRouter initialEntries={[route]}>
             <App />
           </MemoryRouter>
-        </QueryClientProvider>
+        </QueryClientProvider>,
       );
     };
 

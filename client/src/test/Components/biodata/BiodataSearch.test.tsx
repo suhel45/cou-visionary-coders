@@ -19,7 +19,7 @@ describe('BiodataSearch Component', () => {
         onSearch={mockOnSearch}
         onClear={mockOnClear}
         initialParams={initialParams}
-      />
+      />,
     );
 
   it('renders all form fields correctly', () => {
@@ -34,7 +34,9 @@ describe('BiodataSearch Component', () => {
     expect(screen.getByLabelText('পেশা')).toBeInTheDocument();
     expect(screen.getByLabelText('জেলা')).toBeInTheDocument();
     expect(screen.getByLabelText('উপজেলা')).toBeInTheDocument();
-    expect(screen.getByLabelText('পারিবারিক আর্থিক অবস্থা')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('পারিবারিক আর্থিক অবস্থা'),
+    ).toBeInTheDocument();
   });
 
   it('calls onSearch with updated values on submit', () => {
@@ -50,7 +52,7 @@ describe('BiodataSearch Component', () => {
       expect.objectContaining({
         ...initialParams,
         district: 'Dhaka',
-      })
+      }),
     );
   });
 
@@ -66,7 +68,9 @@ describe('BiodataSearch Component', () => {
     renderComponent();
 
     const genderSelect = screen.getByLabelText('লিঙ্গ') as HTMLSelectElement;
-    const ageMinInput = screen.getByLabelText('বয়সের সীমা') as HTMLInputElement;
+    const ageMinInput = screen.getByLabelText(
+      'বয়সের সীমা',
+    ) as HTMLInputElement;
 
     expect(genderSelect.value).toBe('Male');
     expect(screen.getByDisplayValue('20')).toBeInTheDocument();

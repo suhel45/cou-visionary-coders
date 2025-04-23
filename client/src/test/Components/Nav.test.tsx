@@ -11,7 +11,7 @@ const renderWithContext = (contextValue: any) => {
       <BrowserRouter>
         <Nav />
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthContext.Provider>,
   );
 };
 
@@ -90,8 +90,8 @@ describe('Nav Component', () => {
       render(
         <BrowserRouter>
           <Nav />
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     ).toThrow('AuthContext is null');
   });
 });

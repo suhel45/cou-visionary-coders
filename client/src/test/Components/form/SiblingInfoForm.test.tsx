@@ -32,9 +32,11 @@ describe('SiblingInfoForm Component', () => {
     render(<SiblingInfoForm siblings={siblings} onChange={onChange} />);
 
     const brotherTextarea = screen.getByPlaceholderText(
-      'যেমনঃ ১ বড় ভাই, পেশা- ইঞ্জিনিয়ার, বিবাহিত'
+      'যেমনঃ ১ বড় ভাই, পেশা- ইঞ্জিনিয়ার, বিবাহিত',
     );
-    fireEvent.change(brotherTextarea, { target: { value: '1 older brother, Engineer, Married' } });
+    fireEvent.change(brotherTextarea, {
+      target: { value: '1 older brother, Engineer, Married' },
+    });
 
     await waitFor(() => {
       expect(onChange).toHaveBeenCalledTimes(1);
@@ -50,29 +52,40 @@ describe('SiblingInfoForm Component', () => {
     render(<SiblingInfoForm siblings={siblings} onChange={onChange} />);
 
     const sisterTextarea = screen.getByPlaceholderText(
-      'যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত'
+      'যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত',
     );
-    fireEvent.change(sisterTextarea, { target: { value: '1 younger sister, Doctor, Married' } });
+    fireEvent.change(sisterTextarea, {
+      target: { value: '1 younger sister, Doctor, Married' },
+    });
 
-    expect(screen.getByPlaceholderText('যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত').value).toBe(
-      '1 younger sister, Doctor, Married'
-    );
+    expect(
+      screen.getByPlaceholderText('যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত')
+        .value,
+    ).toBe('1 younger sister, Doctor, Married');
   });
 
   it('should call onChange with updated data when all textareas are changed', async () => {
     render(<SiblingInfoForm siblings={siblings} onChange={onChange} />);
 
     const brotherTextarea = screen.getByPlaceholderText(
-      'যেমনঃ ১ বড় ভাই, পেশা- ইঞ্জিনিয়ার, বিবাহিত'
+      'যেমনঃ ১ বড় ভাই, পেশা- ইঞ্জিনিয়ার, বিবাহিত',
     );
     const sisterTextarea = screen.getByPlaceholderText(
-      'যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত'
+      'যেমনঃ ১ ছোট বোন, পেশা- ডাক্তার, বিবাহিত',
     );
-    const aboutSiblingsTextarea = screen.getByPlaceholderText('যেমনঃ এক ভাই, এক বোন');
+    const aboutSiblingsTextarea = screen.getByPlaceholderText(
+      'যেমনঃ এক ভাই, এক বোন',
+    );
 
-    fireEvent.change(brotherTextarea, { target: { value: '1 older brother, Engineer, Married' } });
-    fireEvent.change(sisterTextarea, { target: { value: '1 younger sister, Doctor, Married' } });
-    fireEvent.change(aboutSiblingsTextarea, { target: { value: 'One brother, one sister' } });
+    fireEvent.change(brotherTextarea, {
+      target: { value: '1 older brother, Engineer, Married' },
+    });
+    fireEvent.change(sisterTextarea, {
+      target: { value: '1 younger sister, Doctor, Married' },
+    });
+    fireEvent.change(aboutSiblingsTextarea, {
+      target: { value: 'One brother, one sister' },
+    });
 
     await waitFor(() => {
       expect(onChange).toHaveBeenCalledWith({

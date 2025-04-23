@@ -54,22 +54,16 @@ describe('BiodataList Component', () => {
     render(
       <MemoryRouter>
         <BiodataList />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     // Title
-    expect(
-      screen.getByText(/Biodata List/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Biodata List/i)).toBeInTheDocument();
 
     // BiodataCard content
-    expect(
-      screen.getByText(/Biodata - 101/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Biodata - 101/i)).toBeInTheDocument();
 
-    expect(
-      screen.getByText(/পেশা : Engineer/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/পেশা : Engineer/i)).toBeInTheDocument();
 
     // Pagination
     expect(screen.getByRole('button', { name: /1/i })).toBeInTheDocument();
@@ -87,7 +81,7 @@ describe('BiodataList Component', () => {
     render(
       <MemoryRouter>
         <BiodataList />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
@@ -105,7 +99,7 @@ describe('BiodataList Component', () => {
     render(
       <MemoryRouter>
         <BiodataList />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument();
@@ -126,11 +120,11 @@ describe('BiodataList Component', () => {
     render(
       <MemoryRouter>
         <BiodataList />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(
-      screen.getByText(/No biodata found matching your criteria/i)
+      screen.getByText(/No biodata found matching your criteria/i),
     ).toBeInTheDocument();
   });
 });

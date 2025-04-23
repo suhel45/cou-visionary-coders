@@ -2,6 +2,7 @@ import { Response, NextFunction, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { CustomRequest, DecodedToken } from '../interfaces/users.interface';
+import userModel from '../models/user.Model';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ export const verifyToken = async (
     const token = req.cookies.token;
 
     if (!token) {
-      res.status(401).json({ message: 'Access denied' });
+      res.status(401).json({ message: 'Unauthorized Access' });
       return;
     }
 
@@ -25,7 +26,21 @@ export const verifyToken = async (
     }
 
     const decoded = jwt.verify(token, secretKey) as DecodedToken;
-    (req as CustomRequest).user = decoded;
+
+    // Fetch user from DB to get the role
+    const user = await userModel.findById(decoded.id).lean();
+    if (!user) {
+      res.status(401).json({ message: 'Unauthorized: User not found' });
+      return;
+    }
+
+    // Attach user with role to request
+    (req as CustomRequest).user = {
+      id: decoded.id,
+      email: user.email,
+      role: user.role,
+    };
+
     next();
   } catch (error) {
     console.error(error);

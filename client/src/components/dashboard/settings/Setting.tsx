@@ -1,14 +1,14 @@
-import React from 'react'
-import UpdatePasswordForm from './PasswordUpdate'
-import DeleteAccount from './DeleteBiodata'
+import React from 'react';
+import UpdatePasswordForm from './PasswordUpdate';
+import DeleteAccount from './DeleteBiodata';
 
 const Setting = () => {
   return (
     <div>
-        <UpdatePasswordForm/>
-        <DeleteAccount/>
+      <UpdatePasswordForm />
+      <DeleteAccount />
     </div>
-  )
-}
+  );
+};
 
-export default Setting
+export default Setting;
