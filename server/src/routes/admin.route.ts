@@ -3,8 +3,10 @@ import { isAdmin } from '../middleware/admin.middleware';
 import { reportController } from '../controllers/report.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { supportController } from '../controllers/support.controller';
+import { adminAuth } from '../controllers/admin.auth.controller';
 const router = express.Router();
 
+router.get('/auth/admin', verifyToken, adminAuth )
 router.get(
   '/all-reports',
   verifyToken,
