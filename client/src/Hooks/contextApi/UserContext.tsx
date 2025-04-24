@@ -23,9 +23,15 @@ import {
 import { auth } from '../../components/firebase/Firebase.config';
 import { UserProfile } from '../../interfaces/Signup.interface';
 import Loading from '../../utils/Loading/Loading';
+import axios from 'axios';
+
+// Extend User type to include role
+export interface ContextUser extends User {
+  role?: string;
+}
 
 type authContextProps = {
-  user: User | null;
+  user: ContextUser | null;
   createUser: (email: string, password: string) => Promise<UserCredential>;
   updateUserProfile: (profile: UserProfile) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<UserCredential>;
@@ -43,7 +49,7 @@ export const AuthContext = createContext<authContextProps | null>(null);
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ContextUser | null>(null);
   const [isNewlyRegistered, setIsNewlyRegistered] = useState(false);
   const provider = new GoogleAuthProvider();
 
@@ -54,7 +60,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (currentUser) {
         // Force token refresh
         await currentUser.getIdToken(true);
-        setUser(currentUser);
+        // Fetch role from backend
+        await currentUser.getIdToken();
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/admin`, {
+          withCredentials: true,
+        });
+        if (response.status < 200 || response.status >= 300) throw new Error('Failed to fetch user role');
+        const data = await response.data;
+        setUser({
+          ...currentUser,
+          role: data.user?.role || 'user',
+        });
       }
     } catch (error) {
       console.error('User refresh error:', error);
@@ -168,7 +184,20 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           try {
             // Verify token to ensure authentication is still valid
             await currentUser.getIdToken(true);
-            setUser(currentUser);
+            // Fetch role from backend
+            const token = await currentUser.getIdToken();
+            const response = await fetch('http://localhost:3000/api/auth/admin', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: 'include',
+            });
+            if (!response.ok) throw new Error('Failed to fetch user role');
+            const data = await response.json();
+            setUser({
+              ...currentUser,
+              role: data.user?.role || 'user',
+            });
           } catch (tokenError) {
             console.error('Token verification failed:', tokenError);
             setUser(null);
@@ -193,6 +222,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     return () => unsubscribe();
+    // eslint-disable-next-line
   }, [initializing]);
 
   // Periodic user state verification
