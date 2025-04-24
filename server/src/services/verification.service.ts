@@ -33,9 +33,20 @@ const approveVerification = async (userId: string) => {
   verification.status = 'Approved';
   return await verification.save();
 };
+const getPendingVerifications = async () => {
+  // Return list of users with status === 'pending'
+  return await VerificationModel.find({ status: 'Pending' });
+};
+
+const updateVerificationStatus = async (userId: string, status: 'Approved' | 'Rejected') => {
+  await VerificationModel.updateOne({ userId }, { status });
+};
+
 
 export const verificationService = {
   uploadIdCard,
   checkVerificationStatus,
   approveVerification,
+  getPendingVerifications,
+  updateVerificationStatus
 };

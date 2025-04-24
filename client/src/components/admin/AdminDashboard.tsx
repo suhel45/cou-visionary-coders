@@ -6,6 +6,8 @@ import {
   Flag,
   HelpCircle,
 } from 'lucide-react';
+import AdminOverview from './AdminOverview'; 
+import VerificationRequests from './VerificationRequests';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
@@ -19,9 +21,9 @@ const AdminDashboard = () => {
   const renderSection = () => {
     switch (activeSection) {
       case 'overview':
-        return <div>Overview Content</div>;
+        return <AdminOverview />; 
       case 'verification':
-        return <div>Verification Requests</div>;
+        return <VerificationRequests />;
       case 'reports':
         return <div>Reported Profiles</div>;
       case 'support':
