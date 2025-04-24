@@ -6,7 +6,6 @@ import SignUp from './pages/signup/pages';
 import Dashboard from './pages/dashboard/pages';
 import Faq from './pages/faq/pages';
 import Home from './pages/Home/pages';
-import Admin from './pages/admin/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
@@ -23,6 +22,8 @@ import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 import SupportAndReportPage from './pages/supportAndReport/SupportAndReportPage';
+import AdminRoute from './routes/AdminRoute';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -75,7 +76,14 @@ export default function App() {
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
-            <Route path="/admin" element={<Admin />} />
+            <Route
+          path="/admin/*"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
