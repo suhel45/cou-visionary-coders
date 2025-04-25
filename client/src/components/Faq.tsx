@@ -34,18 +34,18 @@ const FAQ = () => {
     <div className="flex flex-col items-center m-5 p-4 gap-4 border border-gray-100 rounded-md shadow-md">
       <Typography
         sx={{
-          fontSize: { xs: '1rem', sm: '2rem' },
-          p: 3,
+          fontSize: { xs: '1rem', sm: '1.5rem' },
+          p: 1,
         }}
         gutterBottom
-        className="text-center  rounded-full p-4 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto"
+        className="text-center  rounded-full p-2 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto"
       >
         Frequently Asked Questions
       </Typography>
       {faqData.map((item) => (
         <Accordion
           key={item.id}
-          className="md:w-2/3 items-stretch rounded-md  border border-indigo-800"
+          className="md:w-2/3 items-stretch rounded-md  border border-indigo-200"
         >
           <AccordionSummary
             expandIcon={
@@ -56,8 +56,8 @@ const FAQ = () => {
               sx={{
                 color: '#043667',
                 fontWeight: 'bold',
-                fontSize: { xs: '1rem', sm: '1.5rem' },
-                p: 2,
+                fontSize: { xs: '1rem', sm: '1rem' },
+                p: 1,
                 textAlign: 'justify',
               }}
             >
@@ -68,10 +68,10 @@ const FAQ = () => {
             <Typography
               sx={{
                 color: '#495057',
-                fontSize: { xs: '1rem', sm: '1.5rem' },
+                fontSize: { xs: '1rem', sm: '1rem' },
                 textAlign: 'justify',
                 bgcolor: '#f8f9fa',
-                p: 2,
+                p: 1,
               }}
             >
               {item.answer}

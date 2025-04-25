@@ -1,17 +1,17 @@
 const AboutUs = () => {
   return (
     <div>
-      <h2 className="text-center text-xl sm:text-3xl rounded-full p-4 mx-4 my-2 sm:m-2 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto">
+      <h2 className="text-center text-xl sm:text-3xl rounded-full p-4 mx-4 my-2 sm:m-4 font-extrabold bg-indigo-900 text-white sm:w-1/2 sm:mx-auto">
         আমাদের সম্পর্কে
       </h2>
 
-      <section className="bg-gray-100 py-12 px-6 md:px-16 m-4 rounded-lg shadow-md border border-gray-300">
+      <section className="bg-gray-50 py-12 px-6 md:px-16 m-4 rounded-lg shadow-md border border-gray-300">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-2xl font-bold text-gray-900 ">
+          <h2 className="text-3xl md:text-2xl font-bold text-indigo-900 ">
             নৈতিক সম্পর্ক গঠনে আমাদের উদ্যোগ
           </h2>
 
-          <p className="text-gray-800 text-lg leading-relaxed p-6  text-justify rounded-lg ">
+          <p className="text-gray-700 text-sm leading-relaxed p-6  text-justify rounded-lg ">
             বর্তমান সময়ে অনেক বিশ্ববিদ্যালয় শিক্ষার্থী অস্পষ্ট ভবিষ্যৎ ও সামাজিক
             চাপে পড়ে নৈতিকতা বিবর্জিত সম্পর্কে জড়িয়ে যায়, যা তাদের মানসিক ও
             সামাজিক জীবনে নেতিবাচক প্রভাব ফেলে। অধিকাংশ ক্ষেত্রে, উপযুক্ত

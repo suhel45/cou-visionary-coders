@@ -73,7 +73,7 @@ const Login: React.FC = () => {
           alt="Login"
         />
         <h2
-          className="mt-2  text-violet-700 py-2 px-6   m-2 rounded-md text-center font-bold text-xl md:text-4xl
+          className="mt-2  text-violet-700 py-2 px-6   m-2 rounded-md text-center font-bold text-xl md:text-4xl bg-purple-50
 "
         >
           Log in
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-700"
             >
               Email address
             </label>
@@ -102,7 +102,7 @@ const Login: React.FC = () => {
               {...register('email', { required: 'Email is required' })}
               type="email"
               autoComplete="email"
-              className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
+              className="mt-1 block w-full p-2 border border-gray-400 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
             />
             {errors.email && (
               <span className="text-red-500 text-sm font-semibold  p-2">
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
           {/* Password */}
           <div>
             <label
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-700"
               htmlFor="password"
             >
               Password
@@ -127,11 +127,11 @@ const Login: React.FC = () => {
                 })}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
-                className="block w-full p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
+                className="block w-full p-2 border border-gray-400 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500"
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-2 flex items-center"
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}

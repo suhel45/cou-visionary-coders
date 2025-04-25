@@ -14,17 +14,17 @@ const BiodataStatistics: React.FC = () => {
         <Count
           imageSrc={manImg}
           title="মোট পাত্রের বায়োডাটা"
-          cnt={'Update soon'} // Or a number if you have the count
+          cnt={'26'} // Or a number if you have the count
         />
         <Count
           imageSrc={womenImg}
           title="মোট পাত্রীর বায়োডাটা"
-          cnt={'Update soon'} // Or a number if you have the count
+          cnt={'20'} // Or a number if you have the count
         />
         <Count
           imageSrc={couple}
           title="মোট পাত্র-পাত্রীর বায়োডাটা"
-          cnt={'Update soon'} // Or a number if you have the count
+          cnt={'46'} // Or a number if you have the count
         />
       </div>
     </>

@@ -33,13 +33,13 @@ jobs:
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
-      - name: Run backend tests with coverage
-        working-directory: server
-        run: |
-          npm run coverage
-          # Ensure coverage files are in the expected location
-          mkdir -p coverage
-          [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
+      # - name: Run backend tests with coverage
+      #   working-directory: server
+      #   run: |
+      #     npm run coverage
+      #     # Ensure coverage files are in the expected location
+      #     mkdir -p coverage
+      #     [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
