@@ -7,6 +7,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import ReportedProfiles from './ReportedProfiles';
+import SupportRequests from './SupportRequests';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
@@ -26,7 +27,7 @@ const AdminDashboard = () => {
       case 'reports':
         return <ReportedProfiles />;
       case 'support':
-        return <div>Support Requests</div>;
+        return <SupportRequests />;
       default:
         return null;
     }
