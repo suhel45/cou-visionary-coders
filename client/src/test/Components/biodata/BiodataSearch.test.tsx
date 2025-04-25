@@ -68,9 +68,9 @@ describe('BiodataSearch Component', () => {
     renderComponent();
 
     const genderSelect = screen.getByLabelText('লিঙ্গ') as HTMLSelectElement;
-    const ageMinInput = screen.getByLabelText(
-      'বয়সের সীমা',
-    ) as HTMLInputElement;
+    // const ageMinInput = screen.getByLabelText(
+    //   'বয়সের সীমা',
+    // ) as HTMLInputElement;
 
     expect(genderSelect.value).toBe('Male');
     expect(screen.getByDisplayValue('20')).toBeInTheDocument();

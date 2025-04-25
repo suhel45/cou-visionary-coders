@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import Nav from '../../components/Nav'; // adjust path as necessary
-import { AuthContext } from '../Hooks/contextApi/UserContext';
+import { AuthContext } from '../../Hooks/contextApi/UserContext';
 
 // Helper to render with context and router
 const renderWithContext = (contextValue: any) => {

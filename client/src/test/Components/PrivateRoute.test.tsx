@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi} from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../../components/PrivateRoute';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
+import { AuthContext } from '../../Hooks/contextApi/UserContext';
 
 const TestComponent = () => <div>Protected Route</div>;
 const LoginComponent = () => <div>Login Page</div>;
