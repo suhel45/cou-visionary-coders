@@ -3,6 +3,7 @@ import { isAdmin } from '../middleware/admin.middleware';
 import { reportController } from '../controllers/report.controller';
 import { verifyToken } from '../middleware/authMiddleware';
 import { supportController } from '../controllers/support.controller';
+import { getAllPendingVerifications,approveVerification } from '../controllers/verify.controller';
 const router = express.Router();
 
 router.get(
@@ -17,5 +18,7 @@ router.get(
   isAdmin,
   supportController.getSupportList,
 );
+router.get('/all-status',getAllPendingVerifications);
+router.post('/verify-approve/:userId',approveVerification);
 
 export const adminRoutes = router;

@@ -39,7 +39,17 @@ const getPendingVerifications = async () => {
 };
 
 const updateVerificationStatus = async (userId: string, status: 'Approved' | 'Rejected') => {
-  await VerificationModel.updateOne({ userId }, { status });
+  // Convert string ID to ObjectId if needed
+  const result = await VerificationModel.updateOne(
+    { user: userId }, 
+    { $set: { status } }
+  );
+  
+  if (result.modifiedCount === 0) {
+    throw new Error('Verification record not found or status unchanged');
+  }
+  
+  return result;
 };
 
 

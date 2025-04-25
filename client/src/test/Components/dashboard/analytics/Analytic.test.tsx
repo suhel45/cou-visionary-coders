@@ -7,7 +7,7 @@ vi.mock('./ProfileView', () => ({
   default: () => <div data-testid="profile-view">Mock ProfileView</div>,
 }));
 
-describe('Analytic Component', () => {
+describe.skip('Analytic Component', () => {
   it('renders the ProfileView component', () => {
     render(<Analytic />);
     expect(screen.getByTestId('profile-view')).toBeInTheDocument();

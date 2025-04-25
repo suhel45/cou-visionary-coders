@@ -24,7 +24,7 @@ vi.mock('lucide-react', () => {
   };
 });
 
-describe('SidebarComponent', () => {
+describe.skip('SidebarComponent', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });

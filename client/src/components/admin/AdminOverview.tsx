@@ -26,8 +26,8 @@ const biodataStats = [
 
 const AdminOverview: React.FC = () => {
   return (
-    <div className="p-6 space-y-10">
-      <h1 className="text-3xl font-bold text-indigo-700 text-center">
+    <div className="p-2 md:p-6 space-y-10">
+      <h1 className="text-xl md:text-3xl font-bold text-indigo-900 text-center">
         Admin Overview Dashboard
       </h1>
 
@@ -48,10 +48,10 @@ const AdminOverview: React.FC = () => {
 
       {/* Pie Chart */}
       <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+        <h2 className="text-lg font-semibold text-gray-700 mb-4">
           Biodata Overview
         </h2>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center overflow-x-auto">
           <PieChart
             series={[
               {

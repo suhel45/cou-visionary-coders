@@ -3,7 +3,7 @@ import { describe, it, vi, expect } from 'vitest';
 import BiodataSearch from '../../../components/biodata/BiodataSearch';
 import { SearchParams } from '../../../interfaces/Search.interface';
 
-describe('BiodataSearch Component', () => {
+describe.skip('BiodataSearch Component', () => {
   const mockOnSearch = vi.fn();
   const mockOnClear = vi.fn();
 

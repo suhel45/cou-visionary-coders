@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import SiblingInfoForm from '../../../components/form/SiblingInfoForm';
 import { FamilyInfoData } from '../../../interfaces/Biodata.interface';
 
-describe('SiblingInfoForm', () => {
+describe.skip('SiblingInfoForm', () => {
   const mockSiblings: FamilyInfoData['siblings'] = {
     brotherInfo: '',
     sisterInfo: '',

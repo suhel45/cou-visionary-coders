@@ -65,7 +65,6 @@ export const approveVerification = async (
 ): Promise<void> => {
   try {
     const { userId } = req.params;
-
     if (!userId) {
       res.status(400).json({ message: 'User ID is required' });
       return;

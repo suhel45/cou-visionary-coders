@@ -31,8 +31,8 @@ const VerificationRequests: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold text-center text-indigo-700 mb-6">
+    <div className="p-1">
+      <h2 className="text-xl md:text-2xl font-bold text-center text-indigo-700 mb-6">
         ID Verification Requests
       </h2>
 
@@ -51,7 +51,7 @@ const VerificationRequests: React.FC = () => {
                 <td className="px-4 py-3 text-sm">{req.userId}</td>
                 <td className="px-4 py-3">
                   <button
-                    className="text-blue-600 font-semibold hover:underline"
+                    className="text-blue-600 font-semibold hover:underline text-xs md:text-sm"
                     onClick={() => setViewImageUrl(req.idCardUrl)}
                   >
                     View ID Card
@@ -60,13 +60,13 @@ const VerificationRequests: React.FC = () => {
                 <td className="px-4 py-3 flex justify-center gap-4">
                   <button
                     onClick={() => handleApprove(req.userId)}
-                    className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
+                    className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 text-xs md:text-sm"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => handleReject(req.userId)}
-                    className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
+                    className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 text-xs md:text-sm"
                   >
                     Reject
                   </button>

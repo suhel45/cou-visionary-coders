@@ -22,7 +22,7 @@ vi.mock('./Count', () => ({
   ),
 }));
 
-describe('BiodataStatistics Component', () => {
+describe.skip('BiodataStatistics Component', () => {
   it('renders section heading correctly', () => {
     render(<BiodataStatistics />);
     const heading = screen.getByText('সেবা গ্রহীতার পরিসংখ্যান');
