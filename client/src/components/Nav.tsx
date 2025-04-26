@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import profileIcon from '../assets/profile.png';
@@ -6,20 +6,11 @@ import dashboardIcon from '../assets/dashboard.png';
 import logoutIcon from '../assets/logout.png';
 import signupIcon from '../assets/signup.png';
 import loginIcon from '../assets/login.png';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
+import { useAuth } from '../Hooks/useAuth/useAuth';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Get AuthContext and ensure it's not null
-  const authContext = useContext(AuthContext);
-
-  // Check if authContext is available and extract user and logOut
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { user, isNewlyRegistered, isBackendAuthenticated, logOut } = authContext;
+  const { user, isNewlyRegistered, isBackendAuthenticated, logOut } = useAuth();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -28,8 +19,6 @@ function Nav() {
     await logOut();
   };
 
-  // Authenticated: show Home, Biodata, About Us, Profile, Dashboard, Logout
-  // Not authenticated: show Home, Biodata, About Us, Sign Up, Log In
   const isFullyAuthenticated = user && !isNewlyRegistered && isBackendAuthenticated;
 
   return (
