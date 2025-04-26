@@ -34,6 +34,8 @@ type authContextProps = {
   loading: boolean;
   initializing: boolean;
   isNewlyRegistered: boolean;
+  isBackendAuthenticated: boolean;
+  setIsBackendAuthenticated: (isAuthenticated: boolean) => void;
   refreshUser: () => Promise<void>;
   deleteUser: (user: User) => Promise<void>;
 };
@@ -45,6 +47,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isNewlyRegistered, setIsNewlyRegistered] = useState(false);
+  const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(true);
   const provider = new GoogleAuthProvider();
 
   // Refresh user method
@@ -227,9 +230,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       initializing,
       refreshUser,
       isNewlyRegistered,
+      isBackendAuthenticated,
+      setIsBackendAuthenticated,
       deleteUser,
     }),
-    [user, loading, initializing, refreshUser, isNewlyRegistered],
+    [user, loading, initializing, refreshUser, isNewlyRegistered,isBackendAuthenticated],
   );
 
   // Prevent rendering children during initialization
