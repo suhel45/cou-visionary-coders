@@ -24,6 +24,7 @@ import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 import SupportAndReportPage from './pages/supportAndReport/SupportAndReportPage';
 import AdminRoute from './routes/AdminRoute';
 import AdminDashboard from './components/admin/AdminDashboard';
+import { useAxiosAuthInterceptor } from './utils/UseApi/useAxiosAuthInterceptor';
 
 function NoMatch() {
   return <PageNotFound />;
@@ -31,6 +32,7 @@ function NoMatch() {
 
 export default function App() {
   const location = useLocation();
+  useAxiosAuthInterceptor();
 
   // Check if the current route is /admin
   const isAdminRoute = location.pathname.startsWith('/admin');

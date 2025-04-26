@@ -13,7 +13,7 @@ export function useAxiosAuthInterceptor() {
           if (logOut && typeof logOut === 'function') {
             logOut();
           }
-          window.location.href = '/login'; // Optional: redirect to login
+          window.location.href = '/login'; 
         }
         return Promise.reject(error);
       }
