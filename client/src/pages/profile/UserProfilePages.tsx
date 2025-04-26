@@ -3,7 +3,6 @@ import UserProfile from '../../components/UserProfile';
 import FamilyInformation from '../../components/profileDetails/FamilyInformation';
 import EducationInformation from '../../components/profileDetails/EducationalInformation';
 import AddressInformation from '../../components/profileDetails/AddressInformation';
-import axios from 'axios';
 import {
   AddressInfoData,
   EducationInfoData,
@@ -12,6 +11,7 @@ import {
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
 import PrimaryProfile from '../../components/profileDetails/PrimaryProfile';
+import axiosInstance from '../../utils/UseApi/axiosInstance';
 
 interface UserData {
   data: any;
@@ -31,12 +31,7 @@ const UserProfilePages = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
-          {
-            withCredentials: true,
-          },
-        );
+        const response = await axiosInstance.get('/profile/biodata');
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {

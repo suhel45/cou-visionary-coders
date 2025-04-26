@@ -9,7 +9,6 @@ import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
 import Settings from './components/dashboard/settings/Setting';
@@ -38,8 +37,7 @@ export default function App() {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    // Wrap everything inside AuthProvider
-    <AuthProvider>
+      
       <div className="flex flex-col min-h-screen">
         {/* Conditionally render Nav */}
         {!isAdminRoute && <Nav />}
@@ -90,9 +88,7 @@ export default function App() {
           </Routes>
         </div>
 
-        {/* Footer component fixed at the bottom */}
         {!isAdminRoute && <Footer />}
       </div>
-    </AuthProvider>
   );
 }
