@@ -1,16 +1,19 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { useAuth } from '../Hooks/useAuth/useAuth';
+import React from 'react';
+import Loading from '../utils/Loading/Loading';
+import useAdmin from '../Hooks/useAdmin/UseAdmin';
 
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
+  const { data, isLoading: isAdminLoading } = useAdmin();
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (loading || isAdminLoading) {
+    return <Loading />;
   }
-
-  if (!user || user.role !== 'admin') {
-    return <Navigate to="/login" replace />;
+  
+  if (!user || data.user.role !== 'admin') {
+    return <Navigate to="/login"  replace />;
   }
 
   return <>{children}</>;
