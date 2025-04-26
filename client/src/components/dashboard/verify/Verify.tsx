@@ -4,7 +4,7 @@ import axios from 'axios';
 import Loading from '../../../utils/Loading/Loading';
 const Verify: React.FC = () => {
   const [idStatus, setIdStatus] = useState<
-    'Not Submitted' | 'Pending' | 'Approved'
+    'Not Submitted' | 'Pending' | 'Approved'|'Rejected'
   >('Not Submitted');
   const [biodataCreated, setBiodataCreated] = useState<boolean>(false);
   const [image, setImage] = useState<File | null>(null);
@@ -80,16 +80,17 @@ const Verify: React.FC = () => {
     if (!image) return;
 
     const formData = new FormData();
-    formData.append('studentId', image); // This must match your multer field name
+    formData.append('studentId', image);
 
     console.log(formData);
 
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/upload`, {
-        method: 'POST',
-        body: formData,
+      await axios.post('http://localhost:3000/api/upload', formData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
-
       setIdStatus('Pending');
     } catch (error) {
       console.error('Error uploading ID card:', error);
@@ -100,7 +101,9 @@ const Verify: React.FC = () => {
   if (idStatus === 'Approved') {
     statusColorClass = 'text-green-600';
   } else if (idStatus === 'Pending') {
-    statusColorClass = 'text-yellow-600';
+    statusColorClass = 'text-yellow-600';}
+    else if (idStatus === 'Rejected') {
+      statusColorClass = 'text-red-900';
   } else {
     statusColorClass = 'text-red-600';
   }
