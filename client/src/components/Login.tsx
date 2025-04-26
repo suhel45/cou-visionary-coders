@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   // location page the user was trying to access
   const from = location.state?.from ?? '/';
 
-  const { loginUser } = useAuth();
+  const { loginUser,setIsBackendAuthenticated } = useAuth();
 
   const {
     register,
@@ -43,9 +43,12 @@ const Login: React.FC = () => {
         { withCredentials: true },
       );
 
+      setIsBackendAuthenticated(true);
+
       toast.success('User login successfully');
       navigate(from, { replace: true });
     } catch (error) {
+      setIsBackendAuthenticated(false);
       //check firebase or backend sever errors
       if (
         (axios.isAxiosError(error) && error.response) ??
