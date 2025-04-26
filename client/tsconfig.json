@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["react", "react-dom","vitest"]
+    "types": ["react", "react-dom","vitest"],
   },
   "include": ["src", "eslint.config.js", "postcss.config.js", "tailwind.config.js", "vite.config.ts","vitest.config.ts", "_mocks_"]
 }
