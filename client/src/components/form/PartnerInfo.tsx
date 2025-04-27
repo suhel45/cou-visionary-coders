@@ -64,7 +64,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 <option value="বিপত্নীক">বিপত্নীক</option>
               </select>
             </label>
-            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center" aria-label='বয়স'>
               বয়স -{/* */}
               <input
                 type="text"
@@ -114,7 +114,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
               </select>
             </label>
 
-            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center" aria-label='গাত্রবর্ন'>
               গাত্রবর্ন -{/* */}
               <select
                 name="complexion"
@@ -153,7 +153,7 @@ const PartnerInfo: React.FC<IPartnerInfo> = ({ formData, setFormData }) => {
                 <option value="অন্যান্য">অন্যান্য</option>
               </select>
             </label>
-            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center">
+            <label className="text-sm  font-semibold text-cyan-950  p-2 text-center" aria-label=" জেলা">
               জেলা -{/* District */}
               <select
                 name="district"

@@ -131,6 +131,8 @@ const Verify: React.FC = () => {
                 type="file"
                 className="hidden"
                 onChange={handleFileChange}
+                 id="file-upload"
+                data-testid="file-input"
               />
             </label>
 

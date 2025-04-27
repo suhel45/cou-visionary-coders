@@ -7,6 +7,7 @@ import logoutIcon from '../assets/logout.png';
 import signupIcon from '../assets/signup.png';
 import loginIcon from '../assets/login.png';
 import { useAuth } from '../Hooks/useAuth/useAuth';
+import useAdmin from '../Hooks/useAdmin/useAdmin';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ function Nav() {
   };
 
   const isFullyAuthenticated = user && !isNewlyRegistered && isBackendAuthenticated;
+  const isAdmin = useAdmin();
 
   return (
     <header className="md:fixed top-0 left-0 w-full md:z-50 flex flex-col sm:flex-row items-center justify-between drop-shadow-xl bg-gradient-to-r from-sky-800 to-pink-600 text-white sm:px-6 ">

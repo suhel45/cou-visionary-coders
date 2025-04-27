@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import ReportedProfiles from './ReportedProfiles';
 import SupportRequests from './SupportRequests';
+import AdminOverview from './AdminOverview'; 
+import VerificationRequests from './VerificationRequests';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
@@ -21,9 +23,9 @@ const AdminDashboard = () => {
   const renderSection = () => {
     switch (activeSection) {
       case 'overview':
-        return <div>Overview Content</div>;
+        return <AdminOverview />; 
       case 'verification':
-        return <div>Verification Requests</div>;
+        return <VerificationRequests />;
       case 'reports':
         return <ReportedProfiles />;
       case 'support':
@@ -34,7 +36,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 mt-0">
       {/* Sidebar */}
       <div
         className={`fixed md:static z-20 w-64 h-full bg-white shadow-lg transition-transform duration-300 ease-in-out 
@@ -112,7 +114,7 @@ const AdminDashboard = () => {
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          className="fixed inset-0 bg-opacity-50 z-10 md:hidden"
         ></div>
       )}
 

@@ -47,3 +47,51 @@ export const checkVerificationStatus = async (
     res.status(500).json({ error: err.message ?? 'Internal Server Error' });
   }
 };
+export const getAllPendingVerifications = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const pendingVerifications = await verificationService.getPendingVerifications();
+    res.status(200).json(pendingVerifications);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message ?? 'Internal Server Error' });
+  }
+};
+
+export const approveVerification = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const { userId } = req.params;
+    if (!userId) {
+      res.status(400).json({ message: 'User ID is required' });
+      return;
+    }
+
+    await verificationService.updateVerificationStatus(userId, 'Approved');
+    res.status(200).json({ message: `User ${userId} approved.` });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message ?? 'Internal Server Error' });
+  }
+};
+
+export const rejectVerification = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      res.status(400).json({ message: 'User ID is required' });
+      return;
+    }
+
+    await verificationService.updateVerificationStatus(userId, 'Rejected');
+    res.status(200).json({ message: `User ${userId} rejected.` });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message ?? 'Internal Server Error' });
+  }
+};
