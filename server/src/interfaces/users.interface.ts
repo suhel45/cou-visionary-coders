@@ -23,5 +23,10 @@ type DecodedToken = {
 type CustomRequest = Request & {
   user: unknown;
 };
+type MonthlyUserStats ={
+  month: number;
+  year: number;
+  count: number;
+}
 
-export type { IUser, ILoginInfo, CustomRequest, DecodedToken };
+export type { IUser, ILoginInfo, CustomRequest, DecodedToken,MonthlyUserStats };

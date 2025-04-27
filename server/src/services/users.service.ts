@@ -1,4 +1,4 @@
-import { ILoginInfo, IUser } from '../interfaces/users.interface.js';
+import { ILoginInfo, IUser,MonthlyUserStats } from '../interfaces/users.interface.js';
 import userModel from '../models/user.Model';
 import validator from 'validator';
 import nodemailer from 'nodemailer';
@@ -237,6 +237,36 @@ const ResetPasswordWithToken = async (token: string, newPassword: string) => {
   return 'Password reset successfully';
 };
 
+const getUserSignupsByMonth = async (): Promise<MonthlyUserStats[]> => {
+  const result = await userModel.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: "$createdAt" },
+          year: { $year: "$createdAt" }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        month: "$_id.month",
+        year: "$_id.year",
+        count: 1
+      }
+    },
+    {
+      $sort: {
+        year: 1,
+        month: 1
+      }
+    }
+  ]);
+
+  return result;
+};
+
 export const userService = {
   createUserIntoDB,
   loginUserFromDB,
@@ -244,4 +274,5 @@ export const userService = {
   ResetPassword,
   ForgotPassword,
   ResetPasswordWithToken,
+  getUserSignupsByMonth
 };

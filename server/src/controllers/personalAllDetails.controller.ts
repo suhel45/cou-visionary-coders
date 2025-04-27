@@ -62,9 +62,26 @@ const GetPublicBiodataDetails = async (
     res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
 };
+const getBiodataStatistics = async (req: Request, res: Response) => {
+  try {
+    const stats = await personalDetailsService.getBiodataStats();
+    res.status(200).json({
+      success: true,
+      data: stats,
+      message: 'Biodata statistics retrieved successfully'
+    });
+  } catch (error) {
+    console.error('Error fetching biodata stats:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve biodata statistics'
+    });
+  }
+};
 
 export const personalDetailsController = {
   Biodata,
   GetBiodata,
   GetPublicBiodataDetails,
+  getBiodataStatistics
 };
