@@ -141,6 +141,22 @@ const resetPasswordWithToken = async (req: Request, res: Response) => {
     });
   }
 };
+const getUserSignupStats = async (req: Request, res: Response) => {
+  try {
+    const stats = await userService.getUserSignupsByMonth();
+    res.status(200).json({
+      success: true,
+      data: stats,
+      message: 'User signup statistics retrieved successfully'
+    });
+  } catch (error) {
+    console.error('Error fetching user signup stats:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve user signup statistics'
+    });
+  }
+};
 
 export const userController = {
   createUser,
@@ -148,4 +164,5 @@ export const userController = {
   resetPassword,
   forgotPassword,
   resetPasswordWithToken,
+  getUserSignupStats
 };

@@ -6,3 +6,7 @@ logs/
 
 
 .vercel
+coverage/
+*.log
+*.html
+test-output/

@@ -37,6 +37,7 @@ router.get('/biodata', GetBiodataSearch);
 router.put('/profile/update-biodata', verifyToken, updateBiodataController);
 router.delete('/profile/delete-biodata', verifyToken, deleteBiodataController);
 router.get('/identity/status', verifyToken, checkVerificationStatus);
-
+router.get('/user-states',userController.getUserSignupStats);
+router.get('/stats', personalDetailsController.getBiodataStatistics);
 router.post('/upload', verifyToken, upload.single('studentId'), uploadIDCard);
 export default router;

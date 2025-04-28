@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
@@ -31,16 +31,15 @@ function NoMatch() {
 
 export default function App() {
   const location = useLocation();
-  useAxiosAuthInterceptor();
 
   // Check if the current route is /admin
-  const isAdminRoute = location.pathname.startsWith('/admin');
+
 
   return (
       
       <div className="flex flex-col min-h-screen">
         {/* Conditionally render Nav */}
-        {!isAdminRoute && <Nav />}
+         <Nav />
 
         {/* Content area */}
         <div className="flex-1 overflow-y-auto md:mt-20">
@@ -76,18 +75,12 @@ export default function App() {
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
-            <Route
-          path="/admin/*"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
-        />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
 
+        {/* Footer component fixed at the bottom */}
         {!isAdminRoute && <Footer />}
       </div>
   );

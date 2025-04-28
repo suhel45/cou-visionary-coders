@@ -3,11 +3,15 @@ import UserProfile from '../../components/UserProfile';
 import FamilyInformation from '../../components/profileDetails/FamilyInformation';
 import EducationInformation from '../../components/profileDetails/EducationalInformation';
 import AddressInformation from '../../components/profileDetails/AddressInformation';
+import axios from 'axios';
 import {
   AddressInfoData,
   EducationInfoData,
   FamilyInfoData,
   PersonalInfoData,
+  PreferenceInfoData,
+  ContactInfoData,
+  PartnerInfoData
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
 import PrimaryProfile from '../../components/profileDetails/PrimaryProfile';
@@ -19,6 +23,9 @@ interface UserData {
   education: EducationInfoData;
   address: AddressInfoData;
   familyInformation: FamilyInfoData;
+  contactInfo: ContactInfoData;
+  personalPreference: PreferenceInfoData;
+  expectedLifePartner: PartnerInfoData;
 }
 
 const UserProfilePages = () => {
@@ -31,12 +38,17 @@ const UserProfilePages = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axiosInstance.get('/profile/biodata');
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
+          {
+            withCredentials: true,
+          },
+        );
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setError('Failed to load profile data. Please try again later.');
+        setError('Failed to load Biodata. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -52,29 +64,64 @@ const UserProfilePages = () => {
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-600">
+        <PrimaryProfile username="Shuvo" />
         {error}
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col md:flex-row  gap-2  bg-gray-50 h-auto ">
-      <div className="flex flex-col items-center md:items-stretch bg-gray-50 md:w-1/2">
-        {userData && <PrimaryProfile username="Shuvo" />}
-      </div>
-      <div className="flex flex-col items-stretch bg-gray-50 md:w-1/2">
-        {userData && (
-          <>
-            <UserProfile
-              data={userData?.data?.personalInfo}
-              biodataNo={userData.data.biodataNo}
-            />
-            <FamilyInformation data={userData.data.familyInformation} />
-            <EducationInformation data={userData.data.education} />
-            <AddressInformation data={userData.data.address} />
-          </>
-        )}
-      </div>
+    <div className="min-h-screen bg-gray-50 md:p-4">
+      {userData && (
+        <div className="flex flex-col items-center md:items-stretch  max-w-7xl mx-auto">
+          {/* Masonry Layout Container */}
+           <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4">
+
+            <div className=" bg-white rounded-lg shadow-md p-1">
+              <PrimaryProfile username="Shuvo" />
+            </div>
+            
+            {/* User Profile */}
+            <div className=" bg-white rounded-lg shadow-md p-1">
+              <UserProfile
+                data={userData?.data?.personalInfo}
+                biodataNo={userData?.data?.biodataNo}
+              />
+            </div>
+           </div>
+          <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4 mt-4">
+            {/* Primary Profile - Will span full width on mobile */}
+            
+            {/* Family Information */}
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <FamilyInformation data={userData?.data?.familyInformation} />
+            </div>
+            
+            {/* Education Information */}
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <EducationInformation data={userData?.data?.education} />
+            </div>
+            {/* Contact Information */}
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <ContactInformation data={userData?.data?.contactInfo} />
+            </div>
+            
+            {/* Address Information */}
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <AddressInformation data={userData?.data?.address} />
+            </div>
+            
+            
+            {/* Preference Information */}
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <PreferenceInformation data={userData?.data?.personalPreference} />
+            </div>
+            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+              <PartnerInformation data={userData?.data?.expectedLifePartner} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
