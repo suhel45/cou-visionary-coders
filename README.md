@@ -28,7 +28,7 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 - Total Number of Bride and Groom information
 - ✨To view contact information, need biodata profile user validation
 - 🛡️ Admin Dashboard for User Moderation
-- 📱 Responsive UI for Devices
+- 📱 Responsive UI for Small and Large Devices
 - 🌙 Faith-Based, Safe Matrimony Experience
 
 ---
