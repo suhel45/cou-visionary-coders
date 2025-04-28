@@ -77,3 +77,8 @@ jobs:
           VITE_FIREBASE_APP_ID: "1:430900147490:web:d52584eea91ab5d752e17b"
           VITE_FIREBASE_MEASUREMENT_ID: "G-GKGQBD8VVX"
           VITE_BACKEND_BASE_URL: "https://halal-bondhon.vercel.app"
+          PORT: "3000"
+          DATABASE_URL: mongodb+srv://Cou-Visionary-Coder:vtE4OlRE84vFJXfk@cluster0.dwtnipt.mongodb.net/Cou-Visionary-Coder?retryWrites=true&w=majority&appName=Cluster0
+          JWT_SECRET_KEY: 8189cfc94fd7574790ec341d42cff48b3e26eaeb289349f17c1527254be5a67bd244de0ce8e597a0f32c023c166ada925110e0f58c8a77f8256d945f5696982a  # This is a secret key, you can generate your own using any online tool
+          NODE_ENV: development
+          SESSION_SECRET: shuvo
