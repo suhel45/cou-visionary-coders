@@ -32,6 +32,12 @@ vi.mock('react-hot-toast', () => ({
   Toaster: () => <div data-testid="toaster"></div>,
 }));
 
+// Mock @mui/material/styles to avoid style-related errors
+vi.mock('@mui/material/styles', () => ({
+  styled: (component: any) => component,
+  useTheme: () => ({}),
+}));
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

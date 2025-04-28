@@ -19,7 +19,7 @@ const VerificationRequests: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`http://localhost:3000/api/all-status`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-status`);
       console.log(response.data[0]);
       setRequests(response.data);
     } catch (err) {
@@ -37,7 +37,7 @@ const VerificationRequests: React.FC = () => {
   const handleApprove = async (user: string) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/verify-approve/${user}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/verify-approve/${user}`,
         // {},
         // { withCredentials: true }
       );
@@ -52,7 +52,7 @@ const VerificationRequests: React.FC = () => {
   const handleReject = async (user: string) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/verify-reject/${user}`,
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/verify-reject/${user}`,
         // {},
         // { withCredentials: true }
       );

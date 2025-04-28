@@ -12,7 +12,6 @@ import AboutUs from './components/AboutUs';
 import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
-import AdminDashboard from './components/admin/AdminDashboard';
 import Settings from './components/dashboard/settings/Setting';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import Verify from './components/dashboard/verify/Verify';
@@ -77,7 +76,6 @@ export default function App() {
             </Route>
             {/* <Route path="/admin" element={<Admin />} /> */}
             <Route path="*" element={<NoMatch />} />
-            <Route path="/admin" element={<AdminDashboard/>} />
           </Routes>
         </div>
         
