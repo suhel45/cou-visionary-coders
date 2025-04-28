@@ -36,6 +36,7 @@ jobs:
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
+
       # Step 5: Install backend dependencies
       - name: Install backend dependencies
         working-directory: server
@@ -48,6 +49,7 @@ jobs:
           npm run test -- --coverage
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
+
 
       # Step 7: SonarCloud Scan
       - name: SonarCloud Scan
