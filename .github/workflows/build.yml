@@ -11,36 +11,45 @@ jobs:
     name: Analyze with SonarCloud
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Needed for SonarCloud to properly analyze the code
 
+      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      # Step 3: Install frontend dependencies
       - name: Install frontend dependencies
         working-directory: client
         run: npm install
 
+      # Step 4: Run frontend tests with coverage
       - name: Run frontend tests with coverage
         working-directory: client
         run: |
-          npm run coverage
-          # Ensure coverage files are in the expected location
+          npm run test -- --coverage
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
+      # Step 5: Install backend dependencies
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm install
+
+      # Step 6: Run backend tests with coverage
       - name: Run backend tests with coverage
         working-directory: server
         run: |
-          npm run coverage
-          # Ensure coverage files are in the expected location
+          npm run test -- --coverage
           mkdir -p coverage
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
+      # Step 7: SonarCloud Scan
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
