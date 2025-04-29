@@ -60,9 +60,9 @@ jobs:
             -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
             -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.projectName="cou-visionary-coders"
-            -Dsonar.sources=client/src,server/src
-            -Dsonar.javascript.lcov.reportPaths=client/coverage/lcov.info,server/coverage/lcov.info
-            -Dsonar.typescript.lcov.reportPaths=client/coverage/lcov.info,server/coverage/lcov.info
+            -Dsonar.sources=server/src
+            -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=server/coverage/lcov.info
             -Dsonar.exclusions=**/node_modules/**,**/dist/**
             -Dsonar.coverage.exclusions=**/test/**,**/mock/**
             -Dsonar.ci.enabled=true
