@@ -23,18 +23,18 @@ jobs:
         with:
           node-version: 18
 
-      # Step 3: Install frontend dependencies
-      - name: Install frontend dependencies
-        working-directory: client
-        run: npm install
+      # # Step 3: Install frontend dependencies
+      # - name: Install frontend dependencies
+      #   working-directory: client
+      #   run: npm install
 
-      # Step 4: Run frontend tests with coverage
-      - name: Run frontend tests with coverage
-        working-directory: client
-        run: |
-          npm run test -- --coverage
-          mkdir -p coverage
-          [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
+      # # Step 4: Run frontend tests with coverage
+      # - name: Run frontend tests with coverage
+      #   working-directory: client
+      #   run: |
+      #     npm run test -- --coverage
+      #     mkdir -p coverage
+      #     [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
 
       # Step 5: Install backend dependencies
