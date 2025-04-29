@@ -8,6 +8,8 @@ type VerificationRequest = {
   status: string;
 };
 
+const BACKEND_URL = 'http://localhost:3000'; 
+
 const VerificationRequests: React.FC = () => {
   const [requests, setRequests] = useState<VerificationRequest[]>([]);
   const [viewImageUrl, setViewImageUrl] = useState<string | null>(null);
@@ -19,7 +21,7 @@ const VerificationRequests: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-status`);
+      const response = await axios.get(`${BACKEND_URL}/api/all-status`);
       console.log(response.data[0]);
       setRequests(response.data);
     } catch (err) {
@@ -36,12 +38,13 @@ const VerificationRequests: React.FC = () => {
 
   const handleApprove = async (user: string) => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/verify-approve/${user}`,
-        // {},
-        // { withCredentials: true }
+      await axios.post(`${BACKEND_URL}/api/verify-approve/${user}`);
+      // Update local state to reflect the change
+      setRequests(prev => 
+        prev.map(req => 
+          req.user === user ? { ...req, status: 'Approved' } : req
+        )
       );
-      setRequests(prev => prev.filter(req => req.user !== user));
       alert('Verification approved successfully');
     } catch (err) {
       console.error('Error approving verification:', err);
@@ -51,17 +54,34 @@ const VerificationRequests: React.FC = () => {
 
   const handleReject = async (user: string) => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/verify-reject/${user}`,
-        // {},
-        // { withCredentials: true }
+      await axios.post(`${BACKEND_URL}/api/verify-reject/${user}`);
+      // Update local state to reflect the change
+      setRequests(prev => 
+        prev.map(req => 
+          req.user === user ? { ...req, status: 'Rejected' } : req
+        )
       );
-      setRequests(prev => prev.filter(req => req.user !== user));
       alert('Verification rejected successfully');
     } catch (err) {
       console.error('Error rejecting verification:', err);
       alert('Failed to reject verification');
     }
+  };
+
+  // Helper function to get the full image URL
+  const getFullImageUrl = (imagePath: string) => {
+    // Handle already absolute URLs
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    
+    // Ensure the path starts with a slash
+    const normalizedPath = imagePath.startsWith('/') ? imagePath :` /${imagePath}`;
+    return `${BACKEND_URL}${normalizedPath}`;
+  };
+
+  const openImagePreview = (imagePath: string) => {
+    setViewImageUrl(getFullImageUrl(imagePath));
   };
 
   if (loading) {
@@ -77,7 +97,6 @@ const VerificationRequests: React.FC = () => {
       <h2 className="text-xl md:text-2xl font-bold text-center text-indigo-700 mb-6">
         ID Verification Requests
       </h2>
-
       {requests.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
           No pending verification requests
@@ -100,7 +119,7 @@ const VerificationRequests: React.FC = () => {
                   <td className="px-4 py-3">
                     <button
                       className="text-blue-600 font-semibold hover:underline text-xs md:text-sm"
-                      onClick={() => setViewImageUrl(req.idCardImage)}
+                      onClick={() => openImagePreview(req.idCardImage)}
                     >
                       View ID Card
                     </button>
@@ -141,11 +160,12 @@ const VerificationRequests: React.FC = () => {
             </button>
             
             <img 
-              src='http://localhost:3000/api/uploads/1745614100075-photo_2025-03-12_11-34-04.jpg' 
+              src={viewImageUrl} 
               alt="ID Card" 
               className="w-full h-auto max-h-[80vh] object-contain rounded" 
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/fallback-image.jpg'; 
+                console.error('Image failed to load:', viewImageUrl);
               }}
             />
           </div>
