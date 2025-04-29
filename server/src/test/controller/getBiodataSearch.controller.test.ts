@@ -29,6 +29,56 @@ describe('GetBiodataSearch Controller', () => {
     const mockBiodata = [{ id: '1', name: 'Test User' }];
     const mockTotal = 1;
 
+    // Mock the service to return biodata and total count
+    (getBiodataSearch as jest.Mock).mockResolvedValue({
+      biodata: mockBiodata,
+      totalbiodata: mockTotal,
+    });
+
+    req = {
+      query: { gender: 'male', _page: '1', _limit: '10' },
+    } as unknown as CustomReq;
+
+    await GetBiodataSearch(req as CustomReq, res as Response);
+
+    // Ensure the service is called with the correct request
+    expect(getBiodataSearch).toHaveBeenCalledWith(req);
+
+    // Ensure the response is correct
+    expect(statusMock).toHaveBeenCalledWith(200);
+    expect(jsonMock).toHaveBeenCalledWith({
+      success: true,
+      totalbiodata: mockTotal,
+      data: mockBiodata,
+    });
+  });
+
+  it('should handle errors when fetching biodata search results fails', async () => {
+    // Mock the service to throw an error
+    (getBiodataSearch as jest.Mock).mockRejectedValue(new Error('Something went wrong'));
+
+    req = {
+      query: { gender: 'male', _page: '1', _limit: '10' },
+    } as unknown as CustomReq;
+
+    await GetBiodataSearch(req as CustomReq, res as Response);
+
+    // Ensure the service is called with the correct request
+    expect(getBiodataSearch).toHaveBeenCalledWith(req);
+
+    // Ensure the error response is correct
+    expect(statusMock).toHaveBeenCalledWith(500);
+    expect(jsonMock).toHaveBeenCalledWith({
+      success: false,
+      message: 'Failed to fetch data',
+    });
+  });
+
+  it('should handle empty query parameters gracefully', async () => {
+    const mockBiodata: Array<{ id: string; name: string }> = [];
+    const mockTotal = 0;
+
+    // Mock the service to return empty results
     (getBiodataSearch as jest.Mock).mockResolvedValue({
       biodata: mockBiodata,
       totalbiodata: mockTotal,
@@ -38,27 +88,15 @@ describe('GetBiodataSearch Controller', () => {
 
     await GetBiodataSearch(req as CustomReq, res as Response);
 
+    // Ensure the service is called with the correct request
     expect(getBiodataSearch).toHaveBeenCalledWith(req);
+
+    // Ensure the response is correct
     expect(statusMock).toHaveBeenCalledWith(200);
     expect(jsonMock).toHaveBeenCalledWith({
       success: true,
       totalbiodata: mockTotal,
       data: mockBiodata,
-    });
-  });
-
-  it('should handle error when fetching biodata search results fails', async () => {
-    (getBiodataSearch as jest.Mock).mockRejectedValue(new Error('Something went wrong'));
-
-    req = {} as CustomReq;
-
-    await GetBiodataSearch(req as CustomReq, res as Response);
-
-    expect(getBiodataSearch).toHaveBeenCalledWith(req);
-    expect(statusMock).toHaveBeenCalledWith(500);
-    expect(jsonMock).toHaveBeenCalledWith({
-      success: false,
-      message: 'Failed to fetch data',
     });
   });
 });
