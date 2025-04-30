@@ -11,9 +11,6 @@ function sanitizeNumber(input: unknown): number {
   return parseInt(sanitized, 10);
 }
 
-/**
- * Sanitize and validate a string input.
- */
 function sanitizeText(input: unknown): string {
   const inputStr = String(input).trim();
   const sanitized = validator.escape(inputStr);
