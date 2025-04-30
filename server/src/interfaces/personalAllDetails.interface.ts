@@ -1,4 +1,4 @@
-import Types from 'mongoose';
+import mongoose from 'mongoose';
 import { EducationInfo } from './EducationInfo.interface';
 import { FamilyInfo } from './familyInfo.interface';
 import { ExpectedLifePartner } from './lifePartner.interface';
@@ -9,7 +9,7 @@ import { PersonalPreference } from './personalPreference.interface';
 
 export type IPersonalAllDetails = {
   biodataNo: number;
-  users: Types.ObjectId;
+  users: mongoose.Types.ObjectId;
   personalInfo: PersonalInfoo;
   address: AddressInfo;
   education: EducationInfo;
