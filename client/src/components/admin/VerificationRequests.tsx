@@ -97,7 +97,6 @@ const VerificationRequests: React.FC = () => {
       <h2 className="text-xl md:text-2xl font-bold text-center text-indigo-700 mb-6">
         ID Verification Requests
       </h2>
-
       {requests.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
           No pending verification requests

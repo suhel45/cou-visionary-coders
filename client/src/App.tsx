@@ -11,6 +11,7 @@ import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
+import Admin from './components/admin/AdminDashboard';
 import Settings from './components/dashboard/settings/Setting';
 import UserProfilePages from './pages/profile/UserProfilePages';
 import Verify from './components/dashboard/verify/Verify';
@@ -88,7 +89,7 @@ export default function App() {
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
-
+        
         {/* Footer component fixed at the bottom */}
         {!isAdminRoute && <Footer />}
       </div>
