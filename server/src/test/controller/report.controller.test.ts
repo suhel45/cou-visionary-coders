@@ -1,105 +1,100 @@
 import { reportController } from '../../controllers/report.controller';
 import { reportService } from '../../services/report.service';
 import logger from '../../utils/logger.util';
-
 import { Request, Response } from 'express';
 
-// Mock reportService and logger
+
 jest.mock('../../services/report.service');
 jest.mock('../../utils/logger.util');
 
-describe('Report Controller', () => {
-  let req: Partial<Request>;
+interface CustomRequest extends Request {
+  user?: { id: string };
+}
+
+describe('reportController', () => {
+  let req: Partial<CustomRequest>;
   let res: Partial<Response>;
-  let statusMock: jest.Mock;
-  let jsonMock: jest.Mock;
 
   beforeEach(() => {
-    statusMock = jest.fn().mockReturnThis();
-    jsonMock = jest.fn();
+    req = {
+      body: {},
+      user: { id: 'user123' },
+    };
 
     res = {
-      status: statusMock,
-      json: jsonMock,
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
     };
-  });
 
-  afterEach(() => {
     jest.clearAllMocks();
   });
 
   describe('createReport', () => {
-    it('should create a report successfully', async () => {
-      const mockReport = { id: '123', biodataNo: '456', reason: 'Spam' };
-      (reportService.createReport as jest.Mock).mockResolvedValue(mockReport);
+    it('should return 201 if report is created successfully', async () => {
+      req.body = {
+        biodataNo: '12345',
+        reason: 'Spam',
+        reasonDetails: 'Sending spam messages',
+      };
 
-      req = {
-        body: {
-          biodataNo: '456',
-          reason: 'Spam',
-          reasonDetails: 'Posting spam links',
-        },
-        user: {
-          id: 'user-123',
-        },
-      } as any;
+      (reportService.createReport as jest.Mock).mockResolvedValue({
+        id: 'report1',
+        biodataNo: 12345,
+      });
 
       await reportController.createReport(req as Request, res as Response);
 
       expect(reportService.createReport).toHaveBeenCalledWith(
-        'user-123',
-        '456',
+        'user123',
+        12345,
         'Spam',
-        'Posting spam links',
+        'Sending spam messages'
       );
-      expect(statusMock).toHaveBeenCalledWith(201);
-      expect(jsonMock).toHaveBeenCalledWith({
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({
         success: true,
         message: 'Report created successfully',
-        data: mockReport,
+        data: {
+          id: 'report1',
+          biodataNo: 12345,
+        },
       });
     });
 
-    it('should handle service error (Error instance)', async () => {
-      const error = new Error('Failed to create report');
-      (reportService.createReport as jest.Mock).mockRejectedValue(error);
-
-      req = {
-        body: {},
-        user: {
-          id: 'user-123',
-        },
-      } as any;
+    it('should handle known errors with 400 response', async () => {
+      req.body = {
+        biodataNo: 'abc', // invalid number
+        reason: 'Spam',
+        reasonDetails: 'Details',
+      };
 
       await reportController.createReport(req as Request, res as Response);
 
-      expect(logger.error).toHaveBeenCalledWith(
-        'Error creating report:',
-        'Failed to create report',
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: false,
+          message: expect.any(String),
+        })
       );
-      expect(statusMock).toHaveBeenCalledWith(400);
-      expect(jsonMock).toHaveBeenCalledWith({
-        success: false,
-        message: 'Failed to create report',
-      });
     });
 
-    it('should handle unknown error', async () => {
-      (reportService.createReport as jest.Mock).mockRejectedValue(
-        'Unknown error',
-      );
+    it('should handle unknown errors with 500 response', async () => {
+      req.body = {
+        biodataNo: '12345',
+        reason: 'Test',
+        reasonDetails: 'Details',
+      };
 
-      req = {
-        body: {},
-        user: {
-          id: 'user-123',
-        },
-      } as any;
+      (reportService.createReport as jest.Mock).mockImplementation(() => {
+        throw 'Unknown';
+      });
 
       await reportController.createReport(req as Request, res as Response);
 
-      expect(statusMock).toHaveBeenCalledWith(500);
-      expect(jsonMock).toHaveBeenCalledWith({
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
         success: false,
         message: 'Internal server error',
       });
@@ -107,56 +102,46 @@ describe('Report Controller', () => {
   });
 
   describe('getAllReports', () => {
-    it('should get all reports successfully', async () => {
-      const mockReports = [
-        { id: '1', biodataNo: '100', reason: 'Fake profile' },
-        { id: '2', biodataNo: '101', reason: 'Spam' },
-      ];
-      (reportService.getAllReports as jest.Mock).mockResolvedValue(mockReports);
+    it('should return 200 with all reports', async () => {
+      const mockReports = [{ id: 'report1' }, { id: 'report2' }];
 
-      req = {};
+      (reportService.getAllReports as jest.Mock).mockResolvedValue(mockReports);
 
       await reportController.getAllReports(req as Request, res as Response);
 
-      expect(reportService.getAllReports).toHaveBeenCalled();
-      expect(statusMock).toHaveBeenCalledWith(200);
-      expect(jsonMock).toHaveBeenCalledWith({
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({
         success: true,
         message: 'Reports retrieved successfully',
         data: mockReports,
       });
     });
 
-    it('should handle service error (Error instance)', async () => {
-      const error = new Error('Database error');
-      (reportService.getAllReports as jest.Mock).mockRejectedValue(error);
-
-      req = {};
+    it('should return 400 on known error', async () => {
+      const knownError = new Error('Database error');
+      (reportService.getAllReports as jest.Mock).mockRejectedValue(knownError);
 
       await reportController.getAllReports(req as Request, res as Response);
 
       expect(logger.error).toHaveBeenCalledWith(
         'Error retrieving reports:',
-        'Database error',
+        'Database error'
       );
-      expect(statusMock).toHaveBeenCalledWith(400);
-      expect(jsonMock).toHaveBeenCalledWith({
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
         success: false,
         message: 'Database error',
       });
     });
 
-    it('should handle unknown error', async () => {
-      (reportService.getAllReports as jest.Mock).mockRejectedValue(
-        'Unknown error',
-      );
-
-      req = {};
+    it('should return 500 on unknown error', async () => {
+      (reportService.getAllReports as jest.Mock).mockRejectedValue('Unknown');
 
       await reportController.getAllReports(req as Request, res as Response);
 
-      expect(statusMock).toHaveBeenCalledWith(500);
-      expect(jsonMock).toHaveBeenCalledWith({
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
         success: false,
         message: 'Internal server error',
       });
