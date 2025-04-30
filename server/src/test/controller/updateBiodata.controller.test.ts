@@ -37,7 +37,10 @@ describe('updateBiodataController', () => {
 
     await updateBiodataController(req as Request, res);
 
-    expect(updateBiodata).toHaveBeenCalledWith({ ...mockUpdateData, users: 'user123' });
+    expect(updateBiodata).toHaveBeenCalledWith({
+      ...mockUpdateData,
+      users: 'user123',
+    });
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
       success: true,
@@ -54,8 +57,14 @@ describe('updateBiodataController', () => {
 
     await updateBiodataController(req as Request, res);
 
-    expect(updateBiodata).toHaveBeenCalledWith({ ...req.body, users: 'user123' });
-    expect(logger.error).toHaveBeenCalledWith('Error updating biodata:', mockError.message);
+    expect(updateBiodata).toHaveBeenCalledWith({
+      ...req.body,
+      users: 'user123',
+    });
+    expect(logger.error).toHaveBeenCalledWith(
+      'Error updating biodata:',
+      mockError.message,
+    );
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       success: false,

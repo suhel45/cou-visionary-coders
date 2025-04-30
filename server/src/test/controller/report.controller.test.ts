@@ -15,7 +15,7 @@ describe('Report Controller', () => {
   let jsonMock: jest.Mock;
 
   beforeEach(() => {
-    statusMock = jest.fn().mockReturnThis(); 
+    statusMock = jest.fn().mockReturnThis();
     jsonMock = jest.fn();
 
     res = {
@@ -50,7 +50,7 @@ describe('Report Controller', () => {
         'user-123',
         '456',
         'Spam',
-        'Posting spam links'
+        'Posting spam links',
       );
       expect(statusMock).toHaveBeenCalledWith(201);
       expect(jsonMock).toHaveBeenCalledWith({
@@ -73,7 +73,10 @@ describe('Report Controller', () => {
 
       await reportController.createReport(req as Request, res as Response);
 
-      expect(logger.error).toHaveBeenCalledWith('Error creating report:', 'Failed to create report');
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error creating report:',
+        'Failed to create report',
+      );
       expect(statusMock).toHaveBeenCalledWith(400);
       expect(jsonMock).toHaveBeenCalledWith({
         success: false,
@@ -82,7 +85,9 @@ describe('Report Controller', () => {
     });
 
     it('should handle unknown error', async () => {
-      (reportService.createReport as jest.Mock).mockRejectedValue('Unknown error');
+      (reportService.createReport as jest.Mock).mockRejectedValue(
+        'Unknown error',
+      );
 
       req = {
         body: {},
@@ -130,7 +135,10 @@ describe('Report Controller', () => {
 
       await reportController.getAllReports(req as Request, res as Response);
 
-      expect(logger.error).toHaveBeenCalledWith('Error retrieving reports:', 'Database error');
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error retrieving reports:',
+        'Database error',
+      );
       expect(statusMock).toHaveBeenCalledWith(400);
       expect(jsonMock).toHaveBeenCalledWith({
         success: false,
@@ -139,7 +147,9 @@ describe('Report Controller', () => {
     });
 
     it('should handle unknown error', async () => {
-      (reportService.getAllReports as jest.Mock).mockRejectedValue('Unknown error');
+      (reportService.getAllReports as jest.Mock).mockRejectedValue(
+        'Unknown error',
+      );
 
       req = {};
 

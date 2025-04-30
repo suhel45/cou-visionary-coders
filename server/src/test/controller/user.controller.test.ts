@@ -27,8 +27,14 @@ describe('user.controller', () => {
 
   describe('createUser', () => {
     it('should register user successfully', async () => {
-      const mockUser = { username: 'test', email: 'test@example.com', password: 'pass' };
-      (userService.createUserIntoDB as jest.Mock).mockResolvedValueOnce(mockUser);
+      const mockUser = {
+        username: 'test',
+        email: 'test@example.com',
+        password: 'pass',
+      };
+      (userService.createUserIntoDB as jest.Mock).mockResolvedValueOnce(
+        mockUser,
+      );
 
       req.body = mockUser;
 
@@ -44,18 +50,24 @@ describe('user.controller', () => {
     });
 
     it('should handle user already exists error', async () => {
-      (userService.createUserIntoDB as jest.Mock).mockRejectedValueOnce(new Error('User already exists!'));
+      (userService.createUserIntoDB as jest.Mock).mockRejectedValueOnce(
+        new Error('User already exists!'),
+      );
 
       req.body = { email: 'test@example.com' };
 
       await userController.createUser(req as Request, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'User already exists!' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'User already exists!',
+      });
     });
 
     it('should handle unexpected error', async () => {
-      (userService.createUserIntoDB as jest.Mock).mockRejectedValueOnce(new Error('Unexpected error'));
+      (userService.createUserIntoDB as jest.Mock).mockRejectedValueOnce(
+        new Error('Unexpected error'),
+      );
 
       req.body = { email: 'test@example.com' };
 
@@ -71,14 +83,20 @@ describe('user.controller', () => {
   describe('loginUser', () => {
     it('should login user and set cookie', async () => {
       const mockLogin = { userId: 'user123', token: 'mockToken' };
-      (userService.loginUserFromDB as jest.Mock).mockResolvedValueOnce(mockLogin);
+      (userService.loginUserFromDB as jest.Mock).mockResolvedValueOnce(
+        mockLogin,
+      );
 
       req.body = { email: 'test@example.com', password: 'password' };
 
       await userController.loginUser(req as Request, res);
 
       expect(userService.loginUserFromDB).toHaveBeenCalledWith(req.body);
-      expect(res.cookie).toHaveBeenCalledWith('token', 'mockToken', expect.any(Object));
+      expect(res.cookie).toHaveBeenCalledWith(
+        'token',
+        'mockToken',
+        expect.any(Object),
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -88,7 +106,9 @@ describe('user.controller', () => {
     });
 
     it('should handle login errors', async () => {
-      (userService.loginUserFromDB as jest.Mock).mockRejectedValueOnce(new Error('Login failed'));
+      (userService.loginUserFromDB as jest.Mock).mockRejectedValueOnce(
+        new Error('Login failed'),
+      );
 
       req.body = { email: 'test@example.com', password: 'password' };
 
@@ -103,13 +123,23 @@ describe('user.controller', () => {
 
   describe('resetPassword', () => {
     it('should reset password successfully', async () => {
-      (userService.ResetPassword as jest.Mock).mockResolvedValueOnce('Password changed');
+      (userService.ResetPassword as jest.Mock).mockResolvedValueOnce(
+        'Password changed',
+      );
 
-      req.body = { email: 'test@example.com', currentPassword: 'oldpass', newPassword: 'newpass' };
+      req.body = {
+        email: 'test@example.com',
+        currentPassword: 'oldpass',
+        newPassword: 'newpass',
+      };
 
       await userController.resetPassword(req as Request, res);
 
-      expect(userService.ResetPassword).toHaveBeenCalledWith('test@example.com', 'oldpass', 'newpass');
+      expect(userService.ResetPassword).toHaveBeenCalledWith(
+        'test@example.com',
+        'oldpass',
+        'newpass',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         message: 'Password changed',
@@ -117,27 +147,40 @@ describe('user.controller', () => {
     });
 
     it('should handle reset password error', async () => {
-      (userService.ResetPassword as jest.Mock).mockRejectedValueOnce(new Error('Reset error'));
+      (userService.ResetPassword as jest.Mock).mockRejectedValueOnce(
+        new Error('Reset error'),
+      );
 
-      req.body = { email: 'test@example.com', currentPassword: 'oldpass', newPassword: 'newpass' };
+      req.body = {
+        email: 'test@example.com',
+        currentPassword: 'oldpass',
+        newPassword: 'newpass',
+      };
 
       await userController.resetPassword(req as Request, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Server error occurred' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Server error occurred',
+      });
     });
   });
 
   describe('forgotPassword', () => {
     it('should send reset link on success', async () => {
-      const successMessage = 'Reset link sent to your email.please check your email or email spam folder';
-      (userService.ForgotPassword as jest.Mock).mockResolvedValueOnce(successMessage);
+      const successMessage =
+        'Reset link sent to your email.please check your email or email spam folder';
+      (userService.ForgotPassword as jest.Mock).mockResolvedValueOnce(
+        successMessage,
+      );
 
       req.body = { email: 'test@example.com' };
 
       await userController.forgotPassword(req as Request, res);
 
-      expect(userService.ForgotPassword).toHaveBeenCalledWith('test@example.com');
+      expect(userService.ForgotPassword).toHaveBeenCalledWith(
+        'test@example.com',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -146,7 +189,9 @@ describe('user.controller', () => {
     });
 
     it('should handle invalid forgot password response', async () => {
-      (userService.ForgotPassword as jest.Mock).mockResolvedValueOnce('Invalid email');
+      (userService.ForgotPassword as jest.Mock).mockResolvedValueOnce(
+        'Invalid email',
+      );
 
       req.body = { email: 'invalid@example.com' };
 
@@ -160,7 +205,9 @@ describe('user.controller', () => {
     });
 
     it('should handle forgot password server error', async () => {
-      (userService.ForgotPassword as jest.Mock).mockRejectedValueOnce(new Error('Forgot error'));
+      (userService.ForgotPassword as jest.Mock).mockRejectedValueOnce(
+        new Error('Forgot error'),
+      );
 
       req.body = { email: 'test@example.com' };
 
@@ -176,14 +223,19 @@ describe('user.controller', () => {
 
   describe('resetPasswordWithToken', () => {
     it('should reset password with token successfully', async () => {
-      (userService.ResetPasswordWithToken as jest.Mock).mockResolvedValueOnce('Password reset successfully');
+      (userService.ResetPasswordWithToken as jest.Mock).mockResolvedValueOnce(
+        'Password reset successfully',
+      );
 
       req.params = { token: 'resettoken' };
       req.body = { newPassword: 'newpass' };
 
       await userController.resetPasswordWithToken(req as Request, res);
 
-      expect(userService.ResetPasswordWithToken).toHaveBeenCalledWith('resettoken', 'newpass');
+      expect(userService.ResetPasswordWithToken).toHaveBeenCalledWith(
+        'resettoken',
+        'newpass',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -192,7 +244,9 @@ describe('user.controller', () => {
     });
 
     it('should handle invalid token or reset failure', async () => {
-      (userService.ResetPasswordWithToken as jest.Mock).mockResolvedValueOnce('Invalid or expired token');
+      (userService.ResetPasswordWithToken as jest.Mock).mockResolvedValueOnce(
+        'Invalid or expired token',
+      );
 
       req.params = { token: 'badtoken' };
       req.body = { newPassword: 'newpass' };
@@ -207,7 +261,9 @@ describe('user.controller', () => {
     });
 
     it('should handle server error on token reset', async () => {
-      (userService.ResetPasswordWithToken as jest.Mock).mockRejectedValueOnce(new Error('Token reset error'));
+      (userService.ResetPasswordWithToken as jest.Mock).mockRejectedValueOnce(
+        new Error('Token reset error'),
+      );
 
       req.params = { token: 'resettoken' };
       req.body = { newPassword: 'newpass' };
@@ -215,14 +271,18 @@ describe('user.controller', () => {
       await userController.resetPasswordWithToken(req as Request, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Server error occurred' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Server error occurred',
+      });
     });
   });
 
   describe('getUserSignupStats', () => {
     it('should get user signup stats successfully', async () => {
       const mockStats = [{ month: 'January', count: 10 }];
-      (userService.getUserSignupsByMonth as jest.Mock).mockResolvedValueOnce(mockStats);
+      (userService.getUserSignupsByMonth as jest.Mock).mockResolvedValueOnce(
+        mockStats,
+      );
 
       await userController.getUserSignupStats(req as Request, res);
 
@@ -236,7 +296,9 @@ describe('user.controller', () => {
     });
 
     it('should handle stats fetching error', async () => {
-      (userService.getUserSignupsByMonth as jest.Mock).mockRejectedValueOnce(new Error('Stats error'));
+      (userService.getUserSignupsByMonth as jest.Mock).mockRejectedValueOnce(
+        new Error('Stats error'),
+      );
 
       await userController.getUserSignupStats(req as Request, res);
 

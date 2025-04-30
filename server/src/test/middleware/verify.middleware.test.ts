@@ -8,13 +8,17 @@ const app = express();
 const uploadRoute = '/upload-test';
 
 // Setup route using multer middleware
-app.post(uploadRoute, upload.single('file'), (req: express.Request, res: express.Response): void => {
-  if (req.file) {
-    res.status(200).json({ filename: req.file.filename });
-  } else {
-    res.status(400).json({ message: 'No file uploaded' });
-  }
-});
+app.post(
+  uploadRoute,
+  upload.single('file'),
+  (req: express.Request, res: express.Response): void => {
+    if (req.file) {
+      res.status(200).json({ filename: req.file.filename });
+    } else {
+      res.status(400).json({ message: 'No file uploaded' });
+    }
+  },
+);
 
 describe('upload middleware', () => {
   const uploadDir = path.join(__dirname, '../../../../uploads');

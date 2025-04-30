@@ -30,12 +30,21 @@ describe('supportController', () => {
   describe('addToSupport', () => {
     it('should submit support request successfully', async () => {
       req.body = { message: 'Help needed!' };
-      const mockSupportRequest = { id: 'support123', userId: 'user123', message: 'Help needed!' };
-      (supportService.addToSupport as jest.Mock).mockResolvedValueOnce(mockSupportRequest);
+      const mockSupportRequest = {
+        id: 'support123',
+        userId: 'user123',
+        message: 'Help needed!',
+      };
+      (supportService.addToSupport as jest.Mock).mockResolvedValueOnce(
+        mockSupportRequest,
+      );
 
       await supportController.addToSupport(req as Request, res);
 
-      expect(supportService.addToSupport).toHaveBeenCalledWith('user123', 'Help needed!');
+      expect(supportService.addToSupport).toHaveBeenCalledWith(
+        'user123',
+        'Help needed!',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -46,11 +55,16 @@ describe('supportController', () => {
 
     it('should handle error when submitting support request', async () => {
       const mockError = new Error('Database error');
-      (supportService.addToSupport as jest.Mock).mockRejectedValueOnce(mockError);
+      (supportService.addToSupport as jest.Mock).mockRejectedValueOnce(
+        mockError,
+      );
 
       await supportController.addToSupport(req as Request, res);
 
-      expect(logger.error).toHaveBeenCalledWith('Error adding to support:', mockError);
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error adding to support:',
+        mockError,
+      );
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
         success: false,
@@ -65,7 +79,9 @@ describe('supportController', () => {
         { id: 'support1', message: 'Need help with password reset' },
         { id: 'support2', message: 'Issue with login' },
       ];
-      (supportService.getSupportList as jest.Mock).mockResolvedValueOnce(mockSupportList);
+      (supportService.getSupportList as jest.Mock).mockResolvedValueOnce(
+        mockSupportList,
+      );
 
       await supportController.getSupportList(req as Request, res);
 
@@ -80,11 +96,16 @@ describe('supportController', () => {
 
     it('should handle error when retrieving support list', async () => {
       const mockError = new Error('Database fetch error');
-      (supportService.getSupportList as jest.Mock).mockRejectedValueOnce(mockError);
+      (supportService.getSupportList as jest.Mock).mockRejectedValueOnce(
+        mockError,
+      );
 
       await supportController.getSupportList(req as Request, res);
 
-      expect(logger.error).toHaveBeenCalledWith('Error retrieving support list:', mockError);
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error retrieving support list:',
+        mockError,
+      );
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
         success: false,

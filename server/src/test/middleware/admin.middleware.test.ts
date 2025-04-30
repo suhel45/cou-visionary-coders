@@ -28,7 +28,9 @@ describe('isAdmin middleware', () => {
     await isAdmin(req as Request, res as Response, next);
 
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Unauthorized: No user found' });
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Unauthorized: No user found',
+    });
     expect(next).not.toHaveBeenCalled();
   });
 
@@ -52,15 +54,18 @@ describe('isAdmin middleware', () => {
 
   it('should handle unexpected errors', async () => {
     const error = new Error('test error');
-    (Object.defineProperty(req, 'user', {
+    Object.defineProperty(req, 'user', {
       get: () => {
         throw error; // simulate internal failure
       },
-    }));
+    });
 
     await isAdmin(req as Request, res as Response, next);
 
-    expect(logger.error).toHaveBeenCalledWith('Error in isAdmin middleware:', error);
+    expect(logger.error).toHaveBeenCalledWith(
+      'Error in isAdmin middleware:',
+      error,
+    );
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({ message: 'Internal server error' });
     expect(next).not.toHaveBeenCalled();

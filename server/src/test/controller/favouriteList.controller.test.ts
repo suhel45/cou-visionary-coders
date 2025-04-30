@@ -31,12 +31,21 @@ describe('favoriteListController', () => {
   describe('addToFavorites', () => {
     it('should add biodata to favorites successfully', async () => {
       req.body = { biodataId: 'biodata123' };
-      const mockResult = { id: 'fav1', biodataId: 'biodata123', userId: 'user123' };
-      (favoriteListService.addToFavorites as jest.Mock).mockResolvedValueOnce(mockResult);
+      const mockResult = {
+        id: 'fav1',
+        biodataId: 'biodata123',
+        userId: 'user123',
+      };
+      (favoriteListService.addToFavorites as jest.Mock).mockResolvedValueOnce(
+        mockResult,
+      );
 
       await favoriteListController.addToFavorites(req as Request, res);
 
-      expect(favoriteListService.addToFavorites).toHaveBeenCalledWith('user123', 'biodata123');
+      expect(favoriteListService.addToFavorites).toHaveBeenCalledWith(
+        'user123',
+        'biodata123',
+      );
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -47,11 +56,16 @@ describe('favoriteListController', () => {
 
     it('should handle error when adding to favorites', async () => {
       const mockError = new Error('Failed to add to favorites');
-      (favoriteListService.addToFavorites as jest.Mock).mockRejectedValueOnce(mockError);
+      (favoriteListService.addToFavorites as jest.Mock).mockRejectedValueOnce(
+        mockError,
+      );
 
       await favoriteListController.addToFavorites(req as Request, res);
 
-      expect(logger.error).toHaveBeenCalledWith('Error add favoriteList:', mockError.message);
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error add favoriteList:',
+        mockError.message,
+      );
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         success: false,
@@ -63,11 +77,16 @@ describe('favoriteListController', () => {
   describe('removeFromFavorites', () => {
     it('should remove biodata from favorites successfully', async () => {
       req.params = { biodataId: 'biodata123' };
-      (favoriteListService.removeFromFavorites as jest.Mock).mockResolvedValueOnce(undefined);
+      (
+        favoriteListService.removeFromFavorites as jest.Mock
+      ).mockResolvedValueOnce(undefined);
 
       await favoriteListController.removeFromFavorites(req as Request, res);
 
-      expect(favoriteListService.removeFromFavorites).toHaveBeenCalledWith('user123', 'biodata123');
+      expect(favoriteListService.removeFromFavorites).toHaveBeenCalledWith(
+        'user123',
+        'biodata123',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -77,11 +96,16 @@ describe('favoriteListController', () => {
 
     it('should handle error when removing from favorites', async () => {
       const mockError = new Error('Failed to remove from favorites');
-      (favoriteListService.removeFromFavorites as jest.Mock).mockRejectedValueOnce(mockError);
+      (
+        favoriteListService.removeFromFavorites as jest.Mock
+      ).mockRejectedValueOnce(mockError);
 
       await favoriteListController.removeFromFavorites(req as Request, res);
 
-      expect(logger.error).toHaveBeenCalledWith('Error remove favoriteList:', mockError.message);
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error remove favoriteList:',
+        mockError.message,
+      );
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         success: false,
@@ -96,11 +120,15 @@ describe('favoriteListController', () => {
         { biodata: { id: 'biodata1', name: 'John Doe' } },
         { biodata: { id: 'biodata2', name: 'Jane Smith' } },
       ];
-      (favoriteListService.getFavoritesList as jest.Mock).mockResolvedValueOnce(mockFavorites);
+      (favoriteListService.getFavoritesList as jest.Mock).mockResolvedValueOnce(
+        mockFavorites,
+      );
 
       await favoriteListController.getFavoritesList(req as Request, res);
 
-      expect(favoriteListService.getFavoritesList).toHaveBeenCalledWith('user123');
+      expect(favoriteListService.getFavoritesList).toHaveBeenCalledWith(
+        'user123',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
@@ -113,11 +141,16 @@ describe('favoriteListController', () => {
 
     it('should handle error when getting favorites list', async () => {
       const mockError = new Error('Failed to get favorites');
-      (favoriteListService.getFavoritesList as jest.Mock).mockRejectedValueOnce(mockError);
+      (favoriteListService.getFavoritesList as jest.Mock).mockRejectedValueOnce(
+        mockError,
+      );
 
       await favoriteListController.getFavoritesList(req as Request, res);
 
-      expect(logger.error).toHaveBeenCalledWith('Error fetching favoriteList:', mockError.message);
+      expect(logger.error).toHaveBeenCalledWith(
+        'Error fetching favoriteList:',
+        mockError.message,
+      );
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         success: false,

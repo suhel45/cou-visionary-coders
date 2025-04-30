@@ -52,47 +52,52 @@ describe('verifyToken middleware', () => {
     req.cookies = req.cookies || {};
     req.cookies.token = 'valid-token';
     (jwt.verify as jest.Mock).mockReturnValue(mockDecoded);
-  
+
     // Properly mock the chained call: findById().lean()
     (userModel.findById as jest.Mock).mockReturnValue({
       lean: jest.fn().mockResolvedValue(null),
     });
-  
+
     process.env.JWT_SECRET_KEY = 'test-secret';
-  
+
     await verifyToken(req as Request, res as Response, next);
-  
+
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Unauthorized: User not found' });
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'Unauthorized: User not found',
+    });
     expect(next).not.toHaveBeenCalled();
   });
-  
 
   it('should attach user and call next() for valid token and user', async () => {
     req.cookies = req.cookies || {};
     req.cookies.token = 'valid-token';
-  
-    const mockUser = { _id: '12345', email: 'admin@example.com', role: 'admin' };
+
+    const mockUser = {
+      _id: '12345',
+      email: 'admin@example.com',
+      role: 'admin',
+    };
     const mockDecoded = { id: '12345' };
-  
+
     (jwt.verify as jest.Mock).mockReturnValue(mockDecoded);
     (userModel.findById as jest.Mock).mockReturnValue({
       lean: () => Promise.resolve(mockUser),
     });
-  
+
     process.env.JWT_SECRET_KEY = 'test-secret';
-  
+
     await verifyToken(req as Request, res as Response, next);
-  
+
     expect((req as any).user).toEqual({
       id: mockDecoded.id,
       email: mockUser.email,
       role: mockUser.role,
     });
-  
+
     expect(next).toHaveBeenCalled();
   });
-    it('should return 401 if token is invalid or verification fails', async () => {
+  it('should return 401 if token is invalid or verification fails', async () => {
     req.cookies = req.cookies || {};
     req.cookies.token = 'bad-token';
     (jwt.verify as jest.Mock).mockImplementation(() => {

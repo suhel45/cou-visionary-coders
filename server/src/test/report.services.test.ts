@@ -24,7 +24,9 @@ jest.mock('../models/report.model', () => {
 });
 
 // Import mocks
-const { PersonalAllDetailsModel }: any = jest.requireMock('../models/PersonalAllDetails.Model');
+const { PersonalAllDetailsModel }: any = jest.requireMock(
+  '../models/PersonalAllDetails.Model',
+);
 // Use OriginalPersonalAllDetailsModel if needed elsewhere
 const { ReportModel }: any = jest.requireMock('../models/report.model');
 
@@ -36,7 +38,9 @@ describe('reportService', () => {
   describe('createReport', () => {
     it('should create a new report if biodata exists and no prior report by the user', async () => {
       // Arrange
-      (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue({ biodataNo: 123 });
+      (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue({
+        biodataNo: 123,
+      });
       (ReportModel.findOne as jest.Mock).mockResolvedValue(null);
       (new ReportModel().save as jest.Mock).mockResolvedValue({
         _id: 'new-report-id',
@@ -51,11 +55,13 @@ describe('reportService', () => {
         'user123',
         123,
         'fake_profile',
-        'This profile is fake.'
+        'This profile is fake.',
       );
 
       // Assert
-      expect(PersonalAllDetailsModel.findOne).toHaveBeenCalledWith({ biodataNo: { $eq: 123 } });
+      expect(PersonalAllDetailsModel.findOne).toHaveBeenCalledWith({
+        biodataNo: { $eq: 123 },
+      });
       expect(ReportModel.findOne).toHaveBeenCalledWith({
         biodataNo: { $eq: 123 },
         reporter: 'user123',
@@ -80,17 +86,23 @@ describe('reportService', () => {
           'user123',
           999,
           'harassment',
-          'This profile harassed me.'
-        )
+          'This profile harassed me.',
+        ),
       ).rejects.toThrow('Biodata not found!');
 
-      expect(PersonalAllDetailsModel.findOne).toHaveBeenCalledWith({ biodataNo: { $eq: 999 } });
+      expect(PersonalAllDetailsModel.findOne).toHaveBeenCalledWith({
+        biodataNo: { $eq: 999 },
+      });
     });
 
     it('should throw an error if user already reported this biodata', async () => {
       // Arrange
-      (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue({ biodataNo: 123 });
-      (ReportModel.findOne as jest.Mock).mockResolvedValue({ _id: 'existing-report-id' });
+      (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue({
+        biodataNo: 123,
+      });
+      (ReportModel.findOne as jest.Mock).mockResolvedValue({
+        _id: 'existing-report-id',
+      });
 
       // Act & Assert
       await expect(
@@ -98,8 +110,8 @@ describe('reportService', () => {
           'user123',
           123,
           'scam',
-          'Scam profile detected.'
-        )
+          'Scam profile detected.',
+        ),
       ).rejects.toThrow('You have already reported this biodata.');
 
       expect(ReportModel.findOne).toHaveBeenCalledWith({
@@ -124,7 +136,9 @@ describe('reportService', () => {
       const sortMock = jest.fn().mockReturnValue({ exec: execMock });
       const populateMock = jest.fn().mockReturnValue({ sort: sortMock });
 
-      (ReportModel.find as jest.Mock).mockReturnValue({ populate: populateMock });
+      (ReportModel.find as jest.Mock).mockReturnValue({
+        populate: populateMock,
+      });
 
       // Act
       const result = await reportService.getAllReports();
