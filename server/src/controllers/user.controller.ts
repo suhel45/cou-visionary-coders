@@ -38,10 +38,10 @@ const loginUser = async (req: Request, res: Response) => {
     //set the token as an httpOnly cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'strict',
       path: '/',
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000, 
     });
 
     res.status(200).json({
