@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import PasswordInput from '../../utils/passVisibilityToggle/PasswordInput';
 import CommonButton from '../../utils/Button/CommonButton';
+import { updatePassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 interface FormData {
   newPassword: string;
@@ -33,17 +35,27 @@ const ResetForgotPassword = () => {
     setLoading(true);
 
     try {
+      // Step 1: Update password in your backend
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password/${resetToken}`,
         {
           newPassword: data.newPassword,
-        },
+        }
       );
 
-      setLoading(false);
-
       if (response.status === 200) {
-        setMessage('Password reset successfully. Redirecting to login...');
+        // Step 2: Authenticate the user in Firebase using the reset token
+        const auth = getAuth();
+        const email = response.data.email; // Assuming the backend returns the user's email
+        const tempPassword = response.data.tempPassword; // Assuming the backend provides a temporary password
+
+        // Sign in with the temporary credentials
+        const userCredential = await signInWithEmailAndPassword(auth, email, tempPassword);
+
+        // Step 3: Update the password in Firebase
+        await updatePassword(userCredential.user, data.newPassword);
+
+        setMessage('Password reset successfully in both backend and Firebase. Redirecting to login...');
         setMessageType('success');
         reset();
 
@@ -65,12 +77,14 @@ const ResetForgotPassword = () => {
         setMessage(errorMessage);
       } else if (axios.isAxiosError(error) && error.request) {
         setMessage(
-          'No response from the server. Please check your network connection.',
+          'No response from the server. Please check your network connection.'
         );
       } else {
         setMessage('Error resetting password. Please try again later.');
       }
       setMessageType('error');
+    } finally {
+      setLoading(false);
     }
   };
 

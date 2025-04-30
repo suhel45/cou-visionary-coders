@@ -38,8 +38,8 @@ const loginUser = async (req: Request, res: Response) => {
     //set the token as an httpOnly cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      secure: false,
+      sameSite: 'lax',
       path: '/',
       maxAge: 3600000, // 1 hour
     });
@@ -62,7 +62,6 @@ const loginUser = async (req: Request, res: Response) => {
 const resetPassword = async (req: Request, res: Response) => {
   try {
     const { email, currentPassword, newPassword } = req.body;
-
     const result = await userService.ResetPassword(
       email,
       currentPassword,

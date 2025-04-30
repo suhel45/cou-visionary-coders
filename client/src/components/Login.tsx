@@ -38,7 +38,7 @@ const Login: React.FC = () => {
 
       // Then authenticate with your backend
       await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/login`,
+        `http://localhost:3000/api/login`,
         { email: user.email, password: data.password },
         { withCredentials: true },
       );

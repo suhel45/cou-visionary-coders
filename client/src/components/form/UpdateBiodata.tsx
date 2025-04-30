@@ -16,6 +16,7 @@ import { CircleArrowLeft, CircleArrowRight, Check } from 'lucide-react';
 import { initialFormData } from './initialFormData';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const steps = [
   'Personal Information',
@@ -127,24 +128,22 @@ const MultiStepForm: React.FC = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
-
-    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`;
-
+  
+    const url = `http://localhost:3000/api/profile/biodata`;
+  
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
-      const data = await response.json();
+      const response = await axios.post(
+        url,
+        formData, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true, 
+        }
+      );
+  
+      console.log('Form submitted successfully:', response.data);
       toast.success('Form submitted successfully.');
       setIsSubmitted(true);
     } catch (err) {
@@ -155,6 +154,7 @@ const MultiStepForm: React.FC = () => {
       setIsLoading(false);
     }
   };
+  
 
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
