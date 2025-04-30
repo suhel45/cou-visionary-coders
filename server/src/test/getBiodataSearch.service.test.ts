@@ -111,7 +111,9 @@ describe('getBiodataSearch', () => {
     const result = await getBiodataSearch(req);
 
     expect(PersonalAllDetailsModel.find).toHaveBeenCalledWith(expectedQuery);
-    expect(PersonalAllDetailsModel.countDocuments).toHaveBeenCalledWith(expectedQuery);
+    expect(PersonalAllDetailsModel.countDocuments).toHaveBeenCalledWith(
+      expectedQuery,
+    );
     expect(result).toEqual({ biodata: mockBiodata, totalbiodata: 1 });
   });
 

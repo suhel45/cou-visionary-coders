@@ -20,6 +20,7 @@ import {
   useMemo,
   useCallback,
 } from 'react';
+import axios from 'axios';
 import { auth } from '../../components/firebase/Firebase.config';
 import { UserProfile } from '../../interfaces/Signup.interface';
 import Loading from '../../utils/Loading/Loading';
@@ -34,8 +35,11 @@ type authContextProps = {
   loading: boolean;
   initializing: boolean;
   isNewlyRegistered: boolean;
+  isBackendAuthenticated: boolean;
+  setIsBackendAuthenticated: (isAuthenticated: boolean) => void;
   refreshUser: () => Promise<void>;
   deleteUser: (user: User) => Promise<void>;
+  isAdmin: boolean;
 };
 
 export const AuthContext = createContext<authContextProps | null>(null);
@@ -45,32 +49,46 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isNewlyRegistered, setIsNewlyRegistered] = useState(false);
+  const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const provider = new GoogleAuthProvider();
 
-  // Refresh user method
+  //  Fetch admin status from backend
+  const checkAdminStatus = async (email: string | null | undefined) => {
+    if (!email) return;
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/admin`,
+        { withCredentials: true },
+      );
+      setIsAdmin(response.data?.user?.role === 'admin');
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      setIsAdmin(false);
+    }
+  };
+
   const refreshUser = useCallback(async () => {
     try {
       const currentUser = auth.currentUser;
       if (currentUser) {
-        // Force token refresh
         await currentUser.getIdToken(true);
         setUser(currentUser);
+        await checkAdminStatus(currentUser.email);
       }
     } catch (error) {
       console.error('User refresh error:', error);
       setUser(null);
+      setIsAdmin(false);
     }
   }, []);
 
-  // Authenticate with persistence
   const authenticateWithPersistence = async (
     authMethod: () => Promise<UserCredential>,
   ) => {
     try {
-      // Ensure persistence is set
       await setPersistence(auth, browserLocalPersistence);
-
-      // Perform authentication
       setLoading(true);
       const result = await authMethod();
       return result;
@@ -82,7 +100,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Authentication methods with persistence
   const signInWithGoogle = () => {
     return authenticateWithPersistence(() => signInWithPopup(auth, provider));
   };
@@ -94,7 +111,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         email,
         password,
       );
-      // Set this flag when user signs up
       setIsNewlyRegistered(true);
       return userCredential;
     });
@@ -104,10 +120,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setLoading(true);
       await firebaseDeleteUser(user);
-      // If the deleted user is the current user, update state
       if (user.uid === auth.currentUser?.uid) {
         setUser(null);
         setIsNewlyRegistered(false);
+        setIsAdmin(false);
       }
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -119,7 +135,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const loginUser = (email: string, password: string) => {
     return authenticateWithPersistence(async () => {
-      // Clear the flag during normal login
       setIsNewlyRegistered(false);
       return signInWithEmailAndPassword(auth, email, password);
     });
@@ -130,20 +145,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       await signOut(auth);
       setUser(null);
-      // Reset the flag when logging out
       setIsNewlyRegistered(false);
+      setIsAdmin(false);
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
       setLoading(false);
     }
   };
-
   const updateUserProfile = async (profile: UserProfile) => {
     if (auth.currentUser) {
       try {
         await updateProfile(auth.currentUser, profile);
-        // Refresh user to ensure latest profile
         await refreshUser();
       } catch (error) {
         console.error('Profile update error:', error);
@@ -154,30 +167,26 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Authentication state listener
+  // Auth state listener + check admin status
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       auth,
       async (currentUser) => {
-        console.log('Auth State Changed:', {
-          user: currentUser,
-          timestamp: new Date().toISOString(),
-        });
-
         if (currentUser) {
           try {
-            // Verify token to ensure authentication is still valid
             await currentUser.getIdToken(true);
             setUser(currentUser);
+            await checkAdminStatus(currentUser.email);
           } catch (tokenError) {
             console.error('Token verification failed:', tokenError);
             setUser(null);
+            setIsAdmin(false);
           }
         } else {
           setUser(null);
+          setIsAdmin(false);
         }
 
-        // Mark initialization as complete
         if (initializing) {
           setInitializing(false);
         }
@@ -185,7 +194,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       (error) => {
         console.error('Authentication State Change Error:', error);
         setUser(null);
-
+        setIsAdmin(false);
         if (initializing) {
           setInitializing(false);
         }
@@ -195,7 +204,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, [initializing]);
 
-  // Periodic user state verification
   useEffect(() => {
     const checkUserAuthentication = async () => {
       if (user) {
@@ -204,17 +212,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         } catch (error) {
           console.error('Periodic user check failed:', error);
           setUser(null);
+          setIsAdmin(false);
         }
       }
     };
 
-    // Check user authentication every 5 minutes
     const intervalId = setInterval(checkUserAuthentication, 5 * 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, [user, refreshUser]);
 
-  // Memoized context value
   const authValue = useMemo(
     () => ({
       user,
@@ -227,12 +234,22 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       initializing,
       refreshUser,
       isNewlyRegistered,
+      isBackendAuthenticated,
+      setIsBackendAuthenticated,
       deleteUser,
+      isAdmin,
     }),
-    [user, loading, initializing, refreshUser, isNewlyRegistered],
+    [
+      user,
+      loading,
+      initializing,
+      refreshUser,
+      isNewlyRegistered,
+      isBackendAuthenticated,
+      isAdmin,
+    ],
   );
 
-  // Prevent rendering children during initialization
   if (initializing) {
     return <Loading message="please wait..." />;
   }

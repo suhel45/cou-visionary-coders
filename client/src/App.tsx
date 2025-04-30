@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
@@ -9,7 +9,6 @@ import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
 import Admin from './components/admin/AdminDashboard';
@@ -23,66 +22,71 @@ import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 import SupportAndReportPage from './pages/supportAndReport/SupportAndReportPage';
+import AdminRoute from './routes/AdminRoute';
+import AdminDashboard from './components/admin/AdminDashboard';
+import { useAxiosAuthInterceptor } from './utils/UseApi/useAxiosAuthInterceptor';
 
 function NoMatch() {
   return <PageNotFound />;
 }
 
 export default function App() {
-
+  useAxiosAuthInterceptor();
+  const location = useLocation();
 
   // Check if the current route is /admin
-
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    // Wrap everything inside AuthProvider
-    <AuthProvider>
-      <div className="flex flex-col min-h-screen">
-        {/* Conditionally render Nav */}
-         <Nav />
+    <div className="flex flex-col min-h-screen">
+      {/* Conditionally render Nav */}
+      <Nav />
 
-        {/* Content area */}
-        <div className="flex-1 overflow-y-auto md:mt-20">
-          <Toaster position="top-right" />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/biodata" element={<BiodataList />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route
-              path="/reset-password/:resetToken"
-              element={<ResetForgotPassword />}
-            />
-            <Route
-              path="/biodata/profile/:id"
-              element={<BiodataDetailsProfile />}
-            />
-            <Route element={<PrivateRoute />}>
-              <Route path="/dashboard/*" element={<Dashboard />}>
-                <Route path="edit/profile" element={<UpdateBiodata />} />
-                <Route path="" element={<Analytic />} />
-                <Route path="edit/verify" element={<Verify />} />
-                <Route path="favourite" element={<FavoriteListPage />} />
-                <Route
-                  path="support-report"
-                  element={<SupportAndReportPage />}
-                />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-              <Route path="/profile" element={<UserProfilePages />} />
+      {/* Content area */}
+      <div className="flex-1 overflow-y-auto md:mt-20">
+        <Toaster position="top-right" />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/biodata" element={<BiodataList />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/reset-password/:resetToken"
+            element={<ResetForgotPassword />}
+          />
+          <Route
+            path="/biodata/profile/:id"
+            element={<BiodataDetailsProfile />}
+          />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route path="edit/profile" element={<UpdateBiodata />} />
+              <Route path="" element={<Analytic />} />
+              <Route path="edit/verify" element={<Verify />} />
+              <Route path="favourite" element={<FavoriteListPage />} />
+              <Route path="support-report" element={<SupportAndReportPage />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        </div>
-        
-        {/* Footer component fixed at the bottom */}
-       <Footer />
+            <Route path="/profile" element={<UserProfilePages />} />
+          </Route>
+          <Route
+            path="/admin-dashboard/*"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
       </div>
-    </AuthProvider>
+
+      {/* Footer component fixed at the bottom */}
+      {!isAdminRoute && <Footer />}
+    </div>
   );
 }

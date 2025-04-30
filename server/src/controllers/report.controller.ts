@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { reportService } from '../services/report.service';
 import logger from '../utils/logger.util';
+import validator from 'validator';
 
 interface CustomRequest extends Request {
   user: {
@@ -8,10 +9,31 @@ interface CustomRequest extends Request {
   };
 }
 
+// Helper sanitizers
+const sanitizeNumber = (input: unknown): number => {
+  const inputStr = String(input);
+  const sanitized = validator.stripLow(validator.whitelist(inputStr, '0-9'));
+  if (!validator.isInt(sanitized)) {
+    throw new Error('Invalid biodata number');
+  }
+  return parseInt(sanitized, 10);
+};
+
+const sanitizeText = (input: unknown): string => {
+  const inputStr = String(input).trim();
+  const sanitized = validator.escape(inputStr);
+  if (!sanitized || sanitized.length === 0) {
+    throw new Error('Invalid or empty input string');
+  }
+  return sanitized;
+};
+
 const createReport = async (req: Request, res: Response) => {
   try {
-    const userId = (req as CustomRequest).user.id;
-    const { biodataNo, reason, reasonDetails } = req.body;
+    const userId = sanitizeText((req as CustomRequest).user.id);
+    const biodataNo = sanitizeNumber(req.body.biodataNo);
+    const reason = sanitizeText(req.body.reason);
+    const reasonDetails = sanitizeText(req.body.reasonDetails);
 
     const report = await reportService.createReport(
       userId,
@@ -19,6 +41,7 @@ const createReport = async (req: Request, res: Response) => {
       reason,
       reasonDetails,
     );
+
     res.status(201).json({
       success: true,
       message: 'Report created successfully',

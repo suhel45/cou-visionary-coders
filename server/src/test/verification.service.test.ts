@@ -12,7 +12,9 @@ jest.mock('../models/Verification.Model', () => {
   return { VerificationModel: VerificationModelMock };
 });
 
-const { VerificationModel }: any = jest.requireMock('../models/Verification.Model');
+const { VerificationModel }: any = jest.requireMock(
+  '../models/Verification.Model',
+);
 // Ensure the mock does not conflict with the original import
 
 describe('verificationService', () => {
@@ -33,9 +35,14 @@ describe('verificationService', () => {
         save: saveMock,
       });
 
-      const result = await verificationService.uploadIdCard('user123', 'new-file-url');
+      const result = await verificationService.uploadIdCard(
+        'user123',
+        'new-file-url',
+      );
 
-      expect(VerificationModel.findOne).toHaveBeenCalledWith({ user: 'user123' });
+      expect(VerificationModel.findOne).toHaveBeenCalledWith({
+        user: 'user123',
+      });
       expect(saveMock).toHaveBeenCalled();
       expect(result).toEqual({
         idCardImage: 'new-file-url',
@@ -57,9 +64,14 @@ describe('verificationService', () => {
         return { save: saveMock };
       });
 
-      const result = await verificationService.uploadIdCard('user123', 'new-file-url');
+      const result = await verificationService.uploadIdCard(
+        'user123',
+        'new-file-url',
+      );
 
-      expect(VerificationModel.findOne).toHaveBeenCalledWith({ user: 'user123' });
+      expect(VerificationModel.findOne).toHaveBeenCalledWith({
+        user: 'user123',
+      });
       expect(saveMock).toHaveBeenCalled();
       expect(result).toEqual({
         user: 'user123',
@@ -75,9 +87,12 @@ describe('verificationService', () => {
         status: 'Pending',
       });
 
-      const result = await verificationService.checkVerificationStatus('user123');
+      const result =
+        await verificationService.checkVerificationStatus('user123');
 
-      expect(VerificationModel.findOne).toHaveBeenCalledWith({ user: 'user123' });
+      expect(VerificationModel.findOne).toHaveBeenCalledWith({
+        user: 'user123',
+      });
       expect(result).toBe('Pending');
     });
 
@@ -85,10 +100,12 @@ describe('verificationService', () => {
       (VerificationModel.findOne as jest.Mock).mockResolvedValue(null);
 
       await expect(
-        verificationService.checkVerificationStatus('user123')
+        verificationService.checkVerificationStatus('user123'),
       ).rejects.toThrow('Verification not found');
 
-      expect(VerificationModel.findOne).toHaveBeenCalledWith({ user: 'user123' });
+      expect(VerificationModel.findOne).toHaveBeenCalledWith({
+        user: 'user123',
+      });
     });
   });
 
@@ -105,7 +122,9 @@ describe('verificationService', () => {
 
       const result = await verificationService.approveVerification('user123');
 
-      expect(VerificationModel.findOne).toHaveBeenCalledWith({ user: 'user123' });
+      expect(VerificationModel.findOne).toHaveBeenCalledWith({
+        user: 'user123',
+      });
       expect(saveMock).toHaveBeenCalled();
       expect(result).toEqual({ status: 'Approved' });
     });
@@ -114,7 +133,7 @@ describe('verificationService', () => {
       (VerificationModel.findOne as jest.Mock).mockResolvedValue(null);
 
       await expect(
-        verificationService.approveVerification('user123')
+        verificationService.approveVerification('user123'),
       ).rejects.toThrow('Verification not found');
     });
   });
@@ -126,29 +145,38 @@ describe('verificationService', () => {
 
       const result = await verificationService.getPendingVerifications();
 
-      expect(VerificationModel.find).toHaveBeenCalledWith({ status: 'Pending' });
+      expect(VerificationModel.find).toHaveBeenCalledWith({
+        status: 'Pending',
+      });
       expect(result).toEqual(pending);
     });
   });
 
   describe('updateVerificationStatus', () => {
     it('should update verification status if record exists', async () => {
-      (VerificationModel.updateOne as jest.Mock).mockResolvedValue({ modifiedCount: 1 });
+      (VerificationModel.updateOne as jest.Mock).mockResolvedValue({
+        modifiedCount: 1,
+      });
 
-      const result = await verificationService.updateVerificationStatus('user123', 'Approved');
+      const result = await verificationService.updateVerificationStatus(
+        'user123',
+        'Approved',
+      );
 
       expect(VerificationModel.updateOne).toHaveBeenCalledWith(
         { user: 'user123' },
-        { $set: { status: 'Approved' } }
+        { $set: { status: 'Approved' } },
       );
       expect(result).toEqual({ modifiedCount: 1 });
     });
 
     it('should throw error if verification record not found or unchanged', async () => {
-      (VerificationModel.updateOne as jest.Mock).mockResolvedValue({ modifiedCount: 0 });
+      (VerificationModel.updateOne as jest.Mock).mockResolvedValue({
+        modifiedCount: 0,
+      });
 
       await expect(
-        verificationService.updateVerificationStatus('user123', 'Rejected')
+        verificationService.updateVerificationStatus('user123', 'Rejected'),
       ).rejects.toThrow('Verification record not found or status unchanged');
     });
   });

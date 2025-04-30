@@ -1,12 +1,11 @@
-// src/modules/verify/verify.middleware.ts
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-const uploadPath = path.join(__dirname, '../../../uploads');
+const uploadPath = path.join('/tmp', 'uploads');
 
 if (!fs.existsSync(uploadPath)) {
-  fs.mkdirSync(uploadPath);
+  fs.mkdirSync(uploadPath, { recursive: true });
 }
 
 const storage = multer.diskStorage({

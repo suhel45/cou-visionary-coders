@@ -1,25 +1,18 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import profileIcon from '../assets/profile.png';
 import dashboardIcon from '../assets/dashboard.png';
 import logoutIcon from '../assets/logout.png';
 import signupIcon from '../assets/signup.png';
 import loginIcon from '../assets/login.png';
-import { AuthContext } from '../Hooks/contextApi/UserContext';
+import profileIcon from '../assets/profile.png';
+import { useAuth } from '../Hooks/useAuth/useAuth';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAdmin, isNewlyRegistered, isBackendAuthenticated, logOut } =
+    useAuth();
 
-  // Get AuthContext and ensure it's not null
-  const authContext = useContext(AuthContext);
-
-  // Check if authContext is available and extract user and logOut
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-
-  const { user, isNewlyRegistered, logOut } = authContext;
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -27,6 +20,9 @@ function Nav() {
   const handleLogout = async () => {
     await logOut();
   };
+
+  const isFullyAuthenticated =
+    user && !isNewlyRegistered && isBackendAuthenticated;
 
   return (
     <header className="md:fixed top-0 left-0 w-full md:z-50 flex flex-col sm:flex-row items-center justify-between drop-shadow-xl bg-gradient-to-r from-sky-800 to-pink-600 text-white sm:px-6 ">
@@ -86,43 +82,79 @@ function Nav() {
           isMobileMenuOpen ? 'block' : 'hidden'
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
-        {user && !isNewlyRegistered ? (
-          // If the user is logged in
-          <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
-            <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <Link to="/biodata">Biodata</Link>
-            </li>
-            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <img src={profileIcon} alt="Profile" className="w-8 px-1" />
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <img src={dashboardIcon} alt="Dashboard" className="w-8 px-1" />
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
-              <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          </ul>
-        ) : (
-          <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
-            <li className=" bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <Link to="/home">Home</Link>
-            </li>
-            <li className=" bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <Link to="/aboutus">About Us</Link>
-            </li>
-            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li className=" bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-              <img src={loginIcon} alt="Log In" className="w-8 px-1" />
-              <Link to="/login">Log In</Link>
-            </li>
-          </ul>
-        )}
+        <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
+          {/* Non-authenticated users */}
+          {!isFullyAuthenticated && (
+            <>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/home">Home</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/biodata">Biodata</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/aboutus">About Us</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={loginIcon} alt="Log In" className="w-8 px-1" />
+                <Link to="/login">Log In</Link>
+              </li>
+            </>
+          )}
+
+          {/* Admin users */}
+          {isFullyAuthenticated && isAdmin && (
+            <>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img
+                  src={dashboardIcon}
+                  alt="Admin Dashboard"
+                  className="w-8 px-1"
+                />
+                <Link to="/admin-dashboard">Admin Dashboard</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
+                <button className="cursor-pointer" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+
+          {/* Regular authenticated users (not admins) */}
+          {isFullyAuthenticated && !isAdmin && (
+            <>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/home">Home</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/biodata">Biodata</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/aboutus">About Us</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={profileIcon} alt="Profile" className="w-8 px-1" />
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={dashboardIcon} alt="Dashboard" className="w-8 px-1" />
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
+                <button className="cursor-pointer" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
       </nav>
     </header>
   );

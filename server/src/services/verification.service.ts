@@ -38,25 +38,27 @@ const getPendingVerifications = async () => {
   return await VerificationModel.find({ status: 'Pending' });
 };
 
-const updateVerificationStatus = async (userId: string, status: 'Approved' | 'Rejected') => {
+const updateVerificationStatus = async (
+  userId: string,
+  status: 'Approved' | 'Rejected',
+) => {
   // Convert string ID to ObjectId if needed
   const result = await VerificationModel.updateOne(
-    { user: userId }, 
-    { $set: { status } }
+    { user: userId },
+    { $set: { status } },
   );
-  
+
   if (result.modifiedCount === 0) {
     throw new Error('Verification record not found or status unchanged');
   }
-  
+
   return result;
 };
-
 
 export const verificationService = {
   uploadIdCard,
   checkVerificationStatus,
   approveVerification,
   getPendingVerifications,
-  updateVerificationStatus
+  updateVerificationStatus,
 };

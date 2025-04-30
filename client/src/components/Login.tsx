@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   // location page the user was trying to access
   const from = location.state?.from ?? '/';
 
-  const { loginUser } = useAuth();
+  const { loginUser, setIsBackendAuthenticated } = useAuth();
 
   const {
     register,
@@ -43,9 +43,12 @@ const Login: React.FC = () => {
         { withCredentials: true },
       );
 
+      setIsBackendAuthenticated(true);
+
       toast.success('User login successfully');
       navigate(from, { replace: true });
     } catch (error) {
+      setIsBackendAuthenticated(false);
       //check firebase or backend sever errors
       if (
         (axios.isAxiosError(error) && error.response) ??
@@ -131,7 +134,7 @@ const Login: React.FC = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}

@@ -55,7 +55,9 @@ describe('GetBiodataSearch Controller', () => {
 
   it('should handle errors when fetching biodata search results fails', async () => {
     // Mock the service to throw an error
-    (getBiodataSearch as jest.Mock).mockRejectedValue(new Error('Something went wrong'));
+    (getBiodataSearch as jest.Mock).mockRejectedValue(
+      new Error('Something went wrong'),
+    );
 
     req = {
       query: { gender: 'male', _page: '1', _limit: '10' },

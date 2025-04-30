@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../app'; 
+import app from '../app';
 
 describe('App Endpoints', () => {
   it('should return 200 on GET /', async () => {

@@ -36,9 +36,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error(error);
-      toast.error(
-        error instanceof Error ? error.message : 'Something went wrong',
-      );
+      toast.error('Something went wrong');
     }
   };
 
@@ -59,7 +57,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       type="button"
       onClick={handleAction}
       disabled={isLoading}
-      className={`absolute top-4 right-4 p-2 rounded-full transition-colors duration-200 
+      className={`absolute top-4 right-4 p-2 rounded-full transition-colors duration-200 cursor-pointer 
         ${
           isDeleteMode
             ? 'bg-red-500 hover:bg-red-600'

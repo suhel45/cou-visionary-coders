@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import BiodataCard from '../../components/biodata/BiodataCard';
 import Loading from '../../utils/Loading/Loading';
 import { User } from '../../interfaces/BiodataSearch.interface';
+import axiosInstance from '../../utils/UseApi/axiosInstance';
 
 function FavoriteListPage() {
   const {
@@ -12,12 +12,7 @@ function FavoriteListPage() {
   } = useQuery({
     queryKey: ['favoriteBiodatas'],
     queryFn: async () => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/favoriteList`,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await axiosInstance.get('/favoriteList');
       return response.data;
     },
   });

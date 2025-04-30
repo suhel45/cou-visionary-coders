@@ -146,13 +146,13 @@ const getUserSignupStats = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       data: stats,
-      message: 'User signup statistics retrieved successfully'
+      message: 'User signup statistics retrieved successfully',
     });
   } catch (error) {
     console.error('Error fetching user signup stats:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to retrieve user signup statistics'
+      message: 'Failed to retrieve user signup statistics',
     });
   }
 };
@@ -163,5 +163,5 @@ export const userController = {
   resetPassword,
   forgotPassword,
   resetPasswordWithToken,
-  getUserSignupStats
+  getUserSignupStats,
 };

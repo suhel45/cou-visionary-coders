@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect ,vi} from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import Analytic from '../../../../components/dashboard/analytics/Analytic';
 
 // Mock ProfileView component

@@ -51,13 +51,13 @@ const getPublicBiodataDetails = async (id: string) => {
 
 const getBiodataStats = async () => {
   const total = await PersonalAllDetailsModel.countDocuments();
-  const male = await PersonalAllDetailsModel.countDocuments({ 
-    'personalInfo.gender': { $regex: /^male$/i } 
+  const male = await PersonalAllDetailsModel.countDocuments({
+    'personalInfo.gender': { $regex: /^male$/i },
   });
-  const female = await PersonalAllDetailsModel.countDocuments({ 
-    'personalInfo.gender': { $regex: /^female$/i } 
+  const female = await PersonalAllDetailsModel.countDocuments({
+    'personalInfo.gender': { $regex: /^female$/i },
   });
-  
+
   return { total, male, female };
 };
 
@@ -65,5 +65,5 @@ export const personalDetailsService = {
   createBiodata,
   getBiodata,
   getPublicBiodataDetails,
-  getBiodataStats
+  getBiodataStats,
 };

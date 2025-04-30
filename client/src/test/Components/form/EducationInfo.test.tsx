@@ -48,7 +48,7 @@ describe.skip('EducationInfo', () => {
   describe('AcademicDetails (SSC/HSC)', () => {
     it('handles GPA input changes with validation', () => {
       const gpaInputs = screen.getAllByPlaceholderText('যেমনঃ 3.21');
-      
+
       // Test valid GPA
       fireEvent.change(gpaInputs[0], { target: { value: '3.50' } });
       expect(mockSetFormData).toHaveBeenCalledWith({
@@ -108,7 +108,9 @@ describe.skip('EducationInfo', () => {
 
     it('handles department selection', () => {
       const departmentSelects = screen.getAllByText('Select Department');
-      fireEvent.change(departmentSelects[0], { target: { value: 'Computer Science' } });
+      fireEvent.change(departmentSelects[0], {
+        target: { value: 'Computer Science' },
+      });
       expect(mockSetFormData).toHaveBeenCalledWith({
         ...mockFormData,
         university: {
@@ -143,8 +145,13 @@ describe.skip('EducationInfo', () => {
       ...mockFormData,
       ssc: { ...mockFormData.ssc, gpa: 0.5 },
     };
-    render(<EducationInfo formData={invalidFormData} setFormData={mockSetFormData} />);
-    
+    render(
+      <EducationInfo
+        formData={invalidFormData}
+        setFormData={mockSetFormData}
+      />,
+    );
+
     expect(screen.getByText('Enter valid GPA')).toBeInTheDocument();
   });
 });

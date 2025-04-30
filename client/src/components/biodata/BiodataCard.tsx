@@ -12,6 +12,9 @@ const BiodataCard: React.FC<BiodataCardProps> = ({
   currentPage,
   mode = 'add',
 }) => {
+  if (!user || !user._id) {
+    return null;
+  }
   const { personalInfo } = user;
   const isMan = personalInfo.gender.toLowerCase() === 'male';
   const profileImage = isMan ? manImage : womanImage;
