@@ -85,7 +85,7 @@ const Verify: React.FC = () => {
     console.log(formData);
 
     try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/upload`, formData, {
+      await axios.post(`http://localhost:3000/api/upload`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'

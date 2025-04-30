@@ -5,14 +5,15 @@ module.exports = {
     coverageDirectory: 'coverage',
     setupFilesAfterEnv: ['./src/setup.ts'],
     coverageReporters: ['lcov', 'text'],
-    testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+    testMatch: ['**/test/**/*.ts', '**/?(*.)+(spec|test).ts'],
     moduleFileExtensions: ['ts', 'js', 'json', 'node'],
     coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
     collectCoverageFrom: [
-      'src/**/*.{js,jsx,ts,tsx}',
+      'src/**/*.{js,ts}',
       '!src/**/*.d.ts',
       '!src/**/index.ts',
       '!src/**/__tests__/**',
       '!src/**/__mocks__/**',
+      '!src/setup.ts',
     ],
   };
