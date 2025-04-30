@@ -41,7 +41,7 @@ const loginUser = async (req: Request, res: Response) => {
       secure: true,
       sameSite: 'strict',
       path: '/',
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000, 
     });
 
     res.status(200).json({
