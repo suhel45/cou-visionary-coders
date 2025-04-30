@@ -45,7 +45,6 @@ jobs:
             -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.projectName="cou-visionary-coders"
             -Dsonar.sources=server/src
-            -Dsonar.tests=server/src/test
             -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
             -Dsonar.typescript.lcov.reportPaths=server/coverage/lcov.info
             -Dsonar.exclusions=**/node_modules/**,**/dist/**
