@@ -8,7 +8,7 @@ type VerificationRequest = {
   status: string;
 };
 
-const BACKEND_URL = 'http://localhost:3000'; 
+const BACKEND_URL = `${import.meta.env.VITE_BACKEND_BASE_URL}`; 
 
 const VerificationRequests: React.FC = () => {
   const [requests, setRequests] = useState<VerificationRequest[]>([]);
@@ -76,7 +76,7 @@ const VerificationRequests: React.FC = () => {
     }
     
     // Ensure the path starts with a slash
-    const normalizedPath = imagePath.startsWith('/') ? imagePath :` /${imagePath}`;
+    const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
     return `${BACKEND_URL}${normalizedPath}`;
   };
 

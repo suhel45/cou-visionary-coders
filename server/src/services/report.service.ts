@@ -8,7 +8,9 @@ const createReport = async (
   reasonDetails: string,
 ) => {
   // Verify biodata exists
-  const biodata = await PersonalAllDetailsModel.findOne({ biodataNo: { $eq: biodataNo } });
+  const biodata = await PersonalAllDetailsModel.findOne({
+    biodataNo: { $eq: biodataNo },
+  });
   if (!biodata) {
     throw new Error('Biodata not found!');
   }

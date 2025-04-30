@@ -6,6 +6,8 @@ import {
   Flag,
   HelpCircle,
 } from 'lucide-react';
+import ReportedProfiles from './ReportedProfiles';
+import SupportRequests from './SupportRequests';
 import AdminOverview from './AdminOverview'; 
 import VerificationRequests from './VerificationRequests';
 
@@ -25,9 +27,9 @@ const AdminDashboard = () => {
       case 'verification':
         return <VerificationRequests />;
       case 'reports':
-        return <div>Reported Profiles</div>;
+        return <ReportedProfiles />;
       case 'support':
-        return <div>Support Requests</div>;
+        return <SupportRequests />;
       default:
         return null;
     }
@@ -46,7 +48,7 @@ const AdminDashboard = () => {
         <nav className="flex flex-col p-4 space-y-4">
           <button
             onClick={() => handleSectionChange('overview')}
-            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
+            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 cursor-pointer ${
               activeSection === 'overview'
                 ? 'bg-purple-100 text-purple-700'
                 : 'hover:bg-purple-50'
@@ -57,7 +59,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleSectionChange('verification')}
-            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
+            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 cursor-pointer ${
               activeSection === 'verification'
                 ? 'bg-purple-100 text-purple-700'
                 : 'hover:bg-purple-50'
@@ -68,7 +70,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleSectionChange('reports')}
-            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
+            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 cursor-pointer ${
               activeSection === 'reports'
                 ? 'bg-purple-100 text-purple-700'
                 : 'hover:bg-purple-50'
@@ -79,7 +81,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleSectionChange('support')}
-            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 ${
+            className={`flex items-center gap-3 p-3 rounded-md text-gray-800 cursor-pointer ${
               activeSection === 'support'
                 ? 'bg-purple-100 text-purple-700'
                 : 'hover:bg-purple-50'

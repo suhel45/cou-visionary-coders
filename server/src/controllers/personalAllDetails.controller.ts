@@ -68,13 +68,13 @@ const getBiodataStatistics = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       data: stats,
-      message: 'Biodata statistics retrieved successfully'
+      message: 'Biodata statistics retrieved successfully',
     });
   } catch (error) {
     console.error('Error fetching biodata stats:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to retrieve biodata statistics'
+      message: 'Failed to retrieve biodata statistics',
     });
   }
 };
@@ -83,5 +83,5 @@ export const personalDetailsController = {
   Biodata,
   GetBiodata,
   GetPublicBiodataDetails,
-  getBiodataStatistics
+  getBiodataStatistics,
 };

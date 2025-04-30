@@ -52,7 +52,8 @@ export const getAllPendingVerifications = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const pendingVerifications = await verificationService.getPendingVerifications();
+    const pendingVerifications =
+      await verificationService.getPendingVerifications();
     res.status(200).json(pendingVerifications);
   } catch (err: any) {
     res.status(500).json({ error: err.message ?? 'Internal Server Error' });

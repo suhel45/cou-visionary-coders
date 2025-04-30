@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
@@ -9,7 +9,6 @@ import Home from './pages/Home/pages';
 import { Toaster } from 'react-hot-toast';
 import Login from './pages/login/pages';
 import AboutUs from './components/AboutUs';
-import AuthProvider from './Hooks/contextApi/UserContext';
 import UpdateBiodata from './components/form/UpdateBiodata';
 import Analytic from './components/dashboard/analytics/Analytic';
 import Admin from './components/admin/AdminDashboard';
@@ -23,20 +22,24 @@ import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ResetForgotPassword from './components/forgotPassword/ResetForgotPassword';
 import FavoriteListPage from './pages/favoritePage/FavoriteListPage';
 import SupportAndReportPage from './pages/supportAndReport/SupportAndReportPage';
+import AdminRoute from './routes/AdminRoute';
+import AdminDashboard from './components/admin/AdminDashboard';
+import { useAxiosAuthInterceptor } from './utils/UseApi/useAxiosAuthInterceptor';
 
 function NoMatch() {
   return <PageNotFound />;
 }
 
 export default function App() {
-
+  useAxiosAuthInterceptor();
+  const location = useLocation();
 
   // Check if the current route is /admin
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
 
   return (
-    // Wrap everything inside AuthProvider
-    <AuthProvider>
+      
       <div className="flex flex-col min-h-screen">
         {/* Conditionally render Nav */}
          <Nav />
@@ -75,14 +78,20 @@ export default function App() {
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
-            <Route path="/admin" element={<Admin />} />
+            <Route
+          path="/admin-dashboard/*"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
         
         {/* Footer component fixed at the bottom */}
-       <Footer />
+        {!isAdminRoute && <Footer />}
       </div>
-    </AuthProvider>
   );
 }

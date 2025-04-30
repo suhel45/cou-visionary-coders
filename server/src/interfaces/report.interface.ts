@@ -9,6 +9,6 @@ export interface IReport {
     | 'scam'
     | 'other';
   reasonDetails: string;
-  reporter: Types.ObjectId; 
+  reporter: Types.ObjectId;
   createdAt?: Date;
 }

@@ -128,7 +128,7 @@ const MultiStepForm: React.FC = () => {
     setIsLoading(true);
     setError(null);
 
-    const url = `http://localhost:3000/api/profile/biodata`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`;
 
     try {
       const response = await fetch(url, {
