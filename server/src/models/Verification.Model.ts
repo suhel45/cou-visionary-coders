@@ -14,7 +14,7 @@ const verificationSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Approved', 'Not Submitted','Rejected'],
+      enum: ['Pending', 'Approved', 'Not Submitted', 'Rejected'],
       default: 'Not Submitted',
     },
     rejectionReason: {
@@ -22,7 +22,7 @@ const verificationSchema = new Schema(
     },
     approvedBy: {
       type: Schema.Types.ObjectId,
-      ref: 'Admin', 
+      ref: 'Admin',
     },
   },
   {

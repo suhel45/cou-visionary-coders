@@ -49,7 +49,11 @@ describe('User Service', () => {
 
   describe('loginUserFromDB', () => {
     it('should login a user and return token', async () => {
-      const fakeUser = { _id: 'userId', email: 'test@example.com', password: 'hashedPwd' };
+      const fakeUser = {
+        _id: 'userId',
+        email: 'test@example.com',
+        password: 'hashedPwd',
+      };
       (userModel.findOne as jest.Mock).mockResolvedValue(fakeUser);
       (argon2.verify as jest.Mock).mockResolvedValue(true);
       (jwt.sign as jest.Mock).mockReturnValue('fakeToken');
@@ -67,29 +71,46 @@ describe('User Service', () => {
       (userModel.findOne as jest.Mock).mockResolvedValue(null);
 
       await expect(
-        userService.loginUserFromDB({ email: 'test@example.com', password: 'Password123!' }),
+        userService.loginUserFromDB({
+          email: 'test@example.com',
+          password: 'Password123!',
+        }),
       ).rejects.toThrow('User not found');
     });
 
     it('should throw error if password is invalid', async () => {
-      const fakeUser = { _id: 'userId', email: 'test@example.com', password: 'wrongHash' };
+      const fakeUser = {
+        _id: 'userId',
+        email: 'test@example.com',
+        password: 'wrongHash',
+      };
       (userModel.findOne as jest.Mock).mockResolvedValue(fakeUser);
       (argon2.verify as jest.Mock).mockResolvedValue(false);
 
       await expect(
-        userService.loginUserFromDB({ email: 'test@example.com', password: 'wrongpassword' }),
+        userService.loginUserFromDB({
+          email: 'test@example.com',
+          password: 'wrongpassword',
+        }),
       ).rejects.toThrow('Invalid password');
     });
   });
 
   describe('loginOrCreateUserWithGoogle', () => {
     it('should login if user exists', async () => {
-      const fakeUser = { _id: 'userId', email: 'test@example.com', password: 'hashedPwd' };
+      const fakeUser = {
+        _id: 'userId',
+        email: 'test@example.com',
+        password: 'hashedPwd',
+      };
       (userModel.findOne as jest.Mock).mockResolvedValue(fakeUser);
       (jwt.sign as jest.Mock).mockReturnValue('fakeToken');
       process.env.JWT_SECRET_KEY = 'test_secret';
 
-      const token = await userService.loginOrCreateUserWithGoogle('test@example.com', 'Test User');
+      const token = await userService.loginOrCreateUserWithGoogle(
+        'test@example.com',
+        'Test User',
+      );
 
       expect(token).toBe('fakeToken');
     });
@@ -98,12 +119,17 @@ describe('User Service', () => {
       (userModel.findOne as jest.Mock).mockResolvedValue(null);
       (argon2.hash as jest.Mock).mockResolvedValue('randomHashedPassword');
       (userModel as any).mockImplementation(() => ({
-        save: jest.fn().mockResolvedValue({ _id: 'newUser', email: 'test@example.com' }),
+        save: jest
+          .fn()
+          .mockResolvedValue({ _id: 'newUser', email: 'test@example.com' }),
       }));
       (jwt.sign as jest.Mock).mockReturnValue('newToken');
       process.env.JWT_SECRET_KEY = 'test_secret';
 
-      const token = await userService.loginOrCreateUserWithGoogle('test@example.com', 'Test User');
+      const token = await userService.loginOrCreateUserWithGoogle(
+        'test@example.com',
+        'Test User',
+      );
 
       expect(token).toBe('newToken');
     });
@@ -113,10 +139,16 @@ describe('User Service', () => {
     it('should reset password successfully', async () => {
       const fakeUser = { password: 'oldHashedPassword', save: jest.fn() };
       (userModel.findOne as jest.Mock).mockResolvedValue(fakeUser);
-      (argon2.verify as jest.Mock).mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+      (argon2.verify as jest.Mock)
+        .mockResolvedValueOnce(true)
+        .mockResolvedValueOnce(false);
       (argon2.hash as jest.Mock).mockResolvedValue('newHashedPassword');
 
-      const message = await userService.ResetPassword('test@example.com', 'oldPass12@3', 'newPass12@3');
+      const message = await userService.ResetPassword(
+        'test@example.com',
+        'oldPass12@3',
+        'newPass12@3',
+      );
 
       expect(message).toBe('Password updated successfully');
     });
@@ -124,9 +156,15 @@ describe('User Service', () => {
     it('should return error if user not found', async () => {
       (userModel.findOne as jest.Mock).mockResolvedValue(null);
 
-      const message = await userService.ResetPassword('test@example.com', 'oldPass12@3', 'newPass12@3');
+      const message = await userService.ResetPassword(
+        'test@example.com',
+        'oldPass12@3',
+        'newPass12@3',
+      );
 
-      expect(message).toBe('User not found.Please enter a validate email address');
+      expect(message).toBe(
+        'User not found.Please enter a validate email address',
+      );
     });
   });
 
@@ -150,7 +188,9 @@ describe('User Service', () => {
 
       const message = await userService.ForgotPassword('invalid@example.com');
 
-      expect(message).toBe('User not found. Please enter a valid email address');
+      expect(message).toBe(
+        'User not found. Please enter a valid email address',
+      );
     });
   });
 
@@ -161,7 +201,10 @@ describe('User Service', () => {
       (argon2.verify as jest.Mock).mockResolvedValue(false);
       (argon2.hash as jest.Mock).mockResolvedValue('newHashedPassword');
 
-      const message = await userService.ResetPasswordWithToken('validToken', 'newPass12@3');
+      const message = await userService.ResetPasswordWithToken(
+        'validToken',
+        'newPass12@3',
+      );
 
       expect(message).toBe('Password reset successfully');
     });
@@ -169,7 +212,10 @@ describe('User Service', () => {
     it('should return error if token invalid', async () => {
       (userModel.findOne as jest.Mock).mockResolvedValue(null);
 
-      const message = await userService.ResetPasswordWithToken('invalidToken', 'newPass');
+      const message = await userService.ResetPasswordWithToken(
+        'invalidToken',
+        'newPass',
+      );
 
       expect(message).toBe('Invalid or expired reset token');
     });

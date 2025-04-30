@@ -16,7 +16,7 @@ export const isAdmin = async (
     }
 
     // Check if user has admin role
-    if (!user || typeof user !== 'object' || (user as any).role !== 'admin'){
+    if (!user || typeof user !== 'object' || (user as any).role !== 'admin') {
       res.status(403).json({ message: 'Forbidden: Admin access required' });
       return;
     }

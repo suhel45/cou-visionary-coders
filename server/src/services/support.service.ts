@@ -2,7 +2,10 @@ import { SupportModel } from '../models/support.model';
 
 const addToSupport = async (userId: string, message: string) => {
   // Check for duplicate support request
-  const existing = await SupportModel.findOne({ user: userId,  message: { $eq: message } });
+  const existing = await SupportModel.findOne({
+    user: userId,
+    message: { $eq: message },
+  });
   if (existing) {
     throw new Error(
       'Duplicate support request: same message already submitted.',
