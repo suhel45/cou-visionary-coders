@@ -145,7 +145,6 @@ const MultiStepForm: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log('Form submitted successfully:', data);
       toast.success('Form submitted successfully.');
       setIsSubmitted(true);
     } catch (err) {

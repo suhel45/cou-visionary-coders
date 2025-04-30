@@ -62,7 +62,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/admin`,
         { withCredentials: true }
       );
-      console.log("admin data", response.data.user);
       setIsAdmin(response.data?.user?.role === 'admin');
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -154,7 +153,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-  console.log(isAdmin)
   const updateUserProfile = async (profile: UserProfile) => {
     if (auth.currentUser) {
       try {
@@ -174,11 +172,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(
       auth,
       async (currentUser) => {
-        console.log('Auth State Changed:', {
-          user: currentUser,
-          timestamp: new Date().toISOString(),
-        });
-
         if (currentUser) {
           try {
             await currentUser.getIdToken(true);

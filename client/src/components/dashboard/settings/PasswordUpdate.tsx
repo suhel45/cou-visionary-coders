@@ -49,7 +49,6 @@ const UpdatePasswordForm: React.FC = () => {
           withCredentials: true,
         },
       );
-      console.log(currentPassword, newPassword);
       setSuccessMessage(res.data.message);
       setFormData({
         currentPassword: '',

@@ -42,7 +42,6 @@ const UserProfilePages = () => {
         setError(null);
       const response = await axiosInstance.get('/profile/biodata');
         setUserData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to load Biodata. Please try again later.');

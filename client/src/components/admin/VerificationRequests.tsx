@@ -22,7 +22,6 @@ const VerificationRequests: React.FC = () => {
       setLoading(true);
       setError(null);
       const response = await axios.get(`${BACKEND_URL}/api/all-status`);
-      console.log(response.data[0]);
       setRequests(response.data);
     } catch (err) {
       console.error('Error fetching verification requests:', err);
