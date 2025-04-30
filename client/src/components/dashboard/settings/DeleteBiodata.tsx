@@ -1,27 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../../Hooks/contextApi/UserContext';
-import { useNavigate } from 'react-router-dom';
 
 const DeleteAccount: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('AuthContext is null');
-  }
-  const { logOut } = authContext;
-
-  const navigate = useNavigate();
 
   const handleDelete = async () => {
     try {
-      await axios.delete('http://localhost:3000/api/profile/delete-biodata', {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/delete-biodata`, {
         withCredentials: true,
       });
-
-      logOut();
-      navigate('/');
     } catch (error) {
       console.error('Error deleting account:', error);
       alert('Failed to delete account. Try again.');

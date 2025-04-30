@@ -1,16 +1,17 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import profileIcon from '../assets/profile.png';
 import dashboardIcon from '../assets/dashboard.png';
 import logoutIcon from '../assets/logout.png';
 import signupIcon from '../assets/signup.png';
 import loginIcon from '../assets/login.png';
+import profileIcon from '../assets/profile.png';
 import { useAuth } from '../Hooks/useAuth/useAuth';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, isNewlyRegistered, isBackendAuthenticated, logOut } = useAuth();
+  const { user, isAdmin, isNewlyRegistered, isBackendAuthenticated, logOut } = useAuth();
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -80,16 +81,52 @@ function Nav() {
         } sm:flex sm:flex-row sm:items-center sm:gap-10`}
       >
         <ul className="flex flex-col sm:flex-row items-center justify-evenly sm:gap-10">
-          {/* Always visible links */}
-          <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-            <Link to="/home">Home</Link>
-          </li>
-          <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-            <Link to="/biodata">Biodata</Link>
-          </li>
-
-          {isFullyAuthenticated ? (
+          {/* Non-authenticated users */}
+          {!isFullyAuthenticated && (
             <>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/home">Home</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/biodata">Biodata</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/aboutus">About Us</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={loginIcon} alt="Log In" className="w-8 px-1" />
+                <Link to="/login">Log In</Link>
+              </li>
+            </>
+          )}
+
+          {/* Admin users */}
+          {isFullyAuthenticated && isAdmin && (
+            <>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={dashboardIcon} alt="Admin Dashboard" className="w-8 px-1" />
+                <Link to="/admin-dashboard">Admin Dashboard</Link>
+              </li>
+              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
+                <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
+                <button className="cursor-pointer" onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          )}
+
+          {/* Regular authenticated users (not admins) */}
+          {isFullyAuthenticated && !isAdmin && (
+            <>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/home">Home</Link>
+              </li>
+              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
+                <Link to="/biodata">Biodata</Link>
+              </li>
               <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
                 <Link to="/aboutus">About Us</Link>
               </li>
@@ -103,21 +140,7 @@ function Nav() {
               </li>
               <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
                 <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="bg-pink-700 px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-                <Link to="/aboutus">About Us</Link>
-              </li>
-              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-                <img src={signupIcon} alt="Sign Up" className="w-8 px-1" />
-                <Link to="/signup">Sign Up</Link>
-              </li>
-              <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-                <img src={loginIcon} alt="Log In" className="w-8 px-1" />
-                <Link to="/login">Log In</Link>
+                <button className="cursor-pointer" onClick={handleLogout}>Logout</button>
               </li>
             </>
           )}

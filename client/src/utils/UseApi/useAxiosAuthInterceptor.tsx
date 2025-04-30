@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from './axiosInstance';
 import { useAuth } from '../../Hooks/useAuth/useAuth';
 
 export function useAxiosAuthInterceptor() {
   const { logOut, setIsBackendAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.response.use(
@@ -16,11 +18,11 @@ export function useAxiosAuthInterceptor() {
           if (logOut && typeof logOut === 'function') {
             logOut();
           }
-          window.location.href = '/login';
+          navigate('/login');
         }
         return Promise.reject(error);
       }
     );
     return () => axiosInstance.interceptors.response.eject(interceptor);
-  }, [logOut, setIsBackendAuthenticated]);
+  }, [logOut, setIsBackendAuthenticated,navigate]);
 }

@@ -23,7 +23,7 @@ const ReportedProfiles = () => {
 
   const fetchReports = () => {
     setLoading(true);
-    fetch('http://localhost:3000/api/all-reports', {
+    fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-reports`, {
       credentials: 'include',
     })
       .then(res => {

@@ -21,7 +21,7 @@ const SupportRequests = () => {
 
   const fetchSupportRequests = () => {
     setLoading(true);
-    fetch('http://localhost:3000/api/all-support', {
+    fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-support`, {
       credentials: 'include',
     })
       .then(res => {

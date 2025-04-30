@@ -29,3 +29,5 @@ coverage/
 *.log
 *.html
 test-output/
+
+.vercel

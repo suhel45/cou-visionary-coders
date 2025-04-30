@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import UserProfile from '../../components/UserProfile';
 import FamilyInformation from '../../components/profileDetails/FamilyInformation';
 import EducationInformation from '../../components/profileDetails/EducationalInformation';
 import AddressInformation from '../../components/profileDetails/AddressInformation';
-import axios from 'axios';
 import {
   AddressInfoData,
   EducationInfoData,
@@ -16,6 +15,9 @@ import {
 import Loading from '../../utils/Loading/Loading';
 import PrimaryProfile from '../../components/profileDetails/PrimaryProfile';
 import axiosInstance from '../../utils/UseApi/axiosInstance';
+import ContactInformation from '../../components/profileDetails/ContactInformation';
+import PreferenceInformation from '../../components/profileDetails/PreferenceInformation';
+import PartnerInformation from '../../components/profileDetails/PartnerInformation';
 
 interface UserData {
   data: any;
@@ -38,12 +40,7 @@ const UserProfilePages = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/biodata`,
-          {
-            withCredentials: true,
-          },
-        );
+      const response = await axiosInstance.get('/profile/biodata');
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {
@@ -70,55 +67,79 @@ const UserProfilePages = () => {
     );
   }
 
+  if (!userData || !userData.data || Object.keys(userData.data).length === 0) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <PrimaryProfile username="Shuvo" />
+        <p className="text-lg text-gray-700 mb-4">You have not created your biodata yet.</p>
+        <a
+          href="/create-biodata"
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          Create Biodata
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 md:p-4">
-      {userData && (
+      {userData && userData.data && (
         <div className="flex flex-col items-center md:items-stretch  max-w-7xl mx-auto">
           {/* Masonry Layout Container */}
-           <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4">
-
+          <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4">
+  
             <div className=" bg-white rounded-lg shadow-md p-1">
               <PrimaryProfile username="Shuvo" />
             </div>
             
             {/* User Profile */}
-            <div className=" bg-white rounded-lg shadow-md p-1">
-              <UserProfile
-                data={userData?.data?.personalInfo}
-                biodataNo={userData?.data?.biodataNo}
-              />
-            </div>
-           </div>
+            {userData.data.personalInfo && (
+              <div className=" bg-white rounded-lg shadow-md p-1">
+                <UserProfile
+                  data={userData.data.personalInfo}
+                  biodataNo={userData.data.biodataNo}
+                />
+              </div>
+            )}
+          </div>
           <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4 mt-4">
-            {/* Primary Profile - Will span full width on mobile */}
-            
             {/* Family Information */}
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <FamilyInformation data={userData?.data?.familyInformation} />
-            </div>
-            
+            {userData.data.familyInformation && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <FamilyInformation data={userData.data.familyInformation} />
+              </div>
+            )}
             {/* Education Information */}
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <EducationInformation data={userData?.data?.education} />
-            </div>
+            {userData.data.education && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <EducationInformation data={userData.data.education} />
+              </div>
+            )}
             {/* Contact Information */}
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <ContactInformation data={userData?.data?.contactInfo} />
-            </div>
-            
+            {userData.data.contactInfo && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <ContactInformation data={userData.data.contactInfo} />
+              </div>
+            )}
             {/* Address Information */}
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <AddressInformation data={userData?.data?.address} />
-            </div>
-            
-            
+            {userData.data.address && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <AddressInformation data={userData.data.address} />
+              </div>
+            )}
             {/* Preference Information */}
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <PreferenceInformation data={userData?.data?.personalPreference} />
-            </div>
-            <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-              <PartnerInformation data={userData?.data?.expectedLifePartner} />
-            </div>
+            {userData.data.personalPreference && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <PreferenceInformation data={userData.data.personalPreference} />
+              </div>
+            )}
+            {/* Partner Information */}
+            {userData.data.expectedLifePartner && (
+              <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
+                <PartnerInformation data={userData.data.expectedLifePartner} />
+              </div>
+            )}
           </div>
         </div>
       )}

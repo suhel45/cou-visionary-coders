@@ -134,7 +134,7 @@ const Login: React.FC = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}

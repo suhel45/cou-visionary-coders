@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageNotFound from './components/ErrorComponent';
 import Footer from './shared/Footer/Footer';
@@ -30,9 +30,11 @@ function NoMatch() {
 }
 
 export default function App() {
+  useAxiosAuthInterceptor();
   const location = useLocation();
 
   // Check if the current route is /admin
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
 
   return (
@@ -75,7 +77,14 @@ export default function App() {
               </Route>
               <Route path="/profile" element={<UserProfilePages />} />
             </Route>
-            <Route path="/admin" element={<Admin />} />
+            <Route
+          path="/admin-dashboard/*"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
