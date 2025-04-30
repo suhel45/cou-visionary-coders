@@ -25,7 +25,7 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 - 💍 Create Biodata using form with details information
 - 🔎 Search, find and visit Biodata using filter
 - 💡 Can See in Dashboard number of visitors
-- Total Number of Bride and Groom information
+-   Total Number of Bride and Groom information
 - ✨To view contact information, need biodata profile user validation
 - 🛡️ Admin Dashboard for User Moderation
 - 📱 Responsive UI for Small and Large Devices
@@ -56,20 +56,19 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 
 ## 👨‍💻 Team Info
 
-| Name               | Role             | GitHub Username      |
-|--------------------|------------------|----------------------|
-| Member(Team Leader)| Full Stack       | @shuvojr13           |
-| Member             | Full Stack       | @suhel45             |
-| Member             | Front-End        | @mahmud803           |
-| Mentor             | Guide & Reviewer | @akib1997            |
+| Name               | Role             | GitHub Profile                            |
+|--------------------|------------------|--------------------------------------------|
+| Member (Team Leader) | Full Stack     | [@shuvojr13](https://github.com/shuvojr13) |
+| Member             | Full Stack       | [@suhel45](https://github.com/suhel45)     |
+| Member             | Front-End        | [@mahmud803](https://github.com/mahmud803) |
+| Mentor             | Guide & Reviewer | [@akib1997](https://github.com/akib1997)   |
+
 
 ---
 
 ## 🌍 Live Demo
 
-🔗 **Frontend**: [View - Halal Bondhon](https://halal-bondhon-client.vercel.app)
-
-🔗 **Backend**: [API Documentation / Server](https://halal-bondhon.vercel.app)
+🔗 **Live Link**: [View - Halal Bondhon](https://halal-bondhon.netlify.app)
 
 ---
 
@@ -98,6 +97,9 @@ cd client
 npm install
 npm run dev
 ```
+## 🗂️ User Flow Diagram
+
+![User Flow Diagram](./diagram.jpg)
 
 ---
 ## Resources
