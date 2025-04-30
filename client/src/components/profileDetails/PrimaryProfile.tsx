@@ -45,7 +45,9 @@ const LinkField: React.FC<LinkFieldProps> = ({
 
 const PrimaryProfile: React.FC<PrimaryProfileProps> = () => {
   const { biodataCreated, idStatus, loading } = useBiodataStatus();
-  const [localBiodataCreated, setLocalBiodataCreated] = useState<boolean | null>(null);
+  const [localBiodataCreated, setLocalBiodataCreated] = useState<
+    boolean | null
+  >(null);
   const [localVerified, setLocalVerified] = useState<boolean | null>(null);
   const { user } = useAuth();
 
@@ -54,9 +56,8 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = () => {
   }
 
   // fallback to local updates if user completes actions without refetch
-const isVerified = localVerified ?? (idStatus === 'Approved');
-const isBiodata = localBiodataCreated ?? biodataCreated;
-  
+  const isVerified = localVerified ?? idStatus === 'Approved';
+  const isBiodata = localBiodataCreated ?? biodataCreated;
 
   return (
     <div className="flex flex-col items-center p-6 rounded-lg shadow-lg text-center border-4 border-violet-900 m-4">

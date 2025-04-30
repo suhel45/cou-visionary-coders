@@ -17,7 +17,9 @@ interface BiodataStats {
 }
 
 const AdminOverview: React.FC = () => {
-  const [monthlyUserData, setMonthlyUserData] = useState<{ month: string; users: number }[]>([]);
+  const [monthlyUserData, setMonthlyUserData] = useState<
+    { month: string; users: number }[]
+  >([]);
   const [biodataStats, setBiodataStats] = useState<BiodataStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,16 +34,34 @@ const AdminOverview: React.FC = () => {
           `${import.meta.env.VITE_BACKEND_BASE_URL}/api/user-states`,
         );
 
-        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthNames = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
         const transformedSignups = response.data.data
-          .filter((stat: MonthlyUserStats) => stat.month !== null && stat.month !== undefined)
+          .filter(
+            (stat: MonthlyUserStats) =>
+              stat.month !== null && stat.month !== undefined,
+          )
           .map((stat: MonthlyUserStats) => ({
             month: monthNames[stat.month - 1],
             users: stat.count,
           }));
 
         const allMonths = monthNames.map((month) => {
-          const existing = transformedSignups.find((item) => item.month === month);
+          const existing = transformedSignups.find(
+            (item) => item.month === month,
+          );
           return existing || { month, users: 0 };
         });
 
@@ -53,9 +73,21 @@ const AdminOverview: React.FC = () => {
         );
 
         setBiodataStats([
-          { id: 0, value: biodataResponse.data.data.total, label: `Total Biodata : ${biodataResponse.data.data.total}` },
-          { id: 1, value: biodataResponse.data.data.male, label: `Male Biodata : ${biodataResponse.data.data.male}` },
-          { id: 2, value: biodataResponse.data.data.female, label: `Female Biodata: ${biodataResponse.data.data.female}` },
+          {
+            id: 0,
+            value: biodataResponse.data.data.total,
+            label: `Total Biodata : ${biodataResponse.data.data.total}`,
+          },
+          {
+            id: 1,
+            value: biodataResponse.data.data.male,
+            label: `Male Biodata : ${biodataResponse.data.data.male}`,
+          },
+          {
+            id: 2,
+            value: biodataResponse.data.data.female,
+            label: `Female Biodata: ${biodataResponse.data.data.female}`,
+          },
         ]);
       } catch (err) {
         console.error('Error fetching dashboard data:', err);
@@ -93,17 +125,23 @@ const AdminOverview: React.FC = () => {
           <div className="w-full overflow-x-auto">
             {monthlyUserData.length > 0 ? (
               <BarChart
-                xAxis={[{
-                  scaleType: 'band',
-                  data: monthlyUserData.map((d) => d.month),
-                }]}
-                series={[{
-                  data: monthlyUserData.map((d) => d.users),
-                  label: 'Users',
-                  valueFormatter: (value) =>
-                    value !== null && value !== undefined ? value.toString() : '',
-                  color: '#6366f1',
-                }]}
+                xAxis={[
+                  {
+                    scaleType: 'band',
+                    data: monthlyUserData.map((d) => d.month),
+                  },
+                ]}
+                series={[
+                  {
+                    data: monthlyUserData.map((d) => d.users),
+                    label: 'Users',
+                    valueFormatter: (value) =>
+                      value !== null && value !== undefined
+                        ? value.toString()
+                        : '',
+                    color: '#6366f1',
+                  },
+                ]}
                 height={300}
               />
             ) : (
@@ -120,13 +158,15 @@ const AdminOverview: React.FC = () => {
           <div className="w-full flex justify-center overflow-x-auto">
             {biodataStats.length > 0 ? (
               <PieChart
-                series={[{
-                  data: biodataStats,
-                  innerRadius: 30,
-                  outerRadius: 100,
-                  paddingAngle: 5,
-                  cornerRadius: 5,
-                }]}
+                series={[
+                  {
+                    data: biodataStats,
+                    innerRadius: 30,
+                    outerRadius: 100,
+                    paddingAngle: 5,
+                    cornerRadius: 5,
+                  },
+                ]}
                 height={300}
               />
             ) : (

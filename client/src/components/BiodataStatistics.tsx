@@ -16,13 +16,14 @@ const BiodataStatistics: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/stats`)
-      .then(response => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/stats`)
+      .then((response) => {
         if (response.data.success) {
           setStats(response.data.data);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Failed to fetch stats:', error);
       })
       .finally(() => {

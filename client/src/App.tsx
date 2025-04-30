@@ -37,61 +37,56 @@ export default function App() {
   // Check if the current route is /admin
   const isAdminRoute = location.pathname.startsWith('/admin');
 
-
   return (
-      
-      <div className="flex flex-col min-h-screen">
-        {/* Conditionally render Nav */}
-         <Nav />
+    <div className="flex flex-col min-h-screen">
+      {/* Conditionally render Nav */}
+      <Nav />
 
-        {/* Content area */}
-        <div className="flex-1 overflow-y-auto md:mt-20">
-          <Toaster position="top-right" />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/biodata" element={<BiodataList />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route
-              path="/reset-password/:resetToken"
-              element={<ResetForgotPassword />}
-            />
-            <Route
-              path="/biodata/profile/:id"
-              element={<BiodataDetailsProfile />}
-            />
-            <Route element={<PrivateRoute />}>
-              <Route path="/dashboard/*" element={<Dashboard />}>
-                <Route path="edit/profile" element={<UpdateBiodata />} />
-                <Route path="" element={<Analytic />} />
-                <Route path="edit/verify" element={<Verify />} />
-                <Route path="favourite" element={<FavoriteListPage />} />
-                <Route
-                  path="support-report"
-                  element={<SupportAndReportPage />}
-                />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-              <Route path="/profile" element={<UserProfilePages />} />
+      {/* Content area */}
+      <div className="flex-1 overflow-y-auto md:mt-20">
+        <Toaster position="top-right" />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/biodata" element={<BiodataList />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/reset-password/:resetToken"
+            element={<ResetForgotPassword />}
+          />
+          <Route
+            path="/biodata/profile/:id"
+            element={<BiodataDetailsProfile />}
+          />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route path="edit/profile" element={<UpdateBiodata />} />
+              <Route path="" element={<Analytic />} />
+              <Route path="edit/verify" element={<Verify />} />
+              <Route path="favourite" element={<FavoriteListPage />} />
+              <Route path="support-report" element={<SupportAndReportPage />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
-            <Route
-          path="/admin-dashboard/*"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
-        />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        </div>
-        
-        {/* Footer component fixed at the bottom */}
-        {!isAdminRoute && <Footer />}
+            <Route path="/profile" element={<UserProfilePages />} />
+          </Route>
+          <Route
+            path="/admin-dashboard/*"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
       </div>
+
+      {/* Footer component fixed at the bottom */}
+      {!isAdminRoute && <Footer />}
+    </div>
   );
 }

@@ -60,7 +60,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/admin`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
       setIsAdmin(response.data?.user?.role === 'admin');
     } catch (error) {
@@ -75,7 +75,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (currentUser) {
         await currentUser.getIdToken(true);
         setUser(currentUser);
-        await checkAdminStatus(currentUser.email); 
+        await checkAdminStatus(currentUser.email);
       }
     } catch (error) {
       console.error('User refresh error:', error);
@@ -237,7 +237,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       isBackendAuthenticated,
       setIsBackendAuthenticated,
       deleteUser,
-      isAdmin, 
+      isAdmin,
     }),
     [
       user,
@@ -247,7 +247,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       isNewlyRegistered,
       isBackendAuthenticated,
       isAdmin,
-    ]
+    ],
   );
 
   if (initializing) {
@@ -255,9 +255,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={authValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 

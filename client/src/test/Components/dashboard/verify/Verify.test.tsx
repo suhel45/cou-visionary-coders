@@ -1,6 +1,12 @@
 // Verify.test.tsx
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from '@testing-library/react';
 import Verify from '../../../../components/dashboard/verify/Verify';
 import axios from 'axios';
 // import { UploadCloud } from 'lucide-react';
@@ -97,7 +103,9 @@ describe('Verify Component', () => {
       it('handles file selection', async () => {
         render(<Verify />);
         await waitFor(() => {
-          const fileInput = screen.getByTestId('file-input') as HTMLInputElement;
+          const fileInput = screen.getByTestId(
+            'file-input',
+          ) as HTMLInputElement;
           fireEvent.change(fileInput, { target: { files: [mockFile] } });
           expect(fileInput.files?.[0].name).toBe('test.png');
         });
@@ -106,14 +114,14 @@ describe('Verify Component', () => {
       it('submits the file when upload button is clicked', async () => {
         mockedAxios.post.mockResolvedValue({});
         render(<Verify />);
-        
+
         await waitFor(() => {
           const fileInput = screen.getByTestId('file-input');
           fireEvent.change(fileInput, { target: { files: [mockFile] } });
         });
 
         fireEvent.click(screen.getByText('Submit'));
-        
+
         await waitFor(() => {
           expect(mockedAxios.post).toHaveBeenCalled();
           expect(mockedAxios.post).toHaveBeenCalledWith(
@@ -122,9 +130,9 @@ describe('Verify Component', () => {
             {
               withCredentials: true,
               headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
+                'Content-Type': 'multipart/form-data',
+              },
+            },
           );
         });
       });
@@ -179,7 +187,7 @@ describe('Verify Component', () => {
     it('handles API errors gracefully', async () => {
       mockedAxios.get.mockRejectedValue(new Error('Network Error'));
       render(<Verify />);
-      
+
       await waitFor(() => {
         expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
       });

@@ -9,10 +9,16 @@ export function useAxiosAuthInterceptor() {
 
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.response.use(
-      response => response,
-      error => {
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-          if (setIsBackendAuthenticated && typeof setIsBackendAuthenticated === 'function') {
+      (response) => response,
+      (error) => {
+        if (
+          error.response &&
+          (error.response.status === 401 || error.response.status === 403)
+        ) {
+          if (
+            setIsBackendAuthenticated &&
+            typeof setIsBackendAuthenticated === 'function'
+          ) {
             setIsBackendAuthenticated(false);
           }
           if (logOut && typeof logOut === 'function') {
@@ -21,8 +27,8 @@ export function useAxiosAuthInterceptor() {
           navigate('/login');
         }
         return Promise.reject(error);
-      }
+      },
     );
     return () => axiosInstance.interceptors.response.eject(interceptor);
-  }, [logOut, setIsBackendAuthenticated,navigate]);
+  }, [logOut, setIsBackendAuthenticated, navigate]);
 }

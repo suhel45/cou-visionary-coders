@@ -36,7 +36,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error(error);
-      toast.error('Something went wrong',);
+      toast.error('Something went wrong');
     }
   };
 

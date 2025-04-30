@@ -25,14 +25,14 @@ describe('ContactInfo Component', () => {
     render(
       <ContactInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
-  
+
     // Check if the title is rendered
-    expect(screen.getByRole('heading', { name: 'যোগাযোগ' })).toBeInTheDocument();
-  
-    // Check if the input fields are rendered
     expect(
-      screen.getByPlaceholderText('নাম ( সম্পর্ক )'),
+      screen.getByRole('heading', { name: 'যোগাযোগ' }),
     ).toBeInTheDocument();
+
+    // Check if the input fields are rendered
+    expect(screen.getByPlaceholderText('নাম ( সম্পর্ক )')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('মোবাইল নাম্বার')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('ইমেইল')).toBeInTheDocument();
   });
@@ -46,9 +46,12 @@ describe('ContactInfo Component', () => {
     fireEvent.change(screen.getByPlaceholderText('নাম ( সম্পর্ক )'), {
       target: { value: 'Jane Doe (Mother)' },
     });
-    fireEvent.change(screen.getByRole('textbox', { name: 'অভিভাবকের ফোন নাম্বার' }), {
-      target: { value: '01798765432' },
-    });
+    fireEvent.change(
+      screen.getByRole('textbox', { name: 'অভিভাবকের ফোন নাম্বার' }),
+      {
+        target: { value: '01798765432' },
+      },
+    );
     fireEvent.change(screen.getByPlaceholderText('ইমেইল'), {
       target: { value: 'jane.doe@example.com' },
     });

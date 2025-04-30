@@ -10,7 +10,8 @@ import { useAuth } from '../Hooks/useAuth/useAuth';
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, isAdmin, isNewlyRegistered, isBackendAuthenticated, logOut } = useAuth();
+  const { user, isAdmin, isNewlyRegistered, isBackendAuthenticated, logOut } =
+    useAuth();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -20,7 +21,8 @@ function Nav() {
     await logOut();
   };
 
-  const isFullyAuthenticated = user && !isNewlyRegistered && isBackendAuthenticated;
+  const isFullyAuthenticated =
+    user && !isNewlyRegistered && isBackendAuthenticated;
 
   return (
     <header className="md:fixed top-0 left-0 w-full md:z-50 flex flex-col sm:flex-row items-center justify-between drop-shadow-xl bg-gradient-to-r from-sky-800 to-pink-600 text-white sm:px-6 ">
@@ -108,12 +110,18 @@ function Nav() {
           {isFullyAuthenticated && isAdmin && (
             <>
               <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 font-bold sm:m-0 grow hover:bg-pink-400">
-                <img src={dashboardIcon} alt="Admin Dashboard" className="w-8 px-1" />
+                <img
+                  src={dashboardIcon}
+                  alt="Admin Dashboard"
+                  className="w-8 px-1"
+                />
                 <Link to="/admin-dashboard">Admin Dashboard</Link>
               </li>
               <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
                 <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
-                <button className="cursor-pointer" onClick={handleLogout}>Logout</button>
+                <button className="cursor-pointer" onClick={handleLogout}>
+                  Logout
+                </button>
               </li>
             </>
           )}
@@ -140,7 +148,9 @@ function Nav() {
               </li>
               <li className="bg-pink-700 flex flex-row px-2 py-1 m-1 rounded-md border-2 cursor-pointer font-bold sm:m-0 grow hover:bg-pink-400">
                 <img src={logoutIcon} alt="Logout" className="w-8 px-1" />
-                <button className="cursor-pointer" onClick={handleLogout}>Logout</button>
+                <button className="cursor-pointer" onClick={handleLogout}>
+                  Logout
+                </button>
               </li>
             </>
           )}

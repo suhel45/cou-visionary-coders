@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserProfile from '../../components/UserProfile';
 import FamilyInformation from '../../components/profileDetails/FamilyInformation';
 import EducationInformation from '../../components/profileDetails/EducationalInformation';
@@ -10,7 +10,7 @@ import {
   PersonalInfoData,
   PreferenceInfoData,
   ContactInfoData,
-  PartnerInfoData
+  PartnerInfoData,
 } from '../../interfaces/Biodata.interface';
 import Loading from '../../utils/Loading/Loading';
 import PrimaryProfile from '../../components/profileDetails/PrimaryProfile';
@@ -40,7 +40,7 @@ const UserProfilePages = () => {
       try {
         setLoading(true);
         setError(null);
-      const response = await axiosInstance.get('/profile/biodata');
+        const response = await axiosInstance.get('/profile/biodata');
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -70,7 +70,9 @@ const UserProfilePages = () => {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen">
         <PrimaryProfile username="Shuvo" />
-        <p className="text-lg text-gray-700 mb-4">You have not created your biodata yet.</p>
+        <p className="text-lg text-gray-700 mb-4">
+          You have not created your biodata yet.
+        </p>
         <a
           href="/create-biodata"
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
@@ -87,11 +89,10 @@ const UserProfilePages = () => {
         <div className="flex flex-col items-center md:items-stretch  max-w-7xl mx-auto">
           {/* Masonry Layout Container */}
           <div className="columns-1 md:columns-2 lg:columns-2 gap-1 space-y-4">
-  
             <div className=" bg-white rounded-lg shadow-md p-1">
               <PrimaryProfile username="Shuvo" />
             </div>
-            
+
             {/* User Profile */}
             {userData.data.personalInfo && (
               <div className=" bg-white rounded-lg shadow-md p-1">
@@ -130,7 +131,9 @@ const UserProfilePages = () => {
             {/* Preference Information */}
             {userData.data.personalPreference && (
               <div className="break-inside-avoid bg-white rounded-lg shadow-md p-1">
-                <PreferenceInformation data={userData.data.personalPreference} />
+                <PreferenceInformation
+                  data={userData.data.personalPreference}
+                />
               </div>
             )}
             {/* Partner Information */}
