@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../Hooks/contextApi/UserContext';
 import axios from 'axios';
 import { ValidatePassword } from '../../../utils/passwordValidation/ValidatePassword';
-import { Eye, EyeOff } from 'lucide-react'; // ✅ Import icons
+import { Eye, EyeOff } from 'lucide-react';
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 const UpdatePasswordForm: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -53,7 +54,7 @@ const UpdatePasswordForm: React.FC = () => {
     }
 
     try {
-      const res = await axios.patch(
+       await axios.patch(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/reset-password`,
         {
           email: user?.email,
@@ -62,11 +63,30 @@ const UpdatePasswordForm: React.FC = () => {
         },
         { withCredentials: true }
       );
-      setSuccessMessage(res.data.message);
-      setFormData({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
+
+      // Step 2: Reauthenticate the user in Firebase
+      if (user) {
+        const credential = EmailAuthProvider.credential(
+          user.email || '',
+          currentPassword
+        );
+        await reauthenticateWithCredential(user, credential);
+
+        
+        await updatePassword(user, newPassword);
+
+        //await refreshUser();
+
+        setSuccessMessage('Password updated successfully in both backend and Firebase.');
+        setFormData({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
+      } else {
+        throw new Error('User is not authenticated in Firebase.');
+      }
     } catch (err) {
       const message = axios.isAxiosError(err)
         ? err.response?.data?.message || 'An error occurred'
+        : err instanceof Error
+        ? err.message
         : 'An unexpected error occurred';
       setErrorMessage(message);
     }

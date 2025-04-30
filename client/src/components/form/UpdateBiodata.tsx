@@ -134,12 +134,12 @@ const MultiStepForm: React.FC = () => {
     try {
       const response = await axios.post(
         url,
-        formData, // Axios automatically stringifies this when headers are set
+        formData, 
         {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: true, // Axios uses `withCredentials` instead of `credentials`
+          withCredentials: true, 
         }
       );
   
