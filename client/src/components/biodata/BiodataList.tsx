@@ -9,7 +9,7 @@ import { SearchParams } from '../../interfaces/Search.interface';
 import BiodataSearch from './BiodataSearch';
 import { Filter } from 'lucide-react';
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 9;
 
 const BiodataList: React.FC = () => {
   const { initialPage, initialSearchParams, hasActiveFilters, updateUrl } =
