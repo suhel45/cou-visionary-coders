@@ -24,7 +24,7 @@ const createReport = async (
   userId: string,
   biodataNo: number,
   reason: string,
-  reasonDetails: string
+  reasonDetails: string,
 ) => {
   // Sanitize all user input
   const safeUserId = sanitizeText(userId);

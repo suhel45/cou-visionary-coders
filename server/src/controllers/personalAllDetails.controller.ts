@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { personalDetailsService } from '../services/personalAllDetails.service';
+import logger from '../utils/logger.util';
 
 interface CustomRequest extends Request {
   user: {
@@ -19,7 +20,7 @@ const Biodata = async (req: Request, res: Response): Promise<void> => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     if (error instanceof Error && error.message === 'Biodata already exists!') {
       res.status(400).json({
         success: false,
@@ -40,7 +41,7 @@ const GetBiodata = async (req: Request, res: Response): Promise<void> => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
 };
@@ -58,7 +59,7 @@ const GetPublicBiodataDetails = async (
       data: biodata,
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.status(500).json({ success: false, message: 'Failed to fetch data' });
   }
 };

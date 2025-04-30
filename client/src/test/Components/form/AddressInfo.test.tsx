@@ -1,6 +1,12 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach, Mock } from 'vitest';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from '@testing-library/react';
 import AddressInfo from '../../../components/form/AddressInfo';
 import { AddressInfoData } from '../../../interfaces/Biodata.interface';
 
@@ -13,7 +19,15 @@ vi.mock('../../../components/form/AddressForm', () => ({
       <div data-testid={`${title}-district`}>{address.district}</div>
       <div data-testid={`${title}-subdistrict`}>{address.subdistrict}</div>
       <div data-testid={`${title}-village`}>{address.village}</div>
-      <button onClick={() => onChange({ district: 'Updated District', subdistrict: 'Updated Subdistrict', village: 'Updated Village' })}>
+      <button
+        onClick={() =>
+          onChange({
+            district: 'Updated District',
+            subdistrict: 'Updated Subdistrict',
+            village: 'Updated Village',
+          })
+        }
+      >
         Update Address
       </button>
     </div>
@@ -38,7 +52,9 @@ describe('AddressInfo Component', () => {
   };
 
   it('renders AddressInfo component correctly', () => {
-    render(<AddressInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     // Check if the title and address forms are rendered
     expect(screen.getByText('ঠিকানা')).toBeInTheDocument();
@@ -47,7 +63,9 @@ describe('AddressInfo Component', () => {
   });
 
   it.skip('calls setFormData when present address is updated', () => {
-    render(<AddressInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     // Simulate a change in the present address
     fireEvent.click(screen.getByText(/Update Address/i));
@@ -64,7 +82,9 @@ describe('AddressInfo Component', () => {
   });
 
   it.skip('calls setFormData when permanent address is updated', () => {
-    render(<AddressInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     // Simulate a change in the permanent address
     fireEvent.click(screen.getByText(/Update Address/i));
@@ -95,16 +115,22 @@ describe('AddressInfo Component', () => {
     };
 
     const { rerender } = render(
-      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />
+      <AddressInfo formData={initialFormData} setFormData={mockSetFormData} />,
     );
 
     // Rerender with updated form data
-    rerender(<AddressInfo formData={updatedFormData} setFormData={mockSetFormData} />);
+    rerender(
+      <AddressInfo formData={updatedFormData} setFormData={mockSetFormData} />,
+    );
 
     // Ensure that the form data is correctly synced
     await waitFor(() => {
-      expect(screen.getByTestId('বর্তমান ঠিকানা-district')).toHaveTextContent('District 1');
-      expect(screen.getByTestId('স্থায়ী ঠিকানা-district')).toHaveTextContent('District 2');
+      expect(screen.getByTestId('বর্তমান ঠিকানা-district')).toHaveTextContent(
+        'District 1',
+      );
+      expect(screen.getByTestId('স্থায়ী ঠিকানা-district')).toHaveTextContent(
+        'District 2',
+      );
     });
   });
 });

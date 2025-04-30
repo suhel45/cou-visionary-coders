@@ -4,7 +4,9 @@ import { SupportModel as OriginalSupportModel } from '../models/support.model';
 
 // Mock SupportModel properly
 jest.mock('../models/support.model', () => {
-  const OriginalSupportModel = jest.requireActual('../models/support.model').SupportModel;
+  const OriginalSupportModel = jest.requireActual(
+    '../models/support.model',
+  ).SupportModel;
   // Create a save mock separately
   const saveMock = jest.fn();
 
@@ -60,12 +62,16 @@ describe('supportService', () => {
 
     it('should throw an error if duplicate support request exists', async () => {
       // Arrange
-      (SupportModel.findOne as jest.Mock).mockResolvedValue({ _id: 'existing-support-id' });
+      (SupportModel.findOne as jest.Mock).mockResolvedValue({
+        _id: 'existing-support-id',
+      });
 
       // Act & Assert
       await expect(
-        supportService.addToSupport('user123', 'Help me again!')
-      ).rejects.toThrow('Duplicate support request: same message already submitted.');
+        supportService.addToSupport('user123', 'Help me again!'),
+      ).rejects.toThrow(
+        'Duplicate support request: same message already submitted.',
+      );
 
       expect(SupportModel.findOne).toHaveBeenCalledWith({
         user: 'user123',
@@ -77,13 +83,25 @@ describe('supportService', () => {
   describe('getSupportList', () => {
     it('should return the support list sorted by createdAt', async () => {
       // Arrange
-      const execMock = jest.fn().mockResolvedValue([
-        { _id: 'support1', message: 'Message1', user: { username: 'User1', email: 'u1@example.com' } },
-      ]);
+      const execMock = jest
+        .fn()
+        .mockResolvedValue([
+          {
+            _id: 'support1',
+            message: 'Message1',
+            user: { username: 'User1', email: 'u1@example.com' },
+          },
+        ]);
 
-      const populateMock = jest.fn().mockReturnValue({ sort: jest.fn().mockReturnValue({ exec: execMock }) });
+      const populateMock = jest
+        .fn()
+        .mockReturnValue({
+          sort: jest.fn().mockReturnValue({ exec: execMock }),
+        });
 
-      (SupportModel.find as jest.Mock).mockReturnValue({ populate: populateMock });
+      (SupportModel.find as jest.Mock).mockReturnValue({
+        populate: populateMock,
+      });
 
       // Act
       const result = await supportService.getSupportList();
@@ -92,7 +110,11 @@ describe('supportService', () => {
       expect(SupportModel.find).toHaveBeenCalled();
       expect(populateMock).toHaveBeenCalledWith('user', 'username email');
       expect(result).toEqual([
-        { _id: 'support1', message: 'Message1', user: { username: 'User1', email: 'u1@example.com' } },
+        {
+          _id: 'support1',
+          message: 'Message1',
+          user: { username: 'User1', email: 'u1@example.com' },
+        },
       ]);
     });
   });

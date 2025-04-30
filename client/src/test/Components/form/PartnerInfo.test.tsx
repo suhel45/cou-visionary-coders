@@ -34,7 +34,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('renders the form and shows all fields', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     expect(screen.getByText(TEXT.title)).toBeInTheDocument();
     expect(screen.getByLabelText(TEXT.maritalStatus)).toBeInTheDocument();
@@ -48,7 +50,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('updates form data when inputs are changed', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     fireEvent.change(screen.getByLabelText(TEXT.age), {
       target: { value: '25' },
@@ -69,7 +73,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('handles dropdown selection changes correctly', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     fireEvent.change(screen.getByLabelText(TEXT.complexion), {
       target: { value: 'ফর্সা' },
@@ -86,7 +92,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('handles district selection correctly', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     fireEvent.change(screen.getByLabelText(TEXT.district), {
       target: { value: 'Dhaka' },
@@ -99,7 +107,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('handles textarea change correctly', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     fireEvent.change(screen.getByLabelText(TEXT.expectedQualities), {
       target: { value: 'সুদর্শন এবং সৎ' },
@@ -112,7 +122,9 @@ describe('PartnerInfo Component', () => {
   });
 
   it.skip('renders all district options in the dropdown', () => {
-    render(<PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />);
+    render(
+      <PartnerInfo formData={initialFormData} setFormData={mockSetFormData} />,
+    );
 
     // Find the district dropdown
     const districtDropdown = screen.getByLabelText(TEXT.district);
@@ -127,7 +139,6 @@ describe('PartnerInfo Component', () => {
     expect(districtOptions).toContain('Bandarban');
     expect(districtOptions).toContain('Barguna');
 
-    
     districts.forEach((district) => {
       expect(districtOptions).toContain(district);
     });

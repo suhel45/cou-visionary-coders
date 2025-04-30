@@ -11,7 +11,6 @@ const userId = new ObjectId().toHexString();
 const biodataId = new ObjectId().toHexString();
 
 describe('favoriteListService', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -26,12 +25,17 @@ describe('favoriteListService', () => {
 
       MockFavoriteModel.prototype.save = mockSave as any;
 
-      const result = await favoriteListService.addToFavorites(userId, biodataId);
+      const result = await favoriteListService.addToFavorites(
+        userId,
+        biodataId,
+      );
 
-      expect(result).toEqual(expect.objectContaining({
-        user: userId,
-        biodata: biodataId,
-      }));
+      expect(result).toEqual(
+        expect.objectContaining({
+          user: userId,
+          biodata: biodataId,
+        }),
+      );
       expect(mockSave).toHaveBeenCalled();
     });
 
@@ -41,8 +45,9 @@ describe('favoriteListService', () => {
 
       MockFavoriteModel.prototype.save = mockSave as any;
 
-      await expect(favoriteListService.addToFavorites(userId, biodataId))
-        .rejects.toThrow('Biodata already in favorite list!');
+      await expect(
+        favoriteListService.addToFavorites(userId, biodataId),
+      ).rejects.toThrow('Biodata already in favorite list!');
 
       expect(mockSave).toHaveBeenCalled();
     });
@@ -53,8 +58,9 @@ describe('favoriteListService', () => {
 
       MockFavoriteModel.prototype.save = mockSave as any;
 
-      await expect(favoriteListService.addToFavorites(userId, biodataId))
-        .rejects.toThrow('Something else went wrong');
+      await expect(
+        favoriteListService.addToFavorites(userId, biodataId),
+      ).rejects.toThrow('Something else went wrong');
 
       expect(mockSave).toHaveBeenCalled();
     });
@@ -68,12 +74,17 @@ describe('favoriteListService', () => {
         biodata: biodataId,
       });
 
-      const result = await favoriteListService.removeFromFavorites(userId, biodataId);
+      const result = await favoriteListService.removeFromFavorites(
+        userId,
+        biodataId,
+      );
 
-      expect(result).toEqual(expect.objectContaining({
-        user: userId,
-        biodata: biodataId,
-      }));
+      expect(result).toEqual(
+        expect.objectContaining({
+          user: userId,
+          biodata: biodataId,
+        }),
+      );
       expect(MockFavoriteModel.findOneAndDelete).toHaveBeenCalledWith({
         user: expect.any(ObjectId),
         biodata: expect.any(ObjectId),
@@ -83,8 +94,9 @@ describe('favoriteListService', () => {
     it('should throw error if favorite not found', async () => {
       (MockFavoriteModel.findOneAndDelete as jest.Mock).mockResolvedValue(null);
 
-      await expect(favoriteListService.removeFromFavorites(userId, biodataId))
-        .rejects.toThrow('Favorite list not found!');
+      await expect(
+        favoriteListService.removeFromFavorites(userId, biodataId),
+      ).rejects.toThrow('Favorite list not found!');
 
       expect(MockFavoriteModel.findOneAndDelete).toHaveBeenCalled();
     });
@@ -115,5 +127,4 @@ describe('favoriteListService', () => {
       });
     });
   });
-
 });

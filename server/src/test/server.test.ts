@@ -32,7 +32,7 @@ describe('Server Initialization', () => {
     await startServer();
 
     expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Server is running at http://localhost:')
+      expect.stringContaining('Server is running at http://localhost:'),
     );
 
     logSpy.mockRestore();
@@ -55,7 +55,7 @@ describe('Server Initialization', () => {
     expect(exitSpy).toHaveBeenCalledWith(1);
     expect(errorSpy).toHaveBeenCalledWith(
       'DATABASE CONNECTION ERROR:',
-      expect.any(Error)
+      expect.any(Error),
     );
 
     errorSpy.mockRestore();

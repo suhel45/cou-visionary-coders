@@ -76,7 +76,10 @@ describe('UserProfile Component', () => {
     // Test for Female avatar
     render(<UserProfile data={mockData} biodataNo={biodataNo} />);
     const femaleAvatar = screen.getByRole('img');
-    expect(femaleAvatar).toHaveAttribute('src', expect.stringContaining('woman.png'));
+    expect(femaleAvatar).toHaveAttribute(
+      'src',
+      expect.stringContaining('woman.png'),
+    );
 
     // Clean up before rendering the next test
     cleanup();
@@ -85,6 +88,9 @@ describe('UserProfile Component', () => {
     const maleData = { ...mockData, gender: 'Male' };
     render(<UserProfile data={maleData} biodataNo={biodataNo} />);
     const maleAvatar = screen.getByRole('img');
-    expect(maleAvatar).toHaveAttribute('src', expect.stringContaining('man.png'));
+    expect(maleAvatar).toHaveAttribute(
+      'src',
+      expect.stringContaining('man.png'),
+    );
   });
 });

@@ -50,7 +50,10 @@ describe('deleteBiodataController', () => {
     await deleteBiodataController(req as Request, res);
 
     expect(deleteBiodata).toHaveBeenCalledWith('user123');
-    expect(logger.error).toHaveBeenCalledWith('Error deleting biodata:', mockError.message);
+    expect(logger.error).toHaveBeenCalledWith(
+      'Error deleting biodata:',
+      mockError.message,
+    );
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       success: false,

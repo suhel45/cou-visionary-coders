@@ -1,4 +1,10 @@
-import { uploadIDCard, checkVerificationStatus, getAllPendingVerifications, approveVerification, rejectVerification } from '../../controllers/verify.controller';
+import {
+  uploadIDCard,
+  checkVerificationStatus,
+  getAllPendingVerifications,
+  approveVerification,
+  rejectVerification,
+} from '../../controllers/verify.controller';
 import { verificationService } from '../../services/verification.service';
 import { Request, Response } from 'express';
 
@@ -35,7 +41,9 @@ describe('verify.controller', () => {
       await uploadIDCard(req as Request, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Missing file or user' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Missing file or user',
+      });
     });
 
     it('should call service and return 200 on success', async () => {
@@ -44,13 +52,20 @@ describe('verify.controller', () => {
 
       await uploadIDCard(req as Request, res);
 
-      expect(verificationService.uploadIdCard).toHaveBeenCalledWith('user123', 'path/to/file');
+      expect(verificationService.uploadIdCard).toHaveBeenCalledWith(
+        'user123',
+        'path/to/file',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Verification submitted' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Verification submitted',
+      });
     });
 
     it('should handle errors', async () => {
-      (verificationService.uploadIdCard as jest.Mock).mockRejectedValueOnce(new Error('Upload error'));
+      (verificationService.uploadIdCard as jest.Mock).mockRejectedValueOnce(
+        new Error('Upload error'),
+      );
 
       (req as CustomRequest).user = { id: 'user123' };
       req.file = { path: 'path/to/file' } as Express.Multer.File;
@@ -69,23 +84,31 @@ describe('verify.controller', () => {
       await checkVerificationStatus(req as Request, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Missing userId parameter' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'Missing userId parameter',
+      });
     });
 
     it('should return status on success', async () => {
-      (verificationService.checkVerificationStatus as jest.Mock).mockResolvedValueOnce('Approved');
+      (
+        verificationService.checkVerificationStatus as jest.Mock
+      ).mockResolvedValueOnce('Approved');
 
       (req as CustomRequest).user = { id: 'user123' };
 
       await checkVerificationStatus(req as Request, res);
 
-      expect(verificationService.checkVerificationStatus).toHaveBeenCalledWith('user123');
+      expect(verificationService.checkVerificationStatus).toHaveBeenCalledWith(
+        'user123',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ status: 'Approved' });
     });
 
     it('should handle errors', async () => {
-      (verificationService.checkVerificationStatus as jest.Mock).mockRejectedValueOnce(new Error('Status error'));
+      (
+        verificationService.checkVerificationStatus as jest.Mock
+      ).mockRejectedValueOnce(new Error('Status error'));
 
       (req as CustomRequest).user = { id: 'user123' };
 
@@ -99,7 +122,9 @@ describe('verify.controller', () => {
   describe('getAllPendingVerifications', () => {
     it('should return pending verifications', async () => {
       const mockData = [{ id: '1' }, { id: '2' }];
-      (verificationService.getPendingVerifications as jest.Mock).mockResolvedValueOnce(mockData);
+      (
+        verificationService.getPendingVerifications as jest.Mock
+      ).mockResolvedValueOnce(mockData);
 
       await getAllPendingVerifications(req as Request, res);
 
@@ -109,7 +134,9 @@ describe('verify.controller', () => {
     });
 
     it('should handle errors', async () => {
-      (verificationService.getPendingVerifications as jest.Mock).mockRejectedValueOnce(new Error('Pending error'));
+      (
+        verificationService.getPendingVerifications as jest.Mock
+      ).mockRejectedValueOnce(new Error('Pending error'));
 
       await getAllPendingVerifications(req as Request, res);
 
@@ -133,13 +160,20 @@ describe('verify.controller', () => {
 
       await approveVerification(req as Request, res);
 
-      expect(verificationService.updateVerificationStatus).toHaveBeenCalledWith('user123', 'Approved');
+      expect(verificationService.updateVerificationStatus).toHaveBeenCalledWith(
+        'user123',
+        'Approved',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({ message: 'User user123 approved.' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'User user123 approved.',
+      });
     });
 
     it('should handle errors', async () => {
-      (verificationService.updateVerificationStatus as jest.Mock).mockRejectedValueOnce(new Error('Approve error'));
+      (
+        verificationService.updateVerificationStatus as jest.Mock
+      ).mockRejectedValueOnce(new Error('Approve error'));
       req.params = { userId: 'user123' };
 
       await approveVerification(req as Request, res);
@@ -164,13 +198,20 @@ describe('verify.controller', () => {
 
       await rejectVerification(req as Request, res);
 
-      expect(verificationService.updateVerificationStatus).toHaveBeenCalledWith('user123', 'Rejected');
+      expect(verificationService.updateVerificationStatus).toHaveBeenCalledWith(
+        'user123',
+        'Rejected',
+      );
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({ message: 'User user123 rejected.' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'User user123 rejected.',
+      });
     });
 
     it('should handle errors', async () => {
-      (verificationService.updateVerificationStatus as jest.Mock).mockRejectedValueOnce(new Error('Reject error'));
+      (
+        verificationService.updateVerificationStatus as jest.Mock
+      ).mockRejectedValueOnce(new Error('Reject error'));
       req.params = { userId: 'user123' };
 
       await rejectVerification(req as Request, res);

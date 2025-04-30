@@ -16,7 +16,6 @@ export const uploadIDCard = async (
   try {
     const userId = (req as CustomRequest).user.id;
     const file = req.file;
-    console.log(userId, file);
     if (!file || !userId) {
       res.status(400).json({ message: 'Missing file or user' });
       return;

@@ -1,7 +1,7 @@
 export const reasons = [
-  { value: 'fake_profile', label: 'fake_profile' },
-  { value: 'inappropriate', label: 'Inappropriate Content' },
-  { value: 'harassment', label: 'harassment' },
+  { value: 'fake_profile', label: 'Fake Profile' },
+  { value: 'inappropriate_content', label: 'Inappropriate Content' },
+  { value: 'harassment', label: 'Harassment' },
   { value: 'scam', label: 'Scam' },
   { value: 'other', label: 'Other' },
 ];

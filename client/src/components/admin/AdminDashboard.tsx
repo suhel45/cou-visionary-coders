@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import ReportedProfiles from './ReportedProfiles';
 import SupportRequests from './SupportRequests';
-import AdminOverview from './AdminOverview'; 
+import AdminOverview from './AdminOverview';
 import VerificationRequests from './VerificationRequests';
 
 const AdminDashboard = () => {
@@ -23,7 +23,7 @@ const AdminDashboard = () => {
   const renderSection = () => {
     switch (activeSection) {
       case 'overview':
-        return <AdminOverview />; 
+        return <AdminOverview />;
       case 'verification':
         return <VerificationRequests />;
       case 'reports':

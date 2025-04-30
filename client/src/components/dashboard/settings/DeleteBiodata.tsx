@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const DeleteAccount: React.FC = () => {
@@ -6,9 +6,12 @@ const DeleteAccount: React.FC = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/delete-biodata`, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/api/profile/delete-biodata`,
+        {
+          withCredentials: true,
+        },
+      );
     } catch (error) {
       console.error('Error deleting account:', error);
       alert('Failed to delete account. Try again.');

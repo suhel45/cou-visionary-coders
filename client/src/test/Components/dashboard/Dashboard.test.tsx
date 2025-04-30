@@ -22,7 +22,7 @@ describe.skip('Dashboard Component', () => {
     render(
       <MemoryRouter>
         <Dashboard />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     // Main container
@@ -54,7 +54,7 @@ describe.skip('Dashboard Component', () => {
     render(
       <MemoryRouter>
         <Dashboard />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();

@@ -12,7 +12,7 @@ function FavoriteListPage() {
   } = useQuery({
     queryKey: ['favoriteBiodatas'],
     queryFn: async () => {
-      const response  = await axiosInstance.get('/favoriteList');
+      const response = await axiosInstance.get('/favoriteList');
       return response.data;
     },
   });

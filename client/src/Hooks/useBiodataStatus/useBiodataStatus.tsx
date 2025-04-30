@@ -1,6 +1,9 @@
 // src/hooks/useBiodataStatus.ts
 import { useEffect, useState } from 'react';
-import { fetchBiodataCreated, fetchIdCardStatus } from '../../utils/apiUtils/apiUtils';
+import {
+  fetchBiodataCreated,
+  fetchIdCardStatus,
+} from '../../utils/apiUtils/apiUtils';
 
 export const useBiodataStatus = () => {
   const [biodataCreated, setBiodataCreated] = useState(false);

@@ -1,6 +1,20 @@
 import React from 'react';
-import { describe, it, expect, beforeEach, afterEach, vi, type Mock } from 'vitest';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  vi,
+  type Mock,
+} from 'vitest';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from '@testing-library/react';
 import AddressForm from '../../../components/form/AddressForm';
 import subDistricts from '../../../components/form/subDistricts';
 import districts from '../../../components/form/districtData';
@@ -24,7 +38,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Check if the form fields and title are rendered
@@ -40,7 +54,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Select a district and check if the callback is called
@@ -61,12 +75,14 @@ describe('AddressForm Component', () => {
         address={{ district: 'Bagerhat', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Wait for subdistricts to populate based on district selection
     await waitFor(() => {
-      expect(screen.getByLabelText(/উপজেলা/i)).toHaveTextContent('Bagerhat Sadar');
+      expect(screen.getByLabelText(/উপজেলা/i)).toHaveTextContent(
+        'Bagerhat Sadar',
+      );
       expect(screen.getByLabelText(/উপজেলা/i)).toHaveTextContent('Chitalmari');
     });
   });
@@ -77,7 +93,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Check if subdistrict field is disabled before district selection
@@ -94,7 +110,7 @@ describe('AddressForm Component', () => {
         }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Select a subdistrict and check if the village input is enabled
@@ -115,7 +131,7 @@ describe('AddressForm Component', () => {
         }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Change the village value and check if the callback is fired
@@ -136,7 +152,7 @@ describe('AddressForm Component', () => {
         address={{ district: '', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Check if all districts are rendered in the dropdown
@@ -151,7 +167,7 @@ describe('AddressForm Component', () => {
         address={{ district: 'Bagerhat', subdistrict: '', village: '' }}
         onChange={mockOnChange}
         title="Test Address"
-      />
+      />,
     );
 
     // Wait for subdistricts to populate

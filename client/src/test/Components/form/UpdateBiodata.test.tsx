@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import MultiStepForm from '../../../components/form/UpdateBiodata';
 
@@ -101,7 +107,7 @@ describe('MultiStepForm Component', () => {
         ok: false,
         status: 400,
         json: () => Promise.resolve({ message: 'Failed to submit form' }),
-      } as unknown as Response)
+      } as unknown as Response),
     );
 
     render(<MultiStepForm />);
@@ -115,7 +121,9 @@ describe('MultiStepForm Component', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Failed! Please try again./i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Failed! Please try again./i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -125,7 +133,7 @@ describe('MultiStepForm Component', () => {
         ok: true,
         status: 200,
         json: () => Promise.resolve({ message: 'Success' }),
-      } as unknown as Response)
+      } as unknown as Response),
     );
 
     render(<MultiStepForm />);
@@ -139,7 +147,9 @@ describe('MultiStepForm Component', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Form Submitted Successfully!/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Form Submitted Successfully!/i),
+      ).toBeInTheDocument();
     });
   });
 
@@ -149,7 +159,7 @@ describe('MultiStepForm Component', () => {
         ok: true,
         status: 200,
         json: () => Promise.resolve({ message: 'Success' }),
-      } as unknown as Response)
+      } as unknown as Response),
     );
 
     render(<MultiStepForm />);
@@ -163,7 +173,9 @@ describe('MultiStepForm Component', () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Form Submitted Successfully!/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Form Submitted Successfully!/i),
+      ).toBeInTheDocument();
     });
 
     const resetButton = screen.getByRole('button', { name: /Reset/i });

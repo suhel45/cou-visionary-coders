@@ -60,9 +60,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/admin`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      console.log("admin data", response.data.user);
       setIsAdmin(response.data?.user?.role === 'admin');
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -76,7 +75,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (currentUser) {
         await currentUser.getIdToken(true);
         setUser(currentUser);
-        await checkAdminStatus(currentUser.email); 
+        await checkAdminStatus(currentUser.email);
       }
     } catch (error) {
       console.error('User refresh error:', error);
@@ -154,7 +153,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-  console.log(isAdmin)
   const updateUserProfile = async (profile: UserProfile) => {
     if (auth.currentUser) {
       try {
@@ -174,11 +172,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(
       auth,
       async (currentUser) => {
-        console.log('Auth State Changed:', {
-          user: currentUser,
-          timestamp: new Date().toISOString(),
-        });
-
         if (currentUser) {
           try {
             await currentUser.getIdToken(true);
@@ -244,7 +237,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       isBackendAuthenticated,
       setIsBackendAuthenticated,
       deleteUser,
-      isAdmin, 
+      isAdmin,
     }),
     [
       user,
@@ -254,7 +247,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       isNewlyRegistered,
       isBackendAuthenticated,
       isAdmin,
-    ]
+    ],
   );
 
   if (initializing) {
@@ -262,9 +255,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={authValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 

@@ -8,7 +8,7 @@ type VerificationRequest = {
   status: string;
 };
 
-const BACKEND_URL = `${import.meta.env.VITE_BACKEND_BASE_URL}`; 
+const BACKEND_URL = `${import.meta.env.VITE_BACKEND_BASE_URL}`;
 
 const VerificationRequests: React.FC = () => {
   const [requests, setRequests] = useState<VerificationRequest[]>([]);
@@ -22,7 +22,6 @@ const VerificationRequests: React.FC = () => {
       setLoading(true);
       setError(null);
       const response = await axios.get(`${BACKEND_URL}/api/all-status`);
-      console.log(response.data[0]);
       setRequests(response.data);
     } catch (err) {
       console.error('Error fetching verification requests:', err);
@@ -40,10 +39,10 @@ const VerificationRequests: React.FC = () => {
     try {
       await axios.post(`${BACKEND_URL}/api/verify-approve/${user}`);
       // Update local state to reflect the change
-      setRequests(prev => 
-        prev.map(req => 
-          req.user === user ? { ...req, status: 'Approved' } : req
-        )
+      setRequests((prev) =>
+        prev.map((req) =>
+          req.user === user ? { ...req, status: 'Approved' } : req,
+        ),
       );
       alert('Verification approved successfully');
     } catch (err) {
@@ -56,10 +55,10 @@ const VerificationRequests: React.FC = () => {
     try {
       await axios.post(`${BACKEND_URL}/api/verify-reject/${user}`);
       // Update local state to reflect the change
-      setRequests(prev => 
-        prev.map(req => 
-          req.user === user ? { ...req, status: 'Rejected' } : req
-        )
+      setRequests((prev) =>
+        prev.map((req) =>
+          req.user === user ? { ...req, status: 'Rejected' } : req,
+        ),
       );
       alert('Verification rejected successfully');
     } catch (err) {
@@ -74,9 +73,11 @@ const VerificationRequests: React.FC = () => {
     if (imagePath.startsWith('http')) {
       return imagePath;
     }
-    
+
     // Ensure the path starts with a slash
-    const normalizedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+    const normalizedPath = imagePath.startsWith('/')
+      ? imagePath
+      : `/${imagePath}`;
     return `${BACKEND_URL}${normalizedPath}`;
   };
 
@@ -85,7 +86,9 @@ const VerificationRequests: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading verification requests...</div>;
+    return (
+      <div className="text-center py-8">Loading verification requests...</div>
+    );
   }
 
   if (error) {
@@ -106,16 +109,26 @@ const VerificationRequests: React.FC = () => {
           <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">User ID</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">ID Card</th>
-                <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">Status</th>
-                <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">Actions</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">
+                  User ID
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">
+                  ID Card
+                </th>
+                <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">
+                  Status
+                </th>
+                <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {requests.map((req) => (
                 <tr key={req._id} className="border-t">
-                  <td className="px-4 py-3 text-sm text-gray-500">{req.user}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500">
+                    {req.user}
+                  </td>
                   <td className="px-4 py-3">
                     <button
                       className="text-blue-600 font-semibold hover:underline text-xs md:text-sm"
@@ -124,7 +137,9 @@ const VerificationRequests: React.FC = () => {
                       View ID Card
                     </button>
                   </td>
-                  <td className="px-4 py-3 text-sm text-center capitalize">{req.status}</td>
+                  <td className="px-4 py-3 text-sm text-center capitalize">
+                    {req.status}
+                  </td>
                   <td className="px-4 py-3 flex justify-center gap-4">
                     <button
                       onClick={() => handleApprove(req.user)}
@@ -158,13 +173,13 @@ const VerificationRequests: React.FC = () => {
             >
               ×
             </button>
-            
-            <img 
-              src={viewImageUrl} 
-              alt="ID Card" 
-              className="w-full h-auto max-h-[80vh] object-contain rounded" 
+
+            <img
+              src={viewImageUrl}
+              alt="ID Card"
+              className="w-full h-auto max-h-[80vh] object-contain rounded"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/fallback-image.jpg'; 
+                (e.target as HTMLImageElement).src = '/fallback-image.jpg';
                 console.error('Image failed to load:', viewImageUrl);
               }}
             />

@@ -74,24 +74,24 @@ const Verify: React.FC = () => {
   // Handle file selection with validation
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
-    
+
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
-      
+
       // Validate file type
       if (!file.type.match('image.*')) {
         setError('Please select a valid image file (JPEG, PNG, etc.)');
         return;
       }
-      
+
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError('File size must be less than 5MB');
         return;
       }
-      
+
       setImage(file);
-      
+
       // Create image preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -107,10 +107,10 @@ const Verify: React.FC = () => {
       setError('Please select an image to upload');
       return;
     }
-    
+
     setIsUploading(true);
     setError(null);
-    
+
     const formData = new FormData();
     formData.append('studentId', image);
 
@@ -121,11 +121,11 @@ const Verify: React.FC = () => {
         {
           withCredentials: true,
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
-      
+
       if (response.data.success) {
         setIdStatus('Pending');
         setImage(null);
@@ -135,7 +135,10 @@ const Verify: React.FC = () => {
       }
     } catch (error: any) {
       console.error('Error uploading ID card:', error);
-      setError(error.response?.data?.message || 'Failed to upload image. Please try again.');
+      setError(
+        error.response?.data?.message ||
+          'Failed to upload image. Please try again.',
+      );
     } finally {
       setIsUploading(false);
     }
@@ -204,9 +207,9 @@ const Verify: React.FC = () => {
                 <p className="text-sm text-green-600 mb-2">
                   Selected: {image?.name}
                 </p>
-                <img 
-                  src={imagePreview} 
-                  alt="ID Preview" 
+                <img
+                  src={imagePreview}
+                  alt="ID Preview"
                   className="max-w-full h-auto max-h-40 border rounded-md"
                 />
               </div>
@@ -216,7 +219,9 @@ const Verify: React.FC = () => {
               onClick={handleUpload}
               disabled={isUploading || !image}
               className={`mt-3 w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors ${
-                isUploading || !image ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'
+                isUploading || !image
+                  ? 'opacity-60 cursor-not-allowed'
+                  : 'cursor-pointer'
               }`}
             >
               {isUploading ? 'Uploading...' : 'Submit'}
@@ -226,7 +231,9 @@ const Verify: React.FC = () => {
 
         {idStatus === 'Rejected' && (
           <div className="mt-4 w-full max-w-md">
-            <p className="text-red-700 mb-2">Your ID was rejected. Please upload a new one.</p>
+            <p className="text-red-700 mb-2">
+              Your ID was rejected. Please upload a new one.
+            </p>
             <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 p-4 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
               <UploadCloud className="w-10 h-10 text-gray-500 mb-2" />
               <span className="text-gray-600">Upload New Student ID Image</span>
@@ -252,10 +259,10 @@ const Verify: React.FC = () => {
                 <p className="text-sm text-green-600 mb-2">
                   Selected: {image?.name}
                 </p>
-                <img 
-                  src={imagePreview} 
-                  alt="ID Preview" 
-                  className="max-w-full h-auto max-h-40 border rounded-md" 
+                <img
+                  src={imagePreview}
+                  alt="ID Preview"
+                  className="max-w-full h-auto max-h-40 border rounded-md"
                 />
               </div>
             )}
@@ -264,7 +271,9 @@ const Verify: React.FC = () => {
               onClick={handleUpload}
               disabled={isUploading || !image}
               className={`mt-3 w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors ${
-                isUploading || !image ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'
+                isUploading || !image
+                  ? 'opacity-60 cursor-not-allowed'
+                  : 'cursor-pointer'
               }`}
             >
               {isUploading ? 'Uploading...' : 'Submit'}
@@ -283,11 +292,11 @@ const Verify: React.FC = () => {
         >
           {biodataCreated ? 'Success' : 'Not Created'}
         </p>
-        
+
         {!biodataCreated && (
           <div className="mt-2">
             <button
-              onClick={() => window.location.href = '/profile/biodata'}
+              onClick={() => (window.location.href = '/profile/biodata')}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 transition-colors"
             >
               Create Biodata
@@ -307,20 +316,22 @@ const Verify: React.FC = () => {
         </h3>
         <p
           className={`mt-1 text-lg font-bold bg-gray-50 p-2 rounded-md ${
-            verificationStatus === 'Verified' 
-              ? 'text-green-700 bg-green-100' 
+            verificationStatus === 'Verified'
+              ? 'text-green-700 bg-green-100'
               : 'text-red-700 bg-red-100'
           }`}
         >
           {verificationStatus}
         </p>
-        
+
         {verificationStatus === 'Not Verified' && (
           <div className="mt-2 text-center text-sm text-gray-600">
             <p>To get verified, you need to:</p>
             <ul className="list-disc list-inside mt-1">
               {!biodataCreated && <li>Create your biodata</li>}
-              {idStatus !== 'Approved' && <li>Upload and get your student ID approved</li>}
+              {idStatus !== 'Approved' && (
+                <li>Upload and get your student ID approved</li>
+              )}
             </ul>
           </div>
         )}

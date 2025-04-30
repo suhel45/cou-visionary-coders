@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   // location page the user was trying to access
   const from = location.state?.from ?? '/';
 
-  const { loginUser,setIsBackendAuthenticated } = useAuth();
+  const { loginUser, setIsBackendAuthenticated } = useAuth();
 
   const {
     register,

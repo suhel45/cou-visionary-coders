@@ -29,7 +29,10 @@ interface DataTableProps<T> {
 
 function getNestedValue(obj: any, path: string): any {
   const keys = path.split('.');
-  return keys.reduce((o, key) => (o && o[key] !== undefined ? o[key] : ''), obj);
+  return keys.reduce(
+    (o, key) => (o && o[key] !== undefined ? o[key] : ''),
+    obj,
+  );
 }
 
 const safeToString = (value: any): string => {
@@ -46,23 +49,23 @@ export function DataTable<T>({
   columns,
   isLoading,
   error,
-  searchPlaceholder = "Search...",
+  searchPlaceholder = 'Search...',
   searchFields = [],
-  itemsPerPage = 10, 
+  itemsPerPage = 10,
   onRetry,
   expandableField,
   expandableThreshold = 80,
   renderStats,
-  emptyStateMessage = "No data found",
+  emptyStateMessage = 'No data found',
   emptyStateIcon,
-  showPagination = true
+  showPagination = true,
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
   const [sortConfig, setSortConfig] = useState<{
-    key: string,
-    direction: 'ascending' | 'descending'
+    key: string;
+    direction: 'ascending' | 'descending';
   } | null>(null);
 
   useEffect(() => {
@@ -77,7 +80,7 @@ export function DataTable<T>({
 
   const handleRowExpand = (idx: number) => {
     if (expandedRows.includes(idx)) {
-      setExpandedRows(expandedRows.filter(rowIdx => rowIdx !== idx));
+      setExpandedRows(expandedRows.filter((rowIdx) => rowIdx !== idx));
     } else {
       setExpandedRows([...expandedRows, idx]);
     }
@@ -85,7 +88,11 @@ export function DataTable<T>({
 
   const requestSort = (key: string) => {
     let direction: 'ascending' | 'descending' = 'ascending';
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === 'ascending'
+    ) {
       direction = 'descending';
     }
     setSortConfig({ key, direction });
@@ -93,11 +100,11 @@ export function DataTable<T>({
 
   const getSortedData = (dataArray: T[]) => {
     if (!sortConfig) return dataArray;
-    
+
     return [...dataArray].sort((a, b) => {
       const aValue = safeToString(getNestedValue(a, sortConfig.key));
       const bValue = safeToString(getNestedValue(b, sortConfig.key));
-      
+
       if (aValue < bValue) {
         return sortConfig.direction === 'ascending' ? -1 : 1;
       }
@@ -108,20 +115,20 @@ export function DataTable<T>({
     });
   };
 
-  const filteredData = data.filter(item => {
+  const filteredData = data.filter((item) => {
     if (!searchTerm) return true;
-    
-    return searchFields.some(field => {
+
+    return searchFields.some((field) => {
       const value = getNestedValue(item, field);
       return safeToLowerCase(value).includes(searchTerm.toLowerCase());
     });
   });
 
   const sortedData = getSortedData(filteredData);
-  
+
   // Calculate total pages
   const totalPages = Math.max(1, Math.ceil(sortedData.length / itemsPerPage));
-  
+
   // Make sure currentPage is valid (between 1 and totalPages)
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -130,8 +137,11 @@ export function DataTable<T>({
   }, [currentPage, totalPages]);
 
   // Only paginate if pagination is enabled
-  const displayData = showPagination 
-    ? sortedData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const displayData = showPagination
+    ? sortedData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+      )
     : sortedData;
 
   const renderSkeleton = () => (
@@ -140,7 +150,9 @@ export function DataTable<T>({
         <tr key={idx}>
           {columns.map((column, colIdx) => (
             <td key={colIdx} className="px-6 py-4">
-              <div className={`h-4 bg-gray-200 rounded animate-pulse ${column.width || 'w-full'}`}></div>
+              <div
+                className={`h-4 bg-gray-200 rounded animate-pulse ${column.width || 'w-full'}`}
+              ></div>
             </td>
           ))}
         </tr>
@@ -155,7 +167,10 @@ export function DataTable<T>({
           <thead className="bg-gray-50">
             <tr>
               {columns.map((column, idx) => (
-                <th key={idx} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th
+                  key={idx}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                >
                   {column.header}
                 </th>
               ))}
@@ -173,7 +188,7 @@ export function DataTable<T>({
         <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
         <div className="mb-4 text-red-500 font-medium">{error}</div>
         {onRetry && (
-          <button 
+          <button
             onClick={onRetry}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
@@ -215,7 +230,7 @@ export function DataTable<T>({
               <thead className="bg-gray-50">
                 <tr>
                   {columns.map((column, idx) => (
-                    <th 
+                    <th
                       key={idx}
                       className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${column.sortable ? 'cursor-pointer hover:bg-gray-100' : ''}`}
                       onClick={() => column.sortable && requestSort(column.key)}
@@ -234,26 +249,42 @@ export function DataTable<T>({
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {displayData.map((item, idx) => {
-                  const actualIdx = showPagination ? (currentPage - 1) * itemsPerPage + idx : idx;
+                  const actualIdx = showPagination
+                    ? (currentPage - 1) * itemsPerPage + idx
+                    : idx;
                   const isExpanded = expandedRows.includes(actualIdx);
-                  
+
                   // Check if we have an expandable field and if it should be truncated
-                  const expandableContent = expandableField ? getNestedValue(item, expandableField) : null;
-                  const shouldTruncate = expandableContent && expandableContent.length > expandableThreshold;
-                  
+                  const expandableContent = expandableField
+                    ? getNestedValue(item, expandableField)
+                    : null;
+                  const shouldTruncate =
+                    expandableContent &&
+                    expandableContent.length > expandableThreshold;
+
                   return (
                     <tr key={actualIdx} className="hover:bg-gray-50">
                       {columns.map((column, colIdx) => {
                         // Check if this column contains the expandable field
-                        const isExpandableColumn = expandableField && column.key === expandableField;
-                        
+                        const isExpandableColumn =
+                          expandableField && column.key === expandableField;
+
                         if (isExpandableColumn && shouldTruncate) {
                           return (
-                            <td key={colIdx} className="px-6 py-4 whitespace-normal">
+                            <td
+                              key={colIdx}
+                              className="px-6 py-4 whitespace-normal"
+                            >
                               {!isExpanded ? (
                                 <>
-                                  <p>{expandableContent.substring(0, expandableThreshold)}...</p>
-                                  <button 
+                                  <p>
+                                    {expandableContent.substring(
+                                      0,
+                                      expandableThreshold,
+                                    )}
+                                    ...
+                                  </p>
+                                  <button
                                     onClick={() => handleRowExpand(actualIdx)}
                                     className="text-blue-500 hover:text-blue-700 text-sm mt-1"
                                   >
@@ -263,7 +294,7 @@ export function DataTable<T>({
                               ) : (
                                 <>
                                   <p>{expandableContent}</p>
-                                  <button 
+                                  <button
                                     onClick={() => handleRowExpand(actualIdx)}
                                     className="text-blue-500 hover:text-blue-700 text-sm mt-1"
                                   >
@@ -274,14 +305,16 @@ export function DataTable<T>({
                             </td>
                           );
                         }
-                        
+
                         // Regular column rendering
                         return (
-                          <td key={colIdx} className="px-6 py-4 whitespace-nowrap">
-                            {column.render 
-                              ? column.render(item) 
-                              : safeToString(getNestedValue(item, column.key))
-                            }
+                          <td
+                            key={colIdx}
+                            className="px-6 py-4 whitespace-nowrap"
+                          >
+                            {column.render
+                              ? column.render(item)
+                              : safeToString(getNestedValue(item, column.key))}
                           </td>
                         );
                       })}
@@ -296,12 +329,19 @@ export function DataTable<T>({
           {showPagination && (
             <div className="flex justify-between items-center bg-white p-4 rounded-md shadow">
               <div>
-                Showing {filteredData.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} entries
+                Showing{' '}
+                {filteredData.length > 0
+                  ? (currentPage - 1) * itemsPerPage + 1
+                  : 0}{' '}
+                to {Math.min(currentPage * itemsPerPage, filteredData.length)}{' '}
+                of {filteredData.length} entries
               </div>
               {totalPages > 1 && (
                 <div className="flex space-x-2">
-                  <button 
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  <button
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
                     disabled={currentPage === 1}
                     className={`px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-200 text-gray-500' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                   >
@@ -310,8 +350,10 @@ export function DataTable<T>({
                   <div className="px-3 py-1">
                     Page {currentPage} of {totalPages}
                   </div>
-                  <button 
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  <button
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
                     disabled={currentPage === totalPages}
                     className={`px-3 py-1 rounded ${currentPage === totalPages ? 'bg-gray-200 text-gray-500' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                   >

@@ -35,7 +35,7 @@ const LinkField: React.FC<LinkFieldProps> = ({
       <p className="mt-4 text-lg text-green-900 font-bold">{msgData}</p>
       <button
         onClick={handleNavigate}
-        className={`font-semibold inline-flex items-center gap-2 mt-2 text-white hover:text-gray-200 transition text-sm py-2 px-4 rounded-md ${isGreen ? 'bg-green-800' : 'bg-indigo-900'}`}
+        className={`font-semibold inline-flex items-center gap-2 mt-2 text-white hover:text-gray-200 transition text-sm py-2 px-4 rounded-md cursor-pointer ${isGreen ? 'bg-green-800' : 'bg-indigo-900'}`}
       >
         <Link size={18} /> {linkData}
       </button>
@@ -45,7 +45,9 @@ const LinkField: React.FC<LinkFieldProps> = ({
 
 const PrimaryProfile: React.FC<PrimaryProfileProps> = () => {
   const { biodataCreated, idStatus, loading } = useBiodataStatus();
-  const [localBiodataCreated, setLocalBiodataCreated] = useState<boolean | null>(null);
+  const [localBiodataCreated, setLocalBiodataCreated] = useState<
+    boolean | null
+  >(null);
   const [localVerified, setLocalVerified] = useState<boolean | null>(null);
   const { user } = useAuth();
 
@@ -54,14 +56,13 @@ const PrimaryProfile: React.FC<PrimaryProfileProps> = () => {
   }
 
   // fallback to local updates if user completes actions without refetch
-const isVerified = localVerified ?? (idStatus === 'Approved');
-const isBiodata = localBiodataCreated ?? biodataCreated;
-  
+  const isVerified = localVerified ?? idStatus === 'Approved';
+  const isBiodata = localBiodataCreated ?? biodataCreated;
 
   return (
     <div className="flex flex-col items-center p-6 rounded-lg shadow-lg text-center border-4 border-violet-900 m-4">
       <h2 className="flex gap-2 items-center py-2 px-4 text-xl font-semibold text-indigo-900 border border-gray-200 rounded-full">
-        <CircleUserRound size={32} /> Welcome, {user.displayName}!
+        <CircleUserRound size={32} /> Welcome, {user?.displayName}!
       </h2>
       <div
         className={`flex items-center justify-center gap-2 mt-2 p-2 text-white rounded-md base-1/2 ${isVerified ? 'bg-green-600' : 'bg-indigo-900'}`}
@@ -90,7 +91,7 @@ const isBiodata = localBiodataCreated ?? biodataCreated;
           <LinkField
             msgData="আপনার বায়োডাটা তৈরী করুন"
             linkData="Biodata Form"
-            linkurl="dashboard edit/biodata"
+            linkurl="dashboard edit/profile"
             onComplete={() => setLocalBiodataCreated(true)}
           />
         )}
@@ -98,7 +99,7 @@ const isBiodata = localBiodataCreated ?? biodataCreated;
           <LinkField
             msgData="আপনার বায়োডাটা আপডেট করুন"
             linkData="Update Biodata"
-            linkurl="dashboard/edit/biodata"
+            linkurl="dashboard/edit/profile"
             onComplete={() => {}}
             isGreen={true}
           />

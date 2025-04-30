@@ -39,7 +39,7 @@ const createReport = async (req: Request, res: Response) => {
       userId,
       biodataNo,
       reason,
-      reasonDetails
+      reasonDetails,
     );
 
     res.status(201).json({

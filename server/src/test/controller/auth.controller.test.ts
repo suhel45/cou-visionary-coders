@@ -49,18 +49,27 @@ describe('authController - loginWithGoogle', () => {
       },
     };
 
-    (userService.loginOrCreateUserWithGoogle as jest.Mock).mockResolvedValue('mocked-token');
+    (userService.loginOrCreateUserWithGoogle as jest.Mock).mockResolvedValue(
+      'mocked-token',
+    );
 
     await authController.loginWithGoogle(req as Request, res as Response);
 
-    expect(userService.loginOrCreateUserWithGoogle).toHaveBeenCalledWith('test@example.com', 'testuser');
-    expect(cookieMock).toHaveBeenCalledWith('token', 'mocked-token', expect.objectContaining({
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      path: '/',
-      maxAge: 3600000,
-    }));
+    expect(userService.loginOrCreateUserWithGoogle).toHaveBeenCalledWith(
+      'test@example.com',
+      'testuser',
+    );
+    expect(cookieMock).toHaveBeenCalledWith(
+      'token',
+      'mocked-token',
+      expect.objectContaining({
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        path: '/',
+        maxAge: 3600000,
+      }),
+    );
     expect(statusMock).toHaveBeenCalledWith(200);
     expect(jsonMock).toHaveBeenCalledWith({
       success: true,
@@ -76,7 +85,9 @@ describe('authController - loginWithGoogle', () => {
       },
     };
 
-    (userService.loginOrCreateUserWithGoogle as jest.Mock).mockRejectedValue(new Error('Unexpected error'));
+    (userService.loginOrCreateUserWithGoogle as jest.Mock).mockRejectedValue(
+      new Error('Unexpected error'),
+    );
 
     await authController.loginWithGoogle(req as Request, res as Response);
 

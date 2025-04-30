@@ -9,7 +9,7 @@ interface Report {
   reasonDetails: string;
   reporter: {
     email: string;
-  }
+  };
 }
 
 const ReportedProfiles = () => {
@@ -26,17 +26,17 @@ const ReportedProfiles = () => {
     fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-reports`, {
       credentials: 'include',
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to fetch reports');
         }
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setReports(data.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
@@ -47,7 +47,10 @@ const ReportedProfiles = () => {
     const reason_lower = reason.toLowerCase();
     if (reason_lower.includes('fake') || reason_lower.includes('fraud')) {
       return 'bg-red-100 text-red-800';
-    } else if (reason_lower.includes('inappropriate') || reason_lower.includes('offensive')) {
+    } else if (
+      reason_lower.includes('inappropriate') ||
+      reason_lower.includes('offensive')
+    ) {
       return 'bg-orange-100 text-orange-800';
     } else if (reason_lower.includes('spam')) {
       return 'bg-yellow-100 text-yellow-800';
@@ -61,7 +64,7 @@ const ReportedProfiles = () => {
       key: 'biodataNo',
       header: 'Reported Biodata No',
       sortable: true,
-      width: 'w-24'
+      width: 'w-24',
     },
     {
       key: 'reason',
@@ -69,22 +72,24 @@ const ReportedProfiles = () => {
       sortable: true,
       width: 'w-32',
       render: (report: Report) => (
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getReasonBadgeColor(String(report.reason))}`}>
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-medium ${getReasonBadgeColor(String(report.reason))}`}
+        >
           {report.reason}
         </span>
-      )
+      ),
     },
     {
       key: 'reasonDetails',
       header: 'Reason Details',
-      width: 'w-full'
+      width: 'w-full',
     },
     {
       key: 'reporter.email',
       header: 'Reporter Email',
       sortable: true,
-      width: 'w-40'
-    }
+      width: 'w-40',
+    },
   ];
 
   // renderStats now accepts the filtered count
@@ -103,7 +108,7 @@ const ReportedProfiles = () => {
           <span className="font-medium">Unique Profiles Reported</span>
         </div>
         <p className="text-2xl font-bold mt-2">
-          {new Set(reports.map(r => String(r.biodataNo))).size}
+          {new Set(reports.map((r) => String(r.biodataNo))).size}
         </p>
       </div>
       <div className="bg-white p-4 rounded-md shadow">
@@ -111,9 +116,7 @@ const ReportedProfiles = () => {
           <Search className="h-5 w-5 text-blue-500 mr-2" />
           <span className="font-medium">Matching Results</span>
         </div>
-        <p className="text-2xl font-bold mt-2">
-          {filteredCount}
-        </p>
+        <p className="text-2xl font-bold mt-2">{filteredCount}</p>
       </div>
     </div>
   );

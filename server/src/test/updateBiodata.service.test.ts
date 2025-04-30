@@ -10,7 +10,7 @@ describe('updateBiodata Service', () => {
 
   const mockBiodata: IPersonalAllDetails = {
     biodataNo: 1,
-    users: userId ,
+    users: userId,
     personalInfo: {
       gender: 'male',
       maritalStatus: 'single',
@@ -23,8 +23,16 @@ describe('updateBiodata Service', () => {
       bloodGroup: 'A+',
     },
     address: {
-        permanentAddress:{district:"Cumilla",subdistrict:"Kotbari",village:"Bagmara"},
-        presentAddress:{district:"Cumilla",subdistrict:"Kotbari",village:"Bagmara"},
+      permanentAddress: {
+        district: 'Cumilla',
+        subdistrict: 'Kotbari',
+        village: 'Bagmara',
+      },
+      presentAddress: {
+        district: 'Cumilla',
+        subdistrict: 'Kotbari',
+        village: 'Bagmara',
+      },
     },
     education: {
       ssc: { passingYear: 2010, group: 'Science', gpa: 5.0 },
@@ -104,13 +112,17 @@ describe('updateBiodata Service', () => {
       },
     };
 
-    (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue(mockBiodata);
+    (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue(
+      mockBiodata,
+    );
 
     const updatedBiodata = {
       ...mockBiodata,
       personalInfo: updateData.personalInfo!,
     };
-    (PersonalAllDetailsModel.findOneAndUpdate as jest.Mock).mockResolvedValue(updatedBiodata);
+    (PersonalAllDetailsModel.findOneAndUpdate as jest.Mock).mockResolvedValue(
+      updatedBiodata,
+    );
 
     const result = await updateBiodata(updateData);
 
@@ -176,10 +188,16 @@ describe('updateBiodata Service', () => {
       },
     };
 
-    (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue(mockBiodata);
-    (PersonalAllDetailsModel.findOneAndUpdate as jest.Mock).mockResolvedValue(null);
+    (PersonalAllDetailsModel.findOne as jest.Mock).mockResolvedValue(
+      mockBiodata,
+    );
+    (PersonalAllDetailsModel.findOneAndUpdate as jest.Mock).mockResolvedValue(
+      null,
+    );
 
-    await expect(updateBiodata(updateData)).rejects.toThrow('Failed to update biodata');
+    await expect(updateBiodata(updateData)).rejects.toThrow(
+      'Failed to update biodata',
+    );
 
     expect(PersonalAllDetailsModel.findOne).toHaveBeenCalledWith({
       users: { $eq: updateData.users },

@@ -6,7 +6,7 @@ import { DataTable } from '../common/DataTable';
 interface SupportRequest {
   user: {
     email: string;
-  }
+  };
   message: string;
 }
 
@@ -24,17 +24,17 @@ const SupportRequests = () => {
     fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/all-support`, {
       credentials: 'include',
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to fetch support requests');
         }
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setSupports(data.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
@@ -45,13 +45,13 @@ const SupportRequests = () => {
       key: 'user.email',
       header: 'User Email',
       sortable: true,
-      width: 'w-40'
+      width: 'w-40',
     },
     {
       key: 'message',
       header: 'Support Message',
-      width: 'w-full'
-    }
+      width: 'w-full',
+    },
   ];
 
   // Optional stats display for support requests
@@ -88,7 +88,9 @@ const SupportRequests = () => {
       expandableThreshold={100}
       renderStats={renderStats}
       emptyStateMessage="No support requests found"
-      emptyStateIcon={<MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />}
+      emptyStateIcon={
+        <MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+      }
       showPagination={true} // Set to false to remove pagination
     />
   );
