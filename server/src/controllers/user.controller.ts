@@ -62,7 +62,6 @@ const loginUser = async (req: Request, res: Response) => {
 const resetPassword = async (req: Request, res: Response) => {
   try {
     const { email, currentPassword, newPassword } = req.body;
-
     const result = await userService.ResetPassword(
       email,
       currentPassword,
