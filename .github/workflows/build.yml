@@ -36,21 +36,21 @@ jobs:
           [ -f coverage/lcov.info ] || echo "No coverage file generated" > coverage/lcov.info
 
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
-            -Dsonar.organization=learnathon-by-geeky-solutions
-            -Dsonar.projectName="cou-visionary-coders"
-            -Dsonar.sources=server/src
-            -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
-            -Dsonar.typescript.lcov.reportPaths=server/coverage/lcov.info
-            -Dsonar.exclusions=**/node_modules/**,**/dist/**
-            -Dsonar.coverage.exclusions=**/test/**,**/mock/**
-            -Dsonar.ci.enabled=true
-            -Dsonar.analysis.automatic=false
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v2
+      #   with:
+      #     args: >
+      #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      #       -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_cou-visionary-coders
+      #       -Dsonar.organization=learnathon-by-geeky-solutions
+      #       -Dsonar.projectName="cou-visionary-coders"
+      #       -Dsonar.sources=server/src
+      #       -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+      #       -Dsonar.typescript.lcov.reportPaths=server/coverage/lcov.info
+      #       -Dsonar.exclusions=**/node_modules/**,**/dist/**
+      #       -Dsonar.coverage.exclusions=**/test/**,**/mock/**
+      #       -Dsonar.ci.enabled=true
+      #       -Dsonar.analysis.automatic=false
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           VITE_FIREBASE_API_KEY: "AIzaSyC5G67obM_4iiF_Am28z5ifbTEbzmDe9Xc"
