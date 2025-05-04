@@ -25,7 +25,7 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 - 💍 Create Biodata using form with details information
 - 🔎 Search, find and visit Biodata using filter
 - 💡 Can See in Dashboard number of visitors
--   Total Number of Bride and Groom information
+- 🌙  Total Number of Bride and Groom information
 - ✨To view contact information, need biodata profile user validation
 - 🛡️ Admin Dashboard for User Moderation
 - 📱 Responsive UI for Small and Large Devices
@@ -36,11 +36,17 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 ## 🛠️ Tech Stack
 
 **Frontend**:
-- ⚛️ React TypeScript
+- ⚛️ React
+- ⚛️ TypeScript
 - 💨 Tailwind CSS
+- ⚛️ Firebase
+- 💨 jest
+- ⚛️ eslint
 
 **Backend**:
+- 🍃 Node.js
 - 🧩 Express.js
+- 🍃 mongoose
 - 🍃 MongoDB
 
 ---
@@ -49,7 +55,7 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 - University Email Registration & JWT Authentication
 - Upload Student ID for Verification
 - View Verified Student Matches
-- Filter and Finding Preferable Profile Biodata
+- Filter and Finding Preferable Profile match Biodata
 - Admin Review & Approval of Profiles
 
 ---
@@ -80,8 +86,7 @@ Welcome to **Halal Bondhon** — a university-centric matrimony platform crafted
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/halal-bondhon.git
-cd halal-bondhon
+git clone https://github.com/suhel45/cou-visionary-coders.git
 ```
 
 ### 2️⃣ Run the Backend
